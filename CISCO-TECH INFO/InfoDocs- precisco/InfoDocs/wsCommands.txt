@@ -1,0 +1,150 @@
+
+
+
+
+
+Mahesh -Sep092014########start###########
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\classes>java org.apache.axis.wsdl.Java2WSDL -o ..\calculator.wsdl -n urn:org.mahesh.calculator -l http://localhost:8080/axis/services/calculator org.mahesh.wssample.ws.Calculator
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>javac -d ..\classes org\mahesh\wssample\SimpleCalculator.java
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>javac -d ..\classes org\mahesh\wssample\ws\Calculator.java
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews>java org.apache.axis.wsdl.WSDL2Java -o src -p org.mahesh.wssample.ws.generated -s calculator.wsdl
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>javac -d ..\classes org\mahesh\wssample\ws\generated\*.java
+Note: org\mahesh\wssample\ws\generated\CalculatorServiceLocator.java uses unchec
+ked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+
+
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews>cd classes
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\classes>jar cvf ..\calculatorServerSide.jar org\*
+added manifest
+adding: org/mahesh/(in = 0) (out= 0)(stored 0%)
+adding: org/mahesh/wssample/(in = 0) (out= 0)(stored 0%)
+adding: org/mahesh/wssample/SimpleCalculator.class(in = 388) (out= 249)(deflated
+ 35%)
+adding: org/mahesh/wssample/ws/(in = 0) (out= 0)(stored 0%)
+adding: org/mahesh/wssample/ws/Calculator.class(in = 165) (out= 142)(deflated 13
+%)
+adding: org/mahesh/wssample/ws/generated/(in = 0) (out= 0)(stored 0%)
+adding: org/mahesh/wssample/ws/generated/Calculator.class(in = 261) (out= 195)(d
+eflated 25%)
+adding: org/mahesh/wssample/ws/generated/CalculatorService.class(in = 446) (out=
+ 242)(deflated 45%)
+adding: org/mahesh/wssample/ws/generated/CalculatorServiceLocator.class(in = 374
+6) (out= 1759)(deflated 53%)
+adding: org/mahesh/wssample/ws/generated/CalculatorSoapBindingImpl.class(in = 64
+0) (out= 370)(deflated 42%)
+adding: org/mahesh/wssample/ws/generated/CalculatorSoapBindingStub.class(in = 57
+06) (out= 2700)(deflated 52%)
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\classes>jar cvf ..\calculatorClientSide.jar org\mahesh\wssample\ws\generated\CalculatorSoapBindingStub.class org\mahesh\wssample\ws\generated\CalculatorService.class org\mahesh\wssample\ws\generated\CalculatorServiceLocator.class org\mahesh\wssample\ws\generated\Calculator.class
+added manifest
+adding: org/mahesh/wssample/ws/generated/CalculatorSoapBindingStub.class(in = 57
+06) (out= 2700)(deflated 52%)
+adding: org/mahesh/wssample/ws/generated/CalculatorService.class(in = 446) (out=
+ 242)(deflated 45%)
+adding: org/mahesh/wssample/ws/generated/CalculatorServiceLocator.class(in = 374
+6) (out= 1759)(deflated 53%)
+adding: org/mahesh/wssample/ws/generated/Calculator.class(in = 261) (out= 195)(d
+eflated 25%)
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\classes>cd ..
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews>cd src
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>java org.apache.axis.client.AdminClient org\mahesh\wssample\ws\generated\deploy.wsdd
+Processing file org\mahesh\wssample\ws\generated\deploy.wsdd
+<Admin>Done processing</Admin>
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>
+
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Client\src>set CLASSPATH=%CLASSPATH%;..\lib\calculatorClientSide.jar
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Client\src>javac -d ..\classes org\mahesh\wsclient\CalcClient.java
+
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Client\classes>java org\mahesh\wsclient\CalcClient
+Exception in thread "main" java.lang.NoClassDefFoundError: org\mahesh\wsclient\C
+alcClient (wrong name: org/mahesh/wsclient/CalcClient)
+        at java.lang.ClassLoader.defineClass1(Native Method)
+        at java.lang.ClassLoader.defineClassCond(Unknown Source)
+        at java.lang.ClassLoader.defineClass(Unknown Source)
+        at java.security.SecureClassLoader.defineClass(Unknown Source)
+        at java.net.URLClassLoader.defineClass(Unknown Source)
+        at java.net.URLClassLoader.access$000(Unknown Source)
+        at java.net.URLClassLoader$1.run(Unknown Source)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at java.net.URLClassLoader.findClass(Unknown Source)
+        at java.lang.ClassLoader.loadClass(Unknown Source)
+        at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+        at java.lang.ClassLoader.loadClass(Unknown Source)
+Could not find the main class: org\mahesh\wsclient\CalcClient.  Program will exi
+t.
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Client\classes>java org.mahesh.wsclient.CalcClient
+CalcClient.main(add) 15
+CalcClient.main(add) 7
+
+Calculator calc = calculatorService.getcalculator(); will show error in eclipse
+
+
+
+#######change the binding impl and recompile the generated
+
+C:\CGI\Mahesh\MaheWorkSpace_Sap\WS-Samplews\src>javac -d ..\classes org\mahesh\wssample\ws\generated\*.java
+Note: org\mahesh\wssample\ws\generated\CalculatorServiceLocator.java uses unchec
+ked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+Mahesh -Sep092014##############end#####
+
+set CLASSPATH=C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\axis.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\jaxrpc.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\saaj.jar; C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\xerces-2.2.1.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\wsdl4j-1.5.1.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\activation-1.1.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\mail.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-logging-1.0.4.jar;C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-discovery-0.2.jar; C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\log4j-1.2.8.jar;
+
+
+set CLASSPATH=C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\axis.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\jaxrpc.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\saaj.jar; C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\xerces-2.2.1.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\wsdl4j-1.5.1.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\activation-1.1.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\mail.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-logging-1.0.4.jar;C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-discovery-0.2.jar; C:\mahe\softwares\apache-tomcat-6.0.35-windows-x86\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\log4j-1.2.8.jar;
+
+
+
+
+set CLASSPATH=
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\axis.jar;
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-discovery-0.2.jar; 
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\commons-logging-1.0.4.jar; 
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\jaxrpc.jar; 
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\saaj.jar;
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\log4j-1.2.8.jar; 
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\wsdl4j-1.5.1.jar;
+C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib\xerces-2.2.1.jar;
+
+java org.apache.axis.wsdl.Java2WSDL  -o ..\calculator.wsdl  -n urn:org.mahesh.calculator -l http://localhost:8080/axis/services/calculator org.mahe.wssample.ws.Calculator
+
+
+
+java org.apache.axis.wsdl.WSDL2Java   -o src         -p org.mahe.wssample.ws.generated   -s   calculator.wsdl
+
+
+javac -d ..\classes org\mahe\wssample\ws\generated\*.java
+
+
+jar cvf ..\calculatorServerSide.jar     org\mahe\wssample\*.class     org\mahe\wssample\ws\*.class     org\mahe\wssample\ws\generated\*.class
+
+
+copy calculatorServerSide.jar C:\sprint\softwares\apache-tomcat-6.0.35\webapps\axis\WEB-INF\lib
+
+jar cvf ..\calculatorClientSide.jar  org\mahe\wssample\ws\generated\CalculatorSoapBindingStub.class  org\mahe\wssample\ws\generated\CalculatorServiceLocator.class   org\mahe\wssample\ws\generated\CalculatorService.class   org\mahe\wssample\ws\generated\Calculator.class
+
+
+
+java org.apache.axis.client.AdminClient org\mahe\wssample\ws\generated\deploy.wsdd
+
+
+
+

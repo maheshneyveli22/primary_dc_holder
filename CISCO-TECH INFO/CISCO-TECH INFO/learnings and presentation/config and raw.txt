@@ -1,0 +1,5 @@
+Raw configlets (raw) contain the configuration commands converted from policy snapshot
+
+Initial configuration (ini) contains the commands uploaded from the device
+
+Delta = diff (ini, raw)

@@ -1,0 +1,51 @@
+activity->submit activity-> approve activity->
+if not approved by approver, the activity will not seen by the one who submitted
+approver ->view changes in pdf format-> if ok approves it
+and then the user deploys it
+
+
+Configuring site to site vpn using packet tracer:
+
+Steps:
+
+1) Configure ACLS
+-> defines interesting traffic that needs to be encrypted and that has to be protected by tunnerl
+->
+
+2) Configure ISAKMP Policy(IKE Phase 1 Negotiation):
+sets up tunnel actually
+and configures isakmp parameters for establishing tunnel between two devices
+
+3) Configure Transform Set(Phase 2)
+configuring encryption standards for actual ipsec traffic between two devices
+
+4) Create crypto map
+-> a profile
+-> defining what is the peer, what is the access list,transform set
+->
+
+5) Apply Crypto map to interface
+-> will apply that crypto to the device
+
+Configuring device 1 for p2p:
+
+
+
+Activity Introduction:enablework flow under workflow
+1) all site to site vpn, comes under activity
+2) Creation and deletion of vpn under activity
+3) Addition and deletion of devices not under activity
+4) Only configuration changes come under activity 
+
+Site to site vpn creation:
+
+a) H S p2p Full Mesh look similar  extranet introduced in 4.0
+b) P2P 
+Technology:
+ASA supports only Regular IPSec
+ASA does not support Ipsec/gre
+
+Ike version:ikev1 and Ikev2
+
+C) third page: set peer
+

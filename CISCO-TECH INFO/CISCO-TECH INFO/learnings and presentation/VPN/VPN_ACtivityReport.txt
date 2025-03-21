@@ -1,0 +1,8 @@
+
+1)VPNACtivityChgDataGenerator, generates report 
+between successive vpn  activity
+
+2) VPN discovery no so depth for vpn to level of network objects, only to policy level
+
+3) direct db interaction
+Manager->Ticketingmanager->View Changes

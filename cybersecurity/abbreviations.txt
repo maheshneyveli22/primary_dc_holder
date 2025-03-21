@@ -1,0 +1,11 @@
+1) SOC - Security operations center 
+2) GRC - Governance risk and Compliance 
+3) PAM - privileged access management 
+4) POLP - principles of least privilege 
+5) SIEM - Security information and Event management 
+6) SOAR - Security Orchestration Automation and response 
+7) UBA - User Behavioural analytics 
+8) UEBA - User Entity Behavioural analytics 
+9) VMDR - Vulnerability mangement Detection and response 
+10) CVSS - Common vulnerability scoring system
+11) CVE - Common Vulnerabilities and Exposures

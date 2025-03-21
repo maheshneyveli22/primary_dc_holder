@@ -1,0 +1,137 @@
+#####from jagan
+
+--> for platform policygroups node id is device id
+
+-- select * from device
+-- 7709466296890
+
+-- select * from assignments where targetid = 7709466296890 and sourcetype like ('%IPSec%')
+-- 7709466298378
+-- 7709466298541
+
+-- select * from policy_main where node_id in (7709466298378,7709466298541)
+-- 7709466298380
+-- 9861244914763
+
+-- select * from IPSecSettings where REF_ID in (7709466298380)
+
+select * from IPSecProposal where ref_id in (9861244914763)
+
+
+#######from Vinoth somu
+
+--select * from device 
+--select * from hierarchy_roots where node_id=8589934649
+select * from hierarchy_nodes where parent_id=8589934649
+--select * from assignments 
+--select * from assignments where targetid=34359748261
+--select * from assignment_data where targetid=34359748261
+--select * from policy_main where node_id=34359758413
+--select * from policy_fwtools_unifiedfirewallrule where ref_id=34359758415
+--select * from bb_main where objectid=8589934872
+--select * from bb_network_data where objectid=8589934872
+select * from bb_main where name='1!@#%-&()1'
+
+
+1) select * from device :Lists the devices DEVICE_ID
+34359745581
+34359745582
+25769808669
+34359748261
+2)select * from hierarchy_roots where node_id=8589934649
+-> Have all node_id and node names. It is like settings enum table. Can find what all policies are updated/created in this table
+-> Here node_type tells the type of policy or Policy Group eg: PG.PLATFORM.PixInterface.ROOT
+->node_id is the policy group ID
+EG: 8589934649	Global	PG.PLATFORM.PixInterface.ROOT	0	0	 	Policy Groups Root Node
+3) select * from hierarchy_nodes where parent_id=8589934649  ### it contains all the policy group related information for a particular parent id which is the node_id of hierarchy_roots
+EG:
+34359746318	.test11PG.PLATFORM.PixInterface	PG.PLATFORM.PixInterface	8589934649	0	 	PrivateInterfacePG
+34359746347	.test3PG.PLATFORM.PixInterface	PG.PLATFORM.PixInterface	8589934649	0	 	PrivateInterfacePG
+34359748696	.test22PG.PLATFORM.PixInterface	PG.PLATFORM.PixInterface	8589934649	0	 	PrivateInterfacePG
+%%%%%%%%Now we need to find 1) for which device which policy 2) Policy Entries 3) BB entries
+4) select * from assignments  
+->View table of assignment_data table
+->assignment_data contains actual data
+
+5)select * from assignments where targetid=34359748261(this targetid can be found in select * from device output)
+-> here targetid is deviceID
+-> sourceID is Policy Group ID of Hierarchy_nodes table
+
+-1	34359748696	PG.PLATFORM.PixInterface	34359748261	TARGET.ASA.L3	0	a	0
+-1	34359748697	PG.PLATFORM.PixFwDevExtnPage	34359748261	TARGET.ASA.L3	0	a	0
+-1	34359758413	PG.FIREWALL.UnifiedFirewallRule	34359748261	TARGET.ASA.L3	0	c	0
+
+
+6) select * from assignment_data where targetid=34359748261[this table lists the assignments for the particular target id which is a device id: 34359748261]
+-> here targetid is deviceID
+-> sourceID is Policy Group ID of Hierarchy_nodes table
+-> this table lists the policies for the device
+
+34359748696	7	34359748261	8	0	a	0
+34359748697	9	34359748261	8	0	a	0
+34359758413	72	34359748261	8	0	c	0
+
+7) select * from policy_main where node_id=34359758413
+-> Here node-Id is the  policy id obtained from assignment_data 
+-> this table tells the relation between policy_main table and the policy data table
+34359758414	34359758415	34359758413	0	0	 	UnifiedFirewallRule	(null)	(null)	true	2016-06-15 16:29:55	(null)	(null)	(null)	34359749554	0
+
+8)select * from policy_fwtools_unifiedfirewallrule where ref_id=34359758415
+[we need to find polic_fwtools_unifiedfirewallrule by knowledge of policy as of now, but need to find the relation]
+-> in this table actual data is stored
+-> in this table if it is actual policy data -> direct policy information will be stored
+-> if it is BB data, for eg: in this table sources is BB, here BB id(8589934872) will be stored in the corresponding column
+->  Here ref_ID of  polic_fwtools_unifiedfirewallrule is the  ref_ID obtained from assignment_data table
+34359758415	true	34359749009	in	20	 	false	 	 	8589934872	 	102	(null)	 	1041	-1	300	0	(null)	false	false	(null)	(null)	(null)	0
+
+9) select * from bb_main where objectid=8589934872
+-> We can get the BB's main table data from the BBid i.e objectid=8589934872
+->Each BBID will have an entry in BB main table
+EG:
+8589934872	8589934872	-1	1	0	c	Network	NH	1!@#%-&()1	 	20	true	false	 	-2120808755	2016-06-15 16:29:30	(null)	(null)	0	34359749554	0
+
+-> so we will always get parent BB only when we do getBB during validation
+-> Hence we need to get overriddent bBB during validation
+
+10) select * from bb_main where name='1!@#%-&()1'
+-> Using this query we can get the BB(parent and overrides) for a particular BB name
+->Here '1!@#%-&()1' is the BB name
+EG:
+34359758442	34359758442	8589934872	34359748261	0	c	Network	NH	1!@#%-&()1	 	20	true	false	 	1668600877	2016-06-15 16:29:28	(null)	(null)	0	34359749554	0  # this row is the overridden BB
+8589934872	8589934872	-1	1	0	c	Network	NH	1!@#%-&()1	 	20	true	false	 	-2120808755	2016-06-15 16:29:30	(null)	(null)	0	34359749554	0 # this is the main BB
+-> We can find that parentid for main bb is -1 and it has node id(34359748261) which is the device id fromd device table
+-> if parentid is -1 it is parent bb and device id is -1 for parent BB 
+-> For overridden BB parentId is the  OBJECTID of the parent BB row and node id will be deviceID for which the BB is overridden
+
+
+########getting protected network data
+select * from policy_main where node_id in(34359760413,
+34359760414) and type ='ProtectedNetwork'
+
+--select * from assignments where upper(targettype) like upper('%protected%')
+select * from protectednetwork
+--34359760878	-1	-1	34359747246	-1	(null)
+--34359760891	-1	-1	34359747258	-1	(null)
+--select * from bb_main where objectid in ('34359747246','34359747258')
+--select * from BB_EXT_IP_ACE_DATA
+--34359747246	34359747246	-1	1	0	c	ACL	 	CRYPTO	 	20	false	false	 	11	2016-06-14 13:58:46	(null)	(null)	0	34359746234	0
+--34359747258	34359747258	-1	1	0	c	ACL	 	VPN	 	20	false	false	 	11	2016-06-15 13:54:05	(null)	(null)	0	34359749554	0
+--select * from bb_main where objectid in ('34359747259','34359747287') --refs is the key                                                 refs
+--34359747259	34359747259	-1	1	0	c	Network	 	 	Created by ACL Object	0	false	true	34359746589	3938	2016-06-14 13:59:27	(null)
+--34359747287	34359747287	-1	1	0	c	Network	 	 	Created by ACL Object	0	false	true	34359746591,34359747286	3938	2016-06-14 14:10:47	(null)
+--select * from bb_main where objectid in ('34359746589','34359746591','34359747286')
+--34359746589	34359746589	-1	1	0	c	Network	NN	testA	 	20	false	false	 	-1821107725	2016-06-14 13:15:14	(null)	(null)	0	34359746234	0
+--34359746591	34359746591	-1	1	0	c	Network	NN	sideA	 	20	false	false	 	-1821107725	2016-06-14 13:16:14	(null)	(null)	0	34359746234	0
+--34359747286	34359747286	-1	1	0	c	Network	 	grp1	 	20	false	true	34359746590	176036125	2016-06-14 14:10:10	(null)	(null)	0	34359746234	0
+select * from bb_network_data where objectid in('34359746589','34359746591','34359747286')
+--34359746589	ipv4	1.2.3.4	 	0	1
+--34359746591	ipv4	1.2.3.4	 	0	1
+--34359747286	ipv4	2.2.2.2	 	0	1
+--34359747286	ipv4	4.4.4.4	 	0	1
+--34359747286	ipv4	5.5.5.5	 	0	1
+--select * from bb_ACL_DATA
+select * from BB_EXT_IP_ACE_DATA
+--34359747279	permit	34359747259	0	34359747261	34359747278	 	 	300	 	 	 
+--34359747291	permit	34359747287	0	34359747289	34359747290	 	 	300	 	 	 
+--select * from BB_UNIFIED_ACL_DATA
+--select * from bb_network_data order by objectid desc

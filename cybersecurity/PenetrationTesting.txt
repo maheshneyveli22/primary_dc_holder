@@ -1,0 +1,12 @@
+1) IN expeditors done using IO active
+
+2) Cadence for PT
+Recommended Frequencies:
+High-risk organizations (e.g., financial, healthcare): Quarterly or more frequently.
+Medium-risk organizations (e.g., retail, education): Semi-annually or after significant changes.
+Low-risk organizations: Annually or as needed.
+Event-Driven Testing:
+In addition to scheduled testing, organizations should conduct penetration tests after:
+Major IT infrastructure changes.
+Significant security incidents or breaches.   
+Discovery of new vulnerabilities.

@@ -1,0 +1,78 @@
+
+
+
+1) Snapshot normally contains policies and bbs of that device
+2) But for vpn we need information of all peer devices also. Hence the snapshot of device with vpn is heavy
+3) Normally a policy will be mapped in snapshot. But for vpn we have one more hierarchy, which prepares the data for vpn processing
+4) All the peer data are provided by PeerSupplier.java in proving. getPeerData()
+
+Set peer is taken from VPN Interface field of site to site configuration
+when local ipsec termination ip address is given, set peer is taken from that ip given
+
+
+WorkerImpl.jobPerformWrapper->PlatformBladeJob.perform
+->PlatformBladeBase.generateCli->VpnServersicePlugin.generateRawConfiglet
+
+WorkerImpl.jobPerformWrapper->PlatformBladeJob.perform
+->PlatformBladeBase.generateCli->VPNServicePlugin.generateRawConfiglet->generateRawVPn->VPNGenerator.generateRawVPN->VPNGenerator.buildVPNTopologies->
+
+for IOS->IOSPlatformBlade
+Code Flow: Provisioning
+
+VPNLoader.loadAllVpnPeerSuppliers->PeerSupplier instance is created, we pass snapshot mapper, technology and subtopology id to prepare PeerSupplier object)->Then in VPNLoader.loadAllVpnPeerSuppliers->PeerSupplier's getPeerData(PJOVpnPeer)
+
+1) CoordinatorJob.CLIGenerateStep->PixPlatformBlad.prepare->VPNLoader.prepare(it prepares information or whatever data needed like getting protected network, peer ip details)->VPNLoader.loadAllVpnPeerSuppliers->PeerSupplier instance is created, we pass snapshot mapper, technology and subtopology id to prepare PeerSupplier object)->Then in VPNLoader.loadAllVpnPeerSuppliers->PeerSupplier's getPeerData(PJOVpnPeer)is called->fron GetPeerData->createPeerData(PJOVpnPeer) of PeerSupplier is called, here we create new PeerDataObject,from snapsot mapper.getDevice we get the device object, then we do processing based on technology,first is gre,populateLocalIpMapForRemoteSetPeer, it takes ip from ui local ipsec termination ip and sets the set peer data, peer data,peer type, name are set:**fillinsideInterface(it is protected interface)**fillVpnInterface,fillRegularInterface, unManagedDevice ip is for extranet vpn
+and in that method we set peerData.setLocalIpForRemoteSetPeer->
+
+->Take these details and populate so that vm file can use the data
+
+++++retrieving from snapshot done in peer supplier and consuming the data in builder file+++++++++=
+****For different technologies, we will be having different builders
+VPNServicePlugin.generateRawVPN->VPNGenerator.buildVPNTopologies->VPNIpsecBuilder
+(Individual values are in peersupplier object, ), now VPN builder will generate and build those vpns
+->from vpnsubtop-> get vpn peer supplier and
+-> we will be adding to dataFile the vpn information
+^^^^^^&&&We get all the values for this file from registerPeerDetails method of VPNBuilderUtil and all constants for data file will be available in VPNServiceKeywords.java
+-> CLI->ipsec-pix-s2s-factor.xml
+checks ESPv3_Support->provCryptoMap, all the details are passed as part of the macro
+-> somethings which does not need preprocessing will be taken directly from snapshot 
+
+Code Flow: Site to Site Discovery
+
+1)Protected networks get discovered as CSM_IPSEC_ACL_1,
+earlier it was network object, acl names are same, by crypto acls should be mirrored.
+->Though names are same, meaning of those acls will be different for the device.
+->Hence the acl object is over ridden
+->during discovery over ride feature used exhaustively
+
+->In CSM administration,under Discovery->Allo Device Override for Discovered Policy objects(it means for same acl bb, for per device i can have overridden values), without this option bb will be created for every device, because of this option no of BBs are reduced
+-> Why do we discover protected networks as ACL
+
+Device A               Device B
+
+Network A              Network B             
+
+1.x                       4.x
+2.x                       5.x
+3.x                        
+
+
+for device A:                  for device B inverse will be there
+permit ip 1.x to 4.x
+permit ip 1.x to 5.x
+permit ip 2.x to 5.x
+permit ip 2.x to 5.x
+permit ip 3.x to 4.x
+permit ip 3.x to 5.x  
+
+->IPSEC_S2s_ACL in ipsec-pix-s3s-factor.xml, DDP  replaces IPSEC_S2s_ACL with CSM_IPSEC_ACL and ddp will give name   
+
+#define IPSEC_S2S_ACL local-insert 1 1 reuseCli CSM_IPSWC_ACL,
+
+#define IKE_PRIORITY local-insert 1 5
+
+if content matches, put the same priority as in INI
+else if content does not match put 1 and increment by5
+
+Go through learn asa ipsec vpn configuration example  
+

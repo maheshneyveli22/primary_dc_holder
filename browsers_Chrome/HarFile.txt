@@ -1,0 +1,28 @@
+1) HAR - HTTP archive file 
+-> HAR is used for recording browser activities while accessing websites 
+-> It is the log of the network request, occuring in the browser 
+-> It is helpful for exporting captured session data from the browser 
+-> Helps to troubleshoot issues and can be shared with other teams for troubleshooting 
+-> HAR file also helps in analysing performance and page rendering issues of websites 
+
+2) HAR file keeps track of each resources loaded by the browser along with the timing information of each resource 
+3) HAR file contains sensitive information, contains cookie information including content of the pages you downloaded  
+-> This allows anyone with HAR file to impersonate your account and use all information you used while submitting the page 
+-> delete passwords before sending har file to external teams 
+4) HAR file saved as JSON 
+
+5) How to generate HAR File?
+Developer tools -> Network 
+
+Enable :  
+a) Preserve log - helps to hold earlier request in network tab 
+b) Disable Cache - it helps to fetch all requests from web server, by not considering browser cache 
+
+----> Right click on one of the request and enable Save all as HAR with content , save the file to the relevant location 
+
+
+6) Analysing HAR file
+a) We can see a json format with all the network data 
+
+b) We can import a har file and see in dev tools and helps analysing time spent 
+

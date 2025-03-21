@@ -1,0 +1,24 @@
+
+
+DiscoveryBBUtil.findExistingByContent(BuildingBlock, int, NormalizedForm) line: 1276	
+DiscoveryBBUtil.findReusableBBId(BuildingBlock, NormalizedForm, int) line: 1111	
+DiscoveryBBUtil.persistBB(BuildingBlock, Map) line: 981	
+DiscoveryBBUtil.persistBBs(List) line: 831	
+DiscoveryServiceImpl.persistBBs(VmsRequestContext, ArrayList, long, long) line: 863	
+DiscoveryJob.convertSnapshotAndAssign(DiscoveryDeviceInfo) line: 1356	
+DiscoveryJob.discoverDevicePolicies() line: 446	
+DiscoveryJob.discoverPolicies() line: 408	
+DiscoveryJob.perform(Map) line: 286	
+
+
+New BB getting created:
+
+in persistBB() of DiscoveryBBUtil
+DiscoveryBBUtil->findExistingByContent
+
+for reuse to be true:findExistingByContent is crucial,
+1) It should have beeen instance of NormalizedFormHash
+2) bb.getImported()==-1) || bb.getSubType().equals("REUSE_EXISTING")
+3)    if (!reuse  &&  !subTypeMatches(bb, tempBB))
+4)   if (DiscoveryBBUtil.isNameless(bb) || isSameBaseName(tempBB.getName(), bb.getName(), bb.getType())) {
+5) tempBBNf.reuseableFor(bbNf)->should be false

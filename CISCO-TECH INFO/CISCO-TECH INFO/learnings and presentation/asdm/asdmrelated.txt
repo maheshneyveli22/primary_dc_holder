@@ -1,0 +1,14 @@
+
+ASDM:
+tools->preferences-- to turn on commands
+
+https://fortytwo.cisco.com/pages/viewpage.action?pageId=13698406 
+
+
+https://stbu-releng.cisco.com/builds/73462/asdmp4-main/88.18.0.26/ 
+https://stbu-releng.cisco.com/releases/asdmp4-main/
+http://raum/asdm/images/asdm-main/88.18.0.27/asdm-8818027.bin
+
+
+To view cust and dap exchanges: turn log level to 4 in preferences
+C:\Users\maelumal\.asdm\log

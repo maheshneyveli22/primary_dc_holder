@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sprint.com/verify/rule" xmlns:tns="http://www.sprint.com/verify/rule" elementFormDefault="qualified">
+
+    <complexType name="verificationRule">
+    	<sequence>
+    		<element name="verificationMainList"
+    			type="tns:verificationMainList" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="defaultSideBarlist" type="tns:defaultSideBarList" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="verificationMain">
+    	<sequence>
+    		<element name="titleKey" type="tns:contentKey"></element>
+    		<element name="bodyKey" type="tns:contentKey"></element>
+    		<element name="body2Key" type="tns:contentKey"></element>
+    		<element name="pageName" type="string"></element>
+    		<element name="transactionType" type="string"></element>
+    		<element name="verificationSideBarList"
+    			type="tns:verificationSideBarList">
+    		</element>
+    	</sequence>
+    	<attribute name="actionCode" type="int"></attribute>
+    </complexType>
+
+    <complexType name="verificationSideBar">
+    	<sequence>
+    		<element name="contentKey" type="tns:contentKey"></element>
+    		<element name="order" type="int"></element>
+    	</sequence>
+    	<attribute name="actionCode" type="int"></attribute>
+    </complexType>
+
+
+
+
+    <element name="verificationRule" type="tns:verificationRule"></element>
+
+    <complexType name="verificationMainList">
+    	<sequence>
+    		<element name="verificationMain" type="tns:verificationMain" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="verificationSideBarList">
+    	<sequence>
+    		<element name="verificationSideBar" type="tns:verificationSideBar" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="defaultSideBarList">
+    	<sequence>
+    		<element name="verificationSideBar" type="tns:verificationSideBar" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="contentKey">
+    	<attribute name="type" type="string"></attribute>
+    	<attribute name="value" type="string"></attribute>
+    </complexType>
+</schema>

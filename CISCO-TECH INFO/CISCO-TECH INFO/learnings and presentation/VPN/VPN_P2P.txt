@@ -1,0 +1,43 @@
+Activity Introduction:enablework flow under workflow
+1) all site to site vpn, comes under activity
+2) Creation and deletion of vpn under activity
+3) Addition and deletion of devices not under activity
+4) Only configuration changes come under activity 
+
+Site to site vpn creation:
+
+a) H S p2p Full Mesh look similar  extranet introduced in 4.0
+b) P2P 
+Technology:
+ASA supports only Regular IPSec
+ASA does not support Ipsec/gre
+
+Ike version:ikev1 and Ikev2
+
+C) third page: set peer
+
+VPN interface-> for set Peer CLI
+Under NAT in policy section, there is Site to Site VPN-> it says for this
+device, what are all the VPNS that are configured
+-> from there too vpn can be started/created
+
+In Map view, show vpns on map  can see the vpns graphically
+shared policy -> site to site ->Normal
+Security Manager Administration - VPN Policy Defaults
+
+-> same interface can participate in multiple vms
+-> RA VPN global settings takes precedence of site to site vpn global settings. csm will take only this for delta
+
+HS can be discovered as p2p
+p2p as HS , but not all p2p as hs
+but not as extranet
+
+Extranet VPN
+1)
+
+###################
+
+
+
+
+

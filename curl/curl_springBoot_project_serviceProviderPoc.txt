@@ -1,0 +1,8 @@
+curl --request POST \
+  --url https://serviceprovider-dev.auth0.com/oauth/token \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --cookie 'did=s%253Av0%253Ae7d0a217-8117-4acc-9455-9181d1521421.cvgm3r4puf8mBnsVFDPGOAH7RcyZuQUs7w8ibiGYOgQ; did_compat=s%253Av0%253Ae7d0a217-8117-4acc-9455-9181d1521421.cvgm3r4puf8mBnsVFDPGOAH7RcyZuQUs7w8ibiGYOgQ' \
+  --data grant_type=client_credentials \
+  --data client_id=2BcgYvTW1P3ta1iwXo2aR1vpXsBF1RCq \
+  --data client_secret=LevvLy9qG5dtFut1e8Y6FYGlr7EKyJ92_aNRyn4dI5fojiQoPveDYtlpRVZa7kkO \
+  --data audience=https://serviceprovider.expeditors.com/poc

@@ -1,0 +1,257 @@
+FIREWALL(config-aaa-server-host)# exit
+FIREWALL(config)# sh run
+: Saved
+:
+ASA Version 9.1(4)240
+!
+hostname FIREWALL
+domain-name cisco.com
+enable password 2KFQnbNIdI.2KYOU encrypted
+xlate per-session deny tcp any4 any4
+xlate per-session deny tcp any4 any6
+xlate per-session deny tcp any6 any4
+xlate per-session deny tcp any6 any6
+xlate per-session deny udp any4 any4 eq domain
+xlate per-session deny udp any4 any6 eq domain
+xlate per-session deny udp any6 any4 eq domain
+xlate per-session deny udp any6 any6 eq domain
+passwd 2KFQnbNIdI.2KYOU encrypted
+names
+ip local pool test 11.11.11.14-11.11.11.20
+!
+interface Ethernet0/0
+ nameif abcd
+ security-level 0
+ ip address 8.8.8.8 255.255.255.0
+!
+interface Ethernet0/1
+ nameif inside1
+ security-level 0
+ ip address 10.197.87.70 255.255.255.0
+!
+interface Ethernet0/2
+ no nameif
+ no security-level
+ no ip address
+!
+interface Ethernet0/3
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface Management0/0
+ management-only
+ nameif va
+ security-level 100
+ no ip address
+ ipv6 enable
+!
+boot system disk0:/asa914-240-k8.bin
+ftp mode passive
+dns server-group DefaultDNS
+ domain-name cisco.com
+object network 77
+ host 5.6.6.7
+object network ipv62
+ host 2001::30
+object network ipv61
+ host fe80::30
+object network host1
+ host 10.10.10.10
+object network host2
+ host 20.20.20.20
+access-list CSM_IPSEC_ACL_1 extended permit ip 3.3.3.0 255.255.255.0 17.25.6.0 2
+55.255.255.0
+access-list CSM_IPSEC_ACL_2 extended permit ip 10.197.87.0 255.255.255.0 4.4.4.0
+ 255.255.255.0
+pager lines 24
+mtu abcd 1500
+mtu inside1 1500
+mtu va 1500
+no failover
+icmp unreachable rate-limit 1 burst-size 1
+asdm image disk0:/asdm711.bin
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+route inside1 0.0.0.0 0.0.0.0 10.197.87.1 1
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+dynamic-access-policy-record DfltAccessPolicy
+aaa-server RADIUS_WINDOWS protocol radius
+aaa-server RADIUS_WINDOWS (inside1) host 10.197.87.172
+ key *****
+aaa-server LDAP protocol ldap
+aaa-server LDAP (inside1) host 10.197.87.172
+ server-type auto-detect
+user-identity default-domain LOCAL
+aaa authentication enable console RADIUS_WINDOWS LOCAL
+http server enable
+http 0.0.0.0 0.0.0.0 inside1
+http 0.0.0.0 0.0.0.0 va
+no snmp-server location
+no snmp-server contact
+crypto ipsec ikev1 transform-set discover esp-aes-256 esp-sha-hmac
+crypto ipsec ikev2 ipsec-proposal CSM_IP_1
+ protocol esp encryption 3des
+ protocol esp integrity sha-1
+crypto ipsec security-association pmtu-aging infinite
+crypto dynamic-map discover234 1 set ikev1 transform-set discover
+crypto dynamic-map newdiscover_dynamic 1 set ikev1 transform-set discover
+crypto dynamic-map newdiscover_dynamic 2 set ikev1 transform-set discover
+crypto dynamic-map newdiscover_dynamic 3 set ikev1 transform-set discover
+crypto dynamic-map MODE2_dynamic 1 set ikev1 transform-set discover
+crypto map newdiscover 5000 ipsec-isakmp dynamic discover234
+crypto map MODE2 2 match address CSM_IPSEC_ACL_2
+crypto map MODE2 2 set peer 2.2.2.2
+crypto map MODE2 2 set ikev2 ipsec-proposal CSM_IP_1
+crypto map MODE2 2 set reverse-route
+crypto map MODE2 30000 ipsec-isakmp dynamic MODE2_dynamic
+crypto map MODE2 interface abcd
+crypto ca trustpoint _SmartCallHome_ServerCA
+ crl configure
+crypto ca trustpoint LOCAL-CA-SERVER
+ keypair LOCAL-CA-SERVER
+ crl configure
+crypto ca trustpool policy
+crypto ca server
+ lifetime ca-certificate 3650
+ lifetime certificate 730
+ subject-name-default O=ORG.COM, C=IN
+ issuer-name CN=TESTASA, O=ORG.COM, C=IN
+crypto ca certificate chain LOCAL-CA-SERVER
+ certificate ca 01
+    3082023b 308201a4 a0030201 02020101 300d0609 2a864886 f70d0101 05050030
+    31310b30 09060355 04061302 494e3110 300e0603 55040a13 074f5247 2e434f4d
+    3110300e 06035504 03130754 45535441 5341301e 170d3136 30383032 31373439
+    33365a17 0d323630 37333131 37343933 365a3031 310b3009 06035504 06130249
+    4e311030 0e060355 040a1307 4f52472e 434f4d31 10300e06 03550403 13075445
+    53544153 4130819f 300d0609 2a864886 f70d0101 01050003 818d0030 81890281
+    810095e9 79ca9e0a 6356d38b a3286594 136c35a3 fffc8cb3 c4811909 b081fa26
+    b14b9dde d6eb9587 61a29aec c7f975e4 df82af40 860584bc 962dce7f f987e519
+    baf1776d 4a860f9c 0a235be2 e2ed95ef da4195da e61f66dd 58c8dcd9 e71935b4
+    34915b01 ba3dfc7e 32be7880 849579cd d8e8d201 85307a82 39597907 b8ef2b56
+    a10b0203 010001a3 63306130 0f060355 1d130101 ff040530 030101ff 300e0603
+    551d0f01 01ff0404 03020186 301f0603 551d2304 18301680 14c36c34 7bf8c148
+    a9c35474 0305b583 56d9bac0 19301d06 03551d0e 04160414 c36c347b f8c148a9
+    c3547403 05b58356 d9bac019 300d0609 2a864886 f70d0101 05050003 8181001a
+    c312acbc 86c91997 95677b24 995589b8 b7aa3b58 ebee18aa a7cf9d48 1e23a905
+    e79fa7e3 3ccc88e1 36d67fbd 0651d502 82f5234c bac2a110 42f9dfe9 aba5bda7
+    4b53bdc6 56a076d5 acac1470 26d25496 fe166cb2 61e01bc4 42f06d09 dac7802c
+    6ed758e6 3a8292ed f0bce022 115e7858 de0caadb 0886c35a 6eac2874 778b14
+  quit
+crypto ikev2 policy 10
+ encryption 3des
+ integrity sha
+ group 2
+ prf sha
+ lifetime seconds 86400
+crypto ikev2 enable abcd
+crypto ikev1 enable abcd
+telnet 0.0.0.0 0.0.0.0 inside1
+telnet 0.0.0.0 0.0.0.0 va
+telnet ::/0 va
+telnet timeout 5
+ssh timeout 5
+ssh key-exchange group dh-group1-sha1
+console timeout 0
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+webvpn
+ port 5055
+ enable inside1
+ enable va
+ csd image disk0:/csm/csd_3_6_181-3.6.181.pkg
+ anyconnect image disk0:/csm/anyconnect-win-4.2.02075-k9.pkg 1 regex "[Hh][Tt][T
+t][Pp][.][Pp][Rr][Oo][Xx][Yy][.][Ii][Cc][Qq][.][Cc][Oo][Mm]"
+ anyconnect profiles RADIUSTESTING_GROUP disk0:/csm/HAIDD.xml
+ anyconnect enable
+ tunnel-group-list enable
+ smart-tunnel network new_1 ip 1.1.1.1
+ smart-tunnel network new_1 ip fede::90
+ smart-tunnel network new_1 ip 2.2.3.3
+ smart-tunnel network new_1 ip 1.2.3.3
+ smart-tunnel network new_1 ip 4.2.3.5
+ smart-tunnel network new_1 ip 2.9.64.9
+ smart-tunnel network new_1 ip 5.6.1.56
+ smart-tunnel network new_1 ip 7.9.45.9
+ smart-tunnel network new_1 ip 192.168.1.4 255.255.255.0
+ smart-tunnel network new_1 ip 4::4
+group-policy DfltGrpPolicy attributes
+ vpn-tunnel-protocol ikev1 ikev2 ssl-clientless
+group-policy RADIUSTESTING_GROUP internal
+group-policy RADIUSTESTING_GROUP attributes
+ banner value CSDL - VUL
+ banner value ------------------------------------------------------------------
+-------------------------------------------
+ dns-server value 10.131.109.4
+ vpn-tunnel-protocol ikev1 ssl-client
+ webvpn
+  anyconnect ask none
+group-policy vasanth_3 internal
+group-policy vasanth_3 attributes
+ banner value FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+ vpn-tunnel-protocol ikev1 ssl-clientless
+ webvpn
+  url-list value TESTBOOKMARK_1
+  anyconnect ask none
+  smart-tunnel tunnel-policy tunnelspecified new_1
+username admin12 password eY/fQXw7Ure8Qrz7 encrypted privilege 15
+username vasanth password /ZIln6GsTh.q0RBL encrypted
+username karthi password y/w9Fgwfd11kt3x6 encrypted privilege 15
+username cisco password 3USUcOPFUiMCO4Jk encrypted privilege 15
+username vino password laD7TqR3TAIjirUJ encrypted
+username vijay password vijay nt-encrypted privilege 15
+username zebra password cMWpMbowXmz8AcLz encrypted
+tunnel-group RADIUSTESTING type remote-access
+tunnel-group RADIUSTESTING general-attributes
+ address-pool test
+ authentication-server-group RADIUS_WINDOWS LOCAL
+ authorization-server-group LOCAL
+ default-group-policy RADIUSTESTING_GROUP
+ authorization-required
+ username-from-certificate UID
+tunnel-group RADIUSTESTING webvpn-attributes
+ customization SSLVPN
+ group-alias RADIUSTESTING enable
+ group-url https://google.com enable
+tunnel-group SECONDTESTING type remote-access
+tunnel-group SECONDTESTING general-attributes
+ authentication-server-group RADIUS_WINDOWS
+ default-group-policy vasanth_3
+tunnel-group SECONDTESTING webvpn-attributes
+ authentication certificate
+ group-alias SECONDONE enable
+tunnel-group 2.2.2.2 type ipsec-l2l
+tunnel-group 2.2.2.2 ipsec-attributes
+ ikev2 remote-authentication pre-shared-key *****
+ ikev2 local-authentication pre-shared-key *****
+!
+!
+prompt hostname
+call-home reporting anonymous
+call-home
+ profile CiscoTAC-1
+  no active
+  destination address http https://tools.cisco.com/its/service/oddce/services/DD
+CEService
+  destination address email callhome@cisco.com
+  destination transport-method http
+  subscribe-to-alert-group diagnostic
+  subscribe-to-alert-group environment
+  subscribe-to-alert-group inventory periodic monthly
+  subscribe-to-alert-group configuration periodic monthly
+  subscribe-to-alert-group telemetry periodic daily
+Cryptochecksum:4b6d7b0223b57b8698d56443b39b7120
+: end
+FIREWALL(config)#
+
+

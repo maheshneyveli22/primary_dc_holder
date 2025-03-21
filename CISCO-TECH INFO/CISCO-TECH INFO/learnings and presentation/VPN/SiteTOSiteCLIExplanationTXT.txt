@@ -1,0 +1,210 @@
+Configuring site to site vpn using packet tracer:
+
+Steps:
+
+1) Configure ACLS
+-> defines interesting traffic that needs to be encrypted and that has to be protected by tunnerl
+->
+
+2) Configure ISAKMP Policy(IKE Phase 1 Negotiation):
+sets up tunnel actually
+and configures isakmp parameters for establishing tunnel between two devices
+
+3) Configure Transform Set(IKE Phase 2 Negotiation)
+configuring encryption standards for actual ipsec traffic between two devices
+
+4) Create crypto map
+-> a profile
+-> defining what is the peer, what is the access list,transform set
+->
+
+5) Apply Crypto map to interface
+-> will apply that crypto to the device
+
+Configuring device 1 for p2p:
+
+1) Configure ACLS
+access-list 101 permit ip any any
+101 is accesslist number , permit - to allow or deny to allow traffic or deny, ip is protocol
+any - source, any - destination ->It means any ip traffic that comes to that router device will be 
+allowed to pass through tunnel
+
+2) Configure ISAKMP Policy(IKE Phase 1 Negotiation):
+ a) crypto isakmp policy <policySequenceNumber>
+    authentication <value>
+	encryption <value>
+	hash <value>
+	lifetime <value>
+	group <value>
+	
+	lifetime - specifies duration for which tunnel will be active
+	authentication, encryption, hash
+	group - diffie helman algorithm group. each group specifies the number of
+	bits defined for the key
+	
+	group 1 ->128 bits
+	diffie helman is symmetric key encryption - so both devices should have same 
+	key
+	
+	
+
+crypto isakmp policy 1
+1-> Policy priority,
+-> we can specify as many policies we want and limit is differenct for each devices
+->Policy with least value has highest priority, it means 
+when device tries to match policy this policy will be considered first
+Router(config)#crypto isakmp policy 1
+Router(config-isakmp)# authentication ?
+pre-share Pre-Shared Key, rsa signature is another option
+Router(config-isakmp)# authentication pre-share
+after configuration, we must specify so that both devices have preshared-key
+Router(config-isakmp)# encryption aes
+Router(config-isakmp)# hash md5
+Router(config-isakmp)# group 2
+Router(config-isakmp)# lifetime 86400
+means 1 day - specified in seconds
+exit
+Router(config)#
+
+These are the parameters needed for setting up the tunnel between two devices
+-> if we dont specify any of the values above like encryption, hash, group.. system will take default values
+-> But if there is no preshared-key, negotiation will start, but it will fail saying that 
+pres-shared key is not configured, hence pre-shared key is mandatory
+
+
+b) Configuring preshared key:
+Router(config)# crypto isakmp key cisco address 192.168.100.3
+--cisco is the preshared key. certain devices also allow encryption of preshared key
+--address after preshared key, need to specify the address of peer device,
+it means with which device this preshared key will be used
+--> 192.168.100.3 is the ip of the other device, we are trying to connect. ie the peer
+
+
+3) Create transform Set -> After preshared key, we create transform set.
+ which will specify,  what encryption algorithm is used,
+ what will be used to protect the integrity etc
+ ->this is for actual traffic.
+ -> Until now, before transform set is for configuring tunnel
+ -> now transform set is for protecting the actual data
+ 
+ Router(config)# crypto ipsec transform-set  tsName1
+crypto ipsec transform-set tsName1- cli for configuring transform set
+tsName1 - is the name of the transform set
+after that two sets needs to be configured, first set for encryption and second set for integrity
+a)  Router(config)# crypto ipsec transform-set  tsName1 esp-?
+esp-3des esp-aes esp-des esp-md5-hmac esp-sha-hmac
+of the above first 3 for encryption and last two for integrity
+
+-- Router(config)# crypto ipsec transform-set  tsName1 esp-3des esp-md5-hmac
+esp-3des for encryption
+esp-md5-hmac - for integrity
+
+So when traffic goes through the tunnel, 3 des algorithm will be used to encrypt the traffic data
+
+
+4) Create crypto map -> creating a profile
+-> where we specify which peer device, the access list, transform set in a single profile
+->a) Router(config)#  crypto map map1 1 ipsec-isakmp
+map1 -> map name
+1 - Sequence number - can have multiple crypto maps, Which map to be used first
+-> Router(config-crypto-map)# within this we can start creating the profile
+-> b)Router(config-crypto-map)# set peer 192.168.100.3
+here we are saying, between which device the tunnel needs to be set
+-> c)Router(config-crypto-map)# match address 101
+-> Here we specify the acl applied
+-> 101 is the acl created in the first step
+c)Router(config-crypto-map)# set transform-set tsName1
+Router(config-crypto-map)#exit
+tsName1 - created in step 3
+
+5)  Apply Crypto map to interface
+Router(config)#  int fa0/0
+fa0/0 is the interface
+Router(config-if)# crypto map map1
+The crypto map created is applied on the interface
+
+
+Now configuration completed on one device, now similar configuration needs to be done on another device
+
+Device2:
+-> Make sure the configurations mirror each other
+
+Router(config)# access-list 102 permit ip any any
+
+##%%%% while configuring isakmp, whatever is given for device 1 should match device 2
+other wise tunnel wont be created, we can have multiple policies, but make sure that atleast one
+policy matches, between two devices ipsec parameters also should match
+->can configure multiple ipsec transform sets for a device, but between two devices ipsec parameters
+encryption, integrity needs to be the same
+-> if isakmp matches and ipsec does not match, tunnel will be created, but
+during actual traffic error will be encountered
+ %%%%%%%%###########
+Router(config)#crypto isakmp policy 2
+Router(config-isakmp)# authentication ?
+pre-share Pre-Shared Key, rsa signature is another option
+Router(config-isakmp)# authentication pre-share
+after configuration, we must specify so that both devices have preshared-key
+Router(config-isakmp)# encryption aes
+Router(config-isakmp)# hash md5
+Router(config-isakmp)# group 2
+Router(config-isakmp)# lifetime 86400
+means 1 day - specified in seconds
+exit
+Router(config)# Router(config)# crypto isakmp key cisco address 192.168.100.2
+-> Make sure that the preshared key is also same
+-- Router(config)# crypto ipsec transform-set  ts1 esp-3des esp-md5-hmac
+ Router(config)#  crypto map map1 1 ipsec-isakmp
+Router(config-crypto-map)# set peer 192.168.100.3
+
+Router(config-crypto-map)# match address 102
+
+c)Router(config-crypto-map)# set transform-set ts1
+Router(config-crypto-map)#exit
+
+Router(config)#  int fa0/0
+fa0/0 is the interface
+Router(config-if)# crypto map map1
+
+Testing:
+1) Now after vpn is configured, it can be tested as below
+Router# sh crypto isakmp sa, it will show below that if the tunnel is up or not
+dst                     src                       status          com-id   slot   status
+192.168.100.3     192.168.100.2                 QM_IDLE            1007     0       ACTIVE
+QM_IDLE - QM->quick mode
+
+2) Router# sh crypto ipsec sa, we can use this command to see how packets are sent
+we can see #send errors ,
+
+it shows inbound  and outbound
+
+
+3) In another device
+Router# sh crypto isakmp sa, it will show below that if the tunnel is up or not
+dst                     src                       status          com-id   slot   status
+192.168.100.2     192.168.100.3                 QM_IDLE            1087     0       ACTIVE
+
+
+If in both cases, status is active, and QM_IDLE then the tunnel is active
+
+4) If in access-list, if we specify that this host should not be allowed, when that device 
+tries to communicate tunnel would not be established
+
+What is ipsec:
+
+
+1) IPSEC has two things: esp and ah
+ah - authentication header, sees only authentication part and does not do security part
+esp -  does the whole tunneling and that will do the security part
+2) esp is the protocol
+3) IPSEC mentions in what all layers, what all protocols can be used
+4) IPSEC Negatiation in two phases
+a) Before Negotiation, a)it establishing tunnel, for exchanging encryption, integrity algorithms for data part
+b) THen it derives the new secured key for data plane
+
+Control Pane: to establish secure tunnel, to get secure secret key , we use dh
+Establishing secure tunnel: it means two peers have secret key, which none knows. shared key 
+which no one knows. 
+shared secret key is obtained using preshared key
+
+
+

@@ -1,0 +1,12 @@
+-- select * from device
+-- 7709466296890
+
+-- select * from assignments where targetid = 7709466296890 and sourcetype like ('%IPSec%')
+-- 7709466298378
+-- 7709466298541
+
+-- select * from policy_main where node_id in (7709466298378,7709466298541)
+-- 7709466298380
+-- 9861244914763
+
+-- select * from IPSecSettings where REF_ID in (7709466298380)

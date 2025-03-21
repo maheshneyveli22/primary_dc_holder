@@ -1,0 +1,90 @@
+Steps to install For review board following software’s need to install your setup
+
+Install Python(2.7+) setup environment variable for both bin and scripts
+Install setuptools
+Install RBTools
+Install GNU diff(setup environment  variables for bin)
+
+
+
+Python
+---------
+
+Download python2.7 and install in your machine
+Set path to the python directory
+            1.My Computer(right click)
+			2.click on environment variables
+			3.Select path and click on edit and add to the end of path (your python installation directory;)
+			                        Eg: for me it is in (E:\project\Python27)
+									
+Done with python
+
+
+SetupTools
+-----------  
+32-bit version of Python
+     Install setuptools using the provided .exe installer.
+64-bit versions of Python
+            Download ez_setup.py and run it; it will download the appropriate .egg file and install it for you. (Currently, the provided .exe installer does not support 64-bit versions of Python for Windows, due to a distutils installer compatibility issue)
+	
+Enter in the url http://peak.telecommunity.com/dist/ez_setup.py
+          1.right click on it.
+		  2.save it as "ez_setup.py" on your machine
+		  3.Open cmd prompt and goto the location where ez_setup.py is saved.
+		  4.Run ez_setup.py 
+		  
+"Scripts" directory will be created in your python installation directory
+
+Set path for the scripts directory in Environment variables
+            1.My Computer(right click)
+			2.click on environment variables
+			3.Select path and click on edit and add to the end of path (your python installation directory\Scripts;)
+			                        Eg: for me it is in (E:\project\Python27\Scripts)
+									
+									
+RBTools 
+----------
+
+Install RBTools 
+open cmd and run the following command 
+(>>easy_install -U RBTools) 
+
+GNU Diff
+Download and install GNU Diff.
+Set path to the GNU Diff/bin; in environment variables
+
+
+Install Perforce
+---------------------
+
+After installing perforce 
+enter server : bglr-perforce.sgg.cisco.com:2667
+User : username
+
+Important
+-----------
+Set proxy in hosts file otherwise mvn install will give artifact error
+
+Set-up review board server URL:
+
+>>rbt setup-repo
+
+Enter review board server URL:  http://bld-rb01.cisco.com
+
+There are some people having issue to access P4 client on work space directory by using command line, getting ERROR: The current directory does not contain a checkout from a supported source code repository.
+
+For them follow the commends
+
+********  Go to your code base root folder given in p4v perforce client workspace
+p4 set P4PORT=bglr-perforce.sgg.cisco.com:2667
+>>P4 set P4USER=you’re perforce User
+
+>>P4 login
+
+Create a file p4config.txt at work space root directory with single line:
+
+P4CLIENT=your work space name (which you created using P4V)
+
+>>p4 set P4CONFIG=p4config.txt
+
+>>p4 client (it will open a file please verify your work space name and root and work space view, it should be same as you created from P4V client).

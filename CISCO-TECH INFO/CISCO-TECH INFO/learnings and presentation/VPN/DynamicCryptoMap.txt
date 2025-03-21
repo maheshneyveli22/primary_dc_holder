@@ -1,0 +1,72 @@
+ 	
+Command
+	
+Purpose
+
+Step 1
+	
+
+For IKEv1, use this command:
+crypto dynamic-map dynamic-map-name seq-num set ikev1 transform-set transform-set-name
+ 
+Example:
+hostname(config)# crypto dynamic-map dyn1 1 set ikev1 transform-set FirstSet
+hostname(config)#
+ 
+
+For IKEv2, use this command:
+crypto dynamic-map dynamic-map-name seq-num set ikev2 ipsec-proposal proposal-name
+ 
+Example:
+hostname(config)# crypto dynamic-map dyn1 1 set ikev2 ipsec-proposal FirstSet
+hostname(config)#
+	
+
+Creates a dynamic crypto map and specifies an IKEv1 transform set or IKEv2 proposal for the map.
+
+Step 2
+	
+crypto dynamic-map dynamic-map-name dynamic-seq-num set reverse-route
+ 
+Example:
+hostname(config)# crypto dynamic-map dyn1 1 set reverse route
+hostname(config)#
+	
+
+(Optional) Enables Reverse Route Injection for any connection based on this cr
+
+
+
+
+##########################Creating a Crypto Map Entry to Use the Dynamic Crypto Map
+
+This section describes how to create a crypto map entry that lets the ASA use the dynamic crypto map to set the parameters of IPsec security associations.
+
+In the following examples for this command, the name of the crypto map is mymap, the sequence number is 1, and the name of the dynamic crypto map is dyn1, which you created in the previous section, “Creating a Dynamic Crypto Map.”
+
+Perform the following task:
+Detailed Steps
+	
+Command
+	
+Purpose
+
+Step 1 #######Creates a crypto map entry that uses a dynamic crypto map.
+	
+crypto map map-name seq-num ipsec-isakmp dynamic dynamic-map-name
+ 
+Example:
+hostname(config)# crypto map mymap 1 ipsec-isakmp dynamic dyn1
+hostname(config)#
+	
+
+
+Step 2 #Applies the crypto map to the outside interface.
+	
+crypto map map-name interface interface-name
+ 
+Example:
+hostname(config)# crypto map mymap interface outside
+hostname(config)#
+	
+

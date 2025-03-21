@@ -1,0 +1,986 @@
+﻿Jan@2014
+
+
+###CGI url
+http://my.global.logica.com/news.aspx
+
+###PWD management
+http://edprov.ent.cginet/PasswordManagementWeb/
+
+##Web mail
+https://mail.logica.com/
+
+http://mysite.global.logica.com/default.aspx
+
+//to connect remote desktop
+\\inp-316362-1\e$
+
+
+
+#DB help desk:
+*2 7760417900 - 1800-311-6526
+91 - country code
+DB sponsor - Rajesh Khandelwal
+elummah - xp id
+maheswaran.elumalai@db.com
+elummah
+ticket no : IN29701634
+
+
+
+//ocs communicator
+http://cwa.us.db.com/
+
+maheswaran.elumalai
+October@2013
+
+sso:
+
+##########On Boarding info:##########
+1. Ganesh Gives XP password
+2. That needs to be reset calling db helpdesk:
+
+#DB help desk:
+*2 7760417900 - 1800-311-6526
+91 - country code
+DB sponsor - Rajesh Khandelwal
+elummah - xp id
+maheswaran.elumalai@db.com
+ticket no : IN29701634
+
+3.After getting the db default pwd, reset it
+4.Install dbras
+
+2. DB mail pwd:
+http://msgm3050.gslb.db.com
+Jan@2014
+1)xp id reset
+2)mail same
+
+
+#DB help desk:
+*2 7760417900 - 1800-311-6526
+91 - country code
+DB sponsor - Rajesh Khandelwal
+elummah - xp id
+2522303 DB dir id
+maheswaran.elumalai@db.com
+ticket no : IN29701634
+
+2)http://msgm3050.gslb.db.com 
+websso:
+sso:same
+
+3)Dbcde:www.dbcde.com
+maheswaran_elumalai
+pwd:same
+
+Group directory
+http://gd.intranet.db.com/perl/search
+
+location details/postal address/contact details
+DLF SEZ, Block 5, Floor 8
+Manapakkam, Chennai
+600 089
+India
+
+
+10.159.207.190    3128
+
+
+https://www.dbcde.com/sf/projects/pathfinder
+
+#################################
+cmd to build :
+
+mvn install -Dmaven.test.skip=true
+#########
+cmd to deploy
+
+run.bat -c default -b 0.0.0.0 -Dapplication.properties=E:\CGI\properties\application.properties
+
+######when maven does not skip tests, add this in pom#########
+			<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <configuration>
+    <skipTests>true</skipTests>
+  </configuration>
+</plugin>
+#####################
+
+###pathfinder integration:
+http://integration.pathfinder.gm.intranet.db.com/dev_csw/ 
+
+################
+apache 6 ports:user/user
+9005
+9080
+9009
+
+
+
+Mahesh      -  10.13.105.13
+
+
+##################
+626337
+
+REQUK0000628191 - laptop request
+#######
+dbras:
+sampath.marappan 1234
+jyothish.anantha 12525
+
+########
+surf-proxy.intranet.db.com 8080
+proxy.logica.com 80
+10.159.207.190    3128
+10.233.152.40 8080
+10.159.208.142  3128 open token proxy
+
+
+#############
+## to download co
+https://www.dbcde.com/sf/projects/pathfinder/  
+
+#Svn repository link  https://www.dbcde.com/svn/repos/pathfinder-global-payments
+
+########
+Jenkins: 
+
+http://apcswd1.us.db.com:8980/jenkins 
+
+Here I have created new job ( Payments-New ) and configured our SVN code to this job. When you build, it will create the war for you. The war will be placed in the dev itself. 
+All you need to do is to copy this generated war to your server ( /data/csw/application/servers/PaymentTestServer). 
+
+I have done one build and it is a successful build. 
+As you can in the build history in jenkins, the first two times, it failed. To fix, I modified the below file and committed to SVN. This resolved the build issue. https://www.dbcde.com/svn/repos/pathfinder-global-payments/branches/payments/globalpayments/java_persistence/pom.xml 
+  
+Location where the war is created by the jenkins is (same dev unix box): 
+/data/csw/tools/hudson/work/.hudson/jobs/Payments-New/workspace/globalpayments/java_webapp/target    (globalpayments_webapp-2.10.2.34-SNAPSHOT.war) 
+
+You can see the above was in the jenkins URL as well 
+     http://apcswd1.us.db.com:8980/jenkins/job/Payments-New/   
+     --> Select particular build from the build history 
+     --> java_webapp --> You will see the war. 
+
+#########
+select * from case_stp where case_wrkflow_id=21
+select * from action where case_stp_id=2106
+
+2101	CLIMOS
+2102	APPROVED
+2103	PMTQUERY
+2104	UPDATE
+2105	CASHNA
+2106	DEADLINE
+2107	PBAPV
+2108	QUERY
+2109	MGTAPV
+2110	RISKAPP
+2111	REJECT
+2112	LATECR
+2113	MANUAL
+2114	MANULQRY
+2115	FUNDPMT
+2116	BVPMT
+2117	CRAPRVL
+2118	CRQUERY
+2119	IDISSUE
+2120	REJECTM
+2121	MGTAPV2
+2122	MGTSNR
+2123	MGTAPV3
+
+//email needs to be implemented
+//need inputs from jyothish about manual payment
+//need inputs from jyothish about sending query
+
+
+#####
+dbras: dbstaff/photogram3
+
+#########handy#############
+
+1.	Conference details of Lakshmi and Praveen.
+2.	Personal & Office Contact Numbers of everyone.
+3.	Team members DB and CGI EmailIds.
+4.	DB Support Number  -> 1 800 311 6526  --> For any issues like forgot password or lock user id etc...
+5.	Your DB Directory Ids.
+6.	WebSSO userId/password.
+7.	XP userId/password: elummah/
+8.	DB Webmail userId/password:maheswaran.elumalai@db.com/
+9.	DBCDE userId/password --> This is for SVN code --> www.dbcde.com maheswaran_elumalai@db.com
+10.	Window Login details --> userId/password. --> You can check this details in www.gd.db.com  (global directory)
+11.	Pathfinder Wiki Page.
+a.	https://wiki.tools.intranet.db.com/confluence/display/PRD/CSW+-+Application+Overview+-+PathFinder+Workflow
+12.	Pathfinder application DEV URL.
+a.	http://integration.pathfinder.gm.intranet.db.com/dev_csw/
+
+13.	Pathfinder Dev UNIX Machine host name and password. 
+a.	Host:     apcswd1.us.db.com
+b.	userId:   cswdev
+c.	Load the Private Key: This file is present in the SVN location (https://www.dbcde.com/svn/repos/pathfinder-maven-archetypes/trunk/privatekey3.ppk) ? File is attached as well.
+14.	Pathfinder Dev Database details as below.
+a.	hostname:          nycsrwd1.us.db.com
+b.	port:                 1528
+c.	SID:                   NYCSRWD1
+d.	user name:        csrw_owner 
+e.	password:          welcome01
+###########handy#######################
+
+
+#########################post new laptop########
+Install java,txtpad,dbras,mozilla
+
+1. get dbras and download the code
+2. Build the code
+3. lotus notes configuration
+4. eclipse set up
+###############tickets###########
+1. REQUK0000643965 - mahesh - printer access
+
+#############important_urls########
+###CGI url
+http://my.global.logica.com/news.aspx
+
+###PWD management
+http://edprov.ent.cginet/PasswordManagementWeb/
+
+##Web mail
+https://mail.logica.com/
+
+http://mysite.global.logica.com/default.aspx
+
+//ocs communicator
+http://cwa.us.db.com/
+dbg\Jan@2014
+
+DB mail pwd:
+http://msgm3050.gslb.db.com
+g1OCWTk7Y4AJ
+
+
+websso:
+http://msgm3050.gslb.db.com 
+
+Group directory
+http://gd.intranet.db.com/perl/search
+
+
+https://www.dbcde.com/sf/projects/pathfinder
+
+###pathfinder integration:
+http://integration.pathfinder.gm.intranet.db.com/dev_csw/ 
+
+## to download code
+https://www.dbcde.com/sf/projects/pathfinder/ 
+
+#Svn repository link  https://www.dbcde.com/svn/repos/pathfinder-global-payments
+
+########
+Jenkins: 
+
+http://apcswd1.us.db.com:8980/jenkins 
+
+
+You can see the above was in the jenkins URL as well 
+     http://apcswd1.us.db.com:8980/jenkins/job/Payments-New/  
+####################derby details##########
+	 jdbc:derby://localhost:1527/Mahesh_Db;create=true
+org.apache.derby.jdbc.ClientDriver
+user/user
+Mahesh_Db
+
+
+show tables;
+create schema mahesh;
+set schema=mahesh;
+########################wireshark tutorial link###########
+http://www.howtogeek.com/104278/
+########cgi/logica#######
+folklore
+elumalaim/Nov@2013
+###desktop handover#######
+requk0000649417
+
+
+http://forums.citrix.com/thread.jspa?threadID=338636
+
+
+########db sharepoint
+http://igdc.blr.india.cginet/sites/Projects/BFSI/DB/DeutscheBank/Forms/AllItems.aspx?RootFolder=%2fsites%2fProjects%2fBFSI%2fDB%2fDeutscheBank%2fDB_Pathfinder%2fDocsFromRiskTeam&FolderCTID=&View=%7b91D28CF7-4C12-46C2-88BF-892658B9E657%7d
+
+maheswaran.elumalai@cgi.com/October@2013
+
+
+
+#########disclaimer##########
+************************************************************************************
+This email is sent to you by CGI Technologies and Solutions Inc. on behalf of Deutsche Bank.
+Diese email wurde Ihnen von CGI Technologies and Solutions Inc. im Auftrag der Deutschen Bank gesendet
+*************************************************************************************
+
+
+dell office laptop problem:885342433
+
+
+######
+crone = 0/40 * * * * ?
+crone = 0 50 14 ? * MON-FRI
+
+
+###My linux:
+ps |grep PaymentTestServer
+kill -9 processNo
+
+go to bin:
+
+./csw_jboss_control.sh start
+
+
+./run.sh -c default -b 0.0.0.0 -Dapplication.properties=/data/csw/application/servers/PaymentTestServer/config/application.properties
+
+########mra rerun
+########executing oracle stored procedure#######
+
+SET SERVEROUTPUT ON
+var proc_status varchar2;
+exec asia_mra_rerun(2000,:proc_status);
+
+print proc_status;
+
+####################
+
+H9NNYX1 - service tag - 
+#######################
+no-2,8th cross street,
+383062/Oct@2013
+Florentain appartment
+
+#######################Mesh logs:########
+
+https://portal.mesh.intranet.db.com/
+
+##########
+ http://dbsp.intranet.db.com/ 
+ 
+##########to load jars in nexus###############
+
+
+1.       Find the jar in apcswd1:/data/csw/tools/mavenrepository 
+
+For example, if you are missing com.db.gpf.csw.notifications:rules_engine-1.0.0.9.jar 
+
+You should be able to it at apcswd1:/data/csw/tools/mavenrepository/com/db/gpf/csw/notifications/rules_engine/1.0.0.9 
+
+2.       Copy that file to your local machine 
+
+3.       Log into http://gcprimu1.us.db.com:8081/index.html#view-repositories;gpf-releases   using account release_manager/release4good 
+
+4.       Find ‘Artifact Upload’ tab at about middle of your screen 
+
+5.       Select GAV Definition as ‘GAV Parameters’ 
+
+
+6.       Press ‘Select POM to Upload’ button and select the .pom file you have copied from apcswd1 
+
+7.       For each remaining files, press ‘Select Artifact(s) to Upload’, select file and press ‘Add Artifact’. Ignore .sha1 files 
+
+8.       Finally, press ‘Upload Artifact(s)’ and it’s done 
+
+9.       Verify that it has been successfully uploaded via browsing th... 
+
+#####################nexus##################
+
+
+##########################
+  
+
+manideep.bhattacharjee
+##############settings.xml file location in dev#########
+/data/csw/tools/maven/apache-maven-2.2.1/conf
+
+###########
+praveen.patil@db.com
+parker30
+
+#########disclaimer#############
+************************************************************************************
+This email is sent to you by CGI Technologies and Solutions Inc. on behalf of Deutsche Bank.
+Diese email wurde Ihnen von CGI Technologies and Solutions Inc. im Auftrag der Deutschen Bank gesendet
+*************************************************************************************
+coverage manager table:
+
+for adding coverage manager member:
+http://nygindapnp67.us.db.com:19821/entitlement/maintainUser.do?submit=getDataForLandingPage
+#######To get details of people##########
+http://gd.db.com/perl/search
+
+#########SDOD#######
+maheswaran.elumalai@db.com
+1234()
+elummah
+USNYCSD010064      maheswaran.elumalai@db.com      elummah 
+
+October@2013
+##########
+http://dbrasweb-ext.db.com/
+########
+USNYCSD010064 - sdod
+
+##########################
+  
+
+manideep.bhattacharjee
+##############settings.xml file location in dev#########
+/data/csw/tools/maven/apache-maven-2.2.1/conf
+#######Taskummary service payments hessian url######
+http://apcswd1.us.db.com:8968/new _globalpayments_webapp/hessian/PaymentsTaskSummaryService
+
+########search for a string inlinux#######
+find /data/csw -type f -name "*summary*"
+
+
+#######prod db######
+PF Database PROD Access (Read Only):
+vanclak/vanclak1234p
+pagahar/pagahar1234p
+elummah/ elummah1234p
+kanngop/kanngop1234p
+
+
+
+
+
+Database Connection Details:
+nycsrwp1.us.db.com
+1542
+NYCSRWP1
+
+##############dev weba 
+http://integration.pathfinder.gm.intranet.db.com/new_globalpayments_webapp/
+http://integration.pathfinder.gm.intranet.db.com/new_globalpayments_frontend_webapp/
+http://integration.pathfinder.gm.intranet.db.com/csw/   - uat
+http://integration.pathfinder.gm.intranet.db.com/qa_globalpayments_frontend_webapp/   -qa
+
+
+######coverage and team#######
+select * from cm_user ***maps user name with parent id
+
+select * from CM_TEAM  ** maps team id to team name
+
+select * from V_CM_COVERAGE_PARENT
+
+select * from D_PARENT
+
+select * from CM_TEAM_APP
+
+select * from CM_TEAM_ROLE
+select * from V_CM_TEAM_MEMBER  ** important*** maps  user to team***
+
+
+select * from D_ACCOUNT
+
+
+
+<list>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.LeaveRequest
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.AbsenceType
+				</value>				
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.LeaveStatus
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.CoveredParent
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.CoveringUser
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.TeamMember
+				</value>				
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.Team</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.TeamApplication</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.TeamRole
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.Region
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.TemporaryCoverage
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.Coverage
+				</value>				
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.model.CsrLeaveAllocation
+				</value>
+				
+				
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.staticdata.model.LegalEntity
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.staticdata.model.Parent
+				</value>
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.staticdata.model.Account
+				</value>				
+				<value>com.db.gpf.csw.coveragemanager.dataaccess.staticdata.model.Product
+				</value>				
+		
+
+#############dweb config###############
+dWeb Link:
+
+https://usi1s.dweb.intranet.db.com/details/?site=dw05471
+
+Steps:
+
+1.	Configuration
+a.	Tomcat Context – Refer QA or New global payments webapp (both frontend and webapp)
+b.	Tomcat and JBoss - Refer QA or New global payments webapp (both frontend and webapp). Need to provide AJP port for webapp (available from Admin console of CA JBoss)              
+
+Samba Shares link:
+\\usi1s.dweb.intranet.db.com\dw05471
+1.	Create 2 folders – name matching the Tomcat Contexts
+2.	Copy or extract the frontend webapp war to the same location. Rename endpoints.xml to match the name of the given webapp context
+##########jenkins for task summary#######
+http://apcswd1.us.db.com:8980/jenkins/job/new_tasksummary/
+http://portal.dweb.intranet.db.com
+/new_tasksummary_webapp
+1)extract
+2)deployment
+
+cp /data/csw/tools/hudson/work/.hudson/jobs/new_tasksummary/workspace/task-summary/java_webapp/target/new_tasksummary_webapp.war /data/csw/application/servers/Payment-DEV/jboss-5.1.0.GA/server/default/deploy
+
+
+cp /data/csw/tools/hudson/work/.hudson/jobs/new_tasksummary/workspace/task-summary/java_webapp/target/new_tasksummary_webapp.war /data/csw/application/servers/Payment-DEV/jboss-5.1.0.GA/server/default/deploy
+
+
+cp /data/csw/application/deploy/csrw-global-payments/globalpayments/hudson_build/globalpayments_webapp-2.10.2.34-SNAPSHOT.war /data/csw/application/servers/Payment-DEV/jboss-5.1.0.GA/server/default/deploy
+cp /data/csw/application/servers/Payment-DEV/jboss-5.1.0.GA/server/default/deploy/new_tasksummary_webapp.war /data/csw/application/servers/Payment-INT/jboss-5.1.0.GA/server/default/deploy
+cp /data/csw/application/deploy/csrw-global-payments/globalpayments/hudson_build/globalpayments_webapp-2.10.2.34-SNAPSHOT.war /data/csw/application/servers/Payment-INT/jboss-5.1.0.GA/server/default/deploy
+cp /data/csw/application/deploy/csrw-global-payments/globalpayments/hudson_build/globalpayments_webapp-2.10.2.34-SNAPSHOT.war /data/csw/application/servers/QAServer/jboss-5.1.0.GA/server/default/deploy
+
+
+http://integration.pathfinder.gm.intranet.db.com/new_tasksummary_frontend_webapp/
+http://integration.pathfinder.gm.intranet.db.com/new_globalpayments_webapp/
+http://integration.pathfinder.gm.intranet.db.com/csw/
+##################Any task given##############
+1) Understand the task
+2) system interface Impacts
+3) Environment impacts
+4) Estimate
+5) Code changes required
+6) DB impacts
+7) DWEB impacts
+
+#######jira filters###########maheswaran.elumalai@db.com/October@2013
+https://gpfjira.us.db.com:8443/secure/Dashboard.jspa
+
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa 
+
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa?mode=hide&requestId=12733 
+
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa?mode=hide&requestId=12734 
+
+  
+#############################
+https://login-intranet.isso.intranet.db.com/websso/sso_Logon.sso
+
+https://login-intranet.isso.db.com/websso/sso_Logon.sso
+sso:maheswaran.elumalai@db.com/Jan@2014
+########confluence#######
+IN31956670
+IN31956992
+IN32071699 - new
+
+#######prod support#########setup and access#########
+
+
+1) DB  4 database 
+dev - csw done, cport done, dbrex done, sybase done
+uat - csw done,cport done, sybase done,
+prod - csw done elummah/ elummah1234p , cport done,
+
+2) Unix box - 
+dev done,
+uat done,
+prod done  1. In Putty entered the Host name as : goldenapp.us.db.com 
+2. Entered our xpid and password in command propt which prompts.
+golden app - pending
+
+3) GUI  - dev,uat,prod
+http://integration.pathfinder.gm.intranet.db.com/dev_csw/ dev
+http://integration.pathfinder.gm.intranet.db.com/csw/  uat
+http://taskq.gm.intranet.db.com/global_payments_frontend/index.jsp   prod 
+
+4) dweb - dev,uat,prod
+http://portal.dweb.intranet.db.com
+
+Samba Shares link:
+\\usi1s.dweb.intranet.db.com\dw05471
+
+5) Mesh - dev,uat,prod
+https://portal.mesh.intranet.db.com/
+
+6) Confluence - dev,uat,prod -pending
+
+##############################################confluence link######
+http://confluence.gslb.db.com/display/PF/PF_Prod_Support?flashId=-1490020626 - prod access 
+http://confluence.gslb.db.com/display/PF/PF_HOW_TO
+http://confluence.gslb.db.com/display/PF/PF+DEV+HOME/
+http://confluence.gslb.db.com/display/PF/PathFinder+Team+Home
+
+dbsymphony maheswaran.elumalai@db.com/October@2013
+https://dbsymphony.gto.intranet.db.com/snc/nav_to.do?uri=incident.do?sys_id=c77c97830af09601218051e53567734
+#####share point##############
+list the details - consolidated
+http://igdc.blr.india.cginet/sites/Projects/BFSI/DB/DeutscheBank/Forms/AllItems.aspx?RootFolder=%2Fsites%2FProjects%2FBFSI%2FDB%2FDeutscheBank%2FDB%5FPathfinder&View=%7b91D28CF7%2d4C12%2d46C2%2d88BF%2d892658B9E657%7d
+production support details
+http://igdc.blr.india.cginet/sites/Projects/BFSI/DB/DeutscheBank/Forms/AllItems.aspx?RootFolder=%2fsites%2fProjects%2fBFSI%2fDB%2fDeutscheBank%2fDB%5fPathfinder%2fProduction%20Support&FolderCTID=&View=%7b91D28CF7%2d4C12%2d46C2%2d88BF%2d892658B9E657%7d
+######
+7) jira - dev,uat,prod -done
+#######jira filters###########maheswaran.elumalai@db.com/October@2013
+https://gpfjira.us.db.com:8443/secure/Dashboard.jspa
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa 
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa?mode=hide&requestId=12733 
+https://gpfjira.us.db.com:8443/secure/IssueNavigator.jspa?mode=hide&requestId=12734 
+
+8) CGI share point download artifacts
+
+9) support people in ocs
+##########
+9) dbcde change pwd done
+10) cgi change pwd  done
+
+
+##############################################confluence link######
+http://confluence.gslb.db.com/display/PF/PF_Prod_Support?flashId=-1490020626 - prod access 
+http://confluence.gslb.db.com/display/PF/PF_HOW_TO
+
+dbsymphony maheswaran.elumalai@db.com/October@2013
+https://dbsymphony.gto.intranet.db.com/snc/nav_to.do?uri=incident.do?sys_id=c77c97830af09601218051e53567734
+#####share point##############
+list the details - consolidated
+http://igdc.blr.india.cginet/sites/Projects/BFSI/DB/DeutscheBank/Forms/AllItems.aspx?RootFolder=%2Fsites%2FProjects%2FBFSI%2FDB%2FDeutscheBank%2FDB%5FPathfinder&View=%7b91D28CF7%2d4C12%2d46C2%2d88BF%2d892658B9E657%7d
+production support details
+http://igdc.blr.india.cginet/sites/Projects/BFSI/DB/DeutscheBank/Forms/AllItems.aspx?RootFolder=%2fsites%2fProjects%2fBFSI%2fDB%2fDeutscheBank%2fDB%5fPathfinder%2fProduction%20Support&FolderCTID=&View=%7b91D28CF7%2d4C12%2d46C2%2d88BF%2d892658B9E657%7d
+######
+\\inl-266771-1\share
+
+############
+37555 40594451 praveen
+
+############
+
+
+artf782177 - bypass risk approval - code should be in place in iprocess int
+artf730771 - look into margin call code for email submit action
+artf779181 - autorefresh flag jboss tibco cache-active work items. scheduled job checks for cases in iprocess and jbosscache
+. it checks for 3 times. 3 times mismatch then iprocess get the data. autorefresh flag set to true
+
+8880 -tibco cache
+compareCacheAndIProcessWorkItems - scheduled jobs which does that check
+reload cache 
+
+artf730774 - server down try and check for the issue in local
+
+############dbcde#######
+maheswaran_elumalai/Jan@2014
+
+#####db support#########
+*2760 432 9001 8003 116526
+########### unix box###
+apcswd1.us.db.com cswdev
+apcswu1.us.db.com cswuat
+apcswp1.us.db.com cswprod
+################
+1013040 -- Meeting ID: 8012551 ---praveen
+Parker90 - praveen.patil@db.com
+############
+#SR09116858  - jira for pathfinder
+############ to check where the softlink points ########
+readlink -f <linkname>
+
+####Synthesis along with ITW, UAT release DONE####
+
+Here are the current setting inside Pathfinder. The below settings are in application.properties . 
+
+
+UAT : 
+ess.userprofile.lookup.service.url=http://loneqessappu5.uk.db.com:23080/synthesis/Synthesis/UserService/GetUserProfile 
+ess.position.lookup.service.url=http://loneqessappu5.uk.db.com:23080/synthesis/Synthesis/Position/GetPositions 
+
+
+PROD : 
+ess.userprofile.lookup.service.url=http://loneqessappp12.uk.db.com:23080/synthesis/Synthesis/UserService/GetUserProfile 
+ess.position.lookup.service.url=http://loneqessappp12.uk.db.com:23080/synthesis/Synthesis/Position/GetPositions 
+
+#######
+
+		AND cw.case_wrkflow_nme = #workflowName#
+
+############URLS for code################
+	
+desktop_notifications	Project that holds the infrastructure for making calls to the Global Prime Desktop notifier.	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/desktop_notifications	  
+	ea-user-preferences	Service developed to do CRUD operations for User Preferences. To be used by Portal and Pathfinder. Should be hosted by EA.	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/ea-user-preferences	  
+	Pathfinder ASM	Module for ASM	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-asm	  
+	Pathfinder Audit Trail Service	Soap / Hessian service to provide generic Audit Trail functionality for all modules	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-audit-trail-service	  
+	pathfinder-campaign-manager	Campaign Manager for Greenwich 2012	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-campaign-manager	  
+	Pathfinder Client Confidentiality	Pathfinder Client Confidentiality	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-client-confidentiality	  
+	pathfinder-client-overview		0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-client-overview	  
+	Pathfinder Client Setup Info	Module for client setup infor	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-client-setup-info	  
+	Pathfinder Common End Points	Pathfinder Common End Points	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-common-end-points	  
+	Pathfinder Common Services	Pathfinder Common Services	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-common-services	  
+	Pathfinder Corporate Actions	Pathfinder Corporate Actions	1	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-corporate-actions	  
+	Pathfinder Coverage Manager	Coverage Manager Code	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-coverage-manager	  
+	pathfinder-db-deploy-mojo	Maven Mojos for deploying database changes	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-db-deploy-mojo	  
+	Pathfinder DDL	Contains Pathfinder Database schemas	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-ddl	  
+	Pathfinder Deployment	Contains code for automating deployment of pathfinder	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-deployment
+
+
+	Pathfinder E-mail Maintenance	The centralized e-mail Maintenance screens that hook into EA to display meta data, to link workflows and user names	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-email-maintenance	  
+	Pathfinder Flex Common Components	Pathfinder Flex Common Components	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-flex-common	  
+	Pathfinder Flex Common Components Examples	Pathfinder Flex Common Components Examples	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-flex-common-examples	  
+	Pathfinder Flex Navigator	Pathfinder Flex Navigator Component	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-flex-navigator	  
+	pathfinder-gatekeeper-export	Application to export EA data to gatekeeper for Pathfinder audits	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-gatekeeper-export	  
+	Pathfinder Global Payments	Pathfinder Global Payments	18	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-global-payments	  
+	Pathfinder Java Common	Java Common Code	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-java-common	  
+	Pathfinder Late Receipts	Late Receipts	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-late-receipts	  
+	pathfinder-ld-options-monitor	New workflow LD Options	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-ld-options-monitor	  
+	Pathfinder Manual Tasks	Manual Tasks	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-manual-tasks	  
+	Pathfinder Margin Call	Margin Call	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-margin-call	  
+	pathfinder-margin-issues-notifier	Pathfinder Margin Issue Notifier	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-margin-issues-notifier	  
+	Pathfinder Margin MI Report	Margin Management Info report	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-margin-mi-report	  
+	Pathfinder Maven Archetypes	Maven Archetypes	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-maven-archetypes	  
+	Pathfinder Maven Mojos	This project contains custom mojos used in the build of csrw components	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-mojos
+
+Pathfinder Non Receipts	Non Receipts	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-non-receipts	  
+	Pathfinder Option Assignments	The Pathfinder module to manage option assignments	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-option-assignments	  
+	pathfinder-rehypothecation-alerts	Pathfinder Advaced Alerts Rehypothecation Project	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-rehypothecation-alerts	  
+	Pathfinder Swap Event Notification	Pathfinder Swap Event Notification	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-swap-event-notification	  
+	Pathfinder Task Manager	Task Manager	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-task-manager	  
+	pathfinder-tibco-bpm	This contains the classes generated from XSD for action processor. This is created to modify the dependency hierarchy of other modules.	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-tibco-bpm	  
+	Pathfinder Tibco BW Code	Pathfinder Tibco BW Code	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-tibco-bw	  
+	Pathfinder TIBCO Cache	TIBCO iProcess work items cache server project	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-tibco-cache	  
+	Pathfinder TIBCO Common	Helper code for accessing TIBCO iProcess	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-tibco-common	  
+	Pathfinder Tri Party	Tri Party	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-tri-party	  
+	Pathfinder User Details	Pathfinder User Details	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder-user-details	  
+	Pathfinder-UserResponseMonitor	This is the Module which captures the User response times in pathfinder application.	0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repos/pathfinder_user_response_monitor	  
+	Publishing	This is a repository for publishing HTML content in the project's homepage
+Created by TeamForge
+0	svn checkout --username maheswaran_elumalai https://www.dbcde.com/svn/repository-internal/pathfinder-publishing
+
+
+#############GP3##########
+https://login.isso.intranet.db.com/websso/sso_custom_Logon.sso?requesting_slave=https%3A%2F%2Fuat.ext.us.globalprime.intranet.db.com%2FGlobalPrimeConsumer%2Fappmanager%2FGP%2FGP 
+
+######jaxb cjc command#######
+C:\Users\iByteCode\Desktop\JAXBXJCTool>xjc -d src -p com.theopentutorials.jaxb.beans employee.xsd
+########Working on artifact######
+
+1. Confirmation of Understanding of artifact. 
+2. Construction - YES/NO 
+3. DEV Testing - YES/NO 
+4. DEV Testing - Proof 
+5. UAT Sanity Test - YES/NO 
+6. UAT Sanity Test - Proof 
+
+
+7. PROD GCM Raise - Get Approval 
+8. PROD Release - YES/NO 
+9. PROD Release - Sanity Test 
+
+
+#########################dweb steps#########
+1)set ajp port
+2)set http port
+3)check if the webapp war is deployed and fine except coverage manager problem(SSO)
+4) Go to CONFIGURATION IN DWEBcreate tomcat context for front end and web app
+5) Create jboss-tomcat config for web app
+6) Create two folders in samba share. web app shall be dummy and front end should be correct one
+7) change the end points.xml port in front end web app
+8) GO TO DEPLOYMENT IN DWEB AND create new one and restart tomcat giving the front end web app details
+##########int-pathf inder port$$$$$$
+8968
+#########
+2522303 - db directory id
+
+##########jira dbatlas##########
+http://dbatlas.db.com/jira01/secure/Dashboard.jspa?selectPageId=20707 
+
+##############
+
+select * from GLBL_PYMTS_RISK_REVW where payment=2470005 
+select * from GLBL_PYMTS_CONDITION where rsk_rvw_id=10734181 
+select * from GLBL_PYMTS_PAYMENT where case_id=2470005 
+
+###############steps###########
+Step 
+ "Assigned To" 
+ 
+APPROVED 
+ CSR Team who covers that client 
+ 
+BVPMT 
+ PB funding team 
+ 
+CASHNA 
+ CSR Team who covers that client 
+ 
+CLIMOS 
+ PB payment Group 
+ 
+CRAPRVL 
+ PB payment Group 
+ 
+DEADLINE 
+ CSR Team who covers that client 
+ 
+MGTAPV 
+ Margining Ops Team 
+ 
+PBAPV 
+ PB payment Group 
+ 
+REJECT 
+ CSR Team who covers that client 
+ 
+RISKAPP 
+ RISK US 
+ 
+##################################### Folklore-Feb032014###
+Your user name: LPS00316362 
+Password: M6on9GCUHQ
+
+use this:
+elumalaim
+Jan@2014
+
+############ 
+marappan - 53902
+##########serv checkerport##########
+Ports09-922
+9002
+######uat task summary url
+
+http://apcswu1.us.db.com:8790/uat_globalpayments_webapp/hessian/GlobalPaymentsTaskSummaryService
+############  dweb######
+dbg\vanclak
+CgiDb234
+CgiDb345
+##########new proxy#########
+Intranet-proxy.intranet.db.com : 8080
+#########entitlement -ea
+http://uat.ea.gpf.gm.intranet.db.com/entitlement/
+####
+http://apcswd1.us.db.com:8627/ - int
+http://apcswu1.us.db.com:8790/ - new uat
+8790 -qa
+8780- old uat
+8790 -new uat
+##
+http://dbatlas.db.com/jira01/secure/Dashboard.jspa?selectPageId=20707
+
+###mar -10
+issue -231 fixed -replay error msg
+issue-234 -age in task summary
+issue -235
+susheela.saravanabavan@db.com
+India@30
+
+gopinath.kannappan@db.com	
+India@1234
+
+deepika-kumari.udesh@db.com
+Deepu@2689
+
+lakshminarayanan.vancheeswaran@db.com
+CgiDb345
+
+raviraj-ind.kasa@db.com
+newjob@DB03
+
+http://search.maven.org/#browse
+http://repo1.maven.org/maven2/
+
+
+project = PATHFINDER AND status !=Closed AND assignee = "maheswaran.elumalai@db.com"
+
+
+replay
+10410591
+
+#attendance info
+http://in-ap033/Logica/login.do
+
+########dbcde######
+May@2014
+
+######oracle#######
+http://127.0.0.1:8080/apex/f?p=4500:1001:299689289523682::NO:RP:OB_CURRENT_TYPE:TABLE
+user name:system
+pwd: root  
+
+  
+C:\Documents and Settings\elumalaim\Application Data\SQL Developer\mahe.sql
+  
+
+  
+
+http://taskq.gm.intranet.db.com/new_globalpayments_frontend/index.jsp
+
+############
+housekeeping.cronexpression1=0 55 05 ? * *    1.55 server time
+
+Crone Job ran      close  Crone configured           india time
+1.55               5.55                        10.25 AM
+
+Crone Job ran       Crone configured           india time  
+5.15                9.15server                 14.45 
+
+
+mra crone
+18.00 server time
+
+
+1233294
+
+004
+
+
+###########sdod
+*27 60432 9001 866 327 2777
+sunlife insurance:
+1-800-387-2636.
+514-866-2562.
+
+
+HCL
+
+acces Id:
+131375882733 maheshneyveli22@gmail.com
+thilaga12
+9952531504
+
+account Number
+13496999316362
+
+
+bridge 1013040 meeting id:8012551
+ 19802212
+
+
+
+
+
+
+http://in-fp002/eClearances/Default_Old.aspx
+https://ebs-sso.global.logica.com/sso/pages/login.jsp
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+

@@ -1,0 +1,1004 @@
+
+HomeSkip to contentSkip to footer
+Worldwide [change]Welcome, Maheswaran ElumalaiAccountLog Out
+My Cisco
+Cisco.com Worldwide Home
+Products & Services
+Support
+How to Buy
+Training & Events
+Partners
+Employees
+
+Search
+
+Home...ConfigureConfiguration Guides
+CLI Book 3: Cisco ASA Series VPN CLI Configuration Guide, 9.1
+Book Contents Download   Print
+
+Find in Book
+
+Updated: Aug 22, 2014
+Chapter: Customizing Clientless SSL VPN
+Chapter Contents
+September 13, 2013
+
+Clientless SSL VPN End User Setup
+This section is for the system administrator who sets up Clientless SSL VPN for end users. It describes how to customize the end-user interface.
+
+This section summarizes configuration requirements and tasks for a remote system. It specifies information to communicate to users to get them started using Clientless SSL VPN. It includes the following topics:
+
+Defining the End User Interface
+Customizing Clientless SSL VPN Pages
+Information About Customization
+Exporting a Customization Template
+Editing the Customization Template
+Defining the End User Interface
+The
+Clientless SSL VPN end user interface consists of a series of HTML panels. A user logs on to Clientless SSL VPN by entering the IP address of an ASA interface in the format https:// address . The first panel that displays is the login screen (Figure 21-1).
+
+Figure 21-1
+Clientless SSL VPN Login Screen
+
+ 
+
+
+Viewing the Clientless SSL VPN Home Page
+After the user logs in, the portal page opens.
+
+The home page displays all of the Clientless SSL VPN features you have configured, and its appearance reflects the logo, text, and colors you have selected. This sample home page includes all available Clientless SSL VPN features with the exception of identifying specific file shares. It lets users browse the network, enter URLs, access specific websites, and use Application Access (port forwarding and smart tunnels) to access TCP applications.
+
+Viewing the Clientless SSL VPN Application Access Panel
+To start port forwarding or smart tunnels, a user clicks the Go button in the Application Access box. The
+Application Access window opens (Figure 21-2).
+
+Figure 21-2 Clientless SSL VPN Application Access Window
+
+ 
+
+
+This window displays the TCP applications configured for this Clientless SSL VPN connection. To use an application with this panel open, the user starts the application in the normal way.
+
+
+NoteA stateful failover does not retain sessions established using Application Access. Users must reconnect following a failover.
+
+Viewing the Floating Toolbar
+The
+floating toolbar shown in Figure 21-3 represents the current Clientless SSL VPN session.
+
+Figure 21-3
+Clientless SSL VPN Floating Toolbar
+
+ 
+
+
+Be aware of the following characteristics of the floating toolbar:
+
+The toolbar lets you enter URLs, browse file locations, and choose preconfigured Web connections without interfering with the main browser window.
+If you configure your browser to block popups, the floating toolbar cannot display.
+If you close the toolbar, the ASA prompts you to end the Clientless SSL VPN session.
+Customizing Clientless SSL VPN Pages
+You can change the appearance of the portal pages displayed to Clientless SSL VPN users. This includes the Login page displayed to users when they connect to the security appliance, the Home page displayed to users after the security appliance authenticates them, the Application Access window displayed when users launch an application, and the Logout page displayed when users log out of Clientless SSL VPN sessions.
+
+After you customize the portal pages, you can save your customization and apply it to a specific connection profile, group policy, or user. The changes do not take effect until you reload the ASA, or you switch off and then enable clientless SSL.
+
+You can create and save many customization objects, enabling the security appliance to change the appearance of portal pages for individual users or groups of users.
+
+This section includes the following topics:
+
+Information About Customization
+Exporting a Customization Template
+Editing the Customization Template
+Importing a Customization Object
+Applying Customizations to Connection Profiles, Group Policies and Users
+Login Screen Advanced Customization
+Information About Customization
+The ASA uses customization objects to define the appearance of user screens. A customization object is compiled from an XML file which contains XML tags for all the customizable screen items displayed to remote users. The ASA software contains a customization template that you can export to a remote PC. You can edit this template and import the template back into the ASA as a new customization object.
+
+When you export a customization object, an XML file containing XML tags is created at the URL you specify. The XML file created by the customization object named Template contains empty XML tags, and provides the basis for creating new customization objects. This object cannot be changed or deleted from cache memory but can be exported, edited, and imported back into the ASA as a new customization object.
+
+Customization Objects, Connection Profiles, and Group Policies
+
+Initially, when a user first connects, the default customization object (named DfltCustomization ) identified in the connection profile (tunnel group) determines how the logon screen appears. If the connection profile list is enabled, and the user selects a different group which has its own customization, the screen changes to reflect the customization object for that new group.
+
+After the remote user is authenticated, the screen appearance is determined by whether a customization object that has been assigned to the group policy.
+
+Exporting a Customization Template
+When you export a customization object, an XML file is created at the URL you specify. The customization template (named Template ) contains empty XML tags and provides the basis for creating new customization objects. This object cannot be changed or deleted from cache memory but can be exported, edited, and imported back into the ASA as a new customization object.
+
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+export webvpn customization
+Exports a customization object and allows you to make changes to the XML tags.
+Step 2
+import webvpn customization
+ 
+hostname# export webvpn customization DfltCustomization tftp://209.165.200.225/dflt_custom
+!!!!!!!!!!!!!!!!INFO: Customization object 'DfltCustomization' was exported to tftp://10.86.240.197/dflt_custom
+hostname#
+Imports the file as a new object.
+Exports the default customization object (DfltCustomization) and creates the XML file named dflt_custom .
+Editing the Customization Template
+This section shows the contents of the customization template and has convenient figures to help you quickly choose the correct XML tag and make changes that affect the screens.
+
+You can use a text editor or an XML editor to edit the XML file. The following example shows the XML tags of the customization template. Some redundant tags have been removed for easier viewing:
+
+ 
+<custom>
+<localization>
+<languages>en,ja,zh,ru,ua</languages>
+<default-language>en</default-language>
+</localization>
+<auth-page>
+<window>
+<title-text l10n="yes"><![CDATA[SSL VPN Service]]></title-text>
+</window>
+<full-customization>
+<mode>disable</mode>
+<url></url>
+</full-customization>
+<language-selector>
+<mode>disable</mode>
+<title l10n="yes">Language:</title>
+<language>
+<code>en</code>
+<text>English</text>
+</language>
+<language>
+<code>zh</code>
+<text>ä¸­å›½ (Chinese)</text>
+</language>
+<language>
+<code>ja</code>
+<text>æ—¥æœ¬ (Japanese)</text>
+</language>
+<language>
+<code>ru</code>
+<text>Ð ÑƒÑÑÐºÐ¸Ð¹ (Russian)</text>
+</language>
+<language>
+<code>ua</code>
+<text>Ð£ÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ° (Ukrainian)</text>
+</language>
+</language-selector>
+<logon-form>
+<title-text l10n="yes"><![CDATA[Login]]></title-text>
+<title-background-color><![CDATA[#666666]]></title-background-color>
+<title-font-color><![CDATA[#ffffff]]></title-font-color>
+<message-text l10n="yes"><![CDATA[Please enter your username and password.]]></message-text>
+<username-prompt-text l10n="yes"><![CDATA[USERNAME:]]></username-prompt-text>
+<password-prompt-text l10n="yes"><![CDATA[PASSWORD:]]></password-prompt-text>
+<internal-password-prompt-text l10n="yes">Internal Password:</internal-password-prompt-text>
+<internal-password-first>no</internal-password-first>
+<group-prompt-text l10n="yes"><![CDATA[GROUP:]]></group-prompt-text>
+<submit-button-text l10n="yes"><![CDATA[Login]]></submit-button-text>
+<title-font-color><![CDATA[#ffffff]]></title-font-color>
+<title-background-color><![CDATA[#666666]]></title-background-color>
+<font-color>#000000</font-color>
+<background-color>#ffffff</background-color>
+<border-color>#858A91</border-color>
+</logon-form>
+<logout-form>
+<title-text l10n="yes"><![CDATA[Logout]]></title-text>
+<message-text l10n="yes"><![CDATA[Goodbye.<br>
+ 
+For your own security, please:<br>
+ 
+<li>Clear the browser's cache
+ 
+<li>Delete any downloaded files
+ 
+<li>Close the browser's window]]></message-text>
+<login-button-text l10n="yes">Logon</login-button-text>
+<hide-login-button>no</hide-login-button>
+<title-background-color><![CDATA[#666666]]></title-background-color>
+<title-font-color><![CDATA[#ffffff]]></title-font-color>
+<title-font-color><![CDATA[#ffffff]]></title-font-color>
+<title-background-color><![CDATA[#666666]]></title-background-color>
+<font-color>#000000</font-color>
+<background-color>#ffffff</background-color>
+<border-color>#858A91</border-color>
+</logout-form>
+<title-panel>
+<mode>enable</mode>
+<text l10n="yes"><![CDATA[SSL VPN Service]]></text>
+<logo-url l10n="yes">/+CSCOU+/csco_logo.gif</logo-url>
+<gradient>yes</gradient>
+<style></style>
+<background-color><![CDATA[#ffffff]]></background-color>
+<font-size><![CDATA[larger]]></font-size>
+<font-color><![CDATA[#800000]]></font-color>
+<font-weight><![CDATA[bold]]></font-weight>
+</title-panel>
+<info-panel>
+<mode>disable</mode>
+<image-url l10n="yes">/+CSCOU+/clear.gif</image-url>
+<image-position>above</image-position>
+<text l10n="yes"></text>
+</info-panel>
+<copyright-panel>
+<mode>disable</mode>
+<text l10n="yes"></text>
+</copyright-panel>
+</auth-page>
+<portal>
+<title-panel>
+<mode>enable</mode>
+<text l10n="yes"><![CDATA[SSL VPN Service]]></text>
+<logo-url l10n="yes">/+CSCOU+/csco_logo.gif</logo-url>
+<gradient>yes</gradient>
+<style></style>
+<background-color><![CDATA[#ffffff]]></background-color>
+<font-size><![CDATA[larger]]></font-size>
+<font-color><![CDATA[#800000]]></font-color>
+<font-weight><![CDATA[bold]]></font-weight>
+</title-panel>
+<browse-network-title l10n="yes">Browse Entire Network</browse-network-title>
+<access-network-title l10n="yes">Start AnyConnect</access-network-title>
+<application>
+<mode>enable</mode>
+<id>home</id>
+<tab-title l10n="yes">Home</tab-title>
+<order>1</order>
+</application>
+<application>
+<mode>enable</mode>
+<id>web-access</id>
+<tab-title l10n="yes"><![CDATA[Web Applications]]></tab-title>
+<url-list-title l10n="yes"><![CDATA[Web Bookmarks]]></url-list-title>
+<order>2</order>
+</application>
+<application>
+<mode>enable</mode>
+<id>file-access</id>
+<tab-title l10n="yes"><![CDATA[Browse Networks]]></tab-title>
+<url-list-title l10n="yes"><![CDATA[File Folder Bookmarks]]></url-list-title>
+<order>3</order>
+</application>
+<application>
+<mode>enable</mode>
+<id>app-access</id>
+<tab-title l10n="yes"><![CDATA[Application Access]]></tab-title>
+<order>4</order>
+</application>
+<application>
+<mode>enable</mode>
+<id>net-access</id>
+<tab-title l10n="yes">AnyConnect</tab-title>
+<order>4</order>
+</application>
+<application>
+<mode>enable</mode>
+<id>help</id>
+<tab-title l10n="yes">Help</tab-title>
+<order>1000000</order>
+</application>
+<toolbar>
+<mode>enable</mode>
+<logout-prompt-text l10n="yes">Logout</logout-prompt-text>
+<prompt-box-title l10n="yes">Address</prompt-box-title>
+<browse-button-text l10n="yes">Browse</browse-button-text>
+</toolbar>
+<column>
+<width>100%</width>
+<order>1</order>
+</column>
+<pane>
+<type>TEXT</type>
+<mode>disable</mode>
+<title></title>
+<text></text>
+<notitle></notitle>
+<column></column>
+<row></row>
+<height></height>
+</pane>
+<pane>
+<type>IMAGE</type>
+<mode>disable</mode>
+<title></title>
+<url l10n="yes"></url>
+<notitle></notitle>
+<column></column>
+<row></row>
+<height></height>
+</pane>
+<pane>
+<type>HTML</type>
+<mode>disable</mode>
+<title></title>
+<url l10n="yes"></url>
+<notitle></notitle>
+<column></column>
+<row></row>
+<height></height>
+</pane>
+<pane>
+<type>RSS</type>
+<mode>disable</mode>
+<title></title>
+<url l10n="yes"></url>
+<notitle></notitle>
+<column></column>
+<row></row>
+<height></height>
+</pane>
+<url-lists>
+<mode>group</mode>
+</url-lists>
+<home-page>
+<mode>standard</mode>
+<url></url>
+</home-page>
+</portal>
+</custom>
+ 
+Figure 21-4 shows the Logon page and its customizing XML tags. All these tags are nested within the higher-level tag <auth-page>.
+
+Figure 21-4
+Logon Page and Associated XML Tags
+
+ 
+
+
+Figure 21-5 shows the Language Selector drop-down list that is available on the Logon page, and the XML tags for customizing this feature. All these tags are nested within the higher-level <auth-page> tag.
+
+Figure 21-5
+Language Selector on Logon Screen and Associated XML Tags
+
+ 
+
+
+Figure 21-6 shows the Information Panel that is available on the Logon page, and the XML tags for customizing this feature. This information can appear to the left or right of the login box. These tags are nested within the higher-level <auth-page> tag.
+
+Figure 21-6
+Information Panel on Logon Screen and Associated XML Tags
+
+ 
+
+
+Figure 21-7 shows the Portal page and the XML tags for customizing this feature. These tags are nested within the higher-level <auth-page> tag.
+
+Figure 21-7
+Portal Page and Associated XML Tags
+
+ 
+
+
+Importing a Customization Object
+After you edit and save the XML file, import it into cache memory of the ASA using the following commands:
+
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+import webvpn customization
+ 
+ciscoasa# import webvpn customization custom1 tftp://209.165.201.22/customization /General.xml
+Accessing tftp://209.165.201.22/customization/General.xml...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Writing file disk0:/csco_config/97/custom1...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+329994 bytes copied in 5.350 secs (65998 bytes/sec)
+Imports an XML file into cache memory of the ASA. When you import the customization object, the ASA checks the XML code for validity. If the code is valid, the ASA stores the object in a hidden location in cache memory.
+Imports the customization object General.xml from the URL 209.165.201.22/customization and names it custom1 .
+Applying Customizations to Connection Profiles, Group Policies and Users
+After you create a customization, you can apply the customization to a connection profile (tunnel group), a group, or a user, with the customization command. The options displayed with this command are different depending on the mode you are in.
+
+
+NoteAfter you customize the portal pages, the changes do not take effect until you reload the ASA, or you disable and then enable clientless SSL.
+
+For more information about configuring connection profiles, group policies, and users, see Chapter4, “Configuring Connection Profiles, Group Policies, and Users”.
+
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+webvpn
+Switches to Clientless SSL VPN configuration mode.
+Step 2
+tunnel-group webvpn
+ 
+OR
+group-policy webvpn
+ 
+OR
+username webvpn
+Switches to tunnel-group Clientless SSL VPN configuration mode.
+Switches to group-policy Clientless SSL VPN configuration.
+Switches to username Clientless SSL VPN configuration.
+Step 3
+customization name
+ 
+hostname(config)# tunnel-group cisco_telecommuters webvpn-attributes
+hostname(tunnel-group-webvpn)# customization cisco
+ 
+OR
+ 
+customization {none | value name}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+hostname(config)# group-policy cisco_sales attributes
+hostname(config-group-policy)# webvpn
+hostname(config-username-webvpn)# customization value ?
+config-username-webvpn mode commands/options:
+Available configured customization profiles:
+DfltCustomization
+cisco
+hostname(config-group-webvpn)# customization value cisco
+ 
+hostname(config)# username cisco_employee attributes
+hostname(config-username)# webvpn
+hostname(config-username-webvpn)# customization value cisco
+Applies a customization to a connection profile. name is the name of a customization to apply to the connection profile.
+Enters tunnel-group Clientless SSL VPN configuration mode and enables the customization cisco for the connection profile cisco_telecommutes .
+Applies a customization to a group or use. The following options are included:
+none disables the customization for the group or user, prevents the value from being inherited, and displays the default Clientless SSL VPN pages.
+value name is the name of a cu
+Enters group policy Clientless SSL VPN configuration mode, queries the security appliance for a list of customizations, and enables the customization cisco for the group policy cisco_sales .
+
+Enters username Clientless SSL VPN configuration mode and enables the customization cisco for the user cisco_employee.
+Step 4
+(Optional)
+[no] customization name
+ 
+OR
+[no] customization {none | value name }
+Removes the command from the configuration and removes a customization from the connection profile.
+
+Removes the command from the configuration and reverts to the default.
+Step 5
+customization command followed by a question mark (?)
+Shows a list of existing customizations.
+Login Screen Advanced Customization
+If you prefer to use your own, custom login screen, rather than changing specific screen elements of the login screen we provide, you can perform this advanced customization using the Full Customization feature.
+
+With Full Customization, you provide the HTML for your own login screen, and you insert Cisco HTML code that calls functions on the ASA that create the Login form and the Language Selector drop-down list.
+
+This section describes the modifications you need to make to your HTML code and the tasks required to configure the ASA to use your code.
+
+Figure 21-8 shows the standard Cisco login screen that displays to Clientless SSL VPN users. The Login form is displayed by a function called by the HTML code.
+
+Figure 21-8
+Standard Cisco Login Page
+
+ 
+
+
+Figure 21-9 shows the Language Selector drop-down list. This feature is an option for Clientless SSL VPN users and is also called by a function in the HTML code of the login screen.
+
+Figure 21-9
+Language Selector Drop-down List
+
+ 
+
+
+Figure 21-10 shows a simple example of a custom login screen enabled by the Full Customization feature.
+
+Figure 21-10
+Example of Full Customization of Login Screens
+
+
+The following HTML code is used as an example and is the code that displays:
+
+ 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>New Page 3</title>
+<base target="_self">
+</head>
+ 
+<p align="center">
+<img border="0" src="/+CSCOU+/cisco_logo.jpg" width="188" height="48"><font face="Snap ITC" size="6" color="#FF00FF">
+</font><font face="Snap ITC" color="#FF00FF" size="7">&nbsp;</font><i><b><font color="#FF0000" size="7" face="Sylfaen"> SSL VPN Service by the Cisco ASA5500</font></b></i></p>
+ 
+<body onload="csco_ShowLoginForm('lform');csco_ShowLanguageSelector('selector')">
+ 
+<table>
+ 
+<tr><td colspan=3 height=20 align=right><div id="selector" style="width: 300px"></div></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr>
+<td height="379"></td>
+<td height="379"></td>
+<td align=middle valign=middle>
+<div id=lform >
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Loading...</p>
+</div>
+</td>
+</tr>
+<tr>
+<td width="251"></td>
+<td width="1"></td>
+<td align=right valign=right width="800">
+<img border="1" src="/+CSCOU+/asa5500.jpg" width="660" height="220" align="middle">
+</td></tr>
+ 
+</table>
+ 
+The indented code injects the Login form and the Language Selector on the screen. The function csco_ShowLoginForm('lform') injects the logon form. csco_ShowLanguageSelector('selector') injects the Language Selector.
+
+Modifying Your HTML File
+DETAILED STEPS
+
+
+Step 1   Name your file logon.inc. When you import the file, the ASA recognizes this filename as the logon screen.
+Step 2 Modify the paths of images used by the file to include /+CSCOU+/.
+
+Files that are displayed to remote users before authentication must reside in a specific area of the ASA cache memory represented by the path /+CSCOU+/. Therefore, the source for each image in the file must include this path. For example:
+
+src=”/+CSCOU+/asa5520.gif”
+ 
+Step 3 Insert the special HTML code below. This code contains the Cisco functions, described earlier, that inject the login form and language selector onto the screen.
+
+<body onload="csco_ShowLoginForm('lform');csco_ShowLanguageSelector('selector')">
+ 
+<table>
+ 
+<tr><td colspan=3 height=20 align=right><div id="selector" style="width: 300px"></div></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr>
+<td height="379"></td>
+<td height="379"></td>
+<td align=middle valign=middle>
+<div id=lform >
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Loading...</p>
+</div>
+</td>
+</tr>
+<tr>
+<td width="251"></td>
+<td width="1"></td>
+<td align=right valign=right width="800">
+<img border="1" src="/+CSCOU+/asa5500.jpg" width="660" height="220" align="middle">
+</td></tr>
+ 
+</table>
+ 
+
+Customizing Bookmark Help
+The ASA displays help content on the application panels for each selected bookmark. You can customize those help files or create help files in other languages. You then import them to flash memory for display during subsequent sessions. You can also retrieve previously imported help content files, modify them, and reimport them to flash memory.
+
+Each application panel displays its own help file content using a predetermined filename. The prospective location of each is in the /+CSCOE+/help/ language / URL within flash memory of the ASA. Table 21-1 shows the details about each of the help files you can maintain for VPN sessions.
+
+ 
+Table 21-1
+VPN Application Help Files
+
+Application Type
+Panel
+URL of Help File in Flash Memory of the Security Appliance
+Help File Provided By Cisco in English?
+Standard
+Application Access
+/+CSCOE+/help/ language /app-access-hlp.inc
+Yes
+Standard
+Browse Networks
+/+CSCOE+/help/ language /file-access-hlp.inc
+Yes
+Standard
+AnyConnect Client
+/+CSCOE+/help/ language /net-access-hlp.inc
+Yes
+Standard
+Web Access
+/+CSCOE+/help/ language /web-access-hlp.inc
+Yes
+Plug-in
+MetaFrame Access
+/+CSCOE+/help/ language /ica-hlp.inc
+No
+Plug-in
+Terminal Servers
+/+CSCOE+/help/ language /rdp-hlp.inc
+Yes
+Plug-in
+Telnet/SSH Servers
+/+CSCOE+/help/ language /ssh,telnet-hlp.inc
+Yes
+Plug-in
+VNC Connections
+/+CSCOE+/help/ language /vnc-hlp.inc
+Yes
+language is the abbreviation of the language rendered by the browser. This field is not used for file translation; it indicates the language used in the file. To specify a particular language code, copy the language abbreviation from the list of languages rendered by your browser. For example, a dialog window displays the languages and associated language codes when you use one of the following procedures:
+
+Open Internet Explorer and choose Tools > Internet Options > Languages > Add .
+Open Mozilla Firefox and choose Tools > Options > Advanced > General , click Choose next to Languages, and click Select a language to add .
+The following sections describe how to customize the help contents:
+
+Customizing a Help File Provided By Cisco
+Creating Help Files for Languages Not Provided by Cisco
+Importing a Help File to Flash Memory
+Exporting a Previously Imported Help File from Flash Memory
+Customizing a Help File Provided By Cisco
+To customize a help file provided by Cisco, you need to get a copy of the file from the flash memory card first. Get the copy and customize it as follows:
+
+DETAILED STEPS
+
+Step 1 Use your browser to establish a Clientless SSL VPN session with the ASA.
+
+Step 2 Display the help file by appending the string in “URL of Help File in Flash Memory of the Security Appliance” in Table 21-1 , to the address of the ASA, then press Enter.
+
+
+Note Enter en in place of language to get the help file in English.
+
+The following example address displays the English version of the Terminal Servers help:
+
+https:// address_of_security_appliance /+CSCOE+/help/en/rdp-hlp.inc
+
+Step 3 Choose File > Save (Page) As .
+
+
+Note Do not change the contents of the File name box.
+
+Step 4 Change the Save as type option to Web Page, HTML only and click Save .
+
+Step 5 Use your preferred HTML editor to modify the file.
+
+
+Note You can use most HTML tags, but do not use tags that define the document and its structure (e.g., do not use <html>, <title>, <body>, <head>, <h1>, <h2>, etc. You can use character tags, such as the <b> tag, and the <p>, <ol>, <ul>, and <li> tags to structure content.
+
+Step 6 Save the file as HTML only, using the original filename and extension.
+
+Step 7 Ensure the filename matches the one in Table 21-1 , and that it does not have an extra filename extension.
+
+
+ 
+Creating Help Files for Languages Not Provided by Cisco
+Use HTML to create help files in other languages.
+
+We recommend creating a separate folder for each language to support.
+
+Save the file as HTML only. Use the filename following the last slash in “URL of Help File in Flash Memory of the Security Appliance” in Table 21-1 .
+
+See the next section to import the files for display during VPN sessions.
+
+Restrictions
+
+You can use most HTML tags, but do not use tags that define the document and its structure (e.g., do not use <html>, <title>, <body>, <head>, <h1>, <h2>, etc. You can use character tags, such as the <b> tag, and the <p>, <ol>, <ul>, and <li> tags to structure content.
+
+Importing a Help File to Flash Memory
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+import webvpn webcontent destination_url source_url
+ 
+hostname# import webvpn webcontent /+CSCOE+/help/en/app-access-hlp.inc tftp://209.165.200.225/app-access-hlp.inc
+Imports a help content file to flash memory for display in Clientless SSL VPN sessions.
+destination_url is the string in the URL of Help File in Flash Memory of the Security Appliance column of VPN Application Help Files.
+source_url is the URL of the file to import. Valid prefixes are ftp://, http://, and tftp://.
+Copies the help file app-access-hlp.inc to flash memory from the TFTP server at 209.165.200.225. The URL includes the abbreviation en for the English language.
+Exporting a Previously Imported Help File from Flash Memory
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+export webvpn webcontent source_url destination_url
+ 
+hostname# export webvpn webcontent /+CSCOE+/help/en/file-access-hlp.inc tftp://209.165.200.225/file-access-hlp.inc
+Retrieves a previously imported help content file for subsequent edits.
+source_url is the string in “URL of Help File in Flash Memory of the Security Appliance” in Table 21-1 .
+destination_url is the target URL . Valid prefixes are ftp:// and tftp://. The maximum number of characters is 255.
+Copies the English language help file file-access-hlp.inc displayed on the Browser Networks panel to TFTP Server 209.165.200.225.
+Translating the Language of User Messages
+The ASA provides language translation for the entire Clientless SSL VPN session. This includes login, logout banners, and portal pages displayed after authentication such as plugins and AnyConnect.
+
+This section describes how to configure the ASA to translate these user messages and includes the following sections:
+
+Understanding Language Translation
+Creating Translation Tables
+Referencing the Language in a Customization Object
+Changing a Group Policy or User Attributes to Use the Customization Object
+Understanding Language Translation
+Functional areas and their messages that are visible to remote users are organized into translation domains. Table 21-2 shows the translation domains and the functional areas translated.
+
+ 
+Table 21-2
+Language Translation Domain Options
+Translation Domain
+Functional Areas Translated
+AnyConnect
+Messages displayed on the user interface of the Cisco AnyConnect VPN client.
+banners
+Message displayed when VPN access is denied for a clientless connection.
+CSD
+Messages for the Cisco Secure Desktop (CSD).
+customization
+Messages on the logon and logout pages, portal page, and all the messages customizable by the user.
+plugin-ica
+Messages for the Citrix plug-in.
+plugin-rdp
+Messages for the Remote Desktop Protocol plug-in.
+plugin-rdp2
+Messages for the Java Remote Desktop Protocol plug-in.
+plugin-telnet,ssh
+Messages for the Telnet and SSH plug-in.
+plugin-vnc
+Messages for the VNC plug-in.
+PortForwarder
+Messages displayed to Port Forwarding users.
+url-list
+Text that user specifies for URL bookmarks on the portal page.
+webvpn
+All the layer 7, AAA and portal messages that are not customizable.
+ 
+The ASA includes a translation table template for each domain that is part of standard functionality. The templates for plug-ins are included with the plug-ins and define their own translation domains.
+
+You can export the template for a translation domain, which creates an XML file of the template at the URL you provide. The message fields in this file are empty. You can edit the messages and import the template to create a new translation table object that resides in flash memory.
+
+You can also export an existing translation table. The XML file created displays the messages you edited previously. Reimporting this XML file with the same language name creates a new version of the translation table object, overwriting previous messages.
+
+Some templates are static, but some change based on the configuration of the ASA. Because you can customize the logon and logout pages, portal page, and URL bookmarks for clientless users, the ASA generates the customization and url-list translation domain templates dynamically, and the template automatically reflects your changes to these functional areas.
+
+After creating translation tables, they are available to customization objects that you create and apply to group policies or user attributes. With the exception of the AnyConnect translation domain, a translation table has no affect, and messages are not translated on user screens until you create a customization object, identify a translation table to use in that object, and specify that customization for the group policy or user. Changes to the translation table for the AnyConnect domain are immediately visible to AnyConnect client users.
+
+Creating Translation Tables
+You can create translation tables in both single context mode and multi-context mode:
+
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+export webvpn translation-table
+ 
+hostname# show import webvpn translation-table
+Translation Tables' Templates:
+customization
+AnyConnect
+CSD
+PortForwarder
+url-list
+webvpn
+Citrix-plugin
+RPC-plugin
+Telnet-SSH-plugin
+VNC-plugin
+ 
+Translation Tables:
+ 
+hostname# export webvpn translation-table customization template tftp://209.165.200.225/portal
+Exports a translation table template to a computer.
+Shows available translation table templates and tables.
+Exports the translation table template for the customization domain, which affects messages displayed for users in Clientless SSL VPN sessions. The filename of the XML file created is portal (user-specified) and contains empty message fields.
+Step 2
+Edit the translation table XML file
+ 
+# Copyright (C) 2006 by Cisco Systems, Inc.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ASA\n"
+"Report-Msgid-Bugs-To: vkamyshe@cisco.com\n"
+"POT-Creation-Date: 2007-03-12 18:57 GMT\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+ 
+#: DfltCustomization:24 DfltCustomization:64
+msgid "Clientless SSL VPN Service"
+msgstr ""
+ 
+Shows a portion of the template that was exported as portal . The end of this output includes a message ID field (msgid) and a message string field (msgstr) for the message which is displayed on the portal page when a user establishes a Clientless SSL VPN session. The complete template contains many pairs of message fields.
+Step 3
+import webvpn translation-table
+ 
+hostname# import webvpn translation-table customization language es-us tftp://209.165.200.225/portal
+hostname# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hostname# show import webvpn translation-table
+Translation Tables' Templates:
+AnyConnect
+PortForwarder
+csd
+customization
+keepout
+url-list
+webvpn
+Citrix-plugin
+RPC-plugin
+Telnet-SSH-plugin
+VNC-plugin
+ 
+Translation Tables:
+es-us customization
+ 
+Imports the translation table.
+Import the XML file. es-us is the abbreviation for Spanish spoken in the United States.
+If you import a translation table for the AnyConnect domain, your changes are effective immediately. If you import a translation table for any other domain, you must create a customization object, identify the translation table to use in that object, and specify that customization object for the group policy or user.
+
+Referencing the Language in a Customization Object
+This section describes how to export the customization template, edit it, and import it as a customization object so that you can refer to it.
+
+Prerequisites
+
+For the customization object to call these translation tables correctly, the tables must have been previously imported using the same names. These names must be compatible with language options of the browser.
+
+DETAILED STEPS
+
+Command
+Function
+Step 1
+export webvpn customization template
+ 
+hostname# export webvpn customization template tftp://209.165.200.225/sales
+Exports a customization template to a URL where you can edit it.
+Exports the template and creates the copy sales at the URL specified.
+Step 2
+Edit the customization template and reference the previously-imported translation table
+ 
+<localization>
+<languages>en,ja,zh,ru,ua</languages>
+<default-language>en</default-language>
+</localization>
+ 
+ 
+ 
+ 
+ 
+<auth-page>
+....
+<language-selector>
+<mode>enable</mode>
+<title l10n="yes">Language:</title>
+<language>
+<code>en</code>
+<text>English</text>
+</language>
+<language>
+<code>es-us</code>
+<text>Spanish</text>
+</language>
+</language-selector>
+ 
+Two areas of XML code in the customization template pertain to translation tables.
+Specifies the translation table to use.
+The <languages> tag in the XML code is followed by the names of the translation tables. In this example, they are en, ja, zh, ru, and ua.
+The <default-language> tag specifies the language that the remote user first encounters when connecting to the ASA. In the example code above, the language is English.
+Affects the display of the Language Selector and includes the <language selector> tag and the associated <language> tags that enable and customize the Language Selector:
+The <language-selector> group of tags includes the <mode> tag that enables and disables the displaying of the Language Selector and the <title> tag that specifies the title of the drop-down box listing the languages.
+The <language> group of tags includes the <code> and <text> tags that map the language name displayed in the Language Selector drop-down box to a specific translation table.
+Step 3
+Save the file after making your changes.
+ 
+Step 4
+import webvpn customization
+ 
+hostname# import webvpn customization sales tftp://209.165.200.225/sales
+hostname# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Imports the customization template as a new object.
+Step 5
+show import webvpn customization
+ 
+hostname# import webvpn customization sales tftp://209.165.200.225/sales
+hostname# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Shows the new customization object sales .
+
+ 
+Changing a Group Policy or User Attributes to Use the Customization Object
+This section describes how to activate your changes for specific groups or users.
+
+DETAILED STEPS
+
+Command
+Purpose
+Step 1
+webvpn
+Switches to Clientless SSL VPN configuration mode.
+Step 2
+group-policy webvpn
+Switches to group-policy Clientless SSL VPN configuration mode.
+Step 3
+customization
+ 
+hostname(config)# group-policy sales attributes
+hostname(config-group-policy)# webvpn
+hostname(config-group-webvpn)# customization value sales
+Enables the customization object.
+Shows the customization object sales enabled in the group policy sales .
+Top
+Was this Document Helpful?
+
+Yes  No
+ FeedbackFeedback
+Viewers of This Document Also Viewed
+
+ASA 8.0 SSLVPN (WebVPN): Advanced Portal Customization
+Let Us Help
+
+Open a Support Case
+(Requires a Cisco Service Contract)
+Campus Wired LAN Design Guide
+Optimize your network with a validated design.
+Get Design Guide
+
+Related Support Community Discussions
+
+Null 0
+Last Reply 9 years ago
+in WAN, Routing and Switching
+null 0
+Last Reply 10 years ago
+in WAN, Routing and Switching
+null interface
+Last Reply 10 years ago
+in Network Management
+Cisco Support Community
+Share
+    
+Information For
+
+Small Business
+Midsize Business
+Service Provider
+Industries  
+
+Marketplace
+
+Contacts
+
+Contact Cisco
+Meet our Partners
+Find a Reseller
+News & Alerts
+
+Newsroom
+Blogs
+Field Notices
+Security Advisories
+Technology Trends
+
+Cloud
+Internet of Things (IoT)
+Software Defined Networking (SDN)
+Support
+
+Downloads
+Documentation
+Communities
+
+DevNet
+Learning Network
+Support Community
+Video Portal  
+
+About Cisco
+
+Investor Relations
+Corporate Social Responsibility
+Environmental Sustainability
+Trust and Transparency Center
+There's Never Been A Better Time
+Our People
+Careers
+
+Search Jobs
+Life at Cisco
+Programs
+
+Cisco Designated VIP Program
+Cisco Powered
+Financing Options
+ContactsLeave FeedbackFeedbackHelpSite MapTerms & ConditionsPrivacy Statement Cookie Policy Trademarks

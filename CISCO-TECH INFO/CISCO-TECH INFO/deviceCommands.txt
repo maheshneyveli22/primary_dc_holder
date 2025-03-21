@@ -1,0 +1,17 @@
+
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+Chennai+Lab+Device+List+-+use+10.126.244.68+as+console+server+for+all+devices
+#############
+clear line 11
+telnet 10.126.244.68 2011
+###############
+
+
+##########multi to single##########
+
+ changeto system
+conf t
+mode single##########
+
+## and single to multi##
+in single context :
+mode multi

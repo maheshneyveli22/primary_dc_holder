@@ -1,0 +1,9 @@
+jdbc:derby://localhost:1527/Mahesh_Db;create=true
+org.apache.derby.jdbc.ClientDriver
+user/user
+Mahesh_Db
+
+
+show tables;
+create schema mahesh;
+set schema=mahesh;

@@ -1,0 +1,130 @@
+User Access Verification
+
+Password:
+Password:
+Password:
+Type help or '?' for a list of available commands.
+> en
+Password: ********
+# conf t
+(config)#
+(config)#
+(config)# domain-name networkology.net
+(config)# cry
+(config)# crypto ca
+(config)# crypto ca tr
+(config)# crypto ca trustpoi
+(config)# crypto ca trustpoint CISCO_CA
+(config-ca-trustpoint)# id-usage ssl-ipsec
+(config-ca-trustpoint)# subject-name CN=mahesh
+(config-ca-trustpoint)# fqdn asa1.networkology.net
+(config-ca-trustpoint)# enr
+(config-ca-trustpoint)# enrollment url http://10.197.87.81
+(config-ca-trustpoint)# exit
+(config)# cry
+(config)# crypto ca
+(config)# crypto ca au
+(config)# crypto ca authenticate CISCO_CA
+
+INFO: Certificate has the following attributes:
+Fingerprint:     ee5932a9 d6d04108 a1a5987d e24c9d2c
+Do you accept this certificate? [yes/no]: yes
+
+Trustpoint CA certificate accepted.
+(config)# cry
+(config)# crypto ca enroll CISCO_CA
+%
+WARNING: The certificate enrollment is configured with an fqdn
+that differs from the system fqdn. If this certificate will be
+used for VPN authentication this may cause connection problems.
+
+Would you like to continue with this enrollment? [yes/no]: YES
+% Start certificate enrollment ..
+% Create a challenge password. You will need to verbally provide this
+   password to the CA Administrator in order to revoke your certificate.
+   For security reasons your password will not be saved in the configuration.
+   Please make a note of it.
+Password: ********
+Re-enter password: ********
+
+% The subject name in the certificate will be: CN=mahesh
+
+% The fully-qualified domain name in the certificate will be: asa1.networkology.net
+
+% Include the device serial number in the subject name? [yes/no]: yes
+
+% The serial number in the certificate will be: FCH1834JNGP
+
+Request certificate from CA? [yes/no]: yes
+% Certificate request sent to Certificate Authority
+(config)# sh cry
+(config)# sh crypto ca tre
+(config)# sh crypto ca tru
+(config)# sh crypto ca trustpoints
+
+Trustpoint CISCO_CA:
+    Subject Name:
+    cn=mahesh
+          Serial Number: 01
+    Certificate configured.
+    CEP URL: http://10.197.87.81:80
+
+
+Trustpoint ASDM_Launcher_Access_TrustPoint_0:
+    Configured for self-signed certificate generation.
+
+(config)# sh cry
+(config)# sh crypto ca certificates
+Certificate
+  Status: Available
+  Certificate Serial Number: 02
+  Certificate Usage: General Purpose
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: MD5 with RSA Encryption
+  Issuer Name:
+    cn=mahesh
+  Subject Name:
+    serialNumber=FCH1834JNGP
+    hostname=asa1.networkology.net
+    cn=mahesh
+  Validity Date:
+    start date: 10:51:35 UTC Aug 19 2016
+    end   date: 10:51:35 UTC Aug 19 2017
+  Storage: config
+  Associated Trustpoints: CISCO_CA
+
+CA Certificate
+  Status: Available
+  Certificate Serial Number: 01
+  Certificate Usage: Signature
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: MD5 with RSA Encryption
+  Issuer Name:
+    cn=mahesh
+  Subject Name:
+    cn=mahesh
+  Validity Date:
+    start date: 09:35:51 UTC Aug 19 2016
+    end   date: 09:35:51 UTC Aug 19 2019
+  Storage: config
+  Associated Trustpoints: CISCO_CA
+
+Certificate
+  Status: Available
+  Certificate Serial Number: 424ea357
+  Certificate Usage: General Purpose
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: SHA256 with RSA Encryption
+  Issuer Name:
+    cn=10.126.244.73
+    cn=ciscoasa
+  Subject Name:
+    cn=10.126.244.73
+    cn=ciscoasa
+  Validity Date:
+    start date: 15:40:03 UTC Aug 11 2016
+    end   date: 15:40:03 UTC Aug 9 2026
+  Storage: config
+  Associated Trustpoints: ASDM_Launcher_Access_TrustPoint_0
+
+(config)#

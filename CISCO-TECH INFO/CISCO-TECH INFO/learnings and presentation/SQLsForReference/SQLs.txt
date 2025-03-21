@@ -1,0 +1,100 @@
+//select * from policy_fwtools_setting,fwtools_setting_enum where data='1500' and enum_id=setting_enum_id
+//select * from ospf_interfaces;
+--select * from BB_REFERENCE_IDENTITY_DATA
+
+--select * from VPN_CRYPTO_NAME_PEER_DATA where peer_device_id in (5769808663)
+--select * from device 
+--select * from hierarchy_roots where node_id=8589934649
+--select * from hierarchy_nodes where parent_id=8589934649
+--select * from assignments 
+--select * from assignments where targetid=34359748261
+--select * from assignment_data where targetid=34359748261
+--select * from policy_main where node_id=34359758413
+--select * from policy_fwtools_unifiedfirewallrule where ref_id=34359758415
+select * from bb_main where name='1!@#%-&()1'
+--select * from bb_network_data where objectid=8589934872
+--select * from bb_main where name='1!@#%-&()1'
+
+
+
+
+--select * from assignments where targetid in(34359758983,34359758984)
+--select sourceid from assignments where targetid in(select device_id from device where hostname in ('a1','a2'))
+select * from policy_main where node_id in (select sourceid from assignments where targetid in(select device_id from device where hostname in ('a1','a2')))
+--select * from policy_main where node_id in (select sourceid from assignments where targetid in(34359758983,34359758984
+
+
+to get all table
+select * from sysobjects where upper(name) like upper('%device%')
+
+
+
+##########device and config archive mapping
+
+select * from sysobjects where upper(name) like upper('%archive%')
+--Config_Archive_Device_Map
+--Config_Device_Archive
+--migrateConfigArchiveLocation
+select * from config_device_archive where archive_id=189
+Archive_Id	Name	Location
+--189	7709466296890#PRIMARY#RUNNING	C:\PROGRA~2\CSCOpx\files\vms\archive\devfiles/7709466296890/PRIMARY/RUNNING
+
+C:\Program Files (x86)\CSCOpx\files\vms\archive\devfiles\7709466296890\PRIMARY\RUNNING\78\assoc\7709466296890_1463006372928_KEY_FULL_cfg_.cfg
+this is the full file against which it is compared
+
+--select * from config_archive_device_map where networkelementid='7709466296890'
+--Archive_Id	NetworkElementId	Config_Type	File_Type	Archive_Name
+--189	7709466296890	PRIMARY	RUNNING	7709466296890#PRIMARY#RUNNING
+
+--select * from device
+--7709466296890
+
+
+
+--select * from sysobjects where upper(name) like upper('%vpn%')
+--select * from vt_vpn_table
+--select * from vpntoposettingspolicy
+--select * from assignments where targetid in(34359758983,34359758984)
+--select sourceid from assignments where targetid in(select device_id from device where hostname in ('a1','a2'))
+--select * from policy_main where node_id in (select sourceid from assignments where targetid in(select device_id from device where hostname in ('a1','a2')))
+--select * from policy_main where node_id in (select sourceid from assignments where targetid in(34359758983,34359758984))
+--34359760413
+--34359760414
+
+select * from policy_main where node_id in(34359760413,
+34359760414) and type ='ProtectedNetwork'
+
+select * from policy_main where node_id in(34359760413,
+34359760414) and type ='ProtectedNetwork'
+
+
+
+--select * from assignments where upper(targettype) like upper('%protected%')
+select * from protectednetwork
+--34359760878	-1	-1	34359747246	-1	(null)
+--34359760891	-1	-1	34359747258	-1	(null)
+--select * from bb_main where objectid in ('34359747246','34359747258')
+--select * from BB_EXT_IP_ACE_DATA
+--34359747246	34359747246	-1	1	0	c	ACL	 	CRYPTO	 	20	false	false	 	11	2016-06-14 13:58:46	(null)	(null)	0	34359746234	0
+--34359747258	34359747258	-1	1	0	c	ACL	 	VPN	 	20	false	false	 	11	2016-06-15 13:54:05	(null)	(null)	0	34359749554	0
+--select * from bb_main where objectid in ('34359747259','34359747287') --refs is the key                                                 refs
+--34359747259	34359747259	-1	1	0	c	Network	 	 	Created by ACL Object	0	false	true	34359746589	3938	2016-06-14 13:59:27	(null)
+--34359747287	34359747287	-1	1	0	c	Network	 	 	Created by ACL Object	0	false	true	34359746591,34359747286	3938	2016-06-14 14:10:47	(null)
+--select * from bb_main where objectid in ('34359746589','34359746591','34359747286')
+--34359746589	34359746589	-1	1	0	c	Network	NN	testA	 	20	false	false	 	-1821107725	2016-06-14 13:15:14	(null)	(null)	0	34359746234	0
+--34359746591	34359746591	-1	1	0	c	Network	NN	sideA	 	20	false	false	 	-1821107725	2016-06-14 13:16:14	(null)	(null)	0	34359746234	0
+--34359747286	34359747286	-1	1	0	c	Network	 	grp1	 	20	false	true	34359746590	176036125	2016-06-14 14:10:10	(null)	(null)	0	34359746234	0
+select * from bb_network_data where objectid in('34359746589','34359746591','34359747286')
+--34359746589	ipv4	1.2.3.4	 	0	1
+--34359746591	ipv4	1.2.3.4	 	0	1
+--34359747286	ipv4	2.2.2.2	 	0	1
+--34359747286	ipv4	4.4.4.4	 	0	1
+--34359747286	ipv4	5.5.5.5	 	0	1
+--select * from bb_ACL_DATA
+select * from BB_EXT_IP_ACE_DATA
+--34359747279	permit	34359747259	0	34359747261	34359747278	 	 	300	 	 	 
+--34359747291	permit	34359747287	0	34359747289	34359747290	 	 	300	 	 	 
+--select * from BB_UNIFIED_ACL_DATA
+--select * from bb_network_data order by objectid desc
+
+

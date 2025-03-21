@@ -1,0 +1,6 @@
+Install java,txtpad,dbras,mozilla
+
+1. get dbras and download the code
+2. Build the code
+3. lotus notes configuration
+4. eclipse set up

@@ -1,0 +1,33 @@
+Team.
+
+Please have them handy. 
+
+
+1.	Conference details of Lakshmi and Praveen.
+2.	Personal & Office Contact Numbers of everyone.
+3.	Team members DB and CGI EmailIds.
+4.	DB Support Number  -> 1 800 311 6526  --> For any issues like forgot password or lock user id etc...
+5.	Your DB Directory Ids.
+6.	WebSSO userId/password.
+7.	XP userId/password: elummah/
+8.	DB Webmail userId/password:maheswaran.elumalai@db.com/
+9.	DBCDE userId/password --> This is for SVN code --> www.dbcde.com maheswaran_elumalai@db.com
+10.	Window Login details --> userId/password. --> You can check this details in www.gd.db.com  (global directory)
+11.	Pathfinder Wiki Page.
+a.	https://wiki.tools.intranet.db.com/confluence/display/PRD/CSW+-+Application+Overview+-+PathFinder+Workflow
+12.	Pathfinder application DEV URL.
+a.	http://integration.pathfinder.gm.intranet.db.com/dev_csw/
+
+13.	Pathfinder Dev UNIX Machine host name and password. 
+a.	Host:     apcswd1.us.db.com
+b.	userId:   cswdev
+c.	Load the Private Key: This file is present in the SVN location (https://www.dbcde.com/svn/repos/pathfinder-maven-archetypes/trunk/privatekey3.ppk) ? File is attached as well.
+14.	Pathfinder Dev Database details as below.
+a.	hostname:          nycsrwd1.us.db.com
+b.	port:                 1528
+c.	SID:                   NYCSRWD1
+d.	user name:        csrw_owner 
+e.	password:          welcome01
+
+
+In the above list, You may not have all the access at this time. But we should identify  the ones that we have and the ones we don’t have. 

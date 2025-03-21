@@ -1,0 +1,193 @@
+
+  
+Monday, March 23, 2015 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+Hi 10:38 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Hello 10:39 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+I am part of vpn team. we have a bug, which involves both vpn and asdm. So i need to have asdm in my system. I installed asdm. But when i try to connect to my device, it shows some error 10:40 AM 
+could you help on this pls? 10:40 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+whats the error? 10:40 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+it is  saying 'unable to launch device manager from 10.126.244.73' 10:41 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+what version of java are you using? 10:41 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+1.7 71 10:41 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Can you please share your screen? 10:42 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+yeah shure 10:42 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Thanks 10:42 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+i will go to my vm now 10:42 AM 
+are you able to see my screen? 10:43 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+yes 10:43 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+this is what i did 10:43 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+looks like you are using a very old version of the launcher which is not compatable with java 1.7 10:44 AM 
+Please install the latest version of the launcher or use webstart for accessing the ASDM 10:44 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok then. I need to install webstart first? 10:45 AM 
+Or do you have the latest version? 10:45 AM 
+of launcher 10:45 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Just navigate to https://<dev-ip> and you will be given the option to install the launcher or launch ASDM via webstart. Since you already have the JDK installed, chances are that you might already have webstart 10:46 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+i did like that only and installed asdm 10:47 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Then try launching ASDM via webstart 10:47 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok boss. will try and let you know 10:47 AM 
+thanks 10:47 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Sure 10:47 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+could you please share me the link for webstart installation. Here just goes to java page and i am  not able to find the exact link 10:54 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+http://java.com/en/download/windows_xpi.jsp 10:55 AM 
+click on Afree and download 10:55 AM 
+agree 10:55 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok thanks 10:55 AM 
+after installing it, how should i run asdm? 10:56 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+If you navigate back to the device ip address, from browser, you would now see 2 buttons. click on any one of them to launch ASDM 10:56 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+oh ok 10:57 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+ 10:57 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+boss installed webstart and then launched using browser, it stills shows to buttons, with install and not launch 11:02 AM 
+i am sorry to disturb you 11:02 AM 
+it is bit urgent cfd 11:03 AM 
+hence 11:03 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+Thats fine 11:03 AM 
+can you provide your voip number? 11:03 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+yeah 11:03 AM 
+1980 11:03 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+privilege level 15 command filter 11:25 AM 
+this will change the permission na? 11:25 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+no 11:26 AM 
+username cisco password cisco encrypted privilege 15 11:27 AM 
+where cisco/cisco are usernames and passwords 11:27 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+after that should i restart asdm? 11:28 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+username and password 11:28 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok 11:28 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+yes 11:28 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok 11:28 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+ 11:28 AM 
+you should write the configuration back to device. 11:29 AM 
+after you have changed the privilage level 11:30 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok boss 11:30 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+do this by issuing: 11:30 AM 
+wr mem 11:30 AM 
+and then restart asdm 11:30 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+this command in telnet? 11:31 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+yes 11:31 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok 11:31 AM 
+when i tried to change pwd it shows encypted password is of incorrect length 11:32 AM 
+Share invite sent 11:33 AM 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco) joined the share 11:33 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+i am really sorry for taking your time 11:33 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+try this cli: 11:33 AM 
+username cisco password cisco privilege 15 11:34 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+now i need to execute other commands na? 11:34 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+yes 11:34 AM 
+dont need to reload asa 11:34 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+ok manual restart 11:35 AM 
+ 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco)  
+just close ASDM and launch it again 11:35 AM 
+yup its working fine now 11:36 AM 
+Prashant Chaturvedi-X(praschat - HCL TECHNOLOGIES LIMITED at Cisco) left the share 11:36 AM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+i think its fine thanks for all your help 11:36 AM 
+
+
+
+
+
+
+
+
+
+
+
+
+Do you have an access to this page: 3:19 PM 
+https://stbu-releng.cisco.com/ 3:19 PM 
+If so, goto ASDM P4 and than in Main ASDM, you can download the latest ASDM build 3:20 PM 
+88.14 branch 

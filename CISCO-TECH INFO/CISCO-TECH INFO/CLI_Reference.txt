@@ -1,0 +1,208 @@
+TERMINAL SERVER	LINE NUMBER	IP ADDRESS	SUBNET MASK	GATEAY	Hostname
+10.126.244.68	2003	10.126.244.69	255.255.255.224	10.126.244.65	ASA-1
+10.126.244.68	2004	10.126.244.70	255.255.255.224	10.126.244.65	ASA-2
+10.126.244.68	2005	10.126.244.71	255.255.255.224	10.126.244.65	ASA-3
+10.126.244.68	2006	10.126.244.72	255.255.255.224	10.126.244.65	ASA-4
+10.126.244.68	2007	10.126.244.73	255.255.255.224	10.126.244.65	ASA-5
+10.126.244.68	2008	10.126.244.74	255.255.255.224	10.126.244.65	ASA-6
+10.126.244.68	2009	10.126.244.75	255.255.255.224	10.126.244.65	ASA-7
+10.126.244.68	2010	10.126.244.76	255.255.255.224	10.126.244.65	ASA-8
+10.126.244.68	2011	10.126.244.77	255.255.255.224	10.126.244.65	ASA-9
+10.126.244.68	2012	10.126.244.78	255.255.255.224	10.126.244.65	ASA-10
+10.126.244.68	2013	10.126.244.79	255.255.255.224	10.126.244.65	ASA-11
+10.126.244.68	2014	10.126.244.80	255.255.255.224	10.126.244.65	ASA-12
+10.126.244.68	2015	10.126.244.81	255.255.255.224	10.126.244.65	ASA-13
+10.126.244.68	2016	10.126.244.82	255.255.255.224	10.126.244.65	ASA-14
+10.126.244.68	2017		255.255.255.224	10.126.244.65	HARDWARE ISSUE
+10.126.244.68	2018	10.126.244.84	255.255.255.224	10.126.244.65	ASA-16
+10.126.244.68	2003	10.126.244.85	255.255.255.224	10.126.244.65	ASA-17
+10.126.244.68	2004	10.126.244.86	255.255.255.224	10.126.244.65	ASA-18
+10.126.244.68	2005	10.126.244.87	255.255.255.224	10.126.244.65	ASA-19
+10.126.244.68	2006	10.126.244.88	255.255.255.224	10.126.244.65	ASA-20
+
+
+export webvpn webcontent source_url destination_url
+ 
+hostname# export webvpn webcontent /+CSCOE+/help/en/file-access-hlp.inc tftp://209.165.200.225/file-access-hlp.inc
+
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+Chennai+Lab+Device+List+-+use+10.126.244.68+as+console+server+for+all+devices
+#############
+clear line 11
+telnet 10.126.244.68 2011
+###############
+----------------------------------
+Step 1 : 
+
+ASA-4(config-if)# show running-config interface management 0/0
+!
+interface Management0/0
+ management-only
+ nameif management
+ security-level 100
+ ip address 10.126.244.72 255.255.255.224
+
+Step 2 : Show route:
+
+S*    0.0.0.0 0.0.0.0 [1/0] via 10.126.244.65, management
+C        10.126.244.64 255.255.255.224 is directly connected, management
+L        10.126.244.72 255.255.255.255 is directly connected, management
+
+ASA-4(config-if)# show running-config route
+route management 0.0.0.0 0.0.0.0 10.126.244.65 1
+
+ASA-4(config-if)# show running-config http
+http server enable
+http 192.168.1.0 255.255.255.0 management
+
+ASA-4(config-if)# show running-config telnet
+telnet 0.0.0.0 0.0.0.0 management
+telnet timeout 5
+
+-----------------------------------------------
+copy running-config disk0:/ASA921_good_running_config.txt
+
+config t
+copy tftp://10.106.134.200/ASA/ASA941/asa932-242-smb-k8.bin disk0:/asa932-242-smb-k8.bin
+
+copy tftp://10.106.134.200/ASA961/asa100-16-12-2-smp-k8.bin disk0:/asa100-16-12-2-smp-k8.bin
+
+copy tftp://10.106.134.200/ASA962/asa9621-153-smp-k8.bin disk0:/asa9621-153-smp-k8.bin
+copy tftp://10.106.134.200/ASA962/asa9621-172-smp-k8.bin disk0:/asa9621-172-smp-k8.bin
+copy tftp://10.106.134.200/ASA971/asa9711-93-smp-k8.bin disk0:/asa9711-93-smp-k8.bin
+
+no boot system disk0:/asa921-smb-k8.bin
+boot system disk0:/asa932-242-smb-k8.bin
+boot system disk0:/asa921-smb-k8.bin
+boot system disk0:/asa100-16-12-2-smp-k8.bin
+
+----------------------------------------------------------
+
+Step 4 : reload
+
+-------------------------------------------------------
+
+ping 10.126.244.72
+ping 10.126.244.65
+
+---------------------------------------------
+
+CLI to create multiple context
+
+en
+config t
+mode multiple - multicontext
+
+changeto system
+mode single - the single context ASA
+
+password can be enabled/changed only in admin mode
+
+
+
+
+
+
+
+
+
+
+
+###################mail from ganesh#################
+
+
+UPGRADE AND DOWNGRADE OF DEVICES
+
+•	Give #show version or # show running–config  in the device
+•	Check the current device  version
+•	If you want another version give #dir 
+•	
+     ASA-18(config)# dir
+Directory of disk0:/
+11     drwx  4096         03:35:32 Sep 09 2014  log
+22     drwx  4096         03:35:58 Sep 09 2014  crypto_archive
+23     drwx  4096         03:36:08 Sep 09 2014  coredumpinfo
+118    -rwx  38191104     03:38:52 Sep 09 2014  asa912-smp-k8.bin
+119    -rwx  18097844     03:40:28 Sep 09 2014  asdm-713.bin
+120    -rwx  69580800     02:35:46 Dec 15 2014  asa940-100-smp-k8.bin
+121    -rwx  3107         00:20:14 Dec 16 2014  ASA921_Asa18.txt
+122    -rwx  12998641     03:44:32 Sep 09 2014  csd_3.5.2008-k9.pkg
+123    drwx  4096         03:44:34 Sep 09 2014  sdesktop
+124    -rwx  6487517      03:44:34 Sep 09 2014  anyconnect-macosx-i386-2.5.2014-k9.pkg
+125    -rwx  6689498      03:44:38 Sep 09 2014  anyconnect-linux-2.5.2014-k9.pkg
+126    -rwx  4678691      03:44:40 Sep 09 2014  anyconnect-win-2.5.2014-k9.pkg
+127    -rwx  63590400     01:52:40 Dec 16 2014  asa100-13-11-22-smp-k8.bin
+128    -rwx  63479808     05:30:40 Feb 09 2015  asa932-242-smp-k8.bin
+
+•	If the image is aldready available in dir , give # sh bootvar
+
+               Eg: ASA-18(config)# sh bootvar
+BOOT variable = disk0:/asa932-242-smp-k8.bin;disk0:/asa912-smp-k8.bin
+Current BOOT variable = disk0:/asa932-242-smp-k8.bin;disk0:/asa912-smp-k8.bin
+ONFIG_FILE variable =
+Current CONFIG_FILE variable =
+
+•	Now remove the images using command # no boot system
+Eg:  #no boot system disk0:/ asa932-242-smp-k8.bin
+        #no boot system disk0:/ asa912-smp-k8.bin
+		no boot system disk0:/asa100-16-12-2-smp-k8.bin
+
+•	Once it is removed add your new image along with a back up image using #boot system
+Eg:  #boot system disk0:/asa941-53-smb-k8.bin
+        #boot system disk0:/ asa932-242-smp-k8.bin
+
+•	Note: The first boot variable that you set will always be the current image (in here it is 941)
+•	Now give # write memory and #Reload 
+•	If your desired image is not in the dir you can copy it from \\10.106.134.200\TFTPRoot\ASA
+•	Using the command like 
+#copy tftp://10.106.134.200/ASA/ASA941/asa941-53-smb-k8.bin disk0:/asa941-53-smb-k8.bin
+copy tftp://10.106.134.200/ASA961/asa100-16-12-2-smp-k8.bin disk0:/asa100-16-12-2-smp-k8.bin
+\\10.106.134.200\TFTPRoot\ASA961
+•	Once the device is up check whether is your version is right 
+
+passwd cisco
+enable password cisco
+
+Thanks and Regards
+           Ganesh
+
+
+From: Vinoth Somu -X (vsomu - HCL TECHNOLOGIES LIMITED at Cisco) 
+Sent: Friday, February 13, 2015 11:52 AM
+To: Ganesh Srinivasagam -X (ganesrin - HCL TECHNOLOGIES LIMITED at Cisco)
+Cc: codc-csm-fw-dev(mailer list)
+Subject: RE: [learning] - multi mode , multi mixed mode Conversion
+
+Thanks for the information Ganesh ?
+
+If possible, can you also add the commands for image upgrade/downgrade process on device ? (with sample device image location/path – 200 server or web repo)
+
+From: Ganesh Srinivasagam -X (ganesrin - HCL TECHNOLOGIES LIMITED at Cisco) 
+Sent: Thursday, February 12, 2015 8:49 PM
+To: codc-csm-fw-dev(mailer list)
+Subject: [learning] - multi mode , multi mixed mode Conversion
+
+Hi team ,
+
+                To convert a device from single to multi
+
+                Login to that device , #sh mode
+                
+                If it is single , give  #mode multiple , and reload
+
+                For converting multi mixed mode . Add a multi mode device in csm and check System Preference check box during discovery
+
+                Later we can check the status in device properties .
+                
+                To convert to multi mixed Tranparent/Routed . Choose the device -> Security Context -> Add -> Give a name,Url -> Choose Routed/Tranparent ->Add an interface  -> Click ok
+                ->Deploy to device
+
+Check the status in device properties
+
+Thanks and Regards
+           Ganesh
+
+
+
+
+
+

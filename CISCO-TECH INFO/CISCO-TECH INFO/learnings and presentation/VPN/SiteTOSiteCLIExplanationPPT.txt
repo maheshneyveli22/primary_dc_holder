@@ -1,0 +1,57 @@
+Steps to configure a Site  to Site VPN:
+Step 1:Configure ACLS:
+This step defines interesting traffic that needs to be encrypted and that has to be protected by tunnel
+Eg: access-list 101 permit ip any any
+Step 2:Configure ISAKMP Policy(IKE Phase 1 Negotiation):
+This configuration sets up tunnel and configures isakmp parameters for establishing tunnel between two devices
+Eg: crypto isakmp policy 1
+authentication pre-share
+encryption aes
+hash md5
+group 2
+lifetime 86400
+crypto isakmp key cisco address 192.168.100.3
+
+Steps to configure a Site  to Site VPN:
+Step 3:Configure Transform Set(IKE Phase 2)
+This step involves, configuring encryption standards for actual ipsec traffic between two devices
+Transform set is for protecting the actual data
+Eg: crypto ipsec transform-set  tsName1 esp-3des esp-md5-hmac
+Step 4:Create Crypto Map
+This step involves, creating a profile
+Here we specify which peer device, the access list, transform set in a single profile.
+Eg: Router(config)#  crypto map map1 1 ipsec-isakmp
+Router(config-crypto-map)# set peer 192.168.100.3
+Router(config-crypto-map)# match address 101
+Router(config-crypto-map)# set transform-set tsName1
+
+
+
+Steps to configure a Site  to Site VPN:
+Step 5: Apply Crypto map to interface:
+The crypto map created is applied on the interface
+Eg: crypto ipsec transform-set  tsName1 esp-3des esp-md5-hmac
+Router(config)#  int fa0/0
+fa0/0 is the interface
+Router(config-if)# crypto map map1
+Caveats in Configuration:
+The Configuration of devices must mirror each other
+while configuring isakmp, whatever is given for device 1 should match device 2, else tunnel wont be created
+Can configure multiple ipsec transform sets for a device, but between two devices ipsec parameters encryption and integrity needs to be the same
+if isakmp matches and ipsec does not match, tunnel will be created, but during actual traffic error will be encountered
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

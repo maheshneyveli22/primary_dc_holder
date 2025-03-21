@@ -1,0 +1,164 @@
+UI:
+
+1) TabWizard.java
+2) VpnFinishTask of TabWizard.java 
+3) performFinishTask() of TabWizard.java 
+4) In performFinishTask(), GetVPNUtil.updateTopology(uiMap, manager.getVpnTopology(), true) - topology is updated,
+all UI information taken and kept in map
+5) VpnDisplayManager->finishWizard()
+5) in finishWizard()-> vpnToolApi.createVpnTopologyAndPopulateDefaults calls the tomcat to create or update the topology
+
+Performance issue: 40 minutes to 40 secs
+VpnEndpointTable.java->getPeerData()-> should have got cryptomap details for each peer.
+but while getting cryptomap, again redundantly they have got peer data each time
+
+
+Updating the database:
+
+1) VpnToolServiceImpl
+2) VpnToolServiceImpl->createVpnTopologyAndPopulateDefaults()->createTopologyObject()->storeVpnBaseTopologyObject
+storeVpnBaseTopologyObject stores the vpn topology object and publishes the event
+insertPolicies ->inserts policies into DB
+3) insertPolicy-> stores the BB and updates the policy
+4) In createVpnTopologyAndPopulateDefaults(), after VPNtopology object is created 
+populateDefaultPoliciesForVpn() is called
+***insertion of vpn policies
+a)VpnPoliciesUtil-insertPeersPolicy()->insertPolicy()
+a.1) insertPolicy->getPolicyMgr().insert(context,  activityId, policyGroupId, policy);
+a.2) PolicyManagerImpl->insert
+a.3) BasePolicyProvider->insert, then for the policies the referenced BBs were added
+b) VpnPoliciesUtil->AssignmentManagerIMpl.assign() ->done using assignmentId and target-> AssignmentDao inserts or
+assigns policy , using VmsSource's SourceType and activity id
+
+so in order pgs are inserted-> peersPolicy, insertIkeProposalPolicy,IPSecProposalBase, preSharedKeyS2S, insertIkev2AutheticationPolicy and all the policy groups are assigned
+
+hibernate.cfg.xml->IPSecParamsPolicy.hbm.xml
+
+
+
+
+Tables:
+1) DBA.IPSEC_PARAMS
+2) UserGroupS2S
+3) DBA.VPNTOOL_IkeProposal
+3.1) DBA.GETIkeProposalPolicy
+4) DBA.ExtranetVpnMetaPolicy
+5) DBA.IkeVersionPolicy
+6) DBA.VpnDevice
+7) DBA.ProtectedNetwork
+8) DBA.VRFSettings
+9) DBA.VpnInterface
+10) DBA.VpnsmVpnInterface
+11) DBA.VpnDialBackupInterface
+12) DBA.VPN_GRE_IP_ALLOCATION
+13) DBA.VPN_GRE_HACK_IP_ALLOCATION
+14) DBA.VPN_GRE_DIALBACKUP_IP_ALLOCATION
+15) DBA.VpnTopoSettingsPolicy
+16) DBA.HighAvailabilityPolicy
+17) DBA.IPSecSettings
+18) DBA.VPN_EZVPN_POLICY
+19) DBA.PEER_GROUP_INFO
+20) PEER_ORDER
+21) DBA.VpnPeersPolicy
+22) DBA.IKE_V2_AUTH_POLICY
+23) DBA.IKE_V2_AUTH_ENTRY
+24) DBA.VpnCryptoMap
+25) DBA.VPN_CRYPTO_NAME_PEER_DATA
+
+
+Provisioning:
+1) WorkerImpl.jobPerformWrapper->
+2) PlatformBladeJob.perform
+3) PlatformBladeBase.generateCli
+4) VPNServicePlugin.generateRawConfiglet
+5) VPNServicePlugin.generateRawVPn
+6) VpnGenerator.generateRawVpn
+7) VpnGenerator.buildVpnTopologies
+8) VpnIPSecBuilder.generateVPN
+9) VpnIPSecBuilder.addPeerDetails
+10)PeerSupplier.getPeerData
+11)PeerSupplier.createPeerData()
+
+12) VpnIPSecBuilder.addPeerDetails, after adding peer details, registration of all details from snapshot and object created into datafile container take place
+13) Of that VPNBuildersUtil->registerPeersDetails is crucial and after that, it will be used in vm file for generating in snapshot
+
+
+Discovery:
+UI
+1) VpnDiscoveryWizardPopup->showDialog
+2) VpnDiscoveryWizard.launchVpnTabDialog()
+3) VpnDiscoveryWizard.generatePanels()
+4) VpnDiscoveryWizard.generateNameAndTechnologyPanel()->VpnWizardFirstPanel
+add first panel and device selection panel
+5) VpnWizardFirstPanel->VpnP2PDeviceWizard()
+6) VpnDiscoveryWizard.actionPerformed->performFinish()
+7) VpnDiscoveryWizard(BasicVmsWizard).actionPerformed(ActionEvent)
+8) VpnDiscoveryWizard.performFinish() line: 
+9) VpnDiscoveryWizard.performFinishFullMeshP2P(DiscoveryApi, Set) 
+	
+
+Tomcat:
+1) WorkerImpl.jobPerformWrapper->
+2) PlatformBladeJob.perform() , here based upon if(m_deviceInfo.isDeviceImport()), it is checked whether discovery or provisioning. if it is true, it is discovery, based on that request's optype is set
+3) PlatformBladeBase.discoverPolicy
+1) WorkerImpl.jobPerformWrapper(JobData) 
+2) VpnDiscoveryJob(BaseJob).perform() 
+3) VpnDiscoveryJob(DiscoveryJob).perform(Map) 
+
+
+1) VPNDiscoveryWizard
+2) VPNDiscoveryWizard.performFinishTask
+3) VPNDiscoveryDisplayManager.finishWizard[here if edit, update it else create new vpn topology, call vpntool service impl to do the same]
+4) 
+
+BaseVPNBuilder.buildVpn()
+BaseVPNBuilder.aggregateVPNPolicies()
+iterate every aggregator and buildvpn
+
+
+Complete Discovery Flow:
+1) VpnDiscoveryJob(BaseJob).perform() line: 47
+2) VpnDiscoveryJob(DiscoveryJob).perform(Map) line: 286	
+3) VpnDiscoveryJob.discoverPolicies() line: 37	
+DiscoveryJob.discoverDevicePolicies-> gets the devices policies from snapshot(got from discovery device info object and 
+device policies are populated)
+4) VpnToolServiceImpl.discoverVpnPolicies(VmsContext, long, DiscoveryInstance, List, Map) line: 6559	
+->Here depending on the technology corresponding builder is chosen, in our case IpsecVpnBuilder
+-> and buildVPN method of the corresponding class is being called
+5) IpsecVpnBuilder(BaseVpnBuilder).buildVpn(VmsRequestContext, DiscoveryInstance, List, Map) line: 61	
+->here in buildVpn Method,
+a) VpnTopoSettingsPolicy object is set with necessary values
+b) Build the vpn structure using: addChildren()
+Basically in this method, VPNBaseTopologyObject is set with children values
+->here in add children depending on the topology, vpn structure is built
+-> Here the list of children(sub topology) for a vpn is built[RECURSION IS USED EXCLUSIVELY]
+-> Peer group object is built
+-> for the discovered device spoke and VpnDevice and VpnPeer Object are built
+-> complex logic need to do in depth walkthrough later
+c) Aggregators are initialized and aggregate Policies method of BaseVpnBuilder is called
+6)IpsecVpnBuilder(BaseVpnBuilder).aggregatePolicies(VmsRequestContext, VpnTopology, VpnBaseTopologyObject, DiscoveryInstance, List, Map, List) line: 588	
+-> here for the children() set in VPNBaseTopologyObject of  above step, for each child aggregatePolicies is called recursively
+->Then passing the topology value and VPNBaseTopologyObject, applicable policy types for aggregation is being listed
+-> Then for each of the policy type is iterated and the aggregator's corresponding aggregateVpnPolicies() is called
+->Before calling aggregateVpnPolicies(), device is updated with discovery in progress status
+In Interface aggregator, following are set: vpnObj.setPoliciesOfType(DiscoveryCryptoMapPolicy.type,cryptoMapPolicies) and cryptoMapPolicies are set
+In AggregatorResponse, response is set with InterfacePolicies
+->In Protected Network aggregator response is set with response.setPolices(protectedNetworkPolicies), protectedNetwork Policies
+7) Finally from the response, VPNBaseTopologyObject is set with its policies and policy type in a hashmap as key value pair
+vpnObj.setPoliciesOfType(policyType, policies);
+8) Then VpnTopology which extends VPNBaseTopologyObject  object is returned by buildVPNmethod which was called in step 5
+9) Now the VpnTopology object built is passed to VpnWriter.writeVPN() 
+10)VpnToolServiceImpl.discoverVpnPolicies(VmsContext, long, DiscoveryInstance, List, Map) line: 6683	
+11)VpnWriter.writeVpn(VmsRequestContext, DiscoveryInstance, List, VpnTopology) line: 43	
+which involves ->creating a hierarchy node, inserting  policies and BBs to both the device based on Policy Map and assigning the same to device
+
+
+
+
+
+
+
+	
+
+5) VpnDiscoveryJob(DiscoveryJob).discoverDevicePolicies() 
+6) VpnDiscoveryJob(DiscoveryJob).convertSnapshotAndAssign(DiscoveryDeviceInfo) 

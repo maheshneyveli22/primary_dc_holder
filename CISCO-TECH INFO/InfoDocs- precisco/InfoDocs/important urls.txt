@@ -1,0 +1,52 @@
+###CGI url
+http://my.global.logica.com/news.aspx
+
+###PWD management
+http://edprov.ent.cginet/PasswordManagementWeb/
+
+##Web mail
+https://mail.logica.com/
+
+http://mysite.global.logica.com/default.aspx
+
+//ocs communicator
+http://cwa.us.db.com/
+
+DB mail pwd:
+http://msgm3050.gslb.db.com
+g1OCWTk7Y4AJ
+
+
+websso:
+http://msgm3050.gslb.db.com 
+
+Group directory
+http://gd.intranet.db.com/perl/search
+
+
+https://www.dbcde.com/sf/projects/pathfinder
+
+###pathfinder integration:
+http://integration.pathfinder.gm.intranet.db.com/dev_csw/ 
+
+## to download code
+https://www.dbcde.com/sf/projects/pathfinder/ 
+
+#Svn repository link  https://www.dbcde.com/svn/repos/pathfinder-global-payments
+https://www.dbcde.com/svn/repos/pathfinder-corporate-actions/trunk/proj/pathfinder-corporate-actions
+https://www.dbcde.com/svn/repos/pathfinder-global-payments/branches/payments
+########
+Jenkins: 
+
+http://apcswd1.us.db.com:8980/jenkins 
+
+
+You can see the above was in the jenkins URL as well 
+     http://apcswd1.us.db.com:8980/jenkins/job/Payments-New/  
+	 
+	 
+########################wireshark tutorial link###########
+http://www.howtogeek.com/104278/
+
+###########executor framework###########
+http://mrbool.com/working-with-java-executor-framework-in-multithreaded-application/27560

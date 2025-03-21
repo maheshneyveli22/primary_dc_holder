@@ -1,0 +1,78 @@
+http://www.cisco.com/c/en/us/support/docs/security-vpn/public-key-infrastructure-pki/200339-Configure-ASA-SSL-Digital-Certificate-I.html
+http://www.cisco.com/c/en/us/support/docs/security-vpn/ipsec-negotiation-ike-protocols/50282-ios-ca-ios.html
+https://www.fir3net.com/Firewalls/Cisco/how-to-configure-your-asa-as-a-ca-server.html
+https://networkology.net/2013/06/25/configuring-cisco-ios-ca-server-and-enrolling-cisco-asa-to-a-ca-server/
+http://resources.intenseschool.com/certificate-authority-cisco-asa-local-ca/ Nice
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa84/configuration/guide/asa_84_cli_config/access_certs.html#wp1676916
+PKI SETUP
+
+Router
+********
+ip http server
+
+crypto pki server CA
+
+issuer-name CN=CA,O=csmtest.com
+issuer-name CN=cisco1.cisco.com L=RTP C=US
+
+grant auto
+
+no shutdown
+
+#it will auto generate and ask for password
+
+end
+
+show crypto pki server
+
+#Client side configuration:
+
+crypto key generate rsa modules 2048 label r1.csmtest.com
+
+crypto pki trustpoint Trusted-CA
+enrollment url http://CA-SERVER IP
+rsakeypair r1.csmtest.com
+fqdn r1.csmtest.com
+subject-name CN=r1,o=csmtest.com
+revocation-check none
+exit8
+
+crypto pki autnenticate Trusted-CA
+
+-> this is to get the root certificate
+
+
+#########in asa ############
+ASA(config)# Crypto ca server
+
+ASA(config-ca-server)# lifetime ca-certificate 100
+ASA(config-ca-server)# lifetime certificate 30
+ASA(config-ca-server)# smtp from-address admin@cisco.com
+ASA(config-ca-server)# smtp subject Certificate enrollment
+ASA(config-ca-server)#  keysize 2048
+ASA(config-ca-server)# cdp-url http://cisco/+CSCOCA+/asa_ca.crl
+ASA(config-ca-server)# subject-name-default CN=BoB , O=Cisco, C= US
+ASA(config-ca-server)#  no shutdown 
+
+Once the CA server has been enabled , we cannot do any modification to the configuration unless we shutdown the server.
+
+Show and debugs commands:
+
+Debug crypto ca server 
+Show crypto ca server 
+Show crypto ca server cert-db
+
+crypto pki enroll Trusted-CA
+
+show crypto pki certificate
+
+Router:
+
+no crypto ca certificate
+
+ASA:
+
+no crypto ca trustpoint <trustpoint name>
+
+https://supportforums.cisco.com/document/12597006/how-configure-asa-ca-server
+

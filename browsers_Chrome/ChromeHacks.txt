@@ -1,0 +1,5 @@
+1) To enable screen shot for Udemy in Chrom
+
+Go to settings, and search for “acceleration” and turn off the hardware acceleration and relaunch your browser, then you will be able to take screenshots freely.
+
+2) 

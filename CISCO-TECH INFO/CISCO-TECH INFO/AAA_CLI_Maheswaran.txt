@@ -1,0 +1,7 @@
+1.	[no] ca-check
+
+2.	[no] aaa authorization http console LOCAL | <aaa-server-group> --->10.1.5.2	Enable/Disable Authorization for ASDM
+
+3.	http username-from-certificate {<primary-attr> [<secondary-attr>] | use-entire-name | use-script } [pre-fill-username]
+                             no http username-from-certificate             10.1.5.1	Extraction of username from certificate 
+

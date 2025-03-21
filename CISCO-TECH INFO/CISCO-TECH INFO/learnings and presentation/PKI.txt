@@ -1,0 +1,82 @@
+Sign= hash+private key =xdfdcf
+hash= sign+public key
+
+Browser: browser contains all ca certificates installed
+asa: validates certificates with the site it tries to access
+
+in vpn when connected to site:
+connect to asa and session between asa and site
+
+
+Trustpool:
+
+Trustpool is configured in config mode as it is a policy
+Trustpool bundle configured in exec mode
+
+1)Trustpool: pool which contains bundle of certificates
+2)asa device contains default bundles. it is known ca certificates and mostly used
+3)viewing certificates:
+---show crypto ca trustpool detail
+4) Each certificate is unique by its finger print
+a certificate can be removed by its fingerprint
+--crypto ca trustpool remove fingerpritn
+5) added in 4.4 csm
+6) Trustpool page in csm contains the trustpool policy
+7) Certificates/option to install new bundle from launch trustpool manager
+8) Refresh certificates, refreshes the screen for the certificates installed in device
+9) Import bundle -> imports the bundle  into the device by different methods
+10) Main difference in trustpool dialog
+here in this page, all processed does not go trhough regular deployment flow and instead device is contacted immediately
+11) Export bundle, exports all certificates into a different file
+12) Clear trustpool wipes the certificates and by delete individual certificates can be deleted
+13) VpnTrustPoolPolicyDiscovery, called from ravpn plugin
+reads all commands and creates policies
+a) Parsing of ca certificate is done by TrustpoolCerticateParser reads the  cli certificate and builds the Trustpoolcertificate bean
+b) Trustpool certificates stored in db  in different table and not attached to db or policy. Read and write from our code
+c) TrustpoolCertificate Helper calls the parser and get the TrustpoolCertificate and updated in db
+parseAndUpdateCertificates during refresh and discovery
+d) clearCertificate when clearing from ui 
+14) TrustpoolCertificateMgmtDialog is the UI, handles all the actions of trustpool
+15)  How does device communication happen from the UI.
+ UI calls API which is in tomcat layer and tomcat layer calls the device
+ 16) lets see one eg here
+ 17) onDone Method of TrustpoolCertificateMgmtDialog. case is refresh
+ ->actionPerformed->  it has to execute this command->show crypto ca trustpool detail and update the UI
+ ->importBundleAction-> after building command, deploymentapi is called which is run on tomcat layer
+ -> DeploymentServiceImpl is the service class which is called from the deploymentApi
+ ->In DeploymentApi, executeTrustpoolCmd method is added, which has its implementation in DeploymentServiceImpl
+ -> in this method executeTrustpoolCmd, following steps are done
+ a) create a deployment job for trustpool, TrustedPoolServiceJob
+ b) Invoke that job
+ 18) TrustedPoolServiceJob handles the remaining
+ -> Perform method called
+ ->executeCli called - will run the commands and getExecutionResults
+ 19) parseResponse to process the string of the certificate
+ 20) VPNToolApi->->VpnToolServiceImpl->updateTrustPoolCertificates->TrustpoolCertificateHelper->parseAndUpdateCertificates which is already discussed
+ 21) Notifying the client:
+ client has clicked on the process of refresh, how does the client know that the process is done
+ ->Event has to be sent to the client
+ -> TrustPoolSubEvent extends Athena subevent
+ -> Client listens this event when the process is done, event will be created
+ a) TrustpoolServiceJob->generateResponseToUi TrustPoolSubEvent is created and published via AthenaEventPublisher.addSubEvent
+ and then athena layer will take care of delivering the event to Ui
+ b) Registration of events done in TrustpoolCertificateMgmtDialog
+ certificatesTable.addEventListener
+ startListeners()-> Create New Listener and add the interest for this event->TrustPoolSubEvent
+ once the event is received->
+ 
+ -> when new task is started from Ui, blockingTask is created TrustpoolDeploymentTask, to block operations and show busy window
+ ->Once response is received, in form of event , task needs to be stopped and
+ startTask->run
+ stop task()-> stop progress dialog and show the response dialog
+ 21) WebVPnTrustedPoolPolicy
+ 
+ 
+ 
+ 
+
+
+
+
+
+

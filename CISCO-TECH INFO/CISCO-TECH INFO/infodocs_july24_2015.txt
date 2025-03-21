@@ -1,0 +1,1313 @@
+###cisco pwd
+
+maelumal
+Dec$2014
+
+
+##Webex/jabber
+
+maelumal
+Jan$2015
+
+
+
+#cisco web im
+https://im.ciscowebex.com/webim/login.htm
+###selfie
+##shared location
+//10.106.134.200
+cisco
+!sefiFN!]!
+
+\\10.106.134.200\downloads\maelumal
+
+My Location:
+
+00-4F-402B-W-069
+
+insync pwd reset:
+http://codc-intraweb.cisco.com/cpadmin1/Userforpass.asp
+
+insync	
+http://codc-dbserver/intranet.aspx
+hcl-intranet\maelumal
+Mar$2015
+
+
+
+
+gowardhan vm:
+10.106.160.31  Administrator/gkodkant123/maelumal123/cwcvm123
+codc-hcl-15    10.76.70.127 Administrator/cisco@123
+ranganath vm:
+codc-hcl-9     10.76.70.121 administrator/cisco@123
+
+
+
+for mail subscribe:
+http://wwwin-tools.cisco.com/itsm/mailer/subscribe.do?id=284624
+
+cs-csmanager(mailer list) cs-csmanager@cisco.com : Escalation mails
+codc-csm-codereview(mailer list) codc-csm-codereview@cisco.com : While sending code review request you should include this alias 
+cse-dev-csmanager(mailer list) <cse-dev-csmanager@cisco.com>
+csm-ch(mailer list) csm-ch@cisco.com
+csm-blr(mailer list) csm-blr@cisco.com
+csm-dev-madagascar(mailer list) csm-dev-madagascar@cisco.com
+bjayavel-team(mailer list) bjayavel-team@cisco.com
+csm-vpn(mailer list) csm-vpn@cisco.com
+odc-hcl-masala(mailer list) odc-hcl-masala@cisco.com
+codc-leads(mailer list) codc-leads@cisco.com 
+vpn-team@cisco.com
+
+
+#####################mail from siva start####################
+//to download plugin
+wwwin-download.cisco.com
+
+Dev Env setup :-
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+BLR+Development+Environment 
+
+Perforce(codebase) :-
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+Perforce+Jump+Start
+
+bglr-perforce.sgg.cisco.com:2667
+
+Static analysis report setup (Parasoft):-
+
+Team Server              
+Name	173.36.61.163
+Port Number	18888
+User name	stguser
+Password	stguser
+License Server 
+Host Name	173.36.60.126
+Port Number	2002
+
+
+EDCS :- 
+http://wwwin-eng.cisco.com/protected-cgi-bin/edcs/
+
+PRRQ :- 
+http://wwwin-tools.cisco.com/prrq/welcome.do
+
+Scrubber :-
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/
+
+CSM Downloads :- 
+http://blr-csm-site.cisco.com/JEN/sicily-integra-REL-build/builds/
+
+Wiki Status update:-
+mi
+
+CDETS :- 
+http://cdetsweb-prd.cisco.com/apps/dumpcr?identifier=CSCus14411&content=summary&format=html
+
+Code review  :- 
+http://bld-rb01.cisco.com
+
+Patch jars automatically :- 
+http://wikicentral.cisco.com/pages/viewpage.action?pageId=5259184
+
+Debugging :-
+
+GUI: 
+1.	Navigate to CSM client installation.
+2.	Open lax file ex : csm-desktop-4.5.0.0.lax
+3.	Update with below config
+lax.nl.java.option.additional=-client -XX:-UseParallelOldGC -XX:NewRatio=3 -XX:PermSize=64m -XX:MaxPermSize=128m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./logs -XX:+UseCompressedOops -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5024
+Tomcat:
+1.	Open Registry editor.
+2.	Navigate to HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\Tomcat\Parameters\Java  and choose options from right panel
+3.	Update with below config
+
+-Xdebug
+-Xnoagent
+-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5026
+
+
+Back End:
+1.	Go to CSM Server installation (E:\CSCOpx\MDC\be\bin)
+2.	Open startupbe.pl and update below config
+my $startup_args=$_[0]." -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5028";
+my $ARGS="$startup_args -cp $BE_CP -Dnmsroot_csm=$ENV{NMSROOT} com.cisco.nm.vms.be.BEMain";
+
+After setting this go to eclipse and chose Debug->Debug Configurations-> Remote Java Application ,after this give VM’s IP Address and Port No.
+Port no. will be 5024 for client,5026 for server,5028 for Back End.
+
+##6300 - BACK END  5028
+##6309 - CLIENT   5024
+##6304 - SERVER   5026
+
+#####################mail from siva end####################
+
+perforce request No:105762394
+//perforce request process:
+
+1.	Navigate to https://perforce.cisco.com
+2.	Click on OnRamp request For access to tuscan: OnRamp > Cisco Development Organization (CDO) > Temporary > NCS
+3.	Click on Subscribe for resource perforce-tuscan-onramp (this is for “standard” read-write access)
+The same has been updated on wiki http://wikicentral.cisco.com/display/CSMANAGER/Perforce
+
+
+####my phone mac address#######
+001A2F75223E
+120185
+OO1A2F752F7E
+
+extension:89101980
+
+
+Perforce code review:
+csm-sicily-dev-  reviewer group
+Bugs: bug id
+
+Description:Problem :-  Validation is not happening in ExtranetVPN while editing peers 
+
+Solution :- Added validation code for checking if the ip address is valid and error screen is shown for invalid ip address
+
+Testing Done:
+Test case:
+1) Dont enter Ip address and press ok
+2) Enter correct Ip address and press ok
+3) Enter invalid ip address format and press ok
+
+Pass/fail criteria :-
+1) Dont enter Ip address and press ok - error pop up should be thrown
+2) Enter correct Ip address and press ok  - no error pop up should be thrown
+3) Enter invalid ip address format and press ok -  - error pop up should be thrown
+
+Result: Pass
+
+
+  
+
+
+
+#############csm important tables:
+JOBS_TABLE
+This table contains the list of all the deployment jobs in the system.
+JOBS_ACTION
+This table is for job history, i.e who does what at what time
+JOBS_DEVICE_STATUS 
+Each device in the deployment job will have a device status.
+DEPLOY_SCHEDULES_TABLE
+This table contains the list of all the deployment schedules in the system.
+DEPLOY_SCHEDULES_ACTION
+This table is for deployment schedule history, i.e who does what at what time
+DEPLOY_SCHEDULE_DEVICES
+Contains the list of devices in deployment schedule
+DEPLOY_SCHEDULES_RECURRENCE_DATA
+Recurring Schedule information.
+DEPLOY_SKIP_JOBS_TABLE
+This table is for Deployment Schedule job history, i.e jobs with no devices for deployment (nondirty, locked, dependency).
+
+################csm diagnostics###############
+ CSCOpx\MDC\bin\CSMDiagnostics
+ Output file “CSMDiagniostics.zip” created in “CSCOpx\MDC\etc” directory
+
+#############csm debug option########
+Tools -> Cisco Security Manager administration->Deployment 
+
+CSCOpx\MDC\temp
+
+#####################################csm important########
+
+cli ios
+xml ips
+jpg/csd webvpn
+
+
+#db pwd reset
+net stop crmdmgtd
+
+cd C:\"Program Files (x86)"\CSCOpx\bin
+
+perl dbpasswd.pl dsn=vms npwd=admin
+
+net start crmdmgtd
+
+pdterm VmsBackendServer && pdexec VmsBackendServer
+
+## to reset login password:
+net stop crmdmgtd
+
+cd C:\"Program Files (x86)"\CSCOpx\bin
+
+perl ResetPasswd.pl admin
+
+#########################
+###########analysis
+sesssionval 1089
+webvpn       914
+
+
+WebVPNValidationManager
+doValidateAccessPolicy ---> SessionValidation.JAVA
+ int pNumOfInts is zero because of lack of Interfaces in DeviceObject
+
+DeviceManagerImpl
+
+DevicePersistence
+##########
+Go to vpn folder and do
+>>rbt setup-repo
+Enter review board server URL:  http://bld-rb01.cisco.com 
+There are some people having issue to access P4 client on work space directory by using command line, getting ERROR: The current directory does not contain a checkout from a supported source code repository.
+For them follow the commends
+>>p4 set P4PORT=bglr-perforce.sgg.cisco.com:2667
+>>P4 set P4USER=you’re perforce User
+>>P4 login
+Create a file p4config.txt at work space root directory with single line:
+P4CLIENT=your work space name (which you created using P4V)
+>>p4 set P4CONFIG=p4config.txt
+>>p4 client (it will open a file please verify your work space name and root and work space view, it should be same as you created from P4V client).
+>> rbt post 123456(p4 changenumber) 
+
+rbt post –r 25122 748882
+##########
+
+
+####review
+http://bld-rb01.cisco.com/r/13423/
+http://bld-rb01.cisco.com/r/13423/diff/
+
+
+http://bld-rb01.cisco.com/r/13424/
+http://bld-rb01.cisco.com/r/13424/diff/
+
+//for cyprus branch
+http://bld-rb01.cisco.com/r/13433/
+
+
+//SERVER JAR LOCATION
+
+C:\Program Files (x86)\CSCOpx\MDC\tomcat\vms\hh\WEB-INF\lib
+####log location
+C:\Program Files (x86)\CSCOpx\MDC\log\operation
+C:\Program Files (x86)\CSCOpx\MDC\tomcat\logs
+
+in cdets:
+
+see the bug:CSCus14411 
+1)Upload 5 enclosures
+2)move the defect to R state by applying the fix to a version by "Applied to"
+
+
+########################
+http://wikicentral.cisco.com/display/CSMANAGER/VPN-+CSM+4.9+SKYE+FEATURES
+
+########shobana number#######
+8344041671
+###
+meeting:
+83501111 meeting id #
+
+
+#########saleen#######
+Device Details	     Telnet IP    	    Credential    	Host Name	USER	Console Port
+Saleen 5515-x	10.106.163.148	cisco/cisco	SALEEN-148	Govardhan-HCL	10.106.163.175 2011
+Saleen 5515-x	10.106.163.149	cisco/cisco	SALEEN-149	Govardhan-HCL	10.106.163.175 2012
+Saleen 5515-x	10.106.163.150	cisco/cisco	SALEEN-150	Govardhan-HCL	10.106.163.175 2013
+Saleen 5515-x	10.106.163.151	cisco/cisco	SALEEN-151	Govardhan-HCL	10.106.163.175 2014
+Saleen 5515-x	10.106.163.152	cisco/cisco	SALEEN-152	Govardhan-HCL	 
+
+
+
+
+######scrubber#######
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=bjayavel-118
+http://wwwin-ottawa/tfoggoa/Scrubber/ - list of queries
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=maelumal-0
+
+Open cfd:
+Product:vms and Severity:1,2,3 and Project:CSC.embu and Status:S,N,A,O,W,H,I and Found:customer-use
+
+
+#########skye#########
+
+600242 -cacheck
+602475 - http authorization
+https://bld-rb01.cisco.com/r/14272/
+https://bld-rb01.cisco.com/r/14867/ junit review request
+CSCus89015 -cacheck
+
+10.126.244.71
+
+10.126.244.67 2005 10.126.244.71 255.255.255.224 10.126.244.65 ASA-3
+
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+Chennai+Lab+Device+List - device
+
+
+#######asdm image
+https://10.126.162.143 
+
+
+alter table BB_CASERVER_DATA 
+add CA_CERTIFICATE_CHECK bit default 1;
+
+###########
+10.126.244.67
+
+topic.cisco.com
+
+########for vm issues
+https://jira.sgg.cisco.com 11:04 AM 
+naregovi,narkalya 
+https://jira.sgg.cisco.com/browse/LS-10455 issue raised
+
+Naresh Govindaraju -X (naregovi - ADECCO INDIA PRIVATE LIMITED at Cisco) <naregovi@cisco.com>; Nareshkumar Kalyanapu -X (narkalya - ADECCO INDIA PRIVATE LIMITED at Cisco) <narkalya@cisco.com>
+VPN pwd:
+120185
+269EC8H9
+###############list of vms###########
+\\10.106.134.200\CSM-Training\maelumal\VMs_VPN.xlsx
+
+
+#######CSCut05922#########
+enhancement to bind anyconnect profile to ipsec
+
+############
+http://www-tac.cisco.com/Teams/ks/c3/casekwery.php?Case=680223833
+
+############
+INC000032150690 request for vpn by bhuma
+http://wwwin-tools.cisco.com/extranet/ExAMV2/Login
+
+########crm#####
+to restore db
+dbRestoreOrig.pl
+#####
+
+http://www.cisco.com/c/en/us/td/docs/security/security_management/cisco_security_manager/security_manager/4-4/installation/guide/instl_wrapper/inserver.html#wp1062669
+
+
+10.76.70.127
+INC000032293844  case for vpn additional access - wrong one
+INC000032294185 -correct one
+### to raise case
+*88* call to raise case
+srm.cisco.com
+32293844
+
+
+###junit
+http://bld-rb01.cisco.com/r/14635/
+608177
+
+#########jenkins
+https://blr-usm-bld.cisco.com:8080/jenkins/job/skye-System-DEV-build/11/
+https://blr-usm-bld.cisco.com:8080/jenkins/job/skye-integra-REL-build/
+
+c:\Mahesh\csm_codebase\maelumal_WIN-R4IIQ9PIAJD_8073\  skye it
+
+
+
+600242 -cacheck
+611643 - ca check it
+602475 - http authorization
+621630 - user name from cert
+619929 - Platform ECDH GROUP CLI support 
+625886 - Separate management routing table
+https://bld-rb01.cisco.com/r/14272/ - ca check  - 60 lines
+https://bld-rb01.cisco.com/r/14664/ -aaa auth Ist  - 162 lines
+https://bld-rb01.cisco.com/r/15835/ -user name from cert
+https://bld-rb01.cisco.com/r/15835/ -user name from cert
+https://bld-rb01.cisco.com/r/16008/ - -user name from cert  431
+https://bld-rb01.cisco.com/r/16005/ - ECDH  153
+https://kingart.cisco.com/reviews/r/27196/  - Management vrf feature
+https://bld-rb01.cisco.com/r/16717/ Management vrf feature  - 63
+https://bld-rb01.cisco.com/r/17267/  - S2S: Couldn't fetch IPv6 address when the interface nameif contains dot - CSCuu37469
+https://bld-rb01.cisco.com/r/17258/  - Discovery removing the SSL ECDH configuration - CSCuu36693
+https://bld-rb01.cisco.com/r/17451/ - CSCuu56561
+https://bld-rb01.cisco.com/r/17501/ - CSCuu55013
+https://bld-rb01.cisco.com/r/17669/ - CSCuu61279
+https://bld-rb01.cisco.com/r/17825/  - CSCuu61277 - fallback
+https://bld-rb01.cisco.com/r/13956/ - periodic cert shobana
+https://bld-rb01.cisco.com/r/18021/ - CSCut78783	3 Extranet VPN rediscovery failed with null exception
+https://bld-rb01.cisco.com/r/18074/ - CSCuu88350    CSM is negating http username-from-certificate CLI after discovery
+https://bld-rb01.cisco.com/r/18228/ -  CSCuu96210  validation error cacheck version
+https://bld-rb01.cisco.com/r/18290/   CSCuu9659  CA Check enabled by default in CA  server <9.4.1v devices
+https://bld-rb01.cisco.com/r/18624/  - create ticket issue - rk
+https://bld-rb01.cisco.com/r/19047/ - CSCuv22739 -s2s performance issue 
+7 secs 
+https://bld-rb01.cisco.com/r/19118/
+
+CSCus89015 -cacheck
+CSCut09405 - http authorization
+CSCut76793 - user name for certificate
+CSCut76798 - ECDH
+CSCut99161 - ecdh it automation
+CSCut99173 - http user name from cert an cacheck it automation
+CSCuu17887 - Management vrf feature
+CSCuu58831 - CSM allows enable authorization http connection in multi context
+CSCuu59031 - Discovery issues in S2S full Mesh Topology
+CSCuu62548 - Mention Proper version supported for fetch user name from cert settings
+CSCuu61391 - ASA AAA HTTP : Username from Certificate Use-Script option  - Junk
+CSCuu61279 - ASA AAA HTTP: RADIUS, LDAP servers too are allowed
+CSCuu88350
+ june 1 week:
+  SR # 635662643
+  http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/98580-enable-group-dropdown.html
+ 
+###it auto
+###it auto
+:\projects\shobhask_catskye_WIN-R4IIQ9PIAJD_8693\csm\tools\Regression_Automation\skye\CAT\csm-testSuite>ant clean build -buildfile=EventingBuild.xml
+1) import the project :c:\Users\Administrator\Perforce\maelumal_WIN-ITaut_aug26\csm\tools\Regression_Automation\FIJI\CAT\
+2) import user library from location:CAT\automation-distribution\lib
+3) 
+
+
+
+1) Aged
+2) Sev 2 
+3) Unassigned
+
+http://wikicentral.cisco.com/display/CSMANAGER/SKYE-+VPN+Features+and+Test+cases
+
+
+##########ssl conf:
+ssl cipher default custom "RC4-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
+ssl cipher tlsv1 custom "RC4-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
+ssl cipher dtlsv1 custom "RC4-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA"
+
+
+#######device support########
+asa5506W 
+asa5506H 
+ASA551610.122.119.31 cisco/cisco
+
+Reddy123
+
+CSCut40380 - bug for activity validation
+
+
+http://blr-csm-site.cisco.com/JEN/skye-integra-REL-build/builds/51/artifacts/
+
+
+CSCut34960
+
+OS ignore:
+setup.exe ignoreos
+
+
+http://tims.cisco.com/warp.cmd?ent=Tnt5161p
+
+http://wikicentral.cisco.com/display/CSMANAGER/SKYE-+VPN+Features+and+Test+cases
+
+
+
+bglgrp204-pod.cisco.com:9005 3:37 PM 
+Administrator/Password1 
+
+bglgrp204-pod.cisco.com:9005
+10.225.98.214:9004
+
+
+restore db steps:
+1) First back up db:
+Go to C:\Program Files (x86)\CSCOpx\bin
+2) C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\backup.pl C:\\DbBkpMahe
+or 
+D:\CSCOpx\bin\perl D:\CSCOpx\bin\backup.pl D:\mahedb
+C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d C:\\DbBkp
+3) Restore:
+Go to C:\Program Files (x86)\CSCOpx\bin
+
+Stop the daemon first
+C:\Program Files (x86)\CSCOpx\bin\perl C:\Program Files (x86)\CSCOpx\bin\restorebackup.pl -d C:\\maheDb
+
+C:\Program Files (x86)\CSCOpx\bin\perl C:\Program Files (x86)\CSCOpx\bin\restorebackup.pl -d C:\\maheDb
+
+C:\PROGR~2\CSCOpx\bin\perl C:\PROGR~2\CSCOpx\bin\perl\restorebackup.pl -d C:\\DB_BGPV6_EIGRP
+Eg:
+
+C:\PROGRA~2\CSCOpx\bin>C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d D:\backuprk
+C:\PROGRA~2\CSCOpx\binC:\PROGRA~2\CSCOpx\bin>C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d C:\\maheDb
+C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d C:\\DB_BGPV6_EIGRP
+C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d C:\\maheDb
+C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d C:\\20160331_CSM_Backup
+C:\PROGRA~2\CSCOpx\bin\perl C:\PROGRA~2\CSCOpx\bin\restorebackup.pl -d E:\\mahesh\\bkp\\csmdownloads\\20160623
+C:\20160331_CSM_Backup
+4) Logs of restore can be found at: 
+C:\Program Files (x86)\Cisco Systems\Cisco Security Manager Client\logs
+or
+
+C:\Program Files (x86)\CSCOpx\log\mig...log
+
+resetting the password:
+C:\Program Files (x86)\CSCOpx\bin>C:\Progra~2\CSCOpx\bin\perl C:\Progra~2\CSCOpx\bin\ResetPasswd.pl admin
+restart daemon
+mvn install csm-tools:runtime-jars
+
+http://wikicentral.cisco.com/display/CSMANAGER/Skye+Acceptance+Test+Cases
+
+CSCut33153 - For management VRF
+
+weekend drive:
+http://wikicentral.cisco.com/display/GROUP/NMASG+DU+-+Wiki+Page
+http://wikicentral.cisco.com/display/GROUP/Weekend+Drive+Plan+on+10+May+2015+at+Chennai+and+Bangalore
+
+##EDCS document
+http://wwwin-search.cisco.com/protected-cgi-bin/topic/eng_search.pl 4:30 PM 
+ 
+http://wwwin-eng.cisco.com/Eng/STG/Security_Mgmt/CSM/Skye/SW_Specs/ 
+http://wwwin-tools.cisco.com/prrq/createReview.do?action=createReview&queueName=CSM-Skye
+http://wwwin-tools.cisco.com/prrq/createReview.do
+http://wwwin-eng.cisco.com/Eng/STG/Security_Mgmt/CSM/Phuket/
+
+Mgtvrf:
+http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1495406
+http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1495406>
+
+router device
+10.197.87.82 11:55 AM 
+cisco/123cisco123 
+
+10.197.87.86 3:42 PM 
+cisco/cisco 
+
+proxy for internet
+proxy-wsa.esl.cisco.com 
+64.103.218.56     blr-csm-art
+
+skye defects: 
+1) CSCuu28976 - Couldn't enter valid IPv6 addresses for the remote peer in Extranet VPN
+https://bld-rb01.cisco.com/r/16963/
+
+for opening jars
+http://www.jsourcecode.com/
+
+im web:
+https://im.ciscowebex.com/
+
+
+
+Skye Open IFD : http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-34
+2. Open CFD : http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-19
+3. Open backlog : http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-37
+
+10.106.135.69 9:12 PM 
+roZes123 
+
+build download location
+\\bgl11-emc02a\projects\csmre-blr-7\wdir\blr-csm-lnx1\jenkins\jobs\skye-integra-REL-build\builds
+
+Smoke test :- 
+http://wikicentral.cisco.com/display/CSMANAGER/Skye+Smoke+Test+Results
+
+Bug Trend:
+http://sae-wiki.cisco.com/twiki/bin/view/QA/Skye
+
+new skye features asa explanation:
+http://www.cisco.com/c/en/us/td/docs/security/asa/roadmap/asa_new_features.html
+
+While resolving bug:
+1.	Root cause Analysis : Reason for the occurrence of this defect
+2.	Fix details : What has been done to fix this issue.
+3.	Intersection Analysis : Which all area is impacted by this fix which should be covered during verification.	
+
+CSCuu58905,CSCuu59865,CSCuu59908 ==> mahesh to update
+
+
+10.126.244.75
+
+Password : ciscovpn
+Enable Password : cisco 
+
+10.126.244.77
+
+Password : ciscovpn
+Enable Password : cisco 
+
+QDETS
+http://qddts/protected-cgi-bin/report.cgi
+http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1495406
+
+
+
+S.No	IP address	Device Model	serial Number	Credentials	Building	Lab	Rack	Console Details	Owner	Topology	Comments
+26	10.197.87.47 N	ASA 5585	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+29	10.197.87.50 N	ASA 5585	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+30	10.197.87.51 N	ASA 5585	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+31	10.197.87.52 N	ASA 5510	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+40	10.197.87.61 Y	ASA 5585	 	cisco/cisco	SDB-7	LAB-2	 		CSM Team	 	CSM-Dev
+41	10.197.87.62	ASA 5510	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+42	10.197.87.63	ASA 5510	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+43	10.197.87.64	ASA 5585	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+48	10.197.87.70	ASA 5510	 	cisco/cisco	SDB-7	LAB-2	 	 	Chamu	 	CSM-Dev
+53	10.197.87.75	ASA 5515	 	cisco/cisco	SDB-7	LAB-2	 	 	Dhana	 	CSM-Dev
+54	10.197.87.76	ASA 5515	 	cisco/cisco/cisco	SDB-7	LAB-2	 	 	Chamu	 	CSM-Dev
+55	10.197.87.79	ASA 5580	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+59	10.197.87.89	ASA 5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+60	10.197.87.90	ASA 5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+66	10.197.87.96	ASA 5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+69	10.197.87.99	ASA5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+70	10.197.87.102	ASA5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+71	10.197.87.103	ASA5506	 	cisco/cisco	SDB-7	LAB-2	 	 	CSM Team	 	CSM-Dev
+
+My vm:
+10.197.91.24
+administrator/cisco@123
+
+####Multicontext - fiji
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa80/configuration/guide/conf_gd/contexts.html
+http://www.cisco.com/c/en/us/support/docs/security/pix-500-series-security-appliances/99131-multiple-context.html
+http://blr-csm-site.cisco.com/JEN/FIJI-VPNMULTICTX-DEV-build/builds/
+https://blr-usm-bld.cisco.com:8080/jenkins/view/CSM-FIJI/job/FIJI-VPNMULTICTX-DEV-build/3/
+
+CSCua87940 - referal bug for resources
+
+C:\Program Files (x86)\CSCOpx\databases\vms\orig\odbc.tmpl
+decrypt this:CWEPWD=Q2pKndbk/RSKP11thV2OOw==
+10033
+
+FsmResourceAnyConnectVpn
+
+http://wikicentral.cisco.com/display/CSMANAGER/4.10+Fiji+RA+VPN+Multi+Context+Support+-+Test+cases
+https://bld-rb01.cisco.com/r/19047/ - performance issue
+fiji:
+
+####Fiji defects
+https://bld-rb01.cisco.com/r/19589/ - jagan code changes
+https://bld-rb01.cisco.com/r/19597/ - code review for error to warning message
+https://bld-rb01.cisco.com/r/19588/ CSCuv62365 - for licensing code
+https://bld-rb01.cisco.com/r/19797/ - for certificate map - rules
+https://bld-rb01.cisco.com/r/19956/  - for ssl vpn -access
+CSCuv62365 - multicontext enhancement
+CSCua87940 - referal bug for resources
+CSCuw05556 - RA VPN Tree Not showing in some device model
+CSCuw05642 -  Connection Profile Mapped for SSL should not allow DefaultRaGroup
+CSCuw26421 - Failed to download configuration to device - https://bld-rb01.cisco.com/r/20834/
+
+attributes:
+1	Multi-Context RA VPN mctx_ravpn
+2	SAML 2.0 saml
+3	ADI integration adi
+4	Baker Street baker
+5	IPV6 for RA VPN (ACL) ipv6_ravpn
+6	Alerting for critical processes system_test
+7	VMware based HA and DR vmware_ha
+8	 JRE upgrade,Tomcat Upgrade,Log4j Upgrade system_test
+9	 DCERPC dcerpc
+10	 SCTP sctp
+11	 Custom AVP BB avp
+12	 Diameter diameter
+13	 LISP lisp
+14	 PIMv2 BSR pim
+15	 Private Vlan pvlan
+16	VLAN Mapping IPv6 Support vlan_ipv6
+17	Auto-import Trustpool Support auto-imp
+18	 Event exort to support more the 45K records ev-export
+19	 IPv6 support for Packet Tracer and Packet Capture tools pack-tracer
+20	 Logging for ASA Clusters and ASA Standby standby-sys
+21	 5516 Clustering Suppor 5516-clus
+22	 IPv6 ICMP configurations Support ipv6-icmp
+23	CGNAT Phase 2 Support cgnat-2
+24	Rockwell Hyperlite Support ra-hyper
+
+### feature query check:
+isSubset in ModeSet class
+
+set.modes.containsAll(modes)
+modes - feature query
+set - from device
+############
+CLI to create multiple context
+
+en
+config t
+mode multiple - multicontext
+
+changeto system
+mode single - the single context ASA
+
+
+code coverage
+http://update.eclemma.org/
+Compile :- mvn test-compile -DskipTests=false
+Run :- mvn test -DskipTests=false
+Code coverage :- mvn sonar:sonar -DskipTests=false
+
+
+mvn test-compile -DskipTests=false
+
+mvn -DtestF1TunnelGroupValidationHandlerTest#testValidateNotNull test -DskipTests=false
+
+https://blr-usm-bld.cisco.com:8080/jenkins/job/FIJI-integra-REL-build/65/
+http://blr-csm-site.cisco.com/JEN/FIJI-integra-REL-build/builds/ for csm builds
+http://tims.cisco.com/warp.cmd?ent=Tnt5461p
+
+https://fortytwo.cisco.com/pages/viewpage.action?spaceKey=DEVT&title=Fiji+-+New+features+abbreviations+for+marking+it+in+cdets
+
+#############Multicontext defects;
+CSCuv93220 - for discovery issue of access during unit test
+
+### maven eclipse build path issue
+mvn -Declipse.workspace="C:\mahesh\CSM_workspace\maelumal_WIN-340N72AU7VF_2972_fiji_july23" eclipse:configure-workspace
+
+fiji scrub:
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-44  Fiji Unresolved (all) bugs
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-45  Fiji non-scrubbed bugs
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-47  Fiji must-fix bugs
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-46  Fiji best-effort defects
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=muradhak-48  Fiji S1-S3 Backlog defects
+
+###Backlog defects:
+CSCud87787   CSM removes the tunnel group lock config from SSL full vpn group policy
+ 
+CSCuu49976   S2S VPN Discovery failed for Manual IPv6 address in VPN Interface
+
+	 
+CSCuu73311  Extranet VPN: Manual IPv6 address is removed in Edit VPN Topology
+###########fiji er3 multicontext defects
+CSCuw55613 - 'Remote Access IPSec VPN' should be hidden in config wizard
+
+10.106.134.174 - RK's VM ip
+10.197.91.27   administrator/cisco@123  kishore vm
+
+IP :- 10.197.91.21  Administrator\cisco@123 Siva vm
+
+FIJI multi
+
+Group Policies
+ Total UT cases : 13 automated 3 tims updated: yes
+ Total IT cases : 8 automated  5 tims updated: yes
+Global Settings:
+ Total UT cases : 13 automated 3 tims updated: yes
+ Total IT cases : 8 automated 5  tims updated: yes
+Config wizard:
+  Total UT cases : 6 automated 0  tims updated: yes
+  Total IT cases : 6 automated 0  tims updated: yes
+  
+Baker street multicontext device:
+  172.23.62.207 (cisco/cisco)
+  
+  bom file location 4.9 sp1
+  C:\Users\venchund\Perforce\venchund_venchund-ws_sky\depot\csm\skye\integra\install\patch
+  
+  
+  VPN:
+============================ 
+
+https://technet.microsoft.com/en-us/library/cc779919(v=ws.10).aspx
+
+http://www.internet-computer-security.com/VPN-Guide/VPN-Tutorial-Guide.html
+
+http://www.infosec.gov.hk/english/technical/files/vpn.pdf
+
+
+
+IPSec VPN:
+================== 
+
+https://technet.microsoft.com/en-us/library/cc779919(v=ws.10).aspx
+
+http://www.fx.dk/download/docs/ipsec.pdf
+
+My Ip: 72.163.217.105
+System Ip: 10.126.186.229
+
+CSM Guide:
+====================
+
+http://www.cisco.com/c/en/us/td/docs/security/security_management/cisco_security_manager/security_manager/4-7/user/guide/CSMUserGuide.pdf
+
+
+Qdets search:
+http://qddts/protected-cgi-bin/gen_query_simple.cgi
+Project:	 embu
+attributes->
+Component: vpn
+headline: the text that needs to be searched
+
+https://cisco.webex.com/ciscosales/lsr.php?RCID=9ad6474174ef4f7e8d6a97e92a148145
+
+
+
+http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/100586-asa5500-portal-customization.html
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa91/asdm71/vpn/asdm_71_vpn_config/webvpn-customizing.html
+
+RK:
+http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/100586-asa5500-portal-customization.html
+11:39 AM
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa80/configuration/guide/conf_gd/webvpn.html#wp1166745
+
+
+
+username cisco password cisco privilege 15
+
+Under ASDM, you can find them in the Dynami Access Policy section
+
+device team
+ca-asa-vpn@cisco.com
+ca-asa@cisco.com
+
+
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa-command-reference/S/cmdref3/s16.html#pgfId-1732894
+
+cisco password reset
+https://pwreset.cisco.com/CISCO/psf.exe
+
+#device
+http://wwwin-eng.cisco.com/Eng/VSec/WWW/F1/BUILD/f1_build/geneva
+
+::baker street
+MIO: 172.29.191.45 (ssh 9001, https: 9013) or 172.29.191.41 2074 (admin/ucs123)
+
+http://wikicentral.cisco.com/display/CSMANAGER/Fiji+Release+Wiki
+
+
+
+to reset insync password:
+
+http://codc-domainserver.cisco.com/cpadmin1/Userforpass.asp
+hcl-intranet\maelumal 
+May$2015
+
+http://wwwin-eng.cisco.com/Eng/STG/Security_Mgmt/CSM/Fiji/Presentations/CSM_4.10_TAC_Slides.pptx
+
+##############Azores ##############
+CSM 4.11:
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa92/asdm72/firewall/asa-firewall-asdm/unified-comm-tlsproxy.html
+
+device images:
+http://wwwin-eng.cisco.com/Eng/VSec/WWW/F1/BUILD/f1_build/geneva
+
+List of vpn devices:
+
+10.126.244.73  -     up   asa 961 
+10.126.244.74 – up  96.2(1)152 asa962 multiple
+10.126.244.75 – down
+10.126.244.77 – asa 951  single
+
+
+terminal server ip
+10.126.244.68  
+pass cisco123 
+
+
+ List of pod machines:
+ bglgrp204-pod.cisco.com:9005
+10.225.98.214:9004
+
+1. 10.225.98.214:9000                     Ranganath
+2. 10.225.98.214:9004                     Kedar
+3. 10.225.98.214:9005                     Mahesh  csm 4.11 azores integra 30     cur:74 installed
+4. 10.225.98.214:9006                     Dilip   csm 4.11 azores integra 30     
+5. 10.197.91.21                           Siva VM  to install csm 4.10           cur:4.11 installation in progress
+6. 10.197.91.24 						  Mahesh VM csm 4.11 integra 74          cur: 74 installed
+7. 10.197.91.27                           devanand
+
+jagmurug	10.197.91.20  Jagan
+ssirivur	10.197.91.21  kedar
+ringalgi	10.197.91.22   ringalgi
+kkalluru	10.197.91.23  vinmani
+nyenduri	10.197.91.26 narayana
+
+maelumal	10.197.91.24  maelumal ######## for fiji 4.10 sr discovery issue invalid reference
+rabaskar	10.197.91.19   #### installation of 4.12 integra phuket in progress(build 42)
+vinmani	10.197.91.27   #####devanand# working on new feature
+shobhask	10.197.91.25 dilmanoh########## installation of 4.11  in progress(fcs build)
+
+
+10.225.98.214:9004
+Pf sense login:
+https://bglgrp204-pod.cisco.com:9443/
+username:bglgrp204
+pwd: pfsense
+
+patch:
+mvn clean install csm-tools:patch
+
+mvn clean install csm-tools:patch
+
+mvn install csm-tools:runtime-jars
+
+CSM_CLIENT_PATH - C:\Program Files (x86)\Cisco Systems\Cisco Security Manager Client
+CSM_SERVER_PATH - C:\Program Files (x86)\CSCOpx
+
+
+SFS for tls proxy: EDCS-1539234
+
+WORD	AZORES_VPN_Diameter_Inspection_Over_TLS_proxy_FS
+http://wwwin-eng.cisco.com/Eng/STG/Security_Mgmt/CSM/Azores/SW_Specs/AZORES_VPN_Diameter_Inspection_Over_TLS_proxy_FS.do
+
+http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1539234
+Narayana Bettadapura (nabettad) <nabettad@cisco.com>; Ravinder Narula (ravinaru) <ravinaru@cisco.com>
+
+http://tims.cisco.com/warp.cmd?ent=Tnt3717576f - azores tims
+
+http://codc-intranet.cisco.com/ars/user/view_entries.asp 
+http://codc-intranet.cisco.com/ars/user/view_summary.asp  
+
+DB setup
+Driver : JConn2.jar (Use attached one)
+Database password : Need to encrypt (Use attahced dbdecrypt.jar)
+ 1. Navigate to, C:\Program Files (x86)\CSCOpx\databases\vms\orig\odbc.tmpl
+ 2. CWEPWD=ol0XsDprMcfEMvfsVV5L4g==,
+ 3. This CWEPWD field is contains password.
+ 4. We have dbencrypt.jar file. 
+
+ ###########azores vpn
+ http://blr-csm-site.cisco.com/JEN/AZORES-VPN-DEV-build/builds/3/artifacts/
+ 
+ 
+ ##version problems
+FRunToTargetVersionMap.prop
+
+for activity related problems;
+delete from BB_MAIN where objectid=579820606216 and actobjectid in (652835067263,652835067341)
+::
+
+list of vpn bbs
+1. PKI
+ 2. ASA Group Policies
+ 3. SAML
+ 4. AAA Servers
+ 5. Cisco Secure Desktop (Router)
+ 6. SSL VPN Bookmarks
+ 7. SSL VPN Gateways
+ 8. SSL VPN Smart Tunnel Auto Signons
+ 9. SSL VPN Smart Tunnel List
+10. SSL VPN Smart Tunnel Network List
+11. TLS Proxy
+12. WINS Server List
+13. IKE Proposals 
+etc.,
+
+karsadas
+
+TLS proxy - reference bug: CSCux64176 - CSM Azores - TLS proxy bb implementation
+CSCux70552 - tls proxy new bug jagan Resolved
+CSCux75809 - vpn to integra merge azores - Resolved
+CSCux77627 - tls proxy ca server issue mahesh - Resolved IT bug
+
+CSCux74395 this is for ikev2   
+CSCux78097    Missed Files for Ikev2 Fragmentation  IT bug
+CSCux74398 for queenspark 
+CSCux81813 - jagan ut bug
+CSCux81287 :Ikev2 Activity Validation UT bug   IT bug
+CSCux84867 CSM AZORES ER 1 VPN REBASE
+###ER2
+ CSCuy09456 - tlsproxy er2 changes
+ 
+ ER2 it BUGS:
+CSCuy17499  TLS Proxy key-pair name text field should be editable 
+ CSCuy21060 TLS proxy not editable in POM
+ CSCuy21007 TLS Proxy Client CLIs should generate multiple CLIs
+ CSCuy18969 CLI should not generate for TLS Proxy Client 
+ 
+ CSCuy40849 - doc bug for concur modif deployment failure
+ 
+ http://asapedia.cisco.com/index.php/DiameterOverTLS
+
+################
+https://bld-rb01.cisco.com/r/23408/ - GUI changes for tls proxy
+
+
+saml:
+https://bld-rb01.cisco.com/r/21010/
+
+/*==============================================================*/
+/* Table : BB_TLS_PROXY_DATA  */
+/*==============================================================*/
+CREATE TABLE "DBA"."BB_TLS_PROXY_DATA"
+(
+	"OBJECTID"      bigint NOT NULL,
+	"SERVER_PROXY_CERT"          bigint,
+)
+	"SERVER_ENABLE_CLIENT_AUTH"         bit
+CREATE index BB_TLS_PROXY_INDEX ON BB_TLS_PROXY_DATA ("OBJECTID")
+
+
+
+s
+
+
+http://wikicentral.cisco.com/display/CSMANAGER/CSM+Chennai+Lab+Device+List+-+use+10.126.244.68+as+console+server+for+all+devices
+
+######tls proxy gui:
+https://bld-rb01.cisco.com/r/23408/
+
+#########confluence page for azores:
+
+https://fortytwo.cisco.com/display/PROG/CSM+4.11+Dev
+
+https://fortytwo.cisco.com/display/PROG/VPN+Test+Cases
+
+https://fortytwo.cisco.com/display/NTRE/Azores+ER1-+Acceptance+Test+cases
+
+Md Ashaf Khan  - Reachable at 07859912389
+http://codc-intranet.cisco.com/sut_v2/codcSut/EmployeeDetails.aspx?CODCSUTID=51587137,162666
+
+
+CSCux75809 - vpn to integra merge azores
+723024 change list for merge
+
+CSCux77627 - tls proxy ca server issue -
+
+https://bld-rb01.cisco.com/r/23669/
+
+abbreviations for azores
+https://fortytwo.cisco.com/display/NTRE/Azores+-+New+features+abbreviations+for+marking+it+in+cdets
+
+
+https://sites.google.com/site/amitsciscozone/home/ipsec/site-to-site-ipsec-vpn-using-static-crypto-maps
+
+azores unresolved defects
+http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=nyenduri-16
+
+ipv6 siva
+https://bld-rb01.cisco.com/r/23911/ 
+
+10.106.163.36 administrator/cisco@123
+
+10.106.163.41 Administrator/cisco@123 
+
+CSM 4.9
+
+Windows 2012 R2 Standard
+
+16 GB RAM
+
+OS = 75 GB partition
+
+CSCOpx = 150 GB partition
+
+
+http://www.cisco.com/c/en/us/td/docs/security/security_management/cisco_security_manager/security_manager/4-9/deployment/guide/cmsdg49.html#pgfId-98872
+karsadas
+
+VPN BBs
+ 1. PKI   - a) No dollar allowed, moving issue b)discovery deployment fine c) UI issue in moving d) issue in negation CLI
+ 2. ASA Group Policies - problem in preview config 
+ 3. SAML - wrong cli generation while negation
+ 4. AAA Servers  - problem in preview config 
+ 5. Cisco Secure Desktop (Router)
+ 6. SSL VPN Bookmarks
+ 7. SSL VPN Gateways
+ 8. SSL VPN Smart Tunnel Auto Signons
+ 9. SSL VPN Smart Tunnel List
+10. SSL VPN Smart Tunnel Network List
+11. TLS Proxy
+12. WINS Server List
+13. IKE Proposals 
+etc.,
+.!@#$%^&()-_
+
+###phuket common criteria 
+http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1521461 ##device fspec
+http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1550935 ###csm fspec
+
+http://wwwin-eng.cisco.com/Eng/STG/Security_Mgmt/CSM/Phuket/SW_Specs/CSM_PHUKET_VPN_Common_Criteria_Changes_Enhancements_FSpec.doc
+
+http://blr-csm-site.cisco.com/JEN/PHUKET-vpn_ipv6-DEV-build/builds/14/
+
+tls proxy
+https://bld-rb01.cisco.com/r/23458/
+https://bld-rb01.cisco.com/r/23463/
+
+https://bld-rb01.cisco.com/r/23408/ - GUI changes 
+
+https://wiki.cisco.com/display/STBU/Future+CSM+SP+CP+Patch+Planning
+
+
+ARNOTE 150370 - port issue
+
+#######rule file location:
+C:\Program Files (x86)\CSCOpx\MDC\pix-backend\templates
+
+######site to site vpn tutorial
+
+http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/112075-dynamic-ipsec-asa-router-ccp.html
+
+Phuket er1 reference identifier:
+https://bld-rb01.cisco.com/r/26018/  CREATE
+CSCuz16429
+
+http://blr-csm-site.cisco.com/JEN/PHUKET-vpn_ipv6-DEV-build/builds/18/artifacts/
+
+install/server/res/vms/runtime/upgrade/data/410999999/diameterTLS.sql
+tims_us2
+tims db
+# phuket
+http://tims.cisco.com/frameset.cmd?proj=5741&mode=b_
+
+https://fortytwo.cisco.com/display/PROG/Phuket+VPN-+Common+Criteria+Test+Cases
+
+phuket prrq
+Common Criteria Changes Support Software Functional Specification
+http://wwwin-tools.cisco.com/prrq/viewReview.do?queueName=CSM-Phuket&bugId=EDCS-1551074 
+1:13 PM 
+CSM PHUKET ASA 9.6.2 RAMC – Phase II Support Software Functional Specification
+http://wwwin-tools.cisco.com/prrq/viewReview.do?queueName=CSM-Phuket&bugId=EDCS-1550935 
+
+
+ASA Version 9.1(1)
+
+https://wiki.cisco.com/display/STBU/April+2016
+
+http://blr-csm-site.cisco.com/JEN/PHUKET-integra-REL-build/builds/
+
+
+
+Phuket IT defects:
+CSCuz28861 - VPN-Phuket:Discovery Fails for reference Identifier with multiple value
+
+https://fortytwo.cisco.com/display/PROG/RAVPN+IPv6+support+Testcases
+
+
+http://wwwin-tools.cisco.com/prrq/viewReview.do?queueName=CSM-Phuket&bugId=EDCS-1551074 
+
+
+
+http://wwwin-tools.cisco.com/prrq/viewReview.do?queueName=CSM-Phuket&bugId=EDCS-1550935
+
+ http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1540662 edcs 
+ http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1540662 prrq
+ 
+ https://fortytwo.cisco.com/display/NTRE/Phuket+ER1-Acceptance+Test+cases
+ 
+ http://wwwin-ottawa.cisco.com/tfoggoa/Scrubber/showquery.html?query=nyenduri-27
+ 
+ \\bgl11-netapp-ns\local\csmre-blr-7\wdir\blr-csm-lnx1\jenkins\jobs\AZORES-integra-REL-build\builds\204
+ 
+
+
+https://bld-rb01.cisco.com/r/24242/ 
+https://bld-rb01.cisco.com/r/23637/
+https://bld-rb01.cisco.com/r/23636/
+https://bld-rb01.cisco.com/r/24241/
+
+https://wiki.cisco.com/display/CODC/Weekend+Drive+Plan+for+1st+week+of+May+-+2016
+
+
+ http://wwwin-tools.cisco.com/prrq/viewReview.do?bugId=EDCS-1540662 
+ http://wwwin-tools.cisco.com/prrq/viewReview.do?queueName=CSM-Fiji&bugId=DRRaa63285 
+ 
+ select * from VPN_Crypto_Name_Peer_Data
+
+CSCuz49449	VPN support for Queenspark models FPR9K-SM-44,FPR4K-SM-44
+
+10.105.206.231 no enable ,
+230  for bakerstreet/queenspark testing
+
+
+Yooova*057
+
+https://10.197.87.48/admin/flash/username_from_cert.xml.
+https://10.126.244.73/admin/flash/username_from_cert.xml
+
+::
+0064:ff9b:0000:0000:0000:0000:1234:5678
+2001:0002:cd:65a:753::a1
+100::
+fd07:a47c:3742:823e:3b02:76:982b:463
+::
+
+
+\\bgl11-netapp-ns\local\csmre-blr-7\wdir\blr-csm-lnx1\jenkins\jobs\PHUKET-integra-REL-build\builds\80
+
+
+https://bld-rb01.cisco.com/r/26900/ - site to site transport mode changes
+CSCuz80038 - For Hub and spoke, transport mode CLI not discovered IT defect
+
+JRE:
+\\10.106.134.200\downloads\Anitha\karthik\jdk-7u101-windows-x64.exe
+
+Following are the path needs to be set it in the Environment.
+
+JAVA_HOME=C:\Progra~1\Java\jdk1.7.0_101
+JAVA_PATH=C:\Progra~1\Java\jdk1.7.0_101\bin
+ 
+Along with MAVEN_OPTS we have to add the additional path for 17u101 “Djdk17u101.64bit.home=C:\PROGRA~1\Java\jdk1.7.0_101"
+
+
+638985913 
+CSM is creating delta command to remove crypto dynamic mapcomm 
+10.106.44.47 
+administrator/C!sco@1234 
+
+
+CSM : admin/cisco 
+
+
+jagmurug	10.197.91.20  Jagan
+ssirivur	10.197.91.21  kedar
+ringalgi	10.197.91.22   ringalgi
+kkalluru	10.197.91.23  vinmani
+
+maelumal 10.225.98.214:9005 4.11 fcs
+maelumal	10.197.91.24  4.12 integra 123
+rabaskar	10.197.91.19   #### fcs 4.11
+vinmani	10.197.91.27   ########## MAHESH USING 4.12 INTEGRA 132
+shobhask	10.197.91.25 dilmanoh########## JAGAN USING
+
+10.106.134.134 Narayana vm
+
+CSCue09947
+
+https://wiki.cisco.com/display/STBU/Jun+2016
+
+http://learn.cisco.com/
+
+http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1550935 - Multi context RAVPN Phase2
+http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1551074 - Common Criteria Changes 
+http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1540662 - Ipv6 RAVPN Support
+http://wwwin-eng.cisco.com/cgi-bin/edcs/edcs_info?EDCS-1560450 - BB Special Character support
+
+
+initial config location:
+E:\CSM\files\vms\archive\devfiles\429496ru729653\PRIMARY\RUNNING
+
+
+#########ASA 971
+https://fortytwo.cisco.com/display/PROG/ASA+9.7.1
+https://fortytwo.cisco.com/display/PROG/ASDM+7.7.1+release
+
+
+#######for any device side issue:
+https://toolbox.cisco.com/users/sign_in
+
+
+List of vpn devices:
+
+
+
+S.No	Device Ip	Username	Password	Enable Password
+1	10.126.244.73	cisco	ciscovpn	ciscovpn
+2	10.126.244.74	cisco	cisco	    cisco
+3	10.126.244.75	cisco	ciscovpn	ciscovpn
+4	10.126.244.77	cisco	ciscovpn	ciscovpn
+
+router device from dt siva
+10.197.87.82
+cisco/123cisco123
+
+DT console
+10.197.87.250 2038
+
+ASDM:
+tools->preferences-- to turn on commands
+
+https://fortytwo.cisco.com/pages/viewpage.action?pageId=13698406 
+
+
+https://stbu-releng.cisco.com/builds/73462/asdmp4-main/88.18.0.26/ 
+https://stbu-releng.cisco.com/releases/asdmp4-main/
+http://raum/asdm/images/asdm-main/88.18.0.27/asdm-8818027.bin
+http://raum/asdm/images/asdm-771/7.7.1.3
+
+CSCva75337 - Venice: Rebase VPN from Integra
+
+prrq:
+http://wwwin-tools.cisco.com/prrq/viewQueue.do?action=viewqueue&queueName=CSM-Venice
+https://fortytwo.cisco.com/display/PROG/CSM+4.13+Dev
+
+This will return the process ID for the process name in MSDOS
+
+tasklist /svc | find "processName"
+then you can plug that PID into netstat
+
+netstat -ano | find "PID HERE"
+I dont know how to connect it all together into a batch though. I just know how to work in the command line.w

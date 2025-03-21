@@ -1,0 +1,81 @@
+
+(config)# configure terminal
+(config)# show running-config interface ma
+(config)# show running-config interface management
+ERROR: % Incomplete command
+(config)#
+(config)# show running-config interface management 0
+(config)# show running-config interface management 0/0
+!
+interface Management0/0
+ management-only
+ nameif mgmt
+ security-level 100
+ ip address 10.126.244.71 255.255.255.224
+(config)# show running-config interface
+!
+interface GigabitEthernet0/0
+ shutdown
+ nameif inside
+ security-level 100
+ zone-member Internal
+ no ip address
+!
+interface GigabitEthernet0/1
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/2
+ nameif outside
+ security-level 0
+ ip address 10.10.10.10 255.255.255.0
+!
+interface GigabitEthernet0/3
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/4
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/5
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface Management0/0
+ management-only
+ nameif mgmt
+ security-level 100
+ ip address 10.126.244.71 255.255.255.224
+(config)# show route
+
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, + - replicated route
+Gateway of last resort is 10.126.244.65 to network 0.0.0.0
+
+S*    0.0.0.0 0.0.0.0 [1/0] via 10.126.244.65, mgmt
+C        10.126.244.64 255.255.255.224 is directly connected, mgmt
+L        10.126.244.71 255.255.255.255 is directly connected, mgmt
+
+(config)# show running-config route
+route mgmt 0.0.0.0 0.0.0.0 10.126.244.65 1
+(config)# show running-config http
+http server enable
+http 0.0.0.0 0.0.0.0 mgmt
+(config)# show running-config telnet
+telnet 0.0.0.0 0.0.0.0 mgmt
+telnet timeout 5
+(config)#

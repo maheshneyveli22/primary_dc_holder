@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:verificationRule xmlns:tns="http://www.sprint.com/verify/rule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sprint.com/verify/rule VerifyRule.xsd ">
+  <tns:verificationMainList>
+  
+      <tns:verificationMain actionCode="101">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_cl_not_found_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+     <tns:transactionType>any</tns:transactionType>
+     <tns:userType></tns:userType>
+    </tns:verificationMain>
+  
+     
+        <tns:verificationMain actionCode="204">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_future_expiration_date"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+     <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+  
+          <tns:verificationMain actionCode="205">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_verification_past_due_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+      <tns:verificationMain actionCode="401">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_already_submitted_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+  
+  
+    
+    
+          <tns:verificationMain actionCode="207">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_already_submitted_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+         <tns:verificationMain actionCode="302">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_already_submitted_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+             <tns:verificationMain actionCode="501">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_already_submitted_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    <tns:verificationMain actionCode="103">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_scan_already_submitted_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+                     <tns:verificationMain actionCode="402">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_bounce_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+      <tns:verificationMain actionCode="208">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_bounce_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+      <tns:verificationMain actionCode="303">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_bounce_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+       <tns:verificationMain actionCode="502">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_email_bounce_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+           <tns:verificationMain actionCode="403">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_failed_fax_or_upload_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+      <tns:verificationMain actionCode="209">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_failed_fax_or_upload_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+          <tns:verificationMain actionCode="304">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_failed_fax_or_upload_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+              <tns:verificationMain actionCode="503">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_failed_fax_or_upload_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+      <tns:verificationMain actionCode="201">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_exemption_corp_id_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+          <tns:verificationMain actionCode="105">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_pending_complete"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+          <tns:verificationMain actionCode="202">
+		<tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="label" value="mys_label_sdp_verify_discount"/>
+      <tns:body2Key type="bodytext" value="mys_bc_sdp_new_ban_il_text"/>
+      <tns:pageName>/verify/pages/sprintDiscountRequestForm.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+              <tns:verificationMain actionCode="203">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_unable_to_verify_status_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+  
+                <tns:verificationMain actionCode="102">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="bodytext" value="mys_bc_sdp_acct_pending_exp_text"/>
+      <tns:body2Key type="" value=""/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+                    <tns:verificationMain actionCode="104">
+      <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+	  <tns:bodyKey type="label" value="mys_label_sdp_eligible_for_discount"/>
+      <tns:body2Key type="bodytext" value="mys_bc_sdp_transfer_c_to_il_text"/>
+        <tns:pageName>/verify/pages/sprintDiscountRequestForm.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+
+             <tns:verificationMain actionCode="301">
+		<tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="label" value="mys_label_sdp_verify_discount"/>
+      <tns:body2Key type="bodytext" value="mys_bc_sdp_new_ban_il_text"/>
+      <tns:pageName>/verify/pages/sprintDiscountRequestForm.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+    
+                                <tns:verificationMain actionCode="206">
+       <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+	   <tns:bodyKey type="label" value="mys_label_sdp_continue_discount"/>
+      <tns:body2Key type="bodytext" value="mys_bc_sdp_existing_biz_il_text"/>
+      <tns:pageName>/verify/pages/sprintDiscountRequestForm.jsp</tns:pageName>
+      <tns:transactionType></tns:transactionType>
+      <tns:userType></tns:userType>
+    </tns:verificationMain>
+    
+    
+  
+  
+    <tns:verificationMain actionCode="567">
+     <tns:titleKey type="label" value="mys_label_sdp_request_header"/>
+      <tns:bodyKey type="label" value="mys_label_sdp_eligible_for_different_discount"/>
+      <tns:body2Key type="bodytext" value="mys_bc_sdp_transfer_il_to_il_text"/>
+      <tns:pageName>/verify/pages/sprintDiscountRequestForm.jsp</tns:pageName>
+     <tns:transactionType></tns:transactionType>
+       <tns:userType></tns:userType>
+      <tns:verificationSideBarList>
+        <tns:verificationSideBar actionCode="552">
+        <tns:contentKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+          <tns:order>0</tns:order>
+        </tns:verificationSideBar>
+        <tns:verificationSideBar actionCode="551">
+      <tns:contentKey type="moduleFeature benefits" value="mys_bc_sdp_opt_out"/>
+          <tns:order>0</tns:order>
+        </tns:verificationSideBar>
+         </tns:verificationSideBarList>
+    </tns:verificationMain>
+    
+    
+       <tns:verificationMain actionCode="568">
+      <tns:titleKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+      <tns:bodyKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+      <tns:body2Key type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+      <tns:pageName>/verify/pages/postNumberEntry.jsp</tns:pageName>
+     <tns:transactionType></tns:transactionType>
+       <tns:userType></tns:userType>
+      <tns:verificationSideBarList>
+        <tns:verificationSideBar actionCode="550">
+        <tns:contentKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+          <tns:order>0</tns:order>
+        </tns:verificationSideBar>
+        <tns:verificationSideBar actionCode="552">
+      <tns:contentKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option1"/>
+          <tns:order>0</tns:order>
+        </tns:verificationSideBar>
+         </tns:verificationSideBarList>
+    </tns:verificationMain>
+        
+  </tns:verificationMainList>
+  <tns:defaultSideBarlist>
+<tns:verificationSideBar actionCode="552">
+      <tns:contentKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option2"/>
+      <tns:order>0</tns:order>
+    </tns:verificationSideBar>
+        <tns:verificationSideBar actionCode="550">
+      <tns:contentKey type="moduleFeature benefits" value="mys_promo_sdp_verify_affiliation_option1"/>
+      <tns:order>0</tns:order>
+    </tns:verificationSideBar>
+        <tns:verificationSideBar actionCode="551">
+      <tns:contentKey type="moduleFeature benefits" value="mys_bc_sdp_opt_out"/>
+      <tns:order>0</tns:order>
+    </tns:verificationSideBar>
+  </tns:defaultSideBarlist>
+</tns:verificationRule>

@@ -1,0 +1,78 @@
+
+
+enabling and configuring ca server:
+http://www.cisco.com/c/en/us/support/docs/security-vpn/ipsec-negotiation-ike-protocols/50282-ios-ca-ios.html
+
+###Certificate Authority:
+a) CAs are responsible for managing certificate requests and issuing digital certificates. 
+b) A digital certificate contains information that identifies a user or device. 
+c) Some of this information can include a name, serial number, company, department, or IP address. 
+d) A digital certificate also contains a copy of the public key for the user or device. 
+e) A CA can be a trusted third party, such as VeriSign, or a private (in-house) CA that you establish within your organization.
+
+###Public Key Cryptography:
+a) Digital signatures, enabled by public key cryptography, provide a means to authenticate devices and users. 
+b) In public key cryptography, such as the RSA encryption system, each user has a key pair containing both a public and a private key. 
+c) The keys act as complements, and anything encrypted with one of the keys can be decrypted with the other.
+eg:
+1) In simple terms, a signature is formed when data is encrypted with a private key. 
+2) The signature is attached to the data and sent to the receiver. 
+3) The receiver applies the public key of the sender to the data. 
+4) If the signature sent with the data matches the result of applying the public key to the data, the validity of the message is established.
+
+This process relies on the receiver having a copy of the public key of the sender and having a high degree of certainty that this key belongs to the sender, not to someone pretending to be the sender.
+Obtaining the public key of a sender is normally handled out-of-band or through an operation done at installation. 
+For instance, most web browsers are configured with the root certificates of several CAs by default.
+For VPN, the IKE protocol, a component of IPSec, can use digital signatures to authenticate peer devices before setting up security associations.
+
+###Certificate Scalability:
+a) Without digital certificates, you must manually configure each IPSec peer for every peer with which it communicates, and every new peer you add 
+to a network would thus require a configuration change on every peer with which you need it to communicate securely.
+b) When you use digital certificates, each peer is enrolled with a CA. When two peers attempt to communicate, they exchange certificates and digitally 
+sign data to authenticate each other. When a new peer is added to the network, you enroll that peer with a CA and none of the other peers need modification. 
+When the new peer attempts an IPSec connection, certificates are automatically exchanged and the peer can be authenticated.
+c) With a CA, a peer authenticates itself to the remote peer by sending a certificate to the remote peer and performing some public key cryptography. Each peer 
+sends its unique certificate which was issued by the CA. This process works because each certificate encapsulates the public key for the associated peer 
+and each certificate is authenticated by the CA, and all participating peers recognize the CA as an authenticating authority. This is called IKE with an RSA signature.
+d) The peer can continue sending its certificate for multiple IPSec sessions, and to multiple IPSec peers, until the certificate expires. When its certificate expires, 
+the peer administrator must obtain a new one from the CA.
+e) CAs can also revoke(cancel officially) certificates for peers that no longer participate in IPSec. Revoked certificates are not recognized as valid by other peers. 
+Revoked certificates are listed in a CRL, which each peer may check before accepting a certificate from another peer
+f) Some CAs have an RA as part of their implementation. An RA is a server that acts as a proxy for the CA so that CA functions can 
+continue when the CA is unavailable.
+
+###Key Pairs:
+Simple Certificate Enrollment Protocol,  Certificate Management Protocol and Certificate Management over CMS are certificate enrollment protocols
+RSA is one of the first practical public-key cryptosystems and is widely used for secure data transmission. In such a cryptosystem, the encryption 
+key is public and differs from the decryption key which is kept secret.
+1) RSA keys can be used for SSH or SSL.
+2) SCEP enrollment supports the certification of RSA keys.
+3) For the purposes of generating keys, the maximum key modulus for RSA keys is 2048 bits. The default size is 1024. 
+Many SSL connections using identity certificates with RSA key pairs that exceed 1024 bits can cause a high CPU usage on the security appliance and 
+rejected clientless logins.
+
+•For signature operations, the supported maximum key size is 4096 bits.
+•You can generate a general purpose RSA key pair, used for both signing and encryption, or 
+you can generate separate RSA key pairs for each purpose.
+
+4) Separate signing and encryption keys helps reduce exposure of the keys. 
+This is because SSL uses a key for encryption but not signing but IKE uses a key for signing but not encryption. 
+By using separate keys for each, exposure of the keys is minimized.
+
+###Trustpoints
+a) Trustpoints let you manage and track CAs and certificates. 
+b) A trustpoint is a representation of a CA or identity pair. 
+c) A trustpoint contains the identity of the CA, CA-specific configuration parameters, and an association with one enrolled identity certificate.
+
+After you have defined a trustpoint, you can reference it by name in commands requiring that you specify a CA. You can configure many trustpoints.
+
+
+Note If a security appliance has multiple trustpoints that share the same CA, only one of these trustpoints sharing the CA can be used to validate user certificates. Use the support-user-cert-validation command to control which trustpoint sharing a CA is used for validation of user certificates issued by that CA.
+
+For automatic enrollment, a trustpoint must be configured with an enrollment URL and the CA that the trustpoint represents must be available on the network and must support SCEP.
+
+You can export and import the keypair and issued certificates associated with a trustpoint in PKCS12 format. This is useful if you wish to manually duplicate a trustpoint configuration on a different security appliance.
+
+
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa80/configuration/guide/conf_gd/cert_cfg.html
+1) fingerprint 24b81433 409b3fd5 e5431699 8d490d34 

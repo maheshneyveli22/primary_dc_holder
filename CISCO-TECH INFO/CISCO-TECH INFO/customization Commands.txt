@@ -1,0 +1,41 @@
+Related Commands
+
+Command
+Description
+export webvpn webcontent
+exports previously-imported content visible to Clientless SSL VPN users.
+revert webvpn webcontent
+Removes content from flash memory.
+show import webvpn webcontent
+Displays information about imported content.
+
+
+hostname# import webvpn webcontent /+CSCOE+/help/en/app-access-hlp.inc 
+tftp://209.165.200.225/application_access_help.html
+
+import webvpn webcontent
+To import content to flash memory that is visible to remote Clientless SSL VPN users, use the import webvpn webcontent command from privileged EXEC mode.
+
+import webvpn webcontent <destination url> <source url>
+
+
+Link:
+http://www.cisco.com/c/en/us/td/docs/security/asa/asa80/command/reference/cmd_ref/i1.html
+
+
+1) For pushing customization into 
+
+hostname# import webvpn customization custom1 tftp://209.165.201.22/customization 
+/General.xml
+
+
+import webvpn customization testMahe tftp://10.106.134.200/maelumal/testCust.xml
+
+
+
+HTTPs:
+
+https://10.197.87.15/admin/exec//dir csm
+https://10.197.87.15/admin/exec//dir csm/tmp lists the dir
+https://10.197.87.15/admin/flash/csm/tmp/custBB_1!@%&()1468953970067.xml - opens the xml file
+ https://10.197.87.15/admin/exec//import webvpn customization custBB_1!@%&() flash:csm/tmp/custBB_1!@%&()1468953970067.xml

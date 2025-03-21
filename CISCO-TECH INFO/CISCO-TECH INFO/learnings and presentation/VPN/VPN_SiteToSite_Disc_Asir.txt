@@ -1,0 +1,93 @@
+
+#Discover
+
+Pre-requisites of cli for successful discovery:
+a) There needs to be a crypto ike policy
+which is similar between device 1 and 2
+
+I) For IKE policy: sh crypto isakmp policy, it will show default values also
+->Respective plugins will be called->Find a common ike proposal between the two, if it is ios fill it with default values
+
+VPNDiscoveryManager for normal cases
+1)VPNDiscoveryDisplayManager -> the class that starts the discovery for VPN,VPNDiscoveryWizard similar to TabWizard.java has different states
+->ValidateSetp->Create instance for vpnTopology and assign name,desc,type->DeviceSelection tab, we wil be creating the peers policy->finally on finish we will be 
+-->in FinishWizard Method, createVPNTopology and return the vpnid->we will have the plugins and start the discovery.. extra plugins VPNTechnologyPlugin to discover cryptomap etc.
+VPNTechnologyPlugin is for individual device
+
+
+From UI, VPNDiscoveryJob instance will be created, and we will say it is of type vpn discovery 
+
+creating a discovery job, which will do exactly same as device discovery and respective plugins are added and above that INTEGRATING will be done for different devices
+->VPNDiscoveryJob.discoverPolicies
+
+-->in FinishWizard Method, createVPNTopology and return the vpnid->we will have the plugins and start the discovery.. extra plugins VPNTechnologyPlugin to discover cryptomap etc.
+VPNTechnologyPlugin is for individual device, in IKEPlugin ike proposals will be read, there will be aggregator. for eg VPNInterfaceAggregator
+VPNInterfaceAggregator.aggregateVPNPolicies
+Input for this aggregator is, what the individual plugins have read through, so input from individual plugins will be passed and output will be generated
+
+for IKEProposalAggregator->aggregateVPNPolicies ->input will be for point to point vpn, there will be  different IKE proposals of both the device.
+Now only one ikeProposal of should be assigned to VPN topology
+
+deviceResponse->we get from plugin and it is populated in map
+VpnTechnologyPlugin - values are read from parse tree and populated in object
+
+aggregateVPNPolicies->resp(deviceResponse).getVPNPolicies
+****************
+aggregator logic: single topology discovery, means
+input for aggregator all ike proposal configured on that device, find which maps of all the available and assign it to toplogy, how they do it is in the aggregator, Individual vpn devices are iterated for the each device, get device get ike proposal for that device and then do the assignment, once common match is found ,ike proposal will be populated
+aggregator common for all topologies, technoologies
+..Hence for individual polcies, individual aggregators
+.. find the common matching and assign it
+***********************
+
+******for interface aggregator***
+if you specify set peer as something and if the ip is not present on that device, then it is an error
+
+*********ProtectedNetworkAggregator******
+have the cli as base and go with it
+
+
+
+#####for other topologies####
+1)IPSECVpnBuilder.java-->it will call individual policies->get applicable Policies->
+buildVPn->Call Individual Aggregators(initialize aggregators and aggregatePolicies(iterate through the applicable aggreators and aggregator.aggregateVPNPolicies))
+
+->output of aggregator is put the policy inside hte vpn topology. ikeaggregator puts the ikeproposal in the vpntopology, in IKE
+for IKEProposalAggregator->aggregateVPNPolicies ->input will be for point to point vpn, there will be  different IKE proposals of both the device.
+Now only one ikeProposal of should be assigned to VPN topology
+->ikeaggregator puts the ikeproposal in the vpntopology, in IKE
+->policyList.add(),ikeproposal added->response.SetPolicies
+
+
+
+#######Extranet discovery############
+
+ExtranetVpnDeviceSelectionPanel
+ExtranetVpnDisplayManager -ui to policy
+1) Complete extranetDiscovery happens in this file: ExtranetVPNBuilder
+
+it has to be a point to point vpn, hence no need to iterate through devices and we know it has only through devices
+->buildVpn->hubstaticCryptoMap->hubcryptomap->individualcryptomap and 
+->then we create vpn topology
+-> getSubtopo and under VPNsubTopo we add the interfaces
+-> ike policyy will be called only once for a topology
+->vpn inteface aggregator will be called for every peer
+multiple times
+->under subtopo, setting peers policy, ipsec settings policy and ike policy list
+
+-> in other topology , each step would be done by aggregator but here each step will be done in this method
+
+-> and every policy is set, writeVpn method will be called and then the data is put into DB
+->writer.writeVPN-> now we are in tomcat layer, no snapshot generation->using hierarchy we put it in db
+
+----During initially, for all devices discovery will happen, snapshot is created and after that vpn topology call is done and it happens in tomcat layer
+
+
+------for  per device details, whatever needs to be read, put in respective plugin say, VPNTechnologyPlugin, it will come to aggregator and it can be used.
+
+-->how do i know if i should not provision the default: even if it is configured in raw
+
+put it in default2 in rules file
+
+tables:
+VPN_Crypto_Name_Peer_Data

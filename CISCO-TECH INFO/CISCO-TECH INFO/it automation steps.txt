@@ -1,0 +1,10 @@
+depot/csm/tools/regression automation 12:07 PM 
+ 
+Maheswaran Elumalai-X(maelumal - HCL TECHNOLOGIES LIMITED at Cisco)  
+2) then? 12:07 PM 
+list the steps alone pls 12:07 PM 
+ 
+till CAT u  expand and check out 12:07 PM 
+2.in eclipse,go to test_confgi.prop and edit the server location and vm details 12:07 PM 
+den from csm-ft/test/ in it package create a test class 12:08 PM 
+and after writing test cases from cmd prompt give ant clean build -buildfile=Eventing(give tab ) 

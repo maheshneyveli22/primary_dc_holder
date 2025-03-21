@@ -1,0 +1,18 @@
+
+Device: 10.197.87.81
+key:cisco123 is the password
+RSA keypair label: CISCO_CA
+
+Pagent-#sh crypto pki server
+Certificate Server CISCO_CA:
+    Status: enabled
+    State: enabled
+    Server's configuration is locked  (enter "shut" to unlock it)
+    Issuer name: CN=mahesh
+    CA cert fingerprint: EE5932A9 D6D04108 A1A5987D E24C9D2C
+    Granting mode is: auto
+    Last certificate issued serial number (hex): 1
+    CA certificate expiration timer: 09:35:51 UTC Aug 19 2019
+    CRL NextUpdate timer: 15:35:53 UTC Aug 19 2016
+    Current primary storage dir: nvram:
+    Database Level: Minimum - no cert data written to storage

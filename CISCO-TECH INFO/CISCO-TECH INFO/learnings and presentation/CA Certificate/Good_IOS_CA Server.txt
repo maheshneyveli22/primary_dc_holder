@@ -1,0 +1,253 @@
+a)Configure pki server
+
+mkdir flash:/CISCO_CA
+
+conf terminal
+ip http server
+ip domain name networkology.net
+crypto key generate rsa modulus 1024 label CISCO_CA
+crypto pki server CISCO_CA
+ #issuer-name CISCO_CA
+ issuer-name CN=CISCO_CA,O=csmtest.com
+ database archive pem password cisco123
+ grant auto
+ lifetime certificate 365 
+ lifetime ca-certificate 1095
+ database url pem disk0:/CISCO_CA
+ no shutdown
+ exit
+ 
+############################# 
+ EG:
+ Pagent-(config)#crypto key generate rsa modulus 1024 label CISCO_CA
+The name for the keys will be: CISCO_CA
+
+% The key modulus size is 1024 bits
+% Generating 1024 bit RSA keys, keys will be non-exportable...
+[OK] (elapsed time was 2 seconds)
+
+Pagent-(config)#crypto pki server CISCO_CA
+Pagent-(cs-server)#issuer-name CN=CISCO_CA
+Pagent-(cs-server)#grant auto
+Pagent-(cs-server)#no shutdown
+%Some server settings cannot be changed after CA certificate generation.
+% Please enter a passphrase to protect the private key
+% or type Return to exit
+Password:
+
+Re-enter password:
+
+% Certificate Server enabled.
+Pagent-(cs-server)#show cry
+Pagent-(cs-server)#exit
+Pagent-(config)#
+############################
+ 
+b)  To remove CA server:
+ 1) Go to that PKI server and give
+ shutdown
+ 2) Then do: no crypto pki server CISCO_CA
+ 
+ 
+c) Show crypto server;
+
+Pagent-#show crypto pki server
+Certificate Server CISCO_CA:
+    Status: enabled
+    State: enabled
+    Server's configuration is locked  (enter "shut" to unlock it)
+    Issuer name: CN=CISCO_CA
+    CA cert fingerprint: 836B5B0F CC27E11A 84A7D040 2B67333C
+    Granting mode is: auto
+    Last certificate issued serial number (hex): 1
+    CA certificate expiration timer: 09:28:22 UTC Aug 2 2019
+    CRL NextUpdate timer: 15:28:23 UTC Aug 2 2016
+    Current primary storage dir: nvram:
+    Database Level: Minimum - no cert data written to storage
+
+	
+d) show crypto pki certificates:
+
+Pagent-#show crypto pki certificates
+CA Certificate
+  Status: Available
+  Certificate Serial Number (hex): 01
+  Certificate Usage: Signature
+  Issuer:
+    cn=CISCO_CA
+  Subject:
+    cn=CISCO_CA
+  Validity Date:
+    start date: 09:28:22 UTC Aug 2 2016
+    end   date: 09:28:22 UTC Aug 2 2019
+  Associated Trustpoints: CISCO_CA
+
+Router Self-Signed Certificate
+  Status: Available
+  Certificate Serial Number (hex): 01
+  Certificate Usage: General Purpose
+  Issuer:
+    cn=IOS-Self-Signed-Certificate-182705579
+  Subject:
+    Name: IOS-Self-Signed-Certificate-182705579
+    cn=IOS-Self-Signed-Certificate-182705579
+  Validity Date:
+    start date: 12:43:08 UTC Apr 13 2016
+    end   date: 00:00:00 UTC Jan 1 2020
+  Associated Trustpoints: TP-self-signed-182705579
+  Storage: nvram:IOS-Self-Sig#3.cer
+
+e) Cisco ASA enrollment to the Cisco IOS CA Server:
+
+crypto key generate rsa modulus 1024
+!
+domain-name networkology.net
+crypto ca trustpoint CISCO_CA
+ id-usage ssl-ipsec
+ subject-name CN=asa1, C=IN
+ fqdn asa1.networkology.net
+ enrollment url http://10.1.1.1:80
+ exit
+crypto ca authenticate CISCO_CA
+crypto ca enroll 
+
+#############################
+EG:
+
+ciscoasa(config)# crypto key generate rsa modulus 1024
+WARNING: You have a RSA keypair already defined named <Default-RSA-Key>.
+
+Do you really want to replace them? [yes/no]: yes
+Keypair generation process begin. Please wait...
+ciscoasa(config)# dom
+ciscoasa(config)# domain-name networkology.net
+ciscoasa(config)# cry
+ciscoasa(config)# crypto ca tr
+ciscoasa(config)# crypto ca trustpoin
+ciscoasa(config)# crypto ca trustpoint CISCO_CA
+ciscoasa(config-ca-trustpoint)# id-usage ssl-ipsec
+ciscoasa(config-ca-trustpoint)# su
+ciscoasa(config-ca-trustpoint)# subject-name CN=asa1, C=IN
+ciscoasa(config-ca-trustpoint)#  fqdn asa1.networkology.net
+ciscoasa(config-ca-trustpoint)# enrollment url http://10.197.87.81
+ciscoasa(config-ca-trustpoint)# exit
+ciscoasa(config)# cr
+ciscoasa(config)# cryp
+ciscoasa(config)# crypto ca
+ciscoasa(config)# crypto ca au
+ciscoasa(config)# crypto ca authenticate CISCO_CA
+
+INFO: Certificate has the following attributes:
+Fingerprint:     836b5b0f cc27e11a 84a7d040 2b67333c
+Do you accept this certificate? [yes/no]: YES
+
+Trustpoint CA certificate accepted.
+ciscoasa(config)# CRY
+ciscoasa(config)# cry
+ciscoasa(config)# crypto ca e
+ciscoasa(config)# crypto ca en
+ciscoasa(config)# crypto ca enroll CISCO_CA
+%
+WARNING: The certificate enrollment is configured with an fqdn
+that differs from the system fqdn. If this certificate will be
+used for VPN authentication this may cause connection problems.
+
+Would you like to continue with this enrollment? [yes/no]: YES
+% Start certificate enrollment ..
+% Create a challenge password. You will need to verbally provide this
+   password to the CA Administrator in order to revoke your certificate.
+   For security reasons your password will not be saved in the configuration.
+   Please make a note of it.
+Password: ********
+Re-enter password: ********
+
+% The subject name in the certificate will be: CN=asa1, C=IN
+
+% The fully-qualified domain name in the certificate will be: asa1.networkology.net
+
+% Include the device serial number in the subject name? [yes/no]: YES
+
+% The serial number in the certificate will be: FCH1834JNGP
+
+Request certificate from CA? [yes/no]: YES
+% Certificate request sent to Certificate Authority
+
+##################################
+
+f) Verification in asa device;
+
+####################
+ciscoasa(config)# show crypto ca trustpoints
+
+Trustpoint ASDM_TrustPoint0:
+    Subject Name:
+    cn=CA
+          Serial Number: 01
+    Certificate configured.
+    CEP URL: http://10.197.87.81
+
+
+Trustpoint CISCO_CA:
+    Subject Name:
+    cn=CISCO_CA
+          Serial Number: 01
+    Certificate configured.
+    CEP URL: http://10.197.87.81
+	
+	$$$$$$$$$$$$$$$$$$$$$
+
+ciscoasa(config)# show crypto ca certificates
+Certificate
+  Status: Available
+  Certificate Serial Number: 02
+  Certificate Usage: General Purpose
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: MD5 with RSA Encryption
+  Issuer Name:
+    cn=CISCO_CA
+  Subject Name:
+    serialNumber=FCH1834JNGP
+    hostname=asa1.networkology.net
+    cn=asa1
+    c=IN
+  Validity Date:
+    start date: 09:37:31 UTC Aug 2 2016
+    end   date: 09:37:31 UTC Aug 2 2017
+  Associated Trustpoints: CISCO_CA
+
+CA Certificate
+  Status: Available
+  Certificate Serial Number: 01
+  Certificate Usage: Signature
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: MD5 with RSA Encryption
+  Issuer Name:
+    cn=CISCO_CA
+  Subject Name:
+    cn=CISCO_CA
+  Validity Date:
+    start date: 09:28:22 UTC Aug 2 2016
+    end   date: 09:28:22 UTC Aug 2 2019
+  Associated Trustpoints: CISCO_CA
+
+CA Certificate
+  Status: Available
+  Certificate Serial Number: 01
+  Certificate Usage: Signature
+  Public Key Type: RSA (1024 bits)
+  Signature Algorithm: MD5 with RSA Encryption
+  Issuer Name:
+    cn=CA
+  Subject Name:
+    cn=CA
+  Validity Date:
+    start date: 11:07:11 UTC Mar 26 2015
+    end   date: 11:07:11 UTC Mar 25 2018
+  Associated Trustpoints: ASDM_TrustPoint0
+  
+  
+  ################################
+
+
+	
+

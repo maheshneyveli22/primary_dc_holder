@@ -1,0 +1,168 @@
+1) To get object printed as string
+
+-> Here result is the object of type:CreateBookingInputForm which we want to print as string 
+
+com.fasterxml.jackson.databind.ObjectMapper obj = new com.fasterxml.jackson.databind.ObjectMapper();
+try {
+    System.out.println("Mahesh in gci");
+    System.out.println(obj.writeValueAsString(bookingForm));
+}catch (Exception exe){
+    System.out.println(exe);
+}
+
+com.fasterxml.jackson.databind.ObjectMapper obj = new com.fasterxml.jackson.databind.ObjectMapper();
+try {
+    System.out.println("Mahesh in gci");
+    System.out.println(obj.writeValueAsString(requestPayload));
+}catch (Exception exe){
+    System.out.println(exe);
+}
+
+a) We can either print in code or
+b) In intellij -> debugmode-> evaluate expression we can print it 
+
+2) To print SOAP request response when using MessageFactory:
+
+    public static SOAPMessage createSoapRequest(ProcessItineraryDto request, String user, String password) {
+        MessageFactory messageFactory = null;
+        SOAPMessage soapMessage = null;
+        try {
+            messageFactory = MessageFactory.newInstance();
+            soapMessage = messageFactory.createMessage();
+            SOAPPart soapPart = soapMessage.getSOAPPart();
+            SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
+            soapEnvelope = getSoapHeader(soapEnvelope, user, password);
+            SOAPBody soapBody = soapEnvelope.getBody();
+            Marshaller marshaller = getContext(ProcessItineraryDto.class).createMarshaller();
+            marshaller.marshal(request, soapBody);
+            soapMessage.saveChanges();
+            System.out.println("Mahesh Printing soap Request");
+            printSoapMessage(soapMessage);
+            //ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
+            //soapMessage.writeTo(baosOut);
+            //String msg = baosOut.toString("UTF-8");
+            //soapMessage.writeTo(System.out);//Todo
+        } catch (SOAPException e) {
+            log.error("Exception occured while generating SOAP request message: " + "\n" + e.getMessage());
+        } catch (JAXBException j) {
+            log.error("JAXB exception while creating SOAP request message" + "\n" + j.getMessage());
+        }
+        return soapMessage;
+    }
+
+    public static void printSoapMessage(SOAPMessage soapMessage)
+    {
+  try {
+      //To comment before merge
+
+      ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
+      soapMessage.writeTo(baosOut);
+      String msg = baosOut.toString("UTF-8");
+      soapMessage.writeTo(System.out);//Todo
+      // To comment before merge
+  }
+  catch(SOAPException | IOException exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+	
+	
+3) To Print SOAP request response when using WebServiceTemplate()
+a) Use interceptor and print request/response
+
+
+eg:
+public GlobalCompanyIdentifierServiceTemplate() {
+	jaxbUtil = new WssSecurityUtil();
+	webServiceTemplate = new WebServiceTemplate();
+	Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+	marshaller.setContextPath("com.expd.service.global_company_identifier.v1");
+	webServiceTemplate.setMarshaller(marshaller);
+	webServiceTemplate.setUnmarshaller(marshaller);
+
+        webServiceTemplate.setInterceptors(
+                new ClientInterceptor[]{new ClientInterceptor() {
+
+
+
+                    @Override
+                    public boolean handleRequest(MessageContext messageContext) throws WebServiceClientException {
+                        System.out.println("message from mahesh handleRequest2"); // I can not see this message in console or file
+
+                        return true;
+                    }
+
+                    @Override
+                    public boolean handleResponse(MessageContext messageContext) throws WebServiceClientException {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean handleFault(MessageContext messageContext) throws WebServiceClientException {
+                        return true;
+                    }
+
+                    @Override
+                    public void afterCompletion(MessageContext messageContext, Exception ex) throws WebServiceClientException {
+
+
+                        try {
+                            System.out.println("MRequest :");
+                            messageContext.getRequest().writeTo(System.out);
+                            System.out.println("\nMResponse : ");
+                            messageContext.getResponse().writeTo(System.out);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        System.out.println();
+                    }
+                }}
+        );
+
+		
+b) We can also print in logs by specifying in application properties :
+
+logging.level.org.springframework.ws=TRACE
+
+4) To print soap message in marshalSendAndReceive()
+
+
+
+eg:
+ com.expd.service.document_management.v1.UploadDocumentResponse operationResponse = (com.expd.service.document_management.v1.UploadDocumentResponse) webServiceTemplate
+	        .marshalSendAndReceive(documentManagementServiceURL, uploadDocument, new WebServiceMessageCallback() {
+	            public void doWithMessage(WebServiceMessage webServiceMessage) {
+		        try {
+		            SoapMessage soapMessage = (SoapMessage) webServiceMessage;
+                    JaxbContextUtil.getContext(SecurityHeaderType.class).createMarshaller().marshal(
+	                            jaxbUtil.createWSSecurityHeader(user, password),
+	                            soapMessage.getSoapHeader().getResult());
+                    printSoapMessage(soapMessage);
+
+
+		        } catch (Exception e) {
+		            throw new RuntimeException(e);
+		        }
+	            }
+	        });
+	return operationResponse.getOut();
+    }
+	
+	
+    public static void printSoapMessage(SOAPMessage soapMessage)
+    {
+  try {
+      //To comment before merge
+
+      ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
+      soapMessage.writeTo(baosOut);
+      String msg = baosOut.toString("UTF-8");
+      soapMessage.writeTo(System.out);//Todo
+      // To comment before merge
+  }
+  catch(SOAPException | IOException exception)
+        {
+            exception.printStackTrace();
+        }
+    }

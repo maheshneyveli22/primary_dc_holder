@@ -1,0 +1,8 @@
+      crypto ca trustpoint mahesh
+        revocation-check none
+        id-usage ssl-ipsec 
+        no fqdn
+        subject-name CN=ciscoasa
+        enrollment url http://10.197.87.81
+      crypto ca authenticate mahesh nointeractive
+      crypto ca enroll mahesh noconfirm

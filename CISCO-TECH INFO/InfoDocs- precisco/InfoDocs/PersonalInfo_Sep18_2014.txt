@@ -1,0 +1,364 @@
+icici bank 1:
+MAHESWARAN E
+22 -A 
+05 -B 
+60 -C 
+16 -D 
+70 -E 
+38 -F 
+00 -G  
+12 -H 
+34 -I 
+11 -J 
+00 -K 
+11 -L 
+96 -M 
+07 -N 
+12 -O 
+14 -P
+
+051 -CV no
+VISA
+07/23
+4704 5615 4703 3458
+513540611	
+thilaga12#
+elumalai12#
+7499
+
+000901585508
+IFSC:ICIC0000009
+CHENNAI - NUNGAMBAKKAM
+
+110, PRAKASH PRESIDIUM, UTHAMAR
+GANDHI SALAI, (NUNGAMBAKKAM HIGH
+ROAD), CHENNAI. 600034
+
+ARGPM3743D
+
+
+
+IRCTC LOGIN:
+mahe_ney
+mdg431
+
+
+HDFC login:
+Master card
+5520881001161085
+3/16
+785
+MAHESWARAN E
+maheney22
+charan12#
+0529
+
+hdfc loan:7137
+mahedivi
+divya12#
+22040690 - loan account number
+
+hdfc loan:2353
+mahecharan
+divya12#
+
+HDFC credit card shopping:
+maheswaran
+divya12#
+
+
+LIC id: 
+maheshelumalai  id 
+ananthababu  Pwd
+policy number:734389317
+
+
+
+airtel login:
+maheshneyveli22
+thilaga12#
+
+airtel dth:
+3008599763
+
+airtel broadband number:
+04442038961
+04442858961 new latest  42743820 42981636
+04466070904_tn
+48309898 - cancel request
+
+
+reliance number:
+9381982564
+
+
+PAN:
+ARGPM3743D
+
+flipkart login:
+maheshneyveli22@gmail.com	
+thilaga12#
+
+
+firstcry.com
+maheshneyveli22@gmail.com
+thilaga12#
+
+
+apsrtc:
+USERNAME :	maheshneyveli22
+PASSWORD :	divya12#
+
+
+setc:
+maheshneyveli22
+thilaga
+
+ksrtc:
+User Name : maheshneyveli22@gmail.com
+Password :   hkX-Z8TTP
+
+
+docs:
+maheshneyveli22docs@gmail.com
+thilaga12#
+
+
+#########
+
+HCL info:Payslip
+Employee ID 40181461
+Designation SOFTWARE ENGINEER
+DOJ / Gender 18.06.2007 / Male
+PAN No ARGPM3743D
+Person ID 40181461
+Pension No RPFC-HR/5572/074907
+PF No HIL EPF Trust-HR/5572/133387
+:
+:
+:
+:
+:
+:
+:
+Bank Name & Account No ICICI BANK LIMITED 000901585508
+Location (CWL) Chennai-SEZ, Kanceehpuram, ETA 2, #33
+Band E1
+Department Corp CDO-Del Assurance-To
+Days worked in month 31.00
+LWP Current Month 0.00
+LWP Previous Month 0.00
+
+####TCS payslip########
+
+TATA CONSULTANCY SERVICES EMPLOYEES' PROVIDENT FUND
+9th floor, Nirmal Building, Nariman Point, Mumbai - 400 021
+A) For PF Queries :- Address for communication :Ms. Farida Zariwalla/Mr. Sachin Singh, Tata Consultancy Services Ltd.,
+4th Floor, Akruti Trade Center Road no.7, MIDC, Andheri East, Mumbai - 400 093.
+Phone : 6779 3676/6779 3736 Fax : 6779 7280, E-mail : farida.zariwalla@tcs.com /sachin.rs@tcs.com@tcs.com
+B) For Pension Queries :- Ms. Pratiksha Kasbekar, Tata Consultancy Services Ltd.,
+Gateway Park, Akruti Business Port, Road No.13,MIDC, Andheri(E), Mumbai-400093
+Phone : 67793530 Fax : 67796850, E-mail : corporate.pensioncell@tcs.com
+PF Statement for the Financial year
+Emp No     Name                PF No                DOJ           PF Pension No     DOJ EPS      PAN
+525988 MR. MAHESWARAN ELUMALAI MH/BAN/48475/525988 21-SEP-2011 MH/BAN/48475/247889 21-SEP-2011 ARGPM3743D
+
+
+
+
+#######################mediassist#######
+Login Credentials:
+URL: https://www.mediassistindia.com/online-enroll
+
+UserName : 316362@cgi.com
+Password : thilaga12#
+
+##########VODAFONE DATACARD######
+8939787036
+
+maheshneyveli22
+Thilaga12
+
+############tata photon###
+9282116217
+
+Tata Docomo A/C No.	920427459
+
+wifi:http://192.168.1.1/html/home.html
+admin
+admin
+
+wifi:
+tataphotonmahesh
+12345678
+
+tataphoton application:https://www.tataphoton.com/my-account.aspx
+9282116217
+thilaga12#
+mothers maiden name: thilagavathy
+
+1800266 12121
+
+920427459
+
+##############
+
+
+MICI3258652575 -hdfc#####
+
+
+http://www.airtel.in/smartbyte-s/page.html
+
+refer www.careercup.com
+ to www.geeksforgeeks.com
+
+45546019752
+
+Monster -2014
+maheswaran.indian@gmail.com
+maheswaran.elumalai
+thilaga12#
+
+naukri:
+maheswaran.indian@gmail.com	
+thilaga
+
+shine:
+maheswaran.indian@gmail.com
+thilaga12#
+
+times jobs
+maheswaran.indian@gmail.com
+thilaga
+
+Java/J2EE, Struts 2, Spring, Hibernate, AJAX, SOAP,Hessian Webservices
+
+sites:
+http://www.geeksforgeeks.org/
+http://www.crazyforcode.com/
+http://www.careercup.com/
+http://www.careercup.com/page
+http://www.codenirvana.in/2013/04/creating-number-patterns-in-java_25.html
+
+
+
+http://www.javaworld.com/article/2077260/learn-java/the-basics-of-java-class-loaders.html
+http://articles.qos.ch/classloader.html
+http://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-with-examples
+http://www.vogella.com/tutorials/JavaConcurrency/article.html#concurrency
+http://www.sql-tutorial.net/SQL-JOIN.asp
+http://www.digizol.com/2008/07/web-service-axis-tutorial-client-server.html
+http://examples.javacodegeeks.com/enterprise-java/jws/jax-ws-spring-integration-example/
+http://www.mkyong.com/webservices/jax-ws/jax-ws-spring-integration-example/
+http://www.beingjavaguys.com/2013/05/java-xml-parser-examples.html
+##jvm
+http://www.artima.com/insidejvm/ed2/
+
+http://www.onjava.com/pub/a/onjava/2004/07/14/clustering.html
+http://thewonggei.com/2011/06/23/session-and-clustered-java-web-apps/
+http://www.javaworld.com/article/2075019/jndi/j2ee-clustering--part-1.html
+http://www.javaworld.com/article/2075478/core-java/j2ee-clustering--part-2.html
+http://www.ibm.com/developerworks/java/library/j-zookeeper/index.html?ca=drs-
+http://www.theserverside.com/news/1320914/Scaling-Your-Java-EE-Applications-Part-2
+http://docs.oracle.com/cd/E14526_01/coh.350/e14510/sessionmanagement.htm
+
+http://java.dzone.com/articles/spring-jms-activemq
+http://www.javabeat.net/integrating-spring-with-jms/
+
+
+system boot time:
+
+systeminfo | find /i "Boot Time"
+wmic os get lastbootuptime
+
+rani and rani:
+maheshneyveli22@gmail.com
+thilaga12#
+
+http://192.168.1.1/
+admin
+password
+
+
+
+*27 60432 9001 866 327 2777
+CGI sunlife insurance:
+1-800-387-2636.
+514-866-2562.
+
+mysunlife.ca
+175521390707 -withdrawal no
+
+
+
+HCL
+
+access Id:
+131375882733 maheshneyveli22@gmail.com
+thilaga12
+9952531504
+
+account Number
+13496999316362
+
+402-8103034-5020345
+ 
+
+
+
+inox:
+maheshneyveli22@gmail.com
+5be90c442c
+
+cap gemini
+anish pawah +91-4439831000, Extension:4432898
+
+
+###EB NO
+09 3240011
+Service Connection No (With Region code):	093240011
+Service Connection No (Without Region code):	3240011
+
+sundarambal01
+sundarambal
+
+SPP cheque NO:0000546806
+Reference Number: MX2C06YQ029993163621
+pAYABLE DATE: 22-07-2014 CITIBANK NA NEWYORK 10043
+
+
+http://in-fp002/eClearances/Default_Old.aspx
+
+
+http://www.airtel.in/mobile/prepaid/recharge-online
+
+
+1) what is soap
+2) what is wsdl
+3) what is their relation
+4) what does wsdl contains
+5) what is its structure
+6) How did you secure your soap webservice
+7) what is must understand in soap
+8) How will u enable encoding in soap
+9) what is intermediary in soap
+10) How will expose your webservice
+11) How will you consume your webservice
+12) What is a xsd
+13) what is jaxb
+14) how to create xsd
+15) What are the different ways of communication in webservice
+16) what tool you used for testing your webservice and api
+
+
+
+
+Login Id: maheshneyveli22@gmail.com
+Password: 44797523
+
+PAN NO:ARGPM3743D
+PASSPORT NUMBER:G1946068
+Place of Issue:CHENNAI
+Date of Issue (dd/mm/yyyy):08/03/2007
+Date of Expiry (dd/mm/yyyy):07/03/2017 
+
