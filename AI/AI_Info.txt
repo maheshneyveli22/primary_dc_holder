@@ -1,0 +1,15 @@
+1) https://learn.microsoft.com/en-us/training/paths/get-started-with-artificial-intelligence-on-azure/
+
+2) Top machine learning algorithms :
+https://www.geeksforgeeks.org/understanding-logistic-regression/
+
+3) Sigmoid function:
+https://www.geeksforgeeks.org/derivative-of-the-sigmoid-function/
+
+
+4) ****
+https://learn.microsoft.com/en-us/training/courses/ai-900t00?wt.mc_id=esi_ai_content_wwl
+
+
+5) https://www.javatpoint.com/machine-learning
+  https://www.javatpoint.com/artificial-intelligence-ai

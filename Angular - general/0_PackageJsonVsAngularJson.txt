@@ -1,0 +1,3 @@
+1) package.json is not related to angular's ecosystem. It's npm's ecosystem and its responsible for keeping meta data about pacakges/libraries you use as your dependency.
+2) angular.json is related to angular ecosystem, its responsible for your angular app configuration. You can learn more from official angular docs.
+3) Package.JSON holds all of the “npm” packages installed for the project. Angular.JSON holds the configuration for the project.

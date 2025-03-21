@@ -1,0 +1,95 @@
+https://www.tutorialspoint.com/angular7/angular7_project_setup.htm
+
+1) To install:  npm install -g @angular/cli@latest
+2) To get angular version: ng version
+3) Install node js to check node version:
+4)  To create a new angular project:ng new my-first-appmahe --no-strict
+5) Uninstall angular and reinstall angular
+6) to see verbose in npm install :
+7) for ng commands in verbose mode:
+8) Update angular from one version to another
+
+
+1) To install:  npm install -g @angular/cli@latest
+ npm install  @angular/cli@latest
+
+-> -g means installing globally in our machine 
+
+###########################
+C:\Users\Maheswaran>npm install -g @angular/cli@latest
+npm WARN deprecated @npmcli/move-file@2.0.1: This functionality has been moved to @npmcli/fs
+
+2) To get angular version: ng version
+
+3) -> to check node version:
+
+a) To start setup we should have nodejs installed. Once nodejs installed . once installed we can check node version using command: node -v 
+
+C:\maheangularprojects>node -v
+v14.19.1
+
+b) we can install node js only via normal windows installation from link: or through IT people 
+If you do not get the version, install nodejs from their official site −https://nodejs.org/en/.
+
+
+
+
+
+4)  To create a new angular project:ng new my-first-appmahe --no-strict
+
+###########################
+E:\Expeditors_sample_projects\Angular_Projects>ng new my-first-appmahe --no-strict
+
+5) 
+Uninstall angular and reinstall angular
+
+a) npm uninstall -g @angular/cli
+###
+C:\Workspace>npm uninstall -g @angular/cli
+
+removed 224 packages, and audited 1 package in 7s
+
+found 0 vulnerabilities
+
+###
+
+b) Clear Cache: npm cache clean --force
+
+###
+C:\Workspace>npm cache clean --force
+npm WARN using --force Recommended protections disabled.
+###
+
+c) npm cache verify
+
+###
+C:\Workspace>npm cache verify
+Cache verified and compressed (~\AppData\Local\npm-cache\_cacache)
+Content verified: 0 (0 bytes)
+Index entries: 0
+Finished in 0.013s
+###
+
+
+d) install angular using command: 
+npm install -g @angular/cli@latest
+
+or 
+ng update @angular/core@14 @angular/cli@14 
+
+
+6) to see verbose in npm install :
+Example usage: npm install ionic --loglevel verbose.
+
+Running the npm commands like this, shows the logs in realtime and saves the logs to the directory its running within.
+
+For permanent solution, just edit the global npm configuration. To do this, run npm config edit command and add loglevel=verbose. Now every npm command will show detailed logs
+
+
+7) for ng commands in verbose mode:
+
+eg: ng serve --verbose 
+
+8) 
+ng update @angular/core@14 @angular/cli@14 –allow-dirty –force 
+

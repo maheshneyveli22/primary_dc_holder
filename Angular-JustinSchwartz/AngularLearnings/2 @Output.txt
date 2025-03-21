@@ -1,0 +1,96 @@
+ Passing data from CHILD COMPONENT TO PARENT COMPONENT
+-> -> We can use @output decorator for the same 
+-> The @Output() decorator in a child component or directive lets data flow from the child to the parent.
+-> The child component uses the @Output() property to raise an event to notify the parent of the change. 
+-> To raise an event, an @Output() must have the type of EventEmitter, which is a class in @angular/core that you use to emit custom events.
+-> The following example shows how to set up an @Output() in a child component that pushes data from an HTML <input> to an array in the parent component.
+-> To use @Output(), you must configure the parent and child.
+
+A) Configuring the child component
+-> The following example features an <input> where a user can enter a value and click a <button> that raises an event. 
+-> The EventEmitter then relays the data to the parent component.
+
+i) Import Output and EventEmitter in the child component class:
+import { Output, EventEmitter } from '@angular/core';
+ii) In the component class, decorate a property with @Output(). The following example newItemEvent @Output() has a type of EventEmitter, 
+which means it's an event: 
+############
+src/app/item-output/item-output.component.ts
+
+@Output() newItemEvent = new EventEmitter<string>();
+#####
+
+iii) The different parts of the preceding declaration are as follows:
+
+DECLARATION PARTS	DETAILS
+@Output()	                    A decorator function marking the property as a way for data to go from the child to the parent.
+newItemEvent	                The name of the @Output().
+EventEmitter<string>	        The @Output()'s type.
+new EventEmitter<string>()	    Tells Angular to create a new event emitter and that the data it emits is of type string.
+
+
+iv) Create an addNewItem() method in the same component class:src/app/item-output/item-output.component.ts
+
+######
+export class ItemOutputComponent {
+
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  addNewItem(value: string) {
+    this.newItemEvent.emit(value);
+  }
+}
+#####
+-> The addNewItem() function uses the @Output(), newItemEvent, to raise an event with the value the user types into the <input>.
+
+v) Configuring the child's template
+-> The child's template has two controls. 
+a)  The first is an HTML <input> with a template reference variable, #newItem, where the user types in an item name. 
+-> The value property of the #newItem variable stores what the user types into the <input>.
+
+########
+src/app/item-output/item-output.component.html
+<label for="item-input">Add an item:</label>
+<input type="text" id="item-input" #newItem>
+<button type="button" (click)="addNewItem(newItem.value)">Add to parent's list</button>
+########
+
+b) The second element is a <button> with a click event binding.
+
+-> The (click) event is bound to the addNewItem() method in the child component class. 
+-> The addNewItem() method takes as its argument the value of the #newItem.value property.
+
+vi)  Configuring the parent component
+-> The AppComponent in this example features a list of items in an array and a method for adding more items to the array.
+-> The addItem() method takes an argument in the form of a string and then adds that string to the items array.
+
+#########
+src/app/app.component.ts
+
+export class AppComponent {
+  items = ['item1', 'item2', 'item3', 'item4'];
+
+  addItem(newItem: string) {
+    this.items.push(newItem);
+  }
+}
+############
+
+vii) Configuring the parent's template
+a)  In the parent's template, bind the parent's method to the child's event.
+b) Put the child selector, here <app-item-output>, within the parent component's template, app.component.html
+
+########
+<app-item-output (newItemEvent)="addItem($event)"></app-item-output>
+########
+c) The event binding, (newItemEvent)='addItem($event)', connects the event in the child, newItemEvent, to the method in the parent, addItem().
+d) The $event contains the data that the user types into the <input> in the child template UI.
+e) To see the @Output() working, add the following to the parent's template:
+###
+<ul>
+  <li *ngFor="let item of items">{{item}}</li>
+</ul>
+###
+f) The *ngFor iterates over the items in the items array. 
+-> When you enter a value in the child's <input> and click the button, the child emits the event and the parent's addItem() method pushes the value to the items array and new item renders in the list.
+

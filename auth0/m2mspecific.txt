@@ -1,0 +1,2 @@
+1) https://auth0.com/docs/get-started/auth0-overview/set-up-apis
+2) https://auth0.com/docs/get-started/auth0-overview/create-applications/machine-to-machine-apps

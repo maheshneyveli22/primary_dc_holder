@@ -1,0 +1,5 @@
+auth.service.ts 
+key=AIzaSyAETvw1FH6Vc5aR8gRIAwIA7iofso0xkmY
+
+data-storage.service.ts
+https://testmaheproject2-default-rtdb.firebaseio.com/recipes.json

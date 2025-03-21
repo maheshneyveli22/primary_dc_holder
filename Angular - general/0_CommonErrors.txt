@@ -1,0 +1,86 @@
+1)  Property 'controls' does not exist on type 'AbstractControl'.
+
+###
+ faced the same issue on ng build but simply fixed with [],
+
+*ngFor="let _policy of DynamicFormControls['controls'] ; let i=index"
+use the above line instead of the below one
+
+ *ngFor="let _policy of DynamicFormControls.controls ; let i=index"
+@@@
+
+###
+
+##Error in console##
+Error: src/app/recipes/recipe-edit/recipe-edit.component.html:60:73 - error TS2339: Property 'controls' does not exist on type 'AbstractControl'.
+
+60             *ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
+                                                                           ~~~~~~~~
+
+  src/app/recipes/recipe-edit/recipe-edit.component.ts:9:16
+    9   templateUrl: './recipe-edit.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component RecipeEditComponent.
+
+
+####
+OR add ?
+
+eg:
+
+replace:             
+*ngFor="let ingredientCtrl of recipeForm.get('ingredients').controls; let i = index"
+
+with:
+ *ngFor="let ingredientCtrl of recipeForm.get('ingredients')?.controls; let i = index"
+
+
+###
+
+References:
+https://github.com/angular/angular-cli/issues/6099
+https://stackoverflow.com/questions/45738257/property-controls-does-not-exist-on-type-abstractcontrol-angular4
+
+2) 
+PS C:\ExpoNow\maheangularprojects\Dec3_auth-05-added-token-to-requests> ng serve 
+Schema validation failed with the following errors:
+  Data path "" must NOT have additional properties(es5BrowserSupport).
+  
+###Remove line:     "es5BrowserSupport": true### in angular.json 
+      "es5BrowserSupport": true
+
+
+#####
+
+3) for auth
+mahesh@test.com 
+mahesh
+
+
+4) Error:
+Error: src/app/app-routing.module.ts:11:7 - error TS1323: Dynamic imports are only supported when the '--module' flag is set to 'es2020', 'es2022', 'esnext', 'commonjs', 'amd', 'system', 'umd', 'node12', or 'nodenext'.
+
+
+In tsconfig.json, change "target" to  "target": "es2015",
+ and moduel to     "module": "es2020",
+ 
+ 
+5) ERROR Error: Uncaught (in promise):
+TypeError: undefined is not a function
+TypeError: undefined is not a function
+at Array.map(<anonymous>)
+at WebpackAsyncContext( $_lazy_route_resource_namespace_object:15)
+at
+SystemJsNgModuleLoader.push./node_modules 
+
+
+RCA:
+In AppModule , we will still import the RecipesModule(
+module loaded via loadChildren)
+---> by having RecipesModule in import of module,  we loaded 
+RecipesModule eagerly and lazily at the same time 
+
+Solution:
+Remove the RecipesModule from the imports array 
+
+

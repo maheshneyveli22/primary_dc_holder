@@ -1,0 +1,54 @@
+4.0) 
+Consider the following hierarchy:
+
+content_copy
+<parent-component>
+  <child-component></child-component>
+</parent-component>
+The <parent-component> serves as the context for the <child-component>.
+
+@Input() and @Output() give a child component a way to communicate with its parent component. 
+@Input() lets a parent component update data in the child component. 
+Conversely, @Output() lets the child send data to a parent component.
+
+4) Passing property from Parent component to child component
+-> While property binding happens automatically from Parent to child for html properties, we must use @Input for property binding from Parent to child component
+
+a) Using @Input decorator
+b) To watch for changes on an @Input() property, use OnChanges, one of Angular's lifecycle hooks
+
+-> Example
+###########
+1) CONFIGURING CHILD COMPONENT
+a) decorate the property with @Input() in child component 
+export class ItemDetailComponent {
+  @Input() item = ''; // decorate the property with @Input()
+}
+
+b) displaying data fetched from parent component 
+src/app/item-detail/item-detail.component.html
+content_copy
+<p>
+  Today's item: {{item}}
+</p>
+
+2) CONFIGURING PARENT COMPONENT
+a) The next step is to bind the property in the parent component's template. In this example, the parent component template is app.component.html.
+b) Use the child's selector, here <app-item-detail>, as a directive within the parent component template.
+c) Use property binding to bind the item property in the child to the currentItem property of the parent.
+
+src/app/app.component.html
+content_copy
+<app-item-detail [item]="currentItem"></app-item-detail>
+In the parent component class, designate a value for currentItem:
+
+---> Here [item] is the custom property to which we need to pass value from Parent to child component
+--> [item] is the property which we have defined using @Input in child component 
+
+src/app/app.component.ts
+content_copy
+export class AppComponent {
+  currentItem = 'Television';
+}
+With @Input(), Angular passes the value for currentItem to the child so that item renders as Television.
+##############

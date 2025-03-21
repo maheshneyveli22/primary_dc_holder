@@ -1,0 +1,65 @@
+Dependency Injection and Injection Token 
+-> Relying on string literals for tokens, is always a bit of a risk. 
+-> They are harder to maintain, easier to mistype, and code editors don't have much opportunity to keep track of them, to aid in refactoring. 
+-> Angular has a solution for this. It's called an injection token. You can use an injection token, to tell angular you want to have a 
+concrete type that can be passed around. 
+-> Let's refactor  lookupLists value type, to use an injection token. 
+-> First, let's create a new file called providers.Ts in the app folder. 
+-> And we'll move the lookup list value instantiation, from the app module Ts file, into this new file. 
+###
+const lookupLists={
+  mediums:['Movies','Series']
+}
+###
+-> The provider metadata property in the app module, is going to need this lookup list variable. 
+-> So that's have the export keyword in front of the const statement, so that we can import it in the app module file.
+##
+export const lookupLists={
+    mediums:['Movies','Series']
+  }
+##
+-> Okay, to create an injection token, we need to import the class type. 
+###
+import { InjectionToken } from "@angular/core"
+###
+
+-> It is part of the angular core scope to package. So that's add the import statement for that. 
+-> Then we want to create a new variable to hold the injection token, and we want to export that. 
+-> So we write export const look up list token, equals a call to new injection token. 
+###
+export const lookupListToken = new InjectionToken("lookupListToken");
+export const lookupLists={
+    mediums:['Movies','Series']
+  }
+###
+
+-> Now ,the variable name can be whatever you want, but the injection token constructor, expects a string literal. 
+-> The value that will end up being used as part of the underlying token value. 
+-> So we set that to the string literal lookup list token. 
+-> This can be whatever you want as well, but you'll want to use a unique name for each injection token you create in your application. 
+-> Now we can switch back to the app.module.Ts file, and add an import statement to bring in the lookup list, token, token and the lookup list object.
+###
+import { lookupListToken,lookupLists } from './providers';
+###
+###
+  providers: [
+    {provide: lookupListToken,useValue: lookupLists}
+   ],
+###
+-> And then refactor the provide object to use lookup list token, instead of the string literal. 
+-> And now we can go over to the media-item-form.component.Ts file, and add an import statement to bring in the lookup list token. 
+###
+import { lookupListToken } from '../providers';
+###
+-> And then refactor the inject decorator in the constructor, to use the token instead of the string literal. 
+###
+constructor(private formBuilder:FormBuilder, 
+    private mediaItemService:MediaItemService, 
+    @Inject(lookupListToken) public lookupLists)
+  {
+
+  }
+###
+
+-> Through the use of angulars injection token, we have eliminated the string literal token usage, and have a better solution for 
+working with value type injection in our constructors.

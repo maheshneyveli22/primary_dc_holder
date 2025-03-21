@@ -1,0 +1,107 @@
+1) In node project there will be package.json in root folder of every nodejs project
+
+2) if we run: npm init
+-> it is the command to start a node project in the current folder 
+-> as soon as this command is run, a file called package.json will be created 
+-> if we give: npm init --y , it will start the node project with default configuration
+-> as we do npm init --y, it creates a file called package.json, in the root folder of this project 
+-> refer image: 1 npm-int.PNG
+
+3) In package.json, we can see name of project and scripts 
+-> refer image: 2 packagejsoncontent
+
+4) package.json content
+a) package-name
+eg:
+  "name": "booking-ui",
+ 
+ -> our project is stored in this name in npm Registry: https://www.npmjs.com/
+ 
+  
+b) version
+-> version of the project: 
+eg: 
+  "version": "0.717.0",
+  
+  package name + version = unique package 
+  -> package-name along with version gives unique name to your package
+c) description
+-> general description of your project helps to find your package on npm search 
+d) entry point
+ eg: "main": "index.js"
+ -> tells the entry point of the project. file to run at the start. 
+ 
+
+ 
+e) test command
+e_0) scripts
+-> scripts is a dictionary containing script commands
+-> runs at various times in the lifecycle of your package 
+ 
+ eg: 
+ if scripts is defined like below:
+ scripts": {
+    "ng": "ng",
+    "start-http": "http-server ./dist --cors=* --port=8082",
+    "start-ng": "node setup-jit-translations.js && ng serve --extra-webpack-config extra-webpack.config.js --port=4205",
+    "start": "npm-run-all -p start-http start-ng"
+	}
+	
+-> in terminal if you run: npm run start 
+-> it will 	 run the corresponding script : npm-run-all -p start-http start-ng
+-> here it runs two scripts in turn: start-http and start-ng
+
+-> using pretest and posttest we can make scripts run before test and post test 
+ 
+
+f) keywords
+-> array of strings that can be used to identify your package in npm search 
+
+
+g) author
+-> information about author 
+
+
+h) license
+i) git repository
+k) dependencies 
+-> key-value pairs
+-> key is name of the package. Value is version range 
+
+
+5) now if i give :
+-> if my project is empty and if i did not specify any dependencies and if give command:
+
+ npm install mysql
+ 
+ -> it will add dependencies section with mysql for package.json and  if we see the folder, node_modules will be created and all the libraries of this project will stay inside this folder
+
+
+6) Next after setting this project and if i want to have this project somewhere in different system, i will just have project code and package.json
+-> now if i give: npm install 
+-> It will look at the dependencies section of package.json , then it will download and install the packages defined in the dependencies in the new system  
+->     "@angular/cdk": "^13.3.9",
+
+7) devDependencies
+-> if i say: npm install --save-dev mysql 
+-> if we run this we can see mysql gets added to devDependencies
+
+-> devDependencies are  used during dev or build phase
+-> npm install 
+- installs both dev and normal dependencies
+-> npm install --dev 
+- installs only dev dependencies
+-> npm install-prod 
+- will not include dev dependencies
+
+8) 
+~ 1.2.3 means , it will match all 1.2.x versions or it will i but will miss 1.3.0 
+^1.2.3 will match any 1.x.x release including 1.3.0, but wil hold off on 2.0.0
+
+9) 
+https://www.geeksforgeeks.org/difference-between-package-json-and-package-lock-json-files/
+
+ 
+
+
+

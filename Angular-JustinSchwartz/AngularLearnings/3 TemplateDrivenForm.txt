@@ -1,0 +1,50 @@
+Angular Form - Template driven forms
+a) Makes use of template syntax for form interactions with the template markup  , through use of ng form directive which has form in its selector value 
+b) With forms module included in app , angular looks for any form elements in templates 
+c) But we need to tell what fields will be there as part of the form through the ngModel directive . 
+d) ngModel directive is designed to work with name attribute which is native to html elements. If name is defined, it will get automatically assigned to ngModel attribute 
+f) angular recognises only form elements that has ngModel defined in it 
+e) ngsubmit directive is used on native form element to intercept default html form submit action  and do whats needed
+f) we add an event binding using parenthesis around ngsubmit and set it equal to a function call, that we will create in onSubmit 
+##
+<form (ngSubmit)="onSubmit()">
+###
+g) Since there is a button in the form of type submit, the click action of that button will trigger the form submission, which is native html behaviour for a form 
+##
+  <button type="submit">Save</button>
+##  
+h) we will create onSubmit() function for the component class , and  also we need to pass the form information - as we build eveything through template 
+-> passing on information using # on the form element , which acts as handle for the form information 
+-> This is called template reference variable and it can be called by any name 
+-> We will set the template reference variable equal to ngForm  by doing this. angular will export form group object into the media item form variable for us 
+-> Form group is the underlying model, angular uses for the form 
+
+##
+<form #media #mediaItemForm="ngForm" (ngSubmit)="onSubmit()">
+##
+
+h) from here, we can pass the values from the form to the component through on submit button
+export class MediaItemFormComponent {
+
+  onSubmit(mediaItem)
+  {
+    console.log(mediaItem);
+  }
+}
+
+i) now on submitting we will get javascript object for form like this:
+###
+{name: 'ddd', category: 'Horror', year: 'eee'}
+category
+: 
+"Horror"
+name
+: 
+"ddd"
+year
+: 
+"eee"
+[[Prototype]]
+: 
+Object
+###

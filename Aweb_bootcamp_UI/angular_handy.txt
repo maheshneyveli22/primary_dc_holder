@@ -1,0 +1,143 @@
+1)  to link package:
+--> go to package you want to link eg: expo-shared and give: npm link
+-> go to project where you want this to be used: npm link expo-shared
+
+1.1) To unlink the package:
+-> go to expo-shared package: npm unlink 
+-> Go to project where this was linked: npm unlink --no-save expo-shared 
+
+
+2) to find the location of root modules: npm root -g
+
+..
+C:\Workspace\RootAngularProjects\practo_angular>npm root -g
+C:\Users\gs1-maheswarane\AppData\Roaming\npm\node_modules
+...
+
+3) Symlink creation for using single node_modules for all projects:
+
+mklink /d node_modules C:\Workspace\RootAngularProjects\angular_modules\node_modules
+
+
+4) Creation:
+4.1) New project: ng new projectname 
+
+...
+C:\Workspace\RootAngularProjects>ng new practo_angular2
+..
+
+4.2) New component: ng c componentname 
+
+..
+C:\Workspace\RootAngularProjects\practo_angular2>ng g c appointment-list
+CREATE src/app/appointment-list/appointment-list.component.html (32 bytes)
+CREATE src/app/appointment-list/appointment-list.component.spec.ts (683 bytes)
+CREATE src/app/appointment-list/appointment-list.component.ts (285 bytes)
+CREATE src/app/appointment-list/appointment-list.component.css (0 bytes)
+...
+
+
+4.3) to create services 
+
+...
+C:\Workspace\RootAngularProjects\practo_angular2>ng g s services\appointment
+CREATE src/app/services/appointment.service.spec.ts (398 bytes)
+CREATE src/app/services/appointment.service.ts (149 bytes)
+... 
+
+
+4.4) to create environments 
+
+...
+C:\Workspace\RootAngularProjects\practo_angular2>ng generate environments
+CREATE src/environments/environment.ts (31 bytes)
+CREATE src/environments/environment.development.ts (31 bytes)
+UPDATE angular.json (3005 bytes)
+.. 
+
+
+4.5) to create pipe for transforming data
+
+
+.... 
+ng g p pipename 
+pipename.pipe.ts and pipename.pipe.spec.ts will be generated 
+
+
+
+5) Folder structure:
+
+a) constant file 
+b) reusable component 
+c) services 
+d) environment files 
+e) pipes - custom pipes 
+f) custom directives 
+
+g) core - things which dont have ui :
+service//models(classes+interfaces)/guard(offguard+canactivate/deactivate) etc 
+h)pages -  component that we access by routing 
+i)shared - reusable components (widgets+pipes+directives) 
+
+
+1) Creation flow:
+
+Creation of folder->Core:Model/service/guard/constant
+                  ->shared: directives/pipes/widgets  
+Models->Interface/Classes 
+Service Creation 
+Component creation
+Route
+
+Pages:
+For Login-> App component will be parent component, hence add router-outlet in appcomponent 
+
+New features in Angular17:
+signals 
+
+
+2) login page: codepen 
+-> Copy htm, css and put in login component 
+
+2.1) login service:
+-> call  login service of api 
+-> Ensure you create login model class for input object for login 
+
+2.2) go to login component ts 
+a) Create loginobj for login model 
+b) bind login object to the form using ngModel 
+bind input parameters 
+c) for submit on click, create a function in login component ts 
+d) In login component, to call the service , create instance via DI in constructor 
+
+
+
+6) Concepts 
+
+a) Promise 
+b) Observable :Unicast/cold
+c) Subject :Multicast/hot 
+d) map()-> along with map ()
+-> below example converts toDo object with required properties alone using map 
+
+...
+this.toDoService.getTodos().pipe(
+map(todos:Todo[])=> {
+return todos.map(todo:Todo)=>
+{
+return {
+id:todo.id,
+title:todo.title
+}
+}
+
+}
+).subscribe((todos => console.log(todos));
+
+....
+
+
+e) pipe()
+f) filter
+
+

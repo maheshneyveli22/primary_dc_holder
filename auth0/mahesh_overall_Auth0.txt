@@ -1,0 +1,26 @@
+1) Domain: it identifies the tenant:  eg Dev Tenant or QA tenant 
+custom domains are defined in Dashboard->Branding->Custom Domains 
+-> For dev it is: login.dev.test-expeditors.com
+
+
+2) ClientID: 
+-> it is the client id which you define for single page application 
+
+-> for dev it is : TKiAoi8saKj1oCg31iyTEcbdUEhTX7d1
+-> Single page application name : go2expo-dev
+ Its domain: dev-test-expeditors.auth0.com
+ -> it is over ridden by custom domain we give in branding 
+ 
+ 
+ 3) audience: 'https://expo-api-dev-expeditors.com',
+ -> It is the api to which your single page application wants to connect. 
+ -> This is the backend api : booking-service 
+ 
+ ---> go2expo-api-dev, if we go to API -> we can find go2expo-api-dev, in which Identifier is mentioned as https://expo-api-dev-expeditors.com
+ -> By using this Identifier all single page applications can use this api 
+ 
+ What is the relationship between Audience: 'https://expo-api-dev-expeditors.com', and https://api.dev.test-expeditors.com?
+ 
+ 
+ Question:
+ -> What is the relationship between single page application and API in AUth0, how is the permission granted? 

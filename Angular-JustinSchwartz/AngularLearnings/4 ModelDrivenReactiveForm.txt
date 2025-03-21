@@ -1,0 +1,73 @@
+Angular Form - Model driven or Reactive approach 
+a) The model-driven or reactive approach is another way to handle building forms in Angular.
+b) It has a lot of similarities to the template driven approach 
+C) BUT THE BIG DIFFERENCE IS THE FORM IS BUILT IN THE COMPONENT CLASS. 
+#######
+Model Driven Forms:
+a) Form field contract
+b) Field validation rules
+c) Change tracking 
+D) can be unit tested 
+######
+d) That allows you to have a contract that your form needs to adhere to, the ability to set up validation rules, subscribed to field value changes and ultimately unit tests your form logic without any UI layer.
+e) So template driven gives you an EASY WAY TO GET UP AND RUNNING. Whereas model driven allows you to take your forms wherever they need to go. 
+f) Let's refactor the mediaItemForm to be model driven or ReactiveForms based. 
+g) So, model-driven forms are built using the ReactiveForms module instead of the FormsModule. 
+h) We need to update the app module to import:ReactiveFormsModule and use that instead of FormsModule.
+i)  Now, just so you know, it is possible to import both of these together in the case where your module is making use of both template and model-driven forms or ReactiveForms. 
+j) Okay, in the media-item-form.component.ts file, we are going to create a FormGroup object that represents the form. 
+k) Remember from the lesson on the template driven approach that the ANGULAR FORM SYSTEM IS WORKING WITH A FORMGROUP. 
+l) Lets import FormGroup which is found in the Angular forms scoped package. 
+##
+import {FormGroup} from '@angular/forms'
+##
+m) We need a class property for the form. So let's add that naming it form. We can also use some TypeScript here to declare the type by adding a colon, then the FormGroup type then a semi-colon. 
+##
+export class MediaItemFormComponent {
+  form:FormGroup
+##
+n) Next we need to initialize the form property to a new form group. WE WILL DO THIS IN AN ANGULAR LIFECYCLE METHOD CALLED NGONINIT.
+->  While we could put this in the constructor, it is preferable to use the lifecycle events because it makes the code easier to unit test.
+->  To leverage a life cycle event you just need to add a known function name to your class and Angular will handle calling it if it exists on your class.
+->  There are several lifecycle function supported. You can check the angular.io documentation site for a list of those. 
+-> And we can also make use of a TypeScript interface here named OnInit that Angular provides to help enforce the implementation. 
+-> So that's add OnInit to the import statement from Angular core then add implements OnInit after the class name.
+->  Then we can add an ngOnInit method. 
+-> And in the function body we set this.form equal to a new FormGroup. 
+-> FormGroup expects to be called with an object structure that has properties named for the controls that will be in the group set to a value of a new control. i.e FormGroup expects FormControls to be present within it 
+->  Let's import FormControl. so we can new up some controls. 
+->  FormControl is in the Angular forms scoped package as well. So he add that to the import list. 
+->  And then in the parentheses for FormGroup recreate an object literal and we set up the form fields as property names and setting their value equal to a new FormControl object. 
+FormControl can take in a default value as the first argument call. So we can set the medium to default to movies and set the rest of the default to empty strings. 
+
+##
+ ngOnInit(): void {
+this.form = new FormGroup({
+  medium: new FormControl('Movies'),
+  name: new FormControl(''),
+  category: new FormControl(''),
+  year: new FormControl('')
+});
+  }
+##
+
+o) With the a form model created, we can flip over to the media-item-form.component.html file and we can make a few changes. 
+-> First we need to tell Angular that we have a model for the form 
+-> so we can remove the local template variable mediaItemForm and replace it with a directive binding of bracket formGroup bracket setting that equal to form. 
+##
+<form #media [formGroup]="myform" (ngSubmit)="onSubmit(myform.value)">
+##
+
+And then in the onSubnit call we can call .value of form instead of mediaItemForm. 
+p) THE OTHER THING WE NEED TO DO IS CHANGE OUT THE NG MODEL DIRECTIVE FROM THE FORM FIELDS.
+-> Since we created the form controls for these fields in the formGroup in the component class, we just need to wire up the form fields to the appropriate controls from the formGroup. 
+-> This can be done with a FormControl named directive. This directive can be added to a form field element and be set to a string value that MATCHES THE NAME OF THE CORRESPONDING FORMCONTROL created in the component class. 
+##
+      <select name="medium" id="medium" formControlName="medium"> 
+ <select name="category" id="category" formControlName="category">
+         <input type="text" name="name" id="name" formControlName="name">
+		     <input type="text" name="year" id="year" maxlength="4" formControlName="year">
+##
+   
+
+-> With all those wired up, if we head over to the browser we can see that the form has a default value for medium of movies like we configured and if we fill out the form we see the same expected behavior in the console log.

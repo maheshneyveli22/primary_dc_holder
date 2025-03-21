@@ -1,0 +1,2509 @@
+1) How internet works:
+Laptop -> www.google.com -> ISP -> 
+DNS --> gives IP 142.251.36.46 --> Laptop --->142.251.36.46
+
+
+2) To check the IP address of a site: 
+https://www.nslookup.io/
+
+3) To see all cables on internet :
+https://www.submarinecablemap.com/
+
+4) To learn typing :
+https://www.keybr.com/
+
+
+5) Cornell Note taking System:
+
+
+6) Angular code review checklist:
+https://itnext.io/clean-code-checklist-in-angular-%EF%B8%8F-10d4db877f74
+
+Frontend code review checklist:
+https://gist.github.com/bigsergey/aef64f68c22b3107ccbc439025ebba12
+
+
+7) HTML - Heading Element: <h1> 
+
+
+i) <h1>: Heading element
+a) Here <h1>  or </h1> is called tag
+b) and the Entire line with content is called Element 
+
+eg:
+<h1> Hellow World </h1> 
+
+
+c) h1 is the largest and h6 is the smallest
+-> we dont have below that 
+
+
+
+d) Dont have more than one h1 in the page, as its the top most heading 
+e) If you have <h1>, dont skip headings, go from h1, to h2 to h3 and so on 
+i.e dont jump between headings 
+
+f) for more info: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+
+
+ii) <p> : Paragraph element
+
+a) 
+eg: 
+<p> This is a paragraph</p> 
+
+b) if there are two paragraphs, we can see them separated by line in between 
+
+eg:
+<p> This is a paragraph1</p> 
+<p> This is a paragraph2</p> 
+
+c) <p> helps when screen reader is used by blind people  to skip to next paragraph
+
+d) 
+In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a 
+document or a typeface without relying on meaningful content. 
+Lorem ipsum may be used as a placeholder before final copy is available.
+
+eg:
+https://www.lipsum.com/
+https://baconipsum.com/
+https://www.broipsum.com/
+
+
+iii) Void elements: eg: <hr /> and <br /> 
+
+a) Non void elements have content in between like <p>, <h1> etc 
+b) Void elements dont have content in between 
+c) In non void element closing tag will be </p>
+-> But in non void element closing tag will be like <hr /> i.e it will be just before the end of the tag 
+d) <hr /> 
+-> It means horizontal rule 
+-> some sort of separation between paragraphs 
+-> it inserts a line between two paragraphs here 
+
+eg:
+<p> This is a paragraph </p>
+<hr />
+<p>This is a paragraph</p> 
+
+e) <br />
+-> to separate lines 
+
+eg:
+<p>
+To see a world in a grain of Sand <br />
+And a heaven in a wild flower, <br />
+Hold Infinity in the palm of your hand <br />
+And Eternity in an hour <br />
+</p> 
+
+f) diffchecker to see the difference:
+https://www.diffchecker.com/
+
+DOs and Donts of <br />
+-> Dont use <br /> instead of <p> elements 
+-> Always create new paragraphs when there is need to create new paragraphs
+-> Use breaks to create new lines in a single paragraph 
+
+f) We can also write <hr />  <br /> as <hr> <br>
+g) but good to write it as <hr /> <br /> for readability  
+
+
+iv) The List Elements: Ordered and UnOrdered Lists 
+a) Unordered List <ul></ul> 
+-> We add content in between opening and closing tags 
+-> We need an extra tag to complete this
+-> The extra tag is the list items 
+
+eg:
+<ul> 
+<li>Milk</li>
+<li>Eggs</li>
+<li>Flour</li>
+</ul>
+
+b) So any unordered list should be used in combination with List Items 
+-> UnOrdered list will create bullet points 
+c) Ordered List: <ol> </ol>
+-> If you want your list to be ordered, then we will use ordered list <ol> </ol> 
+-> Ordered list also used in combination with list items
+-> if we use Ordered list with List Items, it will create numbers starting from 1 
+
+v) Nesting and Indentation :
+
+a) Nesting things inside others 
+ eg: Nesting list inside another list
+ 
+ eg:
+ <ul>
+ <li>Wake up and brush teeth</li>
+ <li>Drink 500ml warm water</li>
+ <li>Do Yoga for an hour</li>
+ <li>Make Omlette
+ <ul>
+ <li>Whisk eggs with milk</li>
+ <li>Add butter to pan</li>
+ <li>Add in eggs and stir</li>
+ <li>When solid add salt</li>
+ </ul>
+ </li>
+ <li>Start work</li>
+ </ul>
+
+
+vi) Anchor Elements:
+a) Anchor element and html attributes 
+b) THis code will not create hyperlink
+eg:
+<a> This is a link </a> 
+c) To make <a> a hyperlink, we need add an additional attribute in the opening tag and just before the end 
+
+eg:
+<a href="http://www.google.com">This is a link</a> 
+
+d) How to structure an attribute:
+
+
+
+<tag attribute=value anotherAttibute=anotherValue>Content</tag> 
+
+eg:
+<a href="http://www.google.com">This is a link</a> 
+
+e) href is the url that the hyperlink should go 
+f) we can also set global attribute draggable in anchor tag
+
+eg:
+<a draggable=true This is a link to Google </a> 
+->this helps to drag the line 
+
+-> global attributes can be applied on any html element 
+
+vii) Image Element
+
+<img src="url" />
+
+-> here src is source of the image
+a) Unlike anchor tag, image does notas have closing tag 
+-> instead it is a self closing tag or void  element like <hr /> or <br /> 
+b) src is the main attribute of the image element 
+-> it tells the source/location of the image element
+-> It is because text content of the image does not matter and only the image will be needed to be rendered from source 
+
+eg:
+<img src="https://picsum.photos/200" />
+
+-> above url will help get random image 
+-> https://picsum.photos/ is the lorem ipsum for photos 
+-> Here is 200 is the size of the photos: here it is 200X200 pxl 
+
+c) Another important attribute of img element is alt . alt means Alternative text description
+-> for screen reader used by blind people  - Screen reader if it hits an image it will look at the alternative text provided and the visually impaired people will be readout the alt text
+eg: Silktide Tolbar, which is chrome browser extension to simulate for blind people , if we go to image it will describe the image based on the alt text 
+
+-> silktide extension 
+
+eg:
+<img src="https://picsum.photos/200" alt="forest at sunset" />
+
+
+8) Multi-Page Websites 
+a) File Path - unique location for a file or a folder 
+-> We can use file path  on a computer to direct the computer to look inside a specific location in a hard drive 
+b) Absolute Vs  Relative File Paths
+-> Absolute File Path - Relative to the root of computer 
+
+eg:C:\Users\gs1-maheswarane\Downloads\3.2+Anchor+Elements\3.2 Anchor Elements\solution.html
+
+-> Relative File Path -> Relative to something. i.e relative to the file or place where we are writing the code 
+-> Relative File paths are shorter 
+
+c) Some special characters help us in navigative relative file paths
+i) double dots (..)
+-> Double dots at the beginning of relative file path means we should go up one level and go to whichever resource mentioned in path 
+
+eg: ../essay.docx 
+
+ii) Single dot (.) 
+-> Tells us to stay within the current directory and look over there 
+
+eg:  ./dog.png 
+->> Current directory mostly is the project folder 
+
+-> For current directory we can also omit ./ 
+
+eg: ./dog.png or dog.png 
+
+
+
+9) Webpages:
+a) 
+
+10) HTML Boilerplate
+-> Understanding HTML structure 
+
+a) <!DOCTYPE html> 
+-> At the top of every html file, there should be a Doctype declaration 
+-> It tells the browser which version of HTML the file was written in and code is written in HTML 
+
+b) <html> </htmll> 
+-> The next part htat we have go is "html"
+
+c) <html lang="en"> 
+-> This is mainly for screenreader used by blind people 
+
+d) <head> </head>
+-> Important information about our website is placed  and it wont be displayed to user 
+-> Includes things that will help website render in the browser correctly, but it does not  include any content which the user can see 
+
+e) <meta> 
+In head section we normally have 'meta' tag for the character 
+-> meta ensures that the characters that you are using on the website gets displayed correctly 
+
+eg:
+ <html>
+<head>
+<meta charaset="UTF-8">
+
+</head 
+ </ html>
+ 
+ f) <title>
+ -> part of head section . Title is something which gets displayed in tab bar 
+ 
+ eg:
+ <title> My Website title</title> 
+ 
+ g) <body> </body>  
+ -> we spend majority of our time here,  where the content of the website goes 
+ 
+h) if we put, ! and enter in html - full html gets populated in html 
+ -> this trick of vs code works only if we create .html file 
+ 
+ i) 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+-> Here viewport tells how the website should be displayed relative to the screen, that is being rendered on 
+-> This line of code, tells the browser how to display your website when it first opens 
+
+
+11) How to Host your website for Free with GitHub 
+a) Create a repository in github :
+https://github.com/maheshneyveli22/html-portfolio-webbootcamp
+b)  put the contents of project in Upload Files section 
+https://github.com/maheshneyveli22/html-portfolio-webbootcamp/upload/main
+c) Go to Settings-> Pages-> Branch
+-> Change the branch from None to Main  and commit the branch and then save 
+
+https://github.com/maheshneyveli22/html-portfolio-webbootcamp/settings/pages
+
+d) Copy the link: where it says : Your site is live at https://maheshneyveli22.github.io/html-portfolio-webbootcamp/
+Last deployed by @maheshneyveli22 maheshneyveli22 1 minute ago
+
+https://maheshneyveli22.github.io/html-portfolio-webbootcamp/
+
+e) Other pages can be viewed like this:
+https://maheshneyveli22.github.io/html-portfolio-webbootcamp/solution.html
+
+
+12) Introduction to CSS: 
+a) StyleSheets - How things should look in a website 
+CSS - Cascading Sytle sheet
+SaSS - Syntactically awesome style sheet 
+Less - Leaner CSS 
+
+b) Three ways to add CSS
+i) Inline CSS:
+<tag style="css"/> 
+
+-> it goes into the same line as a particular html element 
+-> Inline style goes into opening tag of html 
+-> style attribute is globally available to all tags 
+-> Inside style value , we have css code 
+
+-> in css code : "background:blue" , first part is the property which you want to change 
+-> Second part is the value of that property what you want it to set it to. 
+
+---> Not recommended to use inline styles in entire document 
+
+eg:
+<html style="background:blue">
+</html>
+
+ii) INTERNAL CSS
+-> Done through special html tag called "style" element : <style> </style> 
+
+eg:
+<style>css</style>
+
+-> in between the style element, we add all our css 
+
+eg:
+<style>
+html{
+background;red;
+}
+</style>
+
+eg: whole part 
+<html> 
+<head>
+<style>
+html{
+background;red;
+}
+</style>
+</head>
+</html> 
+
+-> Difference in declaration for inline and internal is: because we inline, we had inside a particular element, we said that 
+for a particular html element we want to apply style
+-> Now in this case, code is different because we can apply internal style to anywhere within the same html document 
+----> it can go to any of the element like <html> or <head> etc 
+-> Hence we need to have a selector, and within curly braces we can add the css 
+---> Internal styling can be applied to anywhere in html document and inside we can taget or select as many elements as we want 
+-> For multipage website, we cannot apply Internal css and for multipage websites we can apply external css 
+
+
+iii) External CSS:
+-> Difference between external and internal css is, that external css lives in a completely separate file like: styles.css 
+-> Inside this external css file, we will write our css rules 
+-> How to link css file with html file ? 
+It can be done by adding a link element, link does not need a closing tag 
+-> link element has two attributes: rel is relationship which refers to what is the role of this thing that we are linking to : here it is stylesheet 
+-> href tells the location 
+
+-> External css is widely used 
+
+
+
+index.html
+<html>
+<head> 
+<link rel="stylesheet" href="style.css" /> 
+</head>
+</html> 
+
+
+styles.css
+
+html{
+background:green;
+}
+
+
+c) Inline css; when only one element needs to be styled: it styles only the element to which you define the style 
+   Internal css: when you want to target a single webpage ; 
+   -> we normally put in head section and we specify the element to which we need to add the style 
+   External - multipage website 
+   -> this also we put it in head section 
+   -> we do this by creating link element 
+   -> in the style.css we specify the element and the style 
+   
+   
+13) CSS Selectors: Where to apply css 
+-> This will help us to choose where to apply our css 
+Here color is property and blue is value
+-> h1 is known as CSS selectory
+-> There are different types of css selectors:
+i) Class selector ii) Id Selector iii) Attribute Selector 
+iv) Universal Selector 
+
+
+h1 {
+color:blue 
+}
+
+---> What is css selector 
+-> It tells to which element which should apply the css 
+-> Here it selects a particular html element, here it is targetting all h1 elements 
+
+h1 {
+color:blue 
+}
+
+a) Class Selector
+i) Syntax for class selector : 
+
+.className{
+...css goes here
+}
+
+
+
+eg:
+.red-heading{
+color:red
+}
+
+
+ii) What is a class selector:
+-> Class is something we can add as an attribute to 
+any HTML element 
+-> This attribute helps to group particular html 
+elements into a class , so that we can apply 
+the same CSS rule to all of them 
+-> Here we have only one h2 that has a class selector 
+ set to  "red-text" 
+-> In addition we need to refer the css in html code 
+
+---> Here even though class "red-text" is tied to 
+different html elements <h1> and <p>, since same class is 
+tied to it , same css will be applied to both the elements 
+
+
+
+eg:
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Selectors</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+<h1 class="red-text">Mahesh is great</h1>
+<h1>Mahesh is great</h1>
+<h1>Mahesh is great</h1>
+<p class="red-text">Lets go over it again and again</p>
+
+styles.css
+.red-text{
+color:red; 
+}
+
+
+b) Id Selector :
+
+i) 
+-> It has its own special symbol: # 
+-> Syntax for id selector 
+
+#NameofId{
+..css goes here 
+}
+
+-> This syntax selects all elements with a 
+particular ID attribute
+-> It works similar to the class selector 
+
+eg:
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Selectors</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+<h1 class="red-text">Mahesh is great</h1>
+<h1>Mahesh is great</h1>
+<h1 id="main">Mahesh is great</h1>
+<p class="red-text">Lets go over it again and again</p>
+
+style.css 
+
+#main 
+{
+color:blue 
+}
+
+ii) What is the difference between ID and class selector 
+-> Class selector can be applied to many elements 
+whereas ID should be applied to one element in a single html file 
+-> this is used in Javascript when we do: we get a single element
+document.getElementById("")
+
+while for classes:
+document.getElementsByClassName("")
+
+c) Attribute Selector 
+-> We know that we can create a html tag and add 
+as many attributes we like. 
+eg: attributes like ID, class, draggable or source for images,
+href for <a> 
+
+-> We can select elements that have particular attributes 
+or particular attribute values by using below notation
+
+syntax:
+ htmlElement[attribute]
+ {
+ ..css goes here
+ }
+ 
+eg:
+p[draggable} {
+color:red 
+}
+
+i)  What it means: to select all paragraph elements 
+with attribute "draggable" and apply this CSS style to it 
+-> How do we put it in html 
+
+eg:
+<p draggable="true">Drag me</p>
+<p>Dont drag me</p>
+<p>Dont drag me</p>
+
+
+style.css
+p[draggable]
+{
+color:green; 
+}
+
+
+-> Here in this example "Drag me" alone will be 
+in green 
+
+ii) Setting css based on attribute value :
+
+eg:
+<p draggable="true">Drag me</p>
+<p draggable="false">Dont drag me</p>
+<p draggable="false">Dont drag me</p>
+
+
+p[draggable="false"]
+{
+  color:red;
+}
+
+p[draggable="true"]
+{
+  color:green;
+}
+
+d) Universal Selector 
+-> Universal selector means to select all, and when you 
+apply this, it does not matter what class you have got, 
+what ID, attribute set, which different elements 
+-> if you select "all", it will apply style to everything where 
+the stylesheet is active 
+-> syntax 
+
+*
+{
+..css goes here 
+}
+
+eg:
+*
+{
+text-align:center;
+}
+
+
+14) CSS Properties:CSS Colors: 
+
+a) CSS Colors: backgroundcolor
+-> Sets the background color here 
+
+eg:
+html{
+background-color: red 
+}
+
+b) CSS colors: color 
+-> this sets the text color 
+
+h1{
+color:blue 
+}
+
+
+-> We can find different colors in mdn docs 
+eg:
+https://developer.mozilla.org/en-US/docs/Web/CSS/named-color
+
+-> Color palette 
+eg:
+https://colorhunt.co/
+
+-> color mixer:
+https://www.csfieldguide.org.nz/en/interactives/rgb-mixer/
+
+
+15) CSS Properties:Font Properties: 
+a) font-weight
+-> font-weight can be normal or bold 
+--> font-weight makes font look heavier 
+eg:
+h1{
+font-weight: bold  
+}
+
+i) Normal bold
+-> Using basic keywords 
+
+ii) lighter bolder 
+-> relative to parent 
+-> lighter means it minuses the number by 100 
+-> bolder means it makes it bolder by 100 
+
+
+iii) number:
+-> 100-900 
+-> Here 100 is light and 900 is bold 
+
+
+b) font-size
+i) using px
+-> Change size of a font using font-size property and 
+setting it particular pixel size 
+
+eg:
+ font-size:20px
+ 
+ 
+->1px= 1/96th inch=.26 mm wide and .26 mm tall 
+
+ii) Using point: pt
+
+1pt=1/72nd inch =.35 mm 
+-> Used in many different applications 
+-> In word if we select 12 pas font size, then we chosing 
+12 pts 
+
+iii) Using em 
+-> this is a relative size 
+-> It means: if you set an h1 to have font size of 
+1 em in css, i.e if you have parent or body tag that encloses this h1 - 
+-> if this body had a font size of 20 px, then this h1, we set it to be 1 em, then h1 will be 100% of parent size 
+-> Hence it means h1 will also be of font-size 20px 
+-> if we set it to 2em, then it is going to be 2 times the parent size . i.e it will be 40 px in this case 
+
+
+
+eg:
+<body> 
+h1
+{
+font-size:1em;
+}
+</body> 
+ 
+-> 100% of parent 
+
+iv) using rem:
+-> This is also a relative size, but instead of being relative to the parent, it is relative to the root 
+-> Root is the html element that includes everything 
+-> 100% of root 
+
+-> Difference between em and rem 
+-> em is relative to the parent. Hence in the above case, h1 got changed with change in body size
+-> rem is relative to the root, hence h2 will change only if there is change in 
+
+v) Named font size : 
+
+
+
+<style>
+    #pixel {
+      font-size: 20px;
+    }
+
+    #point {
+      font-size: 20pt;
+    }
+
+    #em {
+      font-size: 1em;
+    }
+
+    #rem {
+      font-size: 1rem;
+    }
+
+    footer {
+      font-size: 12pt;
+    }
+
+    html {
+      font-size: xx-large;
+    }
+
+ 
+c) font-family 
+-> here sans-serif is backup font type 
+-> font-family specifies the font type 
+--> Here Helvetica is type face 
+
+eg:
+
+h1{
+font-family:Helvetica, sans-serif 
+}
+
+---> if font has many words like "Times New Roman" we can 
+specify like this 
+
+h2{
+font-family:"Times New Roman", sans-serif 
+}
+
+---> free fonts can be found here 
+https://fonts.google.com/
+
+
+
+---> We can link the font to download in the link section below
+style
+
+eg: 
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;1,100&family=Marhey:wght@300&display=swap" rel="stylesheet">
+
+
+---> This link will pull the google font for any user on the 
+internet 
+
+
+d) Text Align: text-align 
+i) text-align:center - This aligns the text to center 
+-> text-align can be : center, left, right , start, end 
+-> start means : arabic where we write from Right to left
+
+
+eg:
+h1{
+text-align:center 
+}
+
+ii) Documentation for the same:
+https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
+
+
+16) CSS Box Model - Margin, Padding, Border, Width, Height 
+
+a) Height Width:
+i) using pixel
+
+eg:
+
+height: 600px;
+width: 600px;
+
+ii) Using percentages
+-> 100% means it takes the entire width of the website 
+
+eg:
+width: 100% ;
+
+
+b) Border
+-> In addition to height/weight, we can aslo set 
+a border on each of the html elements
+-> if we imagine each html element as a box, then 
+the border we specify will be the border of the box 
+
+--> Border takes 3 values separated by a space 
+i) here 10 px is the thickness of the border line 
+ii) 'solid' is the style of the border line 
+solid or dashed 
+iii) black is the color of the border line 
+
+-> These 3 lines determine what the border should look like 
+--> By changing border, height and width of the html element
+does not change 
+
+eg:
+border: 10px solid black; 
+
+iv) Once you define a border, you can further modify it 
+with more specific rules 
+-> here border-top 0px makes the top of the border to be 
+0px .ie it gets rid of top border 
+
+eg:
+border: 30px solid black;
+  border-top:0px; 
+  
+c) border-width  
+v) border-width works similarly to the way border property 
+works 
+-> it can take maximum of 4 values 
+----> first value is top, second is right, third is 
+bottom and fourth is the left . it goes in clockwise 
+direction 
+
+eg:
+eg:
+border: 10px solid black;
+border-width: 0px 10px 20px 30px; 
+
+          0px
+     30px      10px
+	      20px
+
+vi) Border-width two values :
+0px 20px means : 1+3 will be 0px and 2+4 will be 20px 
+
+---> border will push outside of the border, thus does not change the original 
+size of border 
+
+d) Padding: 
+-> padding changes the inner size of border 
+
+i) padding 20px means pushing inner size by 20px on all 
+4 sides 
+-> padding does not change size of html element, instead 
+it changes space between html element and the border 
+
+eg: padding:20px
+
+
+e) Margin : 
+-> Part that is outside of the border 
+
+
+margin-border-padding-<element>-padding-border-padding-Margin 
+
+-> Here we have 10px margin outside the border on all 
+4 sides 
+
+margin:10px 
+
+---> if there are two elements each with margin 10px,
+then both elements are separated by 20px 
+
+f) Content Division element.  div element: creating own boxes 
+-> Boxes are created by elements. we can create our own 
+boxes, which helps to group individual html elements 
+
+eg:
+-> If image and caption needs to be styled together, we need 
+to put it inside a box around those two elements 
+
+-> This grouping of elements for styling can be done through 
+<div> 
+-> This is called Content division element 
+-> No point in learning <div> element before learning 
+css, because div element is completely invisible , until 
+you apply css style to it 
+
+
+<div>CONTENT </div> 
+
+i) In between div, we can put as many elements in between 
+
+
+eg:
+<body>
+<div>
+<p> Hello World</p>
+<img src="./world.png" />
+</div> 
+<div>
+<p>Good Night world </p>
+<img src="./night-world.png" />
+</div>
+</body>
+
+ii) Pesticide chrome extension helps while working with borders 
+
+g) text-transform
+-> helps to convert text from lower case to upper case 
+with css 
+
+eg:
+https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform
+
+
+17) CSS - Specificity and Inheritance 
+a) This comes into play only when there are multiple conflicting 
+css rules that target the same element .
+-> for eg if h1 has two css, we need to determine which one 
+is higher in the hierarchy 
+b) This method of working out, which of the rules actually get 
+applied and which ones get ignored, 
+is how our cascade comes to be
+
+eg: index.html
+<ol>
+<li>One</li>
+<li style="color:red">Two <li>
+<li> Three</li>
+</ol>
+
+styles.css
+li{
+color:green;
+}
+
+-> Here one and three gets printed in green and 
+Two gets printed in red because of cascading 
+
+c) 4 categories to determine 
+overall level of importance of css rule: 
+Position, Specificity, Type, Importance
+
+
+i) POSITION: 
+-> First thing we look at the very top of cascade is 
+whether if a rule is at a higher or lowel position in 
+CSS relative to other rules 
+
+eg:
+li{
+color:red;
+color:blue;
+}
+  
+-> Here we have two rules applying to same html element and 
+setting same property 
+-> Here the lower one: blue replaces the upper one 
+
+And if there is another element in lower position , that takes more 
+precedence 
+
+eg:
+
+li{
+color:red;
+color:blue;
+}
+
+li{
+color:green;
+}
+
+-> Hence lower the rule, more the precedence 
+
+ii) SPECIFICITY: 
+css specificity refers to how specific a selector is,
+ in terms of elements that you are applying the css rules to
+
+<li id="first-id" class="first-class" draggable>
+
+li{color:blue;}
+.first-class {color:red;}
+li[draggable]{color:purple;}
+#first-id{color:orange; }
+
+4Element selector: least specific 
+-> Now all these 4 css rules will target the 
+html element , but they have different specificity 
+-> First one selects all list-item elements, so that there 
+could be many other list-item elements in html file, hence 
+this is the least specific 
+
+li{color:blue;}
+
+3Class Selector 
+-> This will select all the other list elments that have the class name 'first-class' 
+-> Since we have multiple elements with same class. 
+-> Thus it is more specific than element selector but less 
+specific than class selector 
+
+2Attribute selector
+-> Even though most resources will tell that attribute and 
+class and class are same level of specificity , but in 
+most cases attribute overrides the class selector 
+
+1ID selector:
+-> Most specific selector
+-> because in a single page you should have only one particular 
+ID name . 
+
+
+iii)TYPE:
+-> 3 different ways to apply css:
+a) External css using link element: Lowest priority  
+eg:
+<link rel="stylesheet" href="./style.css"> 
+b) Internal:Second Highest
+<style> </style>
+c) Inline: Highest 
+<h1 style="">Hello</h1> 
+
+IV) IMPORTANCE: highest priority 
+-> important keyword 
+-> You could have a color property set and we know we 
+set it normally by simply adding a value after the property 
+-> But if you specify !important, 
+then it will be the most important rule for that element 
+
+eg: 
+color:red;
+color: green !important; 
+
+
+18) Combining CSS selectors: How to target 
+specific elements to style: 
+-> We are going to combine different CSS selectors so
+that we can target a very specific element in our 
+website in order to apply our style 
+
+eg: index.html
+<p>Yellow Text</p>
+<div class="box inner-box">
+ <p>White Text</p>
+</div> 
+
+styles.css
+p{
+color:yellow;
+}
+.inner-box p {
+color:white; 
+}
+
+
+-> Here the div has two class box and inner-box, we can combine p and inner box to 
+select a specific element 
+-> So here it will look at element of particular class:innerbox and any of the descendant 
+of that inner class.
+It can be enclosed any level within the div, 
+
+
+19) Rules for combining CSS selectors : 
+a) Group Rules
+-> done using a comma
+
+-> syntax: 
+
+selector, selector {
+color:blueviolet;
+}
+
+-> Groups selects both of the selectors or even more 
+2 or 3 selectors and applies the same style to the 
+entire group. selectors can be class, id or element 
+
+eg:
+h1,h2
+{
+color:blueviolet;
+}
+
+
+b) Child - applicable only to direct child of left side 
+-> We use the right angle bracket(>) in order 
+to select a child of another selector 
+-> In this case, first selector is the parent and the 
+second selector is the child 
+-> here child should be only one level deep and not more than 
+that 
+
+Parentselector > Childselector {
+color:firebrick; 
+}
+
+eg: index.html
+
+<div class="box">
+<p class="done">Do these things today</p>
+<ul class="list">
+  <li>Wash Clothes</li>
+
+
+styles.css
+.box > p{
+color:firebrick;
+}
+
+
+-> By doing this, "Do these things today" will 
+turn into firebrick color 
+
+
+c) Descendant combination 
+Descendant= Apply to a descendant of left side 
+
+-> we have a single space between ancestorSelector and 
+descendantSelector
+-> what it means is: descendantSelector is going to 
+apply the style to this descendant, as long as it has an ancestor 
+that matches this selector  
+
+
+ancestorSelector descendantSelector
+{
+color:blue; 
+}
+
+
+if we have: .class1->.class2->.p , then we can 
+apply .class1 and any descendant to apply the style 
+
+eg: index.html
+
+<div class="box">
+  <p class="done">Do these things today!</p>
+   <ul class="list">
+    <li>Wash Clothes</li>
+	<li class="done">Read</li>
+	<li class="done">Maths Questions</li>
+   </ul>
+   </div> 
+   
+   style.css
+   .box li {
+   color:blue; 
+   }
+   
+-> Descendant supports multilevel while child selector 
+is only one level deep 
+
+
+d) Chaining selector: 
+-> This looks similar to descendant selectors 
+-> Chaining = Apply where ALL selectors are true 
+It means apply these styles to the instances, where all the 
+selectors are true 
+-> While chaining selectors there is no space in between
+the two selectors 
+
+selectorselector {
+color:seagreen; 
+}
+
+index.html 
+<h1 id="title" class="big heading">Hello World</h1> 
+
+-> Chaining selector helps to be very specific 
+
+eg: 
+h1#title .big.heading
+
+-> While chaining selectors there should be no spaces and
+it should have the relevant symbols in between
+-> eg: it should have . for classes, # for Ids and nothing 
+in front for element 
+
+eg: 
+
+.big     classes
+#title   id
+h1       element 
+
+
+-> WHile chaining elements, always 
+i) Start with element
+ii) Then add class or # for id 
+
+eg:
+li.done
+{
+color:seagreen
+}
+
+
+e) Combining combiners:
+
+ancestor   chain
+selector selectorselector
+{
+font-size: 2rem; 
+}
+
+-> Imaging if you wanted to select on something 
+that has an ancestor that matches this selector,
+then you use the chaining method in order to 
+specifically select this item with these two 
+selectors.  
+
+eg: index.html
+<ul>
+<p class="done">Other items</p>
+</ul> 
+
+
+styles.css 
+ul p.done
+{
+font-size: 0.5rem
+}
+
+
+20) CSS Positioning : positioning-type 
+RELATIVE, ABSOLUTE, FIXED AND STATIC POSITIONING 
+
+-> CSS Positioning is related to positioning of 
+elements on the screen 
+-> Thre are 4 types of positioning:
+i) Relative
+ii)Absolute
+iii)Fixed 
+iv)Static 
+
+
+STATIC POSITIONING:
+-> HTML default flow 
+-> As soon as you insert any piece of html, by 
+default they are going to have this particular positioning 
+applied to them
+-> In static positioning, if an element is there and if 
+we add new element, it will be added below  
+
+
+RELATIVE POSITIONING: 
+-> Position relative to default position
+
+eg:
+position: relative 
+left: 50px;
+top: 50px; 
+
+ABSOLUTE POSITIONING:
+-> Position relative to nearest positioned ancestor or
+top left corner of webpage
+
+-> if it had a positioned ancestor, then it would 
+be positioned relative to that ancestor 
+->  Z index -> it determines which elements go 
+on top of which in z - axis 
+-> Everything has default z-index of 0 
+
+FIXED POSITIONING:
+-> Position relative to top left corner of browser window 
+-> even if move to top or down using slide bar, it 
+stays in the same position 
+-> Fixed position looks same like absolute positioning until you 
+start scrolling 
+
+
+a) In all 4 different positional values, we set 
+top and a left. we can also specify: right 
+
+
+eg: 
+position:fixed
+top: 50px; 
+left:50px;
+
+b) border-radius
+-> radii of the outer border
+-> if there is a square, it makes the corner curved 
+-> border-radius: 50% will make square a circle 
+
+
+c) For images via css:
+https://pattle.github.io/simpsons-in-css/
+
+
+lascarides.githug.io/fussyflags/
+
+21) CSS Display - Block, Inline and Inline-Block
+-> This is CSS for website layout 
+-> We are going to look into CSS display property 
+
+a) span:
+-> <span> element will be used in middle of another element 
+
+eg:
+<p>Hello <span>Beautify</span> World</p> 
+
+-> span by default has a display property 
+
+
+b) 3 common types of display values: inline, block,
+inline-block 
+i) span has that display value set to "inline" 
+
+
+eg: index.html
+<h2> Harry</h2>
+<h2> Potter</h2>
+
+styles.css:
+h2{
+display: inline; 
+}
+
+-> Since it is set to inline, it will be displayed as 
+"Harry Potter" without needing to be displayed in 
+a new line 
+-> By default most elements have display set to a 
+value called "block" 
+
+h2{
+display: block
+}
+
+
+A) Block:
+-> If an element display is set to block, it will take entire width 
+-> If you have another element, then it will go below it 
+and it will not go to same line
+
+
+B) Inline:
+-> if display is inline, then multiple span elements 
+will be in same line until the width of the page 
+-> We cant set the size of elements viz. width and height 
+Because it will default to the size of their content 
+
+
+C) inline-block
+-> Combination of inline and block 
+-> block element aspect allows us to set the height and width 
+-> inline element aspect allows us to have elements that 
+go on to same line 
+---> Hence if we have two elements which are both inline 
+block : if one has 200x200 and another: 20x20 ,
+then we can set their height and width 
+-> And because they inline block, they can go to the same 
+horizontal line as long as there is enough space on 
+the width of web page 
+-> By Changing display property to block inline or inline 
+block, we can determine the layout of our website 
+
+D) None:
+-> If display property is set to none, it will make 
+element on the screen to disappear 
+-> this property is useful when we want to hide 
+or make elements to disappear 
+
+c) We can change width / height and see the impact 
+for different displays :
+
+
+appbrewery.github.io/css-display
+
+
+22) CSS Float: Wrapping text using float and clear 
+a) Float:This helps to wrap text around a particular element 
+-> Float has two values: right, left 
+
+index.html:
+<img ../>
+<p>text...</p> 
+
+styles.css
+img{
+float:left;
+}
+
+-> As soon as this css is applied, text will now begin to wrap 
+around the image 
+-> Here we dont set any style for text, we set style only 
+for img 
+-> we can make image to right by using: float:right 
+
+b) clear:If we dont want text to wrap around image, 
+we can use clear property 
+
+index.html:
+<img ../>
+<p>text...</p> 
+<footer>Copyright App Brewery</footer> 
+
+styles.css:
+img{
+float:left; 
+}
+
+-> Normally in footer, we will have copyright and then 
+name of the company .
+-> We can set clear:left to footer 
+
+
+eg:
+footer{
+clear:left;
+}
+
+-> clear - clears any responsibility to wrap around 
+things that are floating 
+-> Here foot is cleared off the left foot and it can 
+got into its normal position and 
+
+c) for dividing a page into left and right, 
+we can give: float:left and float:right 
+
+d) for floater to be down, we need to give:
+clear:both 
+
+23) Responsive Websites - Make websites look good on all screen 
+sizes 
+-> all sizes means all screen sizes 
+a) There are 4 main ways of doing this :
+i) Media Queries
+ii) CSS Grid
+-> 2 D layouts
+iii) CSS Flexbox
+-> for 1 D layouts 
+iv) External Frameworks eg: Bootstrap 
+
+24) Media Query:
+-> We put this instead of a selector 
+
+@media(max-width: 600px)
+{
+/* CsS for screens below or 
+equal to 600px wide */ 
+}
+
+-> This says look inside these braces to apply the CSS when 
+you are displaying the website  on screen that is 
+below or equal to 600px wide 
+
+
+eg:
+https://tastybasics.nl/
+
+25) Media Quries in detail:
+Adding breakpoints to define responsive layouts 
+
+a) Instead of selector, we have @media keyword 
+-> Here max-width: 600px is called breakpoint, which means that anything less than or equal 
+to 600px, we should use the css defined 
+-> we can also use min-width here , means we target big screens 
+
+
+@media(max-width: 600px)
+{
+h1{
+font-size: 15px;
+}
+}
+
+
+b) We can also combine different breakpoints to 
+target something that is of a specific size 
+
+@media(min-width:600px) and (max-width: 900px)
+{
+/*styles for screens between 600px and 900px */
+}
+
+c) 
+-> screen not needed by default
+-> alternative to screen is keyword called 'print' 
+-> to use mediaquery to target only when your website is 
+being printed 
+
+@media screen(orientation: landscape) 
+{
+/* styles for landscape orientation */
+
+}
+
+d) https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries
+
+26) CSS Flexbox - before it 
+-> To divide a website into columns, we used tables in 
+earlier days of html
+-> Below code will divide page into three columns 
+
+eg:
+index.html
+<table>
+<tr class="row">
+  <td class="col1">...</td>
+  <td class="col2">...</td>
+  <td class="col3">...</td>
+</tr>
+</table> 
+
+styles.css
+.col1{
+width:25%;
+}
+.col2{
+width:25%;
+}
+.col3{
+width:40%;
+}
+
+-> After tables, they used display property to divide 
+page into 3 columns
+
+eg: index.html
+<div class="one"> <p>...</p></div>
+<div class="two"> <p>...</p></div>
+<div class="three"> <p>...</p></div>
+
+styles.css:
+div{
+display: inline-block;
+background-color: blueviolet;
+}
+.one{
+width:25%;
+}
+.two{
+width:25%
+}
+.three{
+width:40% 
+}
+
+-> Since display property also was cumbersome, next 
+they used float property of css 
+->But float too was complex 
+-> float can be used for left or right alignment
+but it should not  be used for layouts
+
+eg: index.html
+<div class="one"> <p>...</p></div>
+<div class="two"> <p>...</p></div>
+<div class="three"> <p>...</p></div>
+
+styles.css:
+div{
+display: inline-block;
+background-color: blueviolet;
+}
+.one{
+float: left;
+width:25%;
+}
+.two{
+float: left;
+width:25%
+}
+.three{
+float: left;
+width:40% 
+}
+
+27) CSS Flexbox - Overall page structure
+-> Flexbox helps to wrap views inside a container and 
+then target that container in your CS and set the display 
+to "flex" 
+
+
+eg:
+<div class="container">
+<div class="one"><p>...</p></div>
+<div class="two"><p>...</p></div>
+<div class="three"><p>...</p></div>
+
+style.css
+.container{
+display:flex;
+gap:10px; 
+}
+
+-> gap property helps to add a gap 
+-> flex is set on the display property , which 
+earlier had only the values: inline, block, inline-block,
+none 
+-> When using flexbox, we should not use them
+-> display values : flex, inline-flex 
+
+28) CSS Flexbox - Flex Direction 
+-> Row and Column layouts 
+a) flex-direction
+-> To arrange the boxes in particular , 
+we use flex-direction 
+-> Default value of flex-direction is row: which 
+means that things will be laid out along a row 
+-> In flexbox main axis goes from left to right, while 
+cross-axis goes from top to bottom 
+-> if flex-direction is set to row, things will be arranged 
+main axis: left to right
+-> if flex-direction is set to column, things will be arranged 
+cross-axis: top to bottom 
+
+b) flex-basis
+-> This property is like setting the height 
+-> it will expand the overall main-axis , if flex-basis 
+set to 100px, each row  will be 100 px height 
+-> flex-basis sets values based on flex-direction 
+
+c) Documentation for flexbox:
+https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
+
+
+
+d) if we mark display as flex, it will take entire 
+width or column, 
+while if we mark display as inline-flex, then it will 
+take only based on need 
+
+e) Select all elements that are direct children of the .container 
+class
+
+eg:
+
+.container{
+color:white;
+border:5px solid gold;
+display: inline-flex;
+flex-direction:column; 
+}
+
+/*
+Select all elements that are direct children of the .container 
+class
+*/
+.container > *{
+flex-basis:100px ; 
+}
+
+
+29) Flex Layout: Align, Justify and Wrap 
+-> so far we saw how to create Flexbox, flex-direction etc
+-> Here we will look on creating layout 
+
+docs and references :
+https://appbrewery.github.io/flex-layout/
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+flex-wrap:wrap; 
+
+justify-content: center; 
+justify-content: space-between; 
+
+align-items: flex-start 
+height:70vh;
+vh - viewport height 
+
+To play with flexbox:
+https://appbrewery.github.io/flexboxfroggy/
+
+
+30) Flex Sizing - Shrinking and Growing 
+-> We will look on how to size the items in a flexbox container 
+
+Content width <Width <flex-basis < min-width/max-width 
+
+flex-grow
+flex-shrink
+
+
+31) CSS Grid - a two dimensional layout system 
+
+FlexBox Vs Grid
+Flexbox:
+a) Helps to align content along a one dimensional line 
+
+
+
+Grid:
+a) Helps to align content alonga a two dimensional grid 
+i.e a table structure with columns and rows '
+
+-> Both has some weaknesses and strengths, hence most developers 
+would use a combination of grid and flexbox 
+
+-> grid vs flexbox:
+https://appbrewery.github.io/grid-vs-flexbox/
+
+
+
+b) Example of grid:
+
+
+index.html
+<div class="container">
+<p>...</p>
+<p>...</p>
+<p>...</p>
+<p>...</p>
+</div> 
+
+styles.css 
+.container{
+display: grid;
+grid-template-columns:1fr 2fr;
+grid-template-rows: 1fr 1fr;
+gap:10px; 
+}
+
+
+fr - fractional ratio 
+
+31) Grid Sizing:
+
+a) instead of grid-template-columns and grid-template-rows
+we can use grid-template-columns
+-> Here before slash defines rows and after slash 
+defines columns 
+
+eg:
+
+.grid-container{
+display: grid;
+grid-template: 100px 200px /400px 800px;
+}
+
+
+b) auto -> gives responsiveness 
+
+eg:
+
+grid-template-rows:100px auto;
+grid-template-columns:200px auto;
+
+c) More on grid sizing:
+https://appbrewery.github.io/grid-sizing/
+
+d) 
+.grid-container{
+display: grid;
+grid-template-rows: repeat(2,200px);
+grid-template-colums: repeat(2,100px);
+grid-auto-rows:300px; 
+}
+
+32) Grid Item Placement - How to layout items in the grid 
+some terms in the Grid
+a) container contains all the items 
+-> This is usually a div and it is called the 
+grid container 
+-> Items inside the grid are called Grid items 
+b) When we create and size our grid, we create 
+row and columns. These are collectively called as 
+Tracks> They are called as row tracks and column 
+tracks 
+c) We create and size these tracks using grid-template-rows 
+or grid-template-column 
+d) Within the intersection of tracks, we create small units 
+which is called a grid cell 
+-> grid cells are smallest units in grid and they 
+can be of different sizes 
+e) Multiple cells can be used to create a grid item 
+f) Horizontal and vertical lines that separate these 
+tracks are called grid lines 
+g) grid lines width/height can be changed by using
+gap property , but its colour cannot be changed 
+
+h) Thus we have the following terms of grid 
+Grid 
+Lines
+Tracks
+Cells 
+Container 
+Item 
+
+
+i) Some additional properties on grid 
+grid-column
+grid-column-start
+grid-column-end 
+
+grid-row 
+grid-area: 2/1/3/3  -> for 4 co-ordinate layout 
+
+
+33) BootStrap Framework: External Layout systems 
+-> Bootstrap is a type of CSS framework 
+-> It contains pre-made CSS files, which can be 
+included in your project in order to use their 
+pre-built components and styling 
+a) Reason for success of Bootstrap is their 12 column 
+layout system, built on top of Flexbox 
+-> It makes it really easy to create Responsive websites 
+and makes it great to look at mobile and desktop 
+
+--------------------------------------------------------------
+|   .col-md-8                             | .col-6.col-md-4  |
+| .col-6 .col-md-4   | .col-6 .col-md-4   | .col-6.col-md-4  |
+|    .col-6                   |                  .col-6      |
+--------------------------------------------------------------
+
+
+
+34) How does BootStrap work:
+a) Lets assume we have a button named "Home" 
+-> Standard button from html does not look great 
+-> But if we included 5 classes, which come from Bootstrap.css 
+Thus if we included the bootstrap.css in our project and if add the styling and components, by adding these classes 
+to our html , Then all of a sudden our home button looks great 
+
+eg: index.html
+<ul class="nav nav-pills">
+<li>
+<button class="nav-link active rounded-5">Home</button>
+</li>
+<ul> 
+
+
+bootstrap.css 
+.nav{
+--bs-nav-link-padding-x:1 rem;
+....
+
+}
+
+.nav-pills{...}
+.nav-link{...}
+.active {...}
+.rpimded-5 {...} 
+
+b) Thus all we need to know, is which classes we need to add in our html 
+c) bootstrap github:
+https://github.com/twbs/bootstrap
+-> for card
+https://github.com/twbs/bootstrap/blob/main/scss/_card.scss
+-> Here we can find all the classes for card component 
+
+
+
+d) bootstrap documentation:
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+
+
+35) Popular external CSS frameworks:
+a) Bootstrap 
+b) Foundation
+c) MUI
+d) Tailwind 
+
+e) Usage percentage:
+None : 75.9% (Means they use Flexbox,grid,Float)
+Bootstrap 19.0% -> 79.0%
+Animate 9.5% -> 39.3%
+Foundation .6% -> 2.3%
+UI Kit .2% -> .7%
+Skeleton
+Tailwind 
+Materialize 
+Material design lite
+Semantic UI
+Bulma
+MetroUI 
+
+
+f) Pros of external css frameworks:
+i) Easy 
+ii) Faster to use 
+iii) Tonnes of prebuilt components 
+iv) Consistent styling across website 
+v) Browser compatibitlity 
+
+
+g) Cons of external css frameworks 
+i) Class bloating 
+-> Lot of styling goes into acutal html file 
+ii) Customization 
+
+
+h) When to use external css framework:
+-> while building moobile-first reponsive website to put to online quickly 
+
+
+i) When not to use external css framework:
+-> When building simple website where you just need html and css  or when building really complex custom design website where you want complete control over 
+
+
+36) How to use Bootstrap
+a) Include via CDN
+
+CDN - Content delivery network. They are little hubs located all across the world and it knows where your users are located 
+-> So when they load your website and try to access this particular CSS file, that contains all the bootstrap code, then CDN can find the closest location with 
+the shortest distance to the server that has the content 
+-> Thus CDN ensures very quick download of the file and rendering of the same quickly 
+
+
+eg:
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alph">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alph">
+
+
+b) As a developer, we need to include this link to the head section of html 
+
+eg:
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alph">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alph">
+
+
+c) If we want any of the functionality like drop down menus or clickable buttons, then we should include the bootstrap script just 
+before the end of the body section 
+
+d) Following needs to be done to add bootstrap supports
+TODO NO:1 Add the Bootstrap link here.
+In index.xml, add the bootstrap link in head section 
+-> goto bootstrap.com, we can install bootstrap via cdn or via node packet manager 
+-> for CDN use the below link:
+https://getbootstrap.com/ ---> 
+
+
+eg: 
+  <title>Bootstrap</title>
+  <!-- TODO 1: Add the Bootstrap link here. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+  
+  
+-> here min means, all spaces are taken to make it as short as possible 
+
+TODO NO:2 Add the Bootstrap Prebuilt Card here 
+-> We can copy the card code from below bootstrap link:
+https://getbootstrap.com/docs/5.3/components/card/
+
+code copied:
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+
+-> After copying this code in body, we can see the button, but the image is completely broken , Hence we need to 
+change image source to display the flow jpeg image 
+
+
+TODO 3: Change the image src to display the flower.jpg image.
+
+
+eg:
+  <div class="card" style="width: 18rem;">
+      <img src="./flower.jpg" class="card-img-top" alt="flower image">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+	
+	
+---> if we are adding custom css file, we need to add it below the bootstrap link
+
+Eg:
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+ <link rel="stylesheet" href="./css/style.css" >
+	
+	
+TODO 4: Use flexbox to center the card in the vertical and horizontal center. 
+-> We can override the classes that comes from bootstrap
+-> In our case, we are going to override bootstrap class: flex-container 
+
+eg:
+  <style>
+    /* TODO 4: Use flexbox to center the card in the vertical and horizontal center. */
+  .flex-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh
+  }
+  </style>
+
+
+37) Bootstrap Layout: Understanding the 12 column Bootstrap layout system
+a) 12 column system is made of three components
+b) Firstly need a div that has a class of container and this will be the starting point 
+c) Then inside that container, we need another div which is going to be of class"row" and inside the row is - where we will 
+have our items and they will be laid out using the column system 
+
+eg:
+
+<div class="container">
+	<div class="row">
+		<div class="col">Hello</div>
+	</div>
+</div> 
+
+d) Until now its simple, since we have only one column.
+-> Interesting thing happens when we have multiple columns laid out inside these rows 
+-> This is because automatically bootstrap will try to give every column inside the row with equal spacing and 
+space them across the entire width of the container
+
+e) bootstrap container is responsive
+-> so by defining a div with the class of container,  we are telling it to have a different size on different sized screens 
+
+
+	Extra small
+<576px
+Small
+≥576px
+Medium
+≥768px
+Large
+≥992px
+X-Large
+≥1200px
+XX-Large
+≥1400px       
+
+.container	          100%	540px	 720px	960px	1140px	1320px
+.container-sm	      100%	540px	720px	960px	1140px	1320px
+.container-md	 	  100%	100%	720px	960px	1140px	1320px
+.container-lg	      100%	100%	100%	960px	1140px	1320px
+.container-xl	      100%	100%	100%	100%	1140px	1320px
+.container-xxl	      100%	100%	100%	100%	100%	1320px
+.container-fluid	  100%	100%	100%	100%	100%	100%
+
+
+
+f) Layout gets interesting when we use sized columns 
+	
+	
+	eg:
+	
+	col-2, col-4, col-6
+	col-2, col-10 
+	
+	
+-> based on the class for columns that you choose, bootstrap wil know how much space to allocate 
+on each div on a percentage basis 
+--> hence col-6, means 50% and 
+-> col-2, as one-sixty of entire width 
+
+-> In each row -> total sum of values of all columns should not exceed 12 
+
+
+g) Bootstrap breakpoints
+-> Bootstrap inlcudes 6 default breakpoints, also known as grid tiers
+-> These breakpoints can be customized if you are using  source class sass files 
+
+
+
+extra small - for foldable screens, narrow phone screens 
+Small -  mobile 
+Medium - tablet/ipad 
+large - laptop 
+extra large - desktop 
+Extra extra large - TV 
+
+
+h) All these breakpoints, which we will often use 
+
+For example: col-sm-2 
+-> This section refers to the screens which are greated than this dimension: >=576px 
+
+i) One of the great things about boostrap is we really dont need the media queries much
+-> Because this covers pretty much lot of different device dimensions -
+-> We just can target different sizes and make website response by using pre-built breakpoints 
+
+j) Example of boostrap breakpoints 
+1) Small screen and above:
+-> We want dimension ratio to be two, 4 and 6 
+
+m) by default  all classes with have class equal "col"  for Mobile 
+
+n) Having multiple breakpoints 
+col-sm-12  col-md-8  col-lg-4 
+
+col-lg-4 means this is for large devices and above and it should take 4 out of 12 of the width : 4/12 
+col-md-8 means this is for medium devices and above -For mediums devices it should take 8 out of 12 of the width :8/12
+col-sm-12 means in small devices, it should take full width: 12/12
+
+o) Mix and Match:
+-> In addition to having multiple breakpoints in each div, we can also mix and match types of definitions 
+
+eg:
+col-2                             col-4                                      col
+.col-6 .col-md-4       .col-6 .col-md-4                             .col-6 .col-md-4 
+
+
+-> col-2 means it is going to take 2 out of 12 , col-4 means 4 out of 12 and col means it will automatically adjust in size in order to take up whatever proportion 
+
+
+p) To understand more on bootstrap-layout:
+
+https://appbrewery.github.io/bootstrap-layout/
+
+q) Documentation on bootstrap layout:
+https://getbootstrap.com/docs/5.3/layout/containers/
+
+
+q) 
+1) For 50% desktop, 100% mobile 
+
+<!-- Modify the HTML code for the purple boxes below so it behaves like the green ones. -->
+  <div class="row">
+    <div class="col-xl-6 col-sm-12">50% desktop, 100% mobile</div>
+    <div class="col-xl-6 col-sm-12">50% desktop, 100% mobile</div>
+  </div>
+  
+  
+2) 
+  <!-- Modify the HTML below to make the blue boxes behave like the red ones. -->
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">Column 1</div>
+    <div class="col-lg-3 col-sm-6">Column 2</div>
+    <div class="col-lg-3 col-sm-6>Column 3</div>
+  </div>
+      
+        
+		
+3) 
+
+      <!-- Modify the HTML below to make the indigo boxes behave like the blue ones. -->
+      <div class="row">
+        <div class="col-xxl-1 ">Column 1</div>
+        <div class="col-xxl-11 ">Column 2</div>
+      </div>          
+            
+			
+38) Bootstrap Components: Learn to use Prebuilt and prestyled components 
+Just by adding certain bootstrap classes in our html, we can get access to host of bootstrap components 
+
+a) Buttons
+-> To get access to a particular color based on primary,secondary, success, danger, warning,info its sufficient to give only 
+the class name 
+
+-> Here btn is for adding bootstrap button and btn-primary or relevant classes is to add the colour scheme we wanted 
+
+eg:
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+
+<button type="button" class="btn btn-link">Link</button>
+
+a.1) To add boostrap buttons, go to getbootstrap site, scroll to components->button  and use the html code from variants:
+
+<button type="button" class="btn btn-primary">Primary</button>
+
+eg:
+https://getbootstrap.com/docs/5.3/components/buttons/
+
+b) Cards:go to getbootstrap site, scroll to components->card   and use the html code from variants:  https://getbootstrap.com/docs/5.3/components/card/
+
+eg:
+
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+
+c) navbar: means navigation bar : go to getbootstrap site, scroll to components->Navbar   and use the html code
+
+https://getbootstrap.com/docs/5.3/components/navbar/
+
+-> To get more examples on navbar: go to getbootstrap site, examples -> header section and we will be able to see more navbars :
+https://getbootstrap.com/docs/5.3/examples/headers/
+
+
+****====> Include script for bootstrap in <script> in body section 
+
+d) icons: go to https://icons.getbootstrap.com/
+-> here we can see the free icons which we can use in our website 
+
+i) If i want to use box, we can type in filter for box and we can copy the html svg and put it in our code:
+
+
+eg: 
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2" viewBox="0 0 16 16">
+  <path d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3zM7.5 1H3.75L1.5 4h6zm1 0v3h6l-2.25-3zM15 5H1v10h14z"/>
+</svg>
+
+ii) Alternatively we can also include the svg image icon,  using <img> element and use the source tag to point to the svg icon 
+
+eg:
+<img src="./box-seam.svg" alt=""> 
+
+-> the box-seam.svg will contain the following code :
+
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+</svg>
+
+
+e) search box in navbar and its placeholder text:
+
+eg:
+<form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Postcode" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Check</button>
+        </form>
+
+
+f) After navbar we need to have title and paragraph: Heroes 
+
+snippets -> heroes in examples: https://getbootstrap.com/docs/5.3/examples/heroes/
+
+-> We can see differnt examples of buttons and text. 
+-> To use it, we need to inspect the particular element, we can go upward so that the entire element gets populated
+-> Once selected we can copy the code by using : div -> rightclick -> copy element and put this element in the body, after 
+the code for navbar 
+
+
+eg:
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+      </div>
+    </div>
+  </div>
+  
+  
+g) Features
+-> Go to examples page: features : https://getbootstrap.com/docs/5.3/examples/features/
+-> features means Title followed by line followed by three columns with image, title , paragraph and a link
+-> Most of the bootstrap styling comes _utilities.scss 
+--> But for some custom styling comes from: features.css 
+
+eg:
+<div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">Columns with icons</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <a href="#" class="icon-link">
+          Call to action
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <a href="#" class="icon-link">
+          Call to action
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+        <a href="#" class="icon-link">
+          Call to action
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+h) Carousel:
+-> slide show component for cycling through elements - images or slides of text 
+---> https://getbootstrap.com/docs/5.3/components/carousel/
+-> https://getbootstrap.com/docs/5.3/examples/carousel/
+
+
+
+eg:
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+-> To put all carousel images within the margin using layout -> container 
+We need to create a div with class container and put all the carousel divs within it 
+
+
+i) footer : 
+
+-> https://getbootstrap.com/docs/5.3/examples/footers/
+
+
+eg:
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-body-secondary">© 2023 Company, Inc</p>
+
+    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    </a>
+
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+    </ul>
+  </footer>
+  
+  
+j) spacing:
+-> apart from layout classes in bootstrap, we have utility classes like spacing : 
+https://getbootstrap.com/docs/5.3/utilities/spacing/
+---> spacing is what margin, padding you want 
+
+
+i) classes are named in this format:
+spacing utilities that apply to all breakpoints, from xs to xxl, have no breakpoint abbreviation in them. This is because those classes are applied from min-width: 0 and up, and thus are not bound by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.
+
+The classes are named using the format {property}{sides}-{size} for xs and {property}{sides}-{breakpoint}-{size} for sm, md, lg, xl, and xxl.
+
+Where property is one of:
+
+m - for classes that set margin
+p - for classes that set padding
+Where sides is one of:
+
+t - for classes that set margin-top or padding-top
+b - for classes that set margin-bottom or padding-bottom
+s - (start) for classes that set margin-left or padding-left in LTR, margin-right or padding-right in RTL
+e - (end) for classes that set margin-right or padding-right in LTR, margin-left or padding-left in RTL
+x - for classes that set both *-left and *-right
+y - for classes that set both *-top and *-bottom
+blank - for classes that set a margin or padding on all 4 sides of the element
+Where size is one of:
+
+0 - for classes that eliminate the margin or padding by setting it to 0
+1 - (by default) for classes that set the margin or padding to $spacer * .25
+2 - (by default) for classes that set the margin or padding to $spacer * .5
+3 - (by default) for classes that set the margin or padding to $spacer
+4 - (by default) for classes that set the margin or padding to $spacer * 1.5
+5 - (by default) for classes that set the margin or padding to $spacer * 3
+auto - for classes that set the margin to auto
+(You can add more sizes by adding entries to the $spacers Sass map variable.){property}{sides}--{breakpoint}-{size} for sm,md,lg,xl and xxl 
+  
+eg:
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.ms-1 {
+  margin-left: ($spacer * .25) !important;
+}
+
+.px-2 {
+  padding-left: ($spacer * .5) !important;
+  padding-right: ($spacer * .5) !important;
+}
+
+.p-3 {
+  padding: $spacer !important;
+}
+
+
+eg: in html -> horizontal centering 
+<div class="mx-auto p-2" style="width: 200px;">
+  Centered element
+</div>
+
+
+k) Dark Mode: Changing theme of website to dark theme 
+
+-> In customize section -> color modes : https://getbootstrap.com/docs/5.3/customize/color-modes/
+
+
+eg:
+<html lang="en" data-bs-theme="dark"> 
+
+
+n) Bootstrap templates: 
+https://www.w3schools.com/bootstrap/bootstrap_templates.asp
+
+-> here some common website theme templates are defined . eg: Blog, Portfolio, Webpage, Social, Marketing etc 
+
+
+o) Bootstrap themes : https://themes.getbootstrap.com/
+
+eg: https://themes.getbootstrap.com/product/falcon-admin-dashboard-webapp-template/
+
+
+
+39) Tindog website :
+https://appbrewery.github.io/tindog/
+
+a) <section> element is used to sepearate different sections of website 
+
+eg:
+
+  <!-- Title -->
+  <section id="title">
+
+  </section>
+  <!-- Features -->
+  <section id="features">
+  
+b) Title section: Use heroes example of getbootstrap.com
+c) In <head>  under title section -> place the url in the <link> element 
+d) Update title section 
+
+
+  
+
+40) WEB DESIGN: Color Theory
+a) Art and science of creating right palettes for your website 
+-> While picking color, we should be aware of the mood 
+b) Red - Love, energy, intensity 
+   Yellow - Joy, intellect, attention
+   Green - Freshness, safety, growth
+   Blue - stability, trust, serenity
+   Purple - Royalty, wealth, feminity
+c) Combining colours: 
+-> Should choose adjacent colours of the colour wheel
+-> We should use opposite colours of the colour wheel to make things pop
+d) We should not use complimentary colours to style text and text background 
+e) We can combine colours like drawing an equilateral triangle to create a triadic colour palette 
+or drawing a perfect square. 
+f) https://colorhunt.co/ - website where professional designers have curated some of their favourtie 
+colour palettes 
+
+41) WEB DESIGN : Understanding Typography and How to choose a font 
+a) Two large families of Font:  
+b) Serif: They have little feet at the end of their central beams 
+-> Reason why they have these old feet is because Serif typeface was inspired by the marble carvings of days of yore 
+c) Serif typeface: to look more serious, authoritative , bit older 
+-> if you design letterhead for legal company or a magazine for architectural design , we can use seriff typeface 
+d) Serif typeface is divided into smaller subfamilies like 
+i) Old style ii) Transitional iii) Modern iv) Slab Serif typeface 
+e) Thickest part of the letter is exaggerated as you get towards a more modern font 
+f) If you want authoritative and modern, we can go fro Modern seriff typeface 
+g) Like colors, different fonts too have different moods 
+i) Serif family - Traditional, stable, respectable, authoritative . eg: Vogue's font 
+ii) Sans-serifs - little feet at the end of central beams, and have perfect right angles 
+-> This right angles makes sans-serif family look so much friendly, more approachable, more novel and contemporary  
+-> It has moods like Sensible, simple, straightforward 
+-> Hence many startups love using sans-serifs in their websites 
+----> humanist typeface is a subfamily of sans serifs . This typeface is alose known as highly readable typeface. 
+h) between serifs and sans seriffs,  designers go for sans-serifs, if they want to write body text which needs to be more legible and readable
+i) Readability and legibility are more important while choosing fonts  
+j) Using lot of fonts can make for a design that is cluttered, overcomplicated and just not very nice 
+k) Using small selection of fonts like: 2, makes design cleaner, clearer and easier to digest 
+
+
+42)WEB DESIGN:  User Interface Design 
+a) Follow a hierarchy with regards to fonts, size, color etc 
+b) wikipedia is based UI design
+c) good ones: grammarly 
+d) less alignment points makes it look more professional 
+e) WHITE SPACE: empty space that is around text or around html elements . More whitespace more the grandeur 
+f) Audience: design more minimalist and and elevate 
+-> Whether it is for children or for elder 
+
+
+
+
+43) UX: User Experience design
+a) Simplicity
+b) Consistency 
+c) Reading patterns like z layout 
+d) All Platform design: 
+
+-> So Color Theory, Typography,User interface design and User Experience design are the three pillars of web design 
+
+
+
+

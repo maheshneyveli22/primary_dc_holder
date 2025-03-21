@@ -1,0 +1,18 @@
+ Validation - built in 
+
+a) Validators can be added to import list at the top : media-item-form.component.ts
+##
+import {FormGroup, FormControl, Validators} from '@angular/forms'
+##
+b) While defining formcontrols as part of formgroup, first option is default value and  second parameter option is the  validator 
+##
+  name: new FormControl('',Validators.pattern('[\\w\\-\\s\\/]+')),
+##
+
+c) Now if we enter invalid characters and we can see css class as invalid: "ng-dirty ng-touched ng-invalid "
+d) To disable form submit if form is not valid:
+e) if we have multiple validations to be performed, then we can remove Validators.pattern and use Validators.compose and there by pass it in a array , in ts file 
+##
+  name: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[\\w\\-\\s\\/]+')])),
+##
+

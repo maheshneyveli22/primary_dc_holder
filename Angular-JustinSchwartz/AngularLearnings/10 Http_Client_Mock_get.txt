@@ -1,0 +1,136 @@
+-> Angular has an NG module named HttpClientModule, for working with HTTP calls from the client. 
+-> This is an optional module that you can choose to include or not in your Angular apps. 
+-> If you don't need to make HTTP calls, you can leave this module out and it will keep your overall application bundle size smaller. 
+-> And when you do need to make HTTP calls, you can import this module and make use of it. 
+-> To make use of the HttpClientModule, you need to add it to the list of imports for your Angular module. 
+-> In the app.module.ts file, we can add a new import statement and bring in the HttpClientModule from @angular/common/http.
+-> Then we can add the HttpClientModule to the imports, metadata property array. 
+-> This NG module includes services and types that you can use to do HTTP work. 
+
+
+####USING MOCK BACKEND FOR HTTP CALLS:
+- To work with HTTP calls from Angular you typically need some sort of endpoint to call to but since Angular has a powerful dependency injection engine and the codebase is built upon it, we can actually leverage that to replace Angular's HttpXhrBackend class that handles the HTTP calls and set up a mock one to simulate those calls.
+ The project code has already been setup with a mock class for that.
+ If you are interested in it, feel free to check out the mock-xhr-backend.
+ts file to see what it's up to.
+ This class is setup to support HTTP calls to the URL 'mediaitems' for get, post and delete verbs.
+ It will allow us to build out the media item service to use Angular's HTTP service while not requiring a separate API to hit.
+ And with Angular's DI architecture, the default HttpXhrBackend class can be replaced with this mock class.
+ Over in the app.
+module.
+ts file, we need to import the type that we are going to mock.
+->The HttpXhrBackend.
+-> That comes from @angular/common/http.
+-> So we can add HttpXhrBackend to the import list.
+-> And we need to import the mock one, so we can add an import statement to bring in the MockXhrBackend type.
+-> And then we can add a new provide object literal to the providers metadata property for the ngModel decorator.
+ ->And we can set the provide property to HttpXhrBackend and another property named usedClass.
+-> Setting that to the MockXhrBackend.
+-> So when some code ask for an HttpXhrBackend it will get an instance of the MockXhrBackend.
+-> With this wired up, we can work with the HTTP service in our code and under the hood it will be calling this mock backend, which will handle read and write of media items to an internal list, much like the current media item service does.
+
+##
+    {provide: HttpXhrBackend, useClass:MockXHRBackend}
+##
+
+
+####Using HttpClient for GET calls:
+-> Angular has a class named HTTP client that is a service for making HTTP requests calls and returning HTTP responses.
+-> Let's refactor the media item service class to use the HTTP client class to make a get request for the media items.
+-> In the media-item.service.ts file, 
+a) we need to start by importing HTTP client from @angular/common/http.
+##
+import { HttpClient } from '@angular/common/http';
+##
+b) Then we need a constructor that takes in HTTP, adding the TypeScript access modifier of private to take advantage of the property initialization shortcut, and setting the type to HTTP client.
+  constructor(private http:HttpClient) { }
+c) Now we can refactor the get method to call this.
+->http.get.
+-> The get method expects a URL at a minimum.
+###
+get(){
+    return this.http.get('mediaitems');
+  }
+###
+-> The mock backend is designed to support the URL media items, so let's give it that as a string value.
+d) The HTTP get method returns an observable of HTTP responses.
+-> We need to unwrap the HTTP response objects that the HTTP get method sends back because we still want the service to return media items, not an HTTP response object that the component has to deal with.
+e) To do that, we can use the RXJS operator called map.
+-> So we need to import that operator first, which we do with an import statement of import map from rxjs/operators.
+##
+import { map } from 'rxjs/operators';
+##
+
+f)  To make use of RXJS operators, we can use a method named pipe that is available on observables.
+-> The pipe method can take in one to many arguments with each argument being the next operator to run.
+-> So we can call pipe off of the HTTP get call, and then in the parentheses, passing a call to the map operator function.
+-> The map method is expecting a function as its argument.
+-> This function will receive an argument that will be one of the HTTP response objects in the observable.
+-> So we can write an arrow function here to handle that putting a parameter named response followed by the arrow syntax.
+-> And then in the function block, we can return response.mediaItems.
+###
+get(){
+    return this.http.get('mediaitems').pipe(map(response=>{return response.mediaItems;}));
+  }
+###
+
+-> And we can see in the editor that we have an error for the media items property.
+g) This is because the get method supports TypeScript typing of the data types it returns.
+-> And since we haven't set that up, TypeScript is catching that.
+-> We can handle that by creating a couple of TypeScript interfaces that model the shape of a media item and the response data.
+-> Down at the bottom of this file, we can add interface media item and a pair of curly braces.
+-> Then inside of the curly braces, we can set up the properties that a media item has by putting a property name, followed by a colon, and then the type for that property; string, number, Boolean, et cetera, and close them off with a semi-colon.
+-> Then we can add interface media items response and a pair of curly braces.
+-> Then inside of there, add mediaItems:mediaItem followed by a pair of square brackets and a semi-colon.
+-> This says that an object like media items response will have a property named media items that will be an array of media item objects.
+###
+interface MediaItem{
+  id:number;
+  name:string;
+  medium:string;
+  category:string;
+  year:number;
+  watchedOn:number;
+  isFavorite:boolean; 
+}
+
+interface MediaItemResponse{
+  mediaItems: MediaItem[];
+}
+###
+-> And finally, we can make use of the interface on the HTTP get call.
+h) The get method supports something called generics.
+-> It is a TypeScript syntax that allows you to tell the method what type of object it will return at the point where you write your method call.
+-> This is done with a pair of angle brackets after the method name, but before the parentheses.
+-> So we can add a less than bracket after the word get, then media items response, then a greater than bracket.
+###
+  get(){
+    return this.http.get<MediaItemResponse>('mediaitems').pipe(map(response=>{return response.mediaItems;}));
+  }
+###
+-> With that, TypeScript is aware of the type of response object and the error in the editor goes away.
+-> Now, this observable from HTTP get is what is known as a called observable.
+i)  The HTTP client get method simply handled preparing the observable for us.
+-> It won't execute it until there is a call to subscribe on it.
+-> So switching over to the media-item-list.component.ts file, we can add a call to .
+->subscribe off of the existing mediaItemService.get method.
+   ###
+   this.mediaItems=this.mediaItemService.get().subscribe(); 
+   ###
+j) Subscribe takes in up to three callback function arguments; next, error, and completion.
+k) These are what the observable execution will call based on those event types.
+-> We want to capture the next which will be a successful return of the media items.
+-> So we write an arrow function with media items as our parameter, the arrow, and a function block.
+-> And in the function block, we will set this.
+->mediaItems to mediaItems.
+-> And we don't need the this.
+->mediaItem setter call to the mediaItemsservice.
+###
+ngOnInit(): void {
+   this.mediaItems=this.mediaItemService.get().subscribe(mediaItems=> {
+    this.mediaItems=mediaItems;
+   }); 
+}
+###
+->get call anymore, so we can get rid of that.
+->

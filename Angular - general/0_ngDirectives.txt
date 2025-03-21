@@ -1,0 +1,18 @@
+1) ngIf : to check a condition if
+<p *ngIf="serverCreated">Server was created, server name is {{serverName}}</p>
+
+if else condition:
+
+<p *ngIf="serverCreated;else noServer">Server was created, server name is {{serverName}}</p>
+<ng-template #noServer>
+    <p>No Server was created!</p>
+</ng-template>
+
+2) ngStyle
+ngStyle - Dynamically style elements
+
+<p [ngStyle]="{backgroundColor:getColor()}">{{'Server'}} with ID {{serverId}} is {{getServerStatus()}} </p>
+
+
+3) ngClass
+ngClass - Dynamically applying CSS classes

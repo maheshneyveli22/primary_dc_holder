@@ -1,0 +1,66 @@
+LIST OF ERRORS:
+1) Uncaught ReferenceError: "command" is not defined 
+2) VM1264:1 Uncaught TypeError: Cannot set properties of undefined (setting 'color')
+3) VM1408:1 Uncaught TypeError: Failed to execute 'getElementsByTagName' on 'Document': 1 argument required, but only 0 present.
+4) VM7921:2 Uncaught TypeError: houseKeeper1.clean is not a function
+
+
+1) Uncaught ReferenceError: "command" is not defined 
+-> it means that Javascipt throws error and tells: "say" keyword is not a real instruction 
+
+eg:
+say("mahesh");
+VM191:1 Uncaught ReferenceError: say is not defined
+    at <anonymous>:1:1
+	
+	
+2) 
+eg code: document.getElementsByTagName("li").style.color ="purple";
+
+VM1264:1 Uncaught TypeError: Cannot set properties of undefined (setting 'color')
+    at <anonymous>:1:49
+	
+->This error will be thrown if javascript is not able to find the element and when we try to set the property for that html element 	
+
+-> The above code getElementsByTagName gives us the array with all three list items 
+--> SInce we are trying to set the style property for this array it is throwing error 
+-> hence to solve this issue we need to select the item in the array that we want to change 
+
+eg:
+document.getElementsByTagName("li")[2].style.color ="yellow";
+
+-> Here in the array, when we specify the exact element in array by specifying the index, the issue is solved 
+
+
+3) 
+
+eg code: document.getElementsByTagName()
+
+
+VM1408:1 Uncaught TypeError: Failed to execute 'getElementsByTagName' on 'Document': 1 argument required, but only 0 present.
+    at <anonymous>:1:10
+	
+Root cause:
+This error occurs, if we dont supply sufficient arguments for method, this method wants 1 argument, but we dont supply anything
+
+Solution:
+By passing the required argument we can solve this issue 
+
+document.getElementsByClassName("btn")
+
+
+4) is not a function
+
+
+
+var houseKeeper1 = new HouseKeeper(12, "James", ["bedroom"]);
+houseKeeper1.clean();
+VM7921:2 Uncaught TypeError: houseKeeper1.clean is not a function
+    at <anonymous>:2:14
+	
+	
+Root cause:
+-> When we try to access a method of an object which does not exist in constructor 
+
+Solution:
+-> Add the method in the constructor and retry 

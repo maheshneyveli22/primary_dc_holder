@@ -1,0 +1,76 @@
+1) String interpolation
+{{propertyName}}
+
+2) Property binding:
+-> binding value to html property
+-> [htmlProperty] = "value"
+-> source on right side and destination on left side
+
+3) Event binding
+-> binding events to method calls
+-> Here source is click on left side which results in method calls on right side 
+
+-> eg: <button (click)="onSave()">Save</button>
+
+
+
+
+4) Passing property from Parent component to child component
+-> We can use @Input decorator for the same 
+-> While property binding happens automatically from Parent to child for html properties, we must use @Input for property binding from Parent to child component
+-> To watch for changes on an @Input() property, use OnChanges, one of Angular's lifecycle hooks
+
+
+5)  Passing data from CHILD COMPONENT TO PARENT COMPONENT
+-> We can use @output decorator for the same 
+
+6) 
+@HostBinding lets you set properties on the element or component that hosts the directive, 
+XXXXXXXXXXXXXXXXXXXXXXXX
+https://www.digitalocean.com/community/tutorials/angular-hostbinding-hostlistener
+
+7) @HostListener lets you listen for events on the host element or component
+XXXXXXXXXXXXXXXXXXXXXXXX
+
+8) Here we use square brackets on string, because we want the selector  to find  match on the element attribute
+eg:
+@Directive
+{
+selector: '[mwFavorite]'
+}
+
+9) Angular Form - Template driven forms
+10) Angular Form - Model driven or Reactive approach 
+11) Validation - built in 
+12) Validators - custom 
+13) Error Handling 
+14) Dependency Injection and Service 
+15) Dependency Injection and Service -> @Inject decorator
+16) Dependency Injection and Injection Token 
+17) HTTPClient/MockBackend/HttpClient for GET calls
+18) Using Search params in GET calls
+-> The GET Call in the media items service is currently requesting all media items.
+-> Let's refactor that to support URL search query values and see how the angular HTTP service works with those.
+-> The HTTP client GET method supports a second parameter for options that can be used to include search query data.
+-> The mock backend supports filtering the media items list by medium so let's update the service GET method in the media-item.
+->service.
+->ts file to take in a parameter named medium.
+-> Then in the method, we need to create a new variable named GET options, setting that to an object literal.
+-> One of the option properties that the GET method can look for is the name params.
+-> This can be an object literal that has properties and values that represent the query params that would be in an HTTP GET Call.
+-> So we can add a property named params and set that equal to an object literal.
+-> Since the backend supports a query param named medium, we can add a property in that object named medium and set that to the medium variable that we added to this component method signature.
+-> We can actually shorten this up a bit by making use of a shorthand property name.
+-> Since the variable name of medium is the same as the property name, we can just put medium without the colon space medium.
+-> Then we can use that second argument on the HTTP GET method for the request options.
+-> So let's pass in GET options there.
+-> Okay, that takes care of medium support in the service.
+-> Let's switch over to the medium-item-list.
+->component.
+->ts file.
+-> This class has already been refactored a bit to support a medium option and to include some links in the template.
+-> All we need to do here is update the this.
+->mediumitemservice.
+->getmethodcall to pass in the medium.
+-> Then we can switch over to the browser and see the GET query parameters in action by clicking through the new links.
+->

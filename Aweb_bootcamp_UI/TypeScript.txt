@@ -1,0 +1,633 @@
+1) What is Typescript
+a) Superset to Javascript 
+b) Programming language built on javascript 
+c) Typescript adds more features to javascript syntax 
+d) Adds static typing to Javascript
+-> Javascript is dynamically typed 
+
+eg:
+function add(a, b)
+{
+return a+b;
+}
+
+
+-> This function works for both numbers and string
+-> when number 2 and 5 is passed, it returns 
+7 as output
+-> When string "2" and "5" is passed, it 
+returns 25 as output 
+-> Here types for this function are not announced 
+ahead of time and thus it is called dynamically typed language 
+
+2) Problem in dynamically typed language:
+
+a) In below program, we would have created for summing 
+up two numbers, but it gives output even when we 
+pass strings and gives undesirable output
+
+function add(a, b)
+{
+return a+b;
+}
+
+-> Here there is no warning to tell you , that you should 
+add only two numbers and not strings 
+
+b) Typescript helps here. 
+-> With typescript - we can add type annotations 
+by simply adding a colon after our argument , then 
+mention the type 
+
+
+eg: 
+function add(a:number, b:number)
+{
+return a+b;
+}
+
+-> Thus we make it clear that, this function accepts two parameters - both of which will 
+be of type number. 
+
+
+3) Installing and using typescript 
+a) Ensure node js is installed
+b) Install typescript using below command:
+
+eg: 
+PS C:\Workspace\AWebBootCamp_2024\13 DOM Challenge Starting Files> npm install typescript
+
+added 1 package in 3s
+
+
+c) Typescript wont run directly in browser, we need to compile typescript 
+so that typescript file gets converted to javascript file 
+d) As part of compilation process, all our type annotations 
+will be removed 
+-> Compilation step warns us of potential code 
+problems 
+-> This compiled code will be run in the browser 
+e) To invoke this compiler, we need to run 
+this command: 
+
+PS C:\Workspace\AWebBootCamp_2024\13 DOM Challenge Starting Files> npx tsc .\withtypescript.ts
+PS C:\Workspace\AWebBootCamp_2024\13 DOM Challenge Starting Files> 
+
+4) Basic Types and Primitives 
+// Primitives: number, string, boolean
+// More complex types: arrays, objects 
+// Function types, parameters 
+
+
+a) Primitives: 
+-> number,string,boolean are the primitive types in java
+b) We can set types while defining a variable
+
+eg: 
+let age:number;
+let userName:string; 
+let isInstructor:boolean; 
+c) null and undefined are also types, but we 
+dont set something to be null 
+
+eg:
+
+let hobbies:null;
+
+hobbies =12;
+
+-> here if i set hobbies of type null, then if 
+i set hobbies with value, it will throw error
+-> Hence setting variables to be of type null is 
+not useful 
+
+
+c) if variables are not assigned with any value, typescript
+by default assigns it as type - any 
+
+
+5) Arrays and Object types : 
+
+a) To set variable of type  array,
+
+let hobbies: string[]; 
+let hobbies: boolean[]; 
+let hobbies: number[]; 
+
+b) We can object of specific type also:
+
+eg:
+
+let person: {
+name:string;
+age: number; 
+}
+
+Allowed:
+
+person= {
+name: 'Max',
+age; 32
+}
+
+Not allowed:
+
+person ={
+isEmployee:true
+}
+
+c) We can declare array of objects like this:
+
+
+let person: {
+name:string;
+age: number; 
+}[];
+
+
+6) Type Inference; 
+a) If we initialize a variable of any type, string in this case - typescript 
+will automatically infer the variable to be of type 
+string and after that we will not be able to assign 
+any other type to that variable
+
+
+let course= " React - The complete guide";
+
+Not allowed: 
+course = 2333;
+
+7) Working with Union Types:
+a) To allow multiple types.
+-> Consider here, we might be fine with 
+storing a string here 
+
+eg:
+let course = " React - The complete guide "
+
+But may storing a course id as number is also correct 
+
+course = 12341; 
+
+-> Hence allowing a variable of two different types 
+or two different objects should be valid user case scenario 
+
+
+b) To allow more than one type, we have union type
+-> Union type is a type definition which allows more than one type 
+-> it can be done by using a pipe symbol 
+
+eg: 
+let course: string | number = " React - The complete guide";
+
+course =12341
+
+Now this line will be allowed 
+
+8) Assigning type aliases: 
+-> While using objects, there are chances that we will be 
+using the same type  in multiple places
+-> In that case , there may be duplication of code 
+-> To avoid duplication , we can use type alias  - where we 
+can define base type , in which a complex type 
+definition is stored and use that type alias 
+
+a) We can define type alias by using type keyword 
+
+
+eg: 
+type Person = {
+name:string;
+age: number; 
+};
+
+b) Now in all places where we use the object, we can 
+use the Alias Person 
+
+eg:
+let person:Person; 
+let people:Person[];
+
+
+9) Functions and Function Types 
+a) Like variables we can assign function
+arguments to be of certain type 
+
+eg:
+function add(a:number, b:number)
+{
+return a+b; 
+}
+
+b) Here automatically typescript infers the 
+return type be of type: number 
+
+function add(a:number, b:number): number 
+
+c) We can also explicitly set the return type of 
+a function like this:
+
+eg:
+function add(a:number, b: number): number 
+{
+return a+b; 
+}
+
+d) Also we can specify the union like this :
+
+eg: 
+
+eg:
+function add(a:number, b: number): number | string 
+{
+return a+b; 
+}
+
+e) When your function does not return value, we 
+can declare return type to be void:
+
+
+eg:
+function print_output(value:any)
+{
+console.log(value); 
+}
+
+10) Understanding generics : 
+a) Lets assume we have a function, which takes 
+array and value  are parameters 
+
+
+eg:
+function insertAtBeginning(array, value)
+{
+
+}
+
+b) Here the array shall be of any type array and value shall 
+be of any type 
+
+eg:
+function insertAtBeginning(array:any[], value:any)
+{
+
+}
+
+c) lets use the spread operator to copy the existing array into new 
+array and in front of that new array - i will 
+insert a value and return this new array  
+
+eg:
+function insertAtBeginning(array:any[], value:any)
+{
+const newArray = [value, ...array];
+return newArray; 
+}
+
+d) THis could be a utility function to easily add a 
+value in the array , without changing the existing 
+array 
+-> Advantage of this function, is that the 
+original array never changes and instead 
+we get a brand new array 
+
+e) Now to call this method:
+
+const demoArray = [1,2,3];
+const updatedAarray = insertAtBeginning(demoArray,-1);
+
+-> As a result of calling this function new array will be 
+[-1,1,2,3] 
+
+f) Now the problem is the type of updated array will be 
+of type any[]
+-> Typescript does not pick up, that it is an 
+array full of numbers , this is because we have any[] as type of 
+array for function: insertAtBeginning
+
+-> We could define insertAtBeginning to accept array of type number[],
+but what if we want to use insertAtBeginning function to be utility 
+method and want to pass any type of array 
+
+-> since return type is of anytype 
+
+const updatedArray = insertAtBeginning(demoArray,-1);
+
+-> if we try to call split, we wont get any error
+
+eg:
+
+updatedArray[0].split(''); 
+
+g) To work around, these type of problems we have 
+this feature of generics 
+h) With this generics feature, we can convert this function 
+insertAtBeginning to be a generic function 
+-> for this we will use a special syntax, 
+-> after the function name in front of parameter list ,
+we will add angle brackets 
+-> Inside angular brackets, we can define a 
+generic type, which will be available only within this 
+function 
+
+eg:
+function insertAtBeginning<T>(array:T[], value:T)
+{
+const newArray = [value, ...array];
+return newArray; 
+}
+
+i) Now if we call this function, typescript is able to understand
+that it should look at the concrete values of the 
+arguments here, where it understands that this is an 
+array of numbers and therefore it understands that 
+the updated array will be an array of numbers 
+-> This is because of this generic  type feature 
+
+
+11) Classes and Typescript 
+a) Classes are blueprints for objects 
+b) In classes we can add properties 
+and methods 
+
+
+eg:
+
+class Student{
+firstName: string;
+lastName: string;
+age:number;
+courses: string[];
+
+constructor(first:string, last:string, age:number, courses: string[]){
+this.firstName = first;
+this.lastName= last;
+this.age= age;
+this.courses = courses;
+}
+
+enroll(courseName: string)
+{
+this.courses.push(courseName);
+}
+}
+
+c) Here we define the constructor, which is the default 
+method which will be called, when we create objects 
+
+d) We can define new student by instantiating
+the student class like this:
+
+
+const student = new Student('Mahesh','waran',32, ['Angular']);
+
+-> By this, student object gets created 
+
+e) We can use the dot notation to access 
+the different properties and methods 
+###########
+-> one important thing between normal javascript function and 
+methods declared in classes is methods dont have 
+keyword "function" before it 
+###########
+
+eg:
+const student = new Student('Mahesh','waran',32, ['Angular']);
+student.enroll('React');
+
+f) Special thing about typescript and classes is that, 
+we can define all properties this class will 
+have in advance and set the types for 
+these different properties
+-> But  in standard 
+Javascript we will not have properties assignments  defined 
+at the top, instead properties will be added by just 
+setting inside of the constructor
+-> With typescript, we can define them ahead of 
+time, including their types 
+-> Also with typescript, we can control whether a 
+property or method  should be 
+publicly accessible or private 
+
+
+g) Private properties and methods can access only 
+from inside the class 
+h) Public methods and properties can be 
+accessed from outside through the dot notation
+i) By default all the properties and methods are 
+public 
+j) But if we mention properties or methods to be 
+private by adding private keyword and we can add 
+another method which returns those courses
+
+eg: 
+private courses: string[];
+
+listCourse()
+{
+return this.courses.slice(); 
+}
+
+
+k) Common pattern in typescript,
+-> define properties in class and then assign values to those
+properties using the constructor
+
+eg:
+
+class Student{
+firstName: string;
+lastName: string;
+age:number;
+courses: string[];
+
+constructor(first:string, last:string, age:number, courses: string[]){
+this.firstName = first;
+this.lastName= last;
+this.age= age;
+this.courses = courses;
+}
+
+enroll(courseName: string)
+{
+this.courses.push(courseName);
+}
+}
+
+12) Another way of assigning properties in class 
+
+a) Instead of defining properties in class, we can 
+add the accessory keyword in front of 
+parameters in constructor method  and 
+add public in front of all the parameters 
+and private in front of parameters that should be set as 
+private properties 
+b) Then instead of assigning properties using this.variable name, 
+we leave it empty in curly brackets 
+c) Thus, this is a shorthand method for 
+defining certain properties of their class 
+and also for letting the user assign values 
+to those properties when that class is instantiated 
+
+
+
+class Student{
+// firstName: string;
+// lastName: string;
+// age:number;
+// courses: string[];
+
+constructor(public first:string, 
+public last:string, 
+public age:number, 
+private courses: string[]){
+// this.firstName = first;
+// this.lastName= last;
+// this.age= age;
+// this.courses = courses;
+}
+
+enroll(courseName: string)
+{
+this.courses.push(courseName);
+}
+}
+
+13) Interfaces :
+a) Interfaces feature exist only in Typescript and 
+not in Javascript 
+b) Hence interface code we write wont be compiled to 
+Javascript 
+c) Interfaces are only object type definitions 
+d) Here we can define a Human Interface
+e) Where we define the properties and methods 
+->Here in method we wont add definition and we add 
+only the declaration 
+
+eg:
+interface Human{
+firstName: string;
+age: number; 
+
+greet(){}
+
+or greet:()=> void; 
+}
+
+-> this means greet method does not take
+ any parameters and it also returns nothing 
+ 
+ f) Now we can use this interface, as an object type 
+ -> if we have new variable mahesh, then 
+ i can make it clear that it will be of type 
+ Human 
+ 
+ 
+ let mahesh:Human ;
+ 
+ g) Now if i try to assign value to mahesh, i wont be
+ allowed assign value of number 
+ 
+ eg:
+ //not allowed
+ mahesh =2; 
+ 
+ 
+ h) Instead i will be allowed to store only an object, but 
+ it should have the structure like Human 
+ -> we should define actual properties and 
+ also the actual greet method 
+ 
+ eg;
+ max = {
+ firstName: 'Mahesh',
+ age:32,
+ greet()
+ {
+ console.log('Hellow');
+ }
+ 
+ }
+ 
+ 
+ i) Thus we can use interfaces to define object 
+ types , but can also use the type keyword to create 
+ an alias 
+ 
+ eg:
+ 
+ type Human ={
+firstName: string;
+age: number; 
+
+greet(){}
+
+or greet:()=> void; 
+}
+
+j) Why do we have interfaces, when we have type keyword 
+to do the same 
+-> Interfaces are simply an alternative
+-> We can use interfaces instead of type keyword when you 
+want to define object types 
+k)But interfaces have one extra feature which type keyword 
+does not give 
+-> Interfaces can be implemented by classes but when 
+they are implemented, they  force classes to have 
+that structure defined by the interface 
+l) This might be helpful while building an application 
+with multiple developers and you want to 
+ensure that a certain class written by another 
+developer has a certain structure, because you for 
+your part need to have that structure - you need that 
+class to have a certain method 
+m) Angular also has a couple of interfaces , which forces 
+us to add certain features , so that thereafter 
+it is able to use these classes correctly 
+
+o) Let me give an example:
+
+1) lets define a class Instructor, which i 
+want to be of type : Human 
+
+class Instructor implements Human {
+firstName: string;
+age: number;
+greet(){
+console.log("hellow"); 
+}
+
+}
+
+2) Since i implement Human interface, i am forced to add firstName, age property and also 
+add the greet method 
+
+14) Configuring typescript compiler 
+a) Typescript compiler config file: 
+-> we can add typescript configuration file by 
+this command: npx tsc --initialize
+b) This command adds a file : tsconfig.json 
+c) But if we work with angular, we dont need this step, 
+-> This is because in angular project, we get typescript 
+configuration files(tsconfig.json) out of the box 
+d) We need to change it only if needed 
+e) In tsconfig.json, many options will be there
+-> one of the common option is 
+"strict": true
+
+-> strict mode by default set to true. When using 
+strict mode, typescript  does very strict typechecking 
+f) We also have option:
+
+target: "es5" 
+#####
+
+
+target signifies which target of JavaScript should be emitted from the given TypeScript. Examples:
+
+target:es5
+()=>null will become function(){return null} as ES5 doesn't have arrow functions.
+
+target:es6
+()=>null will become ()=>null as ES6 has arrow functions.
+##########

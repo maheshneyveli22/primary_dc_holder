@@ -1,0 +1,6 @@
+a) Microsoft code samples:
+https://learn.microsoft.com/en-us/samples/browse/?filter-products=azure
+
+
+b)  Azure administrator 
+https://learn.microsoft.com/en-gb/shows/on-demand-instructor-led-training-series/az-104-module-3

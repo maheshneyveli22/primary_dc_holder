@@ -1,0 +1,1 @@
+1) Implement using Module federation , which is a new feature introduced in webpack5 

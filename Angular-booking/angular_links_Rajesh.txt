@@ -1,0 +1,9 @@
+Angular https://www.linkedin.com/learning/angular-essential-training-2/why-use-angular?autoplay=true&u=26281682
+
+Learning the Angular CLI https://www.linkedin.com/learning/learning-the-angular-cli/maximize-productivity-with-angular-cli?autoplay=true&u=26281682
+
+Routing in Angular: https://www.linkedin.com/learning/angular-routing/welcome?autoplay=true&u=26281682
+
+Testing and Debugging: https://www.linkedin.com/learning/angular-testing-and-debugging-10201318/angular-testing-and-debugging?autoplay=true&u=26281682
+
+Optional: https://www.linkedin.com/learning/angular-building-large-applications/welcome?autoplay=true&u=26281682

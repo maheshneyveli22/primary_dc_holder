@@ -1,0 +1,12 @@
+1) angular.json 
+-> contains dependancies 
+-> contains important scripts used in application
+-> Lists private dependancies and dev dependancies
+2) nodule_modules
+-> package where all dependancies are present were installed
+
+
+:31150031220100006029
+
+
+PO96386107

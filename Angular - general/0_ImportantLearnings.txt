@@ -1,0 +1,306 @@
+A) Data transfer between Components
+1) String interpolation
+2) PropertyDatabinding
+3) Two way databinding
+4) references and @viewChild
+5) @Input @Output 
+6) ng-content and @ContentChild for use with references
+6_7) Through Service
+6_8) Using Subject of RxJs - More advanced
+Instead of EventEmitter's emit() we call next()
+
+
+7) Renderer -Better approach to access dom  instead of ElementRef
+8) HostListener to listen and react to  events :  
+9) HostBinding to access to dom properties : used along with HostListener 
+
+
+10) CustomPropertyBinding
+
+B) Service
+11) Service if you want singleton remove from provider and mention it only in app-module provider
+if you want multiple instance - mention it in provider
+
+12) @Injectable -> to inject one service into another
+eg: if account service want to have logging service. we should put @Injectable decorator in account service 
+13) Services for cross component communication using EventEmitter using Emit() and Subscribe()
+
+
+
+ROUTE
+14) route structure should always have path and component
+15) RouterModule.forRoot() helps to register for main application and forRoot will receive routes as the argument
+16) <router-outlet> tells angular router to load the current component of the currently selected route 
+17) routerLink to navigate without reloading the page
+eg; routerLink="/servers" or routerLink="['/users']"
+if given routerLink="servers" it is relative path. gets appended to existing path
+if given routerLink="/servers" it is absolute path. does not get appedning to existing path
+../servers means go up one level and load
+18) routerLinkActive directive to style the links correctly
+    routerLinkActiveOptions: exact true for default case to match exactly
+19) To route programatically:
+a) have Router instance dependancy in constructor
+b) then in your method: use navigate() of router instance
+eg: this.router.navigate()
+20) Router does not know the current active route unlike: routerLink which knows the current active route. so we use ActivatedRoute instance to know the current active route
+eg this.router.navigate(['servers],{relativeTo:this.route});
+21) To pass parameters to the route
+a) in routes:
+{path:'users/:id', component:UserComponent}
+b) get the ActivatedRoute dependancy and use this snapshot.params to get the param passed in url
+eg: id: this.route.snapshot.params['id']
+22) When in same component, if we route to same component angular does not reload the component, instead displays the old data
+-> To display old data, instead of using snapshot.params of route, using route's params which is an observable 
+23) Using query param in url:
+
+eg:
+<a 
+[routerLink]="['/servers',5,'edit']"
+[queryParams]="{allowEdit:'1'}"
+fragment="loading"
+24) Loading queryParams programatically
+eg: this.router.navigate(['/servers',id,'edit'],{queryParams: {allowEdit:'1'}, fragment:'loading'});
+-> Two ways
+a) use activatedRoute's queryParams and fragment
+this.route.snapshot.queryParams
+this.route.snapshot.fragment
+b) use the queryParams observable and subcribe and for fragment too
+25) Nested Routes
+a) in paths, add childeren array and mention path and component
+and go to the corresponding component and replace the selector with router-outlet
+26) Redirecting and wild card routes
+{path:'not-found', component: pageNotFoundComponent}
+{path:'**', component: redirectTo:'/not-found'}
+
+-> this route should be at last
+
+27) for redirecting checking full path
+{ path: '', redirectTo: '/somewhere-else', pathMatch: 'full' } 
+
+28) To outsource routing
+-> create app.routing.module.ts
+-> mention all routes . no declaration needed. 
+-> remove route specific things in app.module.ts 
+-> in app.routing.module.ts imports add the appRoutes specified to RouterModule
+-> then we need to add the app routing module to main module by specifiying in exports the RouterModule and in AppModule we can import the AppRoutingModule
+
+29) Guards: canActivate - to run code before a route is executed
+-> create a AuthGuard which implements canActivate()
+-> canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<boolean> | Promise<boolean> | boolean
+{
+}
+-> now go to routes and mention canActivate and the guard name
+{
+path:'servers',canActivate:[AuthGuard],component:ServersComponent
+
+-> Thus the service is available only if canActivate of AuthGuard returns true else route or its children will not be accessible
+-> Also we need to go to module and add the new service(AuthService)  and AuthGuard in providers
+
+30) To protect only child routes use: canActivateChild
+31) Controlling navigation with: canDeactivate
+-> It is adding a control on whether we can leave or not
+-> use case : to prevent from accidentally navigating away
+
+eg:
+{path:':id/edit', component:EditServerComponent,canDeactivate:[CanDeactivateGuard]}
+
+
+30) Fetch static or dynamic day before a route is rendered
+-> To render dynamic data we use Resolver
+-> Resolver always renders the component in the end , but it does some preloading. Resolver fetches data, which the component may need later on
+-> To do:
+a) Add Resolver file which implements Resolver
+b) In Resolver implement resolve()
+-> method takes two arguments: ActivatedRouteSnapshot and RouterStateSnapshot and it has two return an Observable
+
+
+
+FORMS
+31) TemplateDriven
+1) Controls: 
+-> Control means what needs to be converted to Javascript object so that it gets submitted
+a) we can add an entry as control by specifying ngModel
+
+eg: <input type="text" id="username" class="form-control" ngModel name="username">
+b) then we need to specify the name of the control  
+
+2) Making form submittable  and we can use f as local reference and use it in TS file 
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+-> here f gets access to ngForm which was created automatically
+
+3) we can also access form using @viewChild
+
+4) Validation
+a) In template, specify "required" or "email" so that it can be validated in template
+
+5) set default values with ngModel property binding
+
+eg: <select id="secret" class="form-control" [ngModel]="defaultQuestion" name="secret">
+
+6) Using ndModel with two way binding
+
+eg: <textarea name="questionAnswer" rows="3" [(ngModel)]="answer"></textarea>
+
+7) Grouping form controls using: ngModelGroup
+
+8) setValue and patchValue of forms 
+setValues -> sets Values of all form properties
+patchValue -> sets values of specific form properties 
+
+9) formdata: 
+
+10) resetting forms: using reset()
+
+32) REACTIVE APPROACH:
+1) While FormsModule is needed for TemplateDriven approach, ReactiveFormsModule is needed for Reactive approach
+2) FormGroup contains everything about form. within that FormControl will be present for every control
+3) To sync HTML with Form defined in ts file, need to apply some directives in template file
+a) [formGroup]="signupForm"  -> to match formGroup
+b) formControlName="userName
+4) Submitting the form: we use ngSubmit
+(ngSubmit)="onSubmit()"
+-> Similar to template driven approach we use ngSubmit, but the difference we dont get the form via local reference , as we dont need it and all are already present in the ts file. 
+5) Adding Validation:
+-> while in template driven we specify validation in template, in reactive approach we specify validation in ts file while creating FormControl and FormGroup
+6) Getting access to Controls using form's get helper method 
+
+eg: <span *ngIf="!signupForm.get('username').valid && singupForm.get('username').touched" 
+
+7) Grouping controls :
+a) First group in ts file
+b) In template file, Wrap the required items in a div and in that div, place the formgroupName directive 
+so:
+formControlName tells property
+formGroupName tells which formGroup
+
+8) Array of form controls: use FormArray and formArrayName
+9) Custom Validators
+-> validator is a function
+-> it will need a formControl 
+-> if validation is successful we should return nothing or null or omit return , we should not pass return values
+-> we need to bind to this
+
+10) Using Error codes:
+using .errors('
+11) Creating Custom Async Validator 
+-> for response that does not come back immediately
+-> async validators return Promise or Observable 
+--> we specify  this async validator as third argument in FormControl
+12) Reacting to status or value changes
+-> we can listen to  form's statusChanges and valueChanges observable
+->status means whethere key entered is valid or invalid
+
+11) setting and patching values: 
+setValue
+patchValue
+12) Resetting: reset()
+
+
+32) Pipes:
+1) Custom pipe:
+a) Create a custom pipe class which implements PipeTransform
+b) implement transform method
+c) add @Pipe decorator
+d) use it in template
+
+2) async pipe
+-> async pipe recognises that this is a promise or an observable , which it subscribes automatically.
+-> in our case here async pipe, after 2 seconds it will simply recognise that something changed or the promise was resolved or in case of an observable, that particular data was sent to subscription and it brings the data to the screen. 
+
+
+33) Making hTTP requests:
+a) For Sending post request : 
+
+i) Use HttpClientModule from @angular/common/Http and inject it in your constructor
+ii) access the corresponding http method using : this.http.post() etc. by passing the url  as parameter
+iii) we normally send json data, when we pass input to rest api. here also we pass json data. Here also same happens.
+Angular http client will take the javascript object and automatically converts it into json data for us 
+eg:
+this.http.post("htps://ng-complete-guide/posts.json", postData);
+-> now if we pass the request, request wont be sent and that happens on purpose
+iv) Angular heavily uses observables and even HTTP requests are managed via observables 
+v) We can wraps the http requests and   subscribe to them and get informed about the response and handle errors and so on 
+vi) If we are not subscribing to that prepared HTTPRequest , then RxJS and angular assumes - noone is interested in the response. 
+Hence the request does not even gets sent 
+vii) Thus post indeed, returns an observable - it does not return any response or return anything like a return value - instead it gives an observable that wraps our request 
+viii) Hence to get access to the response, we need to call subscribe 
+
+eg: 
+this.http.post("hhtps://ng-complete-guide/posts.json", postData).subscribe(responseData=>{console.log(responseData});
+
+
+b) GettingData: getting all posts 
+this.http.get("htps://ng-complete-guide/posts.json").subscribe(posts=>{console.log(posts);}); 
+
+
+c) Using RxJs Operators to transform Response Data
+-> transforming response can also be done in subscribe
+-> But it is always good practise to use observable operators 
+-> Hence before we subscribe we can can piple
+i) pipe() -> it is a method that sllows to funnel your observable data through multiple operators before they reach the subcribe method 
+ii) Operator we need here is the map operator 
+-> map operator allows us to get some data and then return new data which is then automatically re-wrapped into an observable , so that we can still subscribe to it 
+-> if it would not be wrapped into an observable again, we could not subscribe. 
+-> from pipe we call and map function and that map calls another function as an input , a function that would get our response data and thereafter return the converted response data 
+-> Here we return an array of posts instead of an object with a cryptic key 
+
+eg: 
+this.http.get("htps://ng-complete-guide/posts.json").
+pipe(
+map(responseData => {
+const postsArray=[]'
+for(const key in responseData)
+{if(responseData.hasOwnProperty(key))
+{postsArray.push({...responseData[key], id:key});
+}
+return postsArry; 
+}
+}))
+.subscribe(posts=>{console.log(posts);}); 
+
+d) Using Types with HttpClient 
+-> creating a model and then using it 
+
+e) Outputting Posts: 
+-> assigning the array we created to the array we created and thereafter use it 
+
+f) showing a loading indicator
+-> add new boolean property and make it to true before fetching 
+-> makes it to false in subscribe method 
+
+g) using service for http requests: 
+-> Service should do the heavy lifting like transforming data 
+-> components should do only fetch or things related to template and it should be lean 
+
+f) service and components:
+-> Sending request should be in service
+-> data related to template should be in component 
+-> if component does not care about handling response data - no need to subscribe in component. then you can subscribe in service itself 
+
+g) Handling errors: 
+a) Method 1: In subscribe , we can pass more arguments to an observable function
+-> second argument is an error that triggers whenever an error is thrown
+b) Method 2: using subject
+-> above method is fine, if we return observable from service and subscribe it in the component
+-> We can use a subject - if we have multiple places in application that is interested in your error. 
+-> we can have a error property, which is a subject 
+
+while subscribing:
+ in error: this.error.next(error.message) ;
+ -> then we need to subscribe to that subject , in all places where we are interested in that error message 
+ 
+ eg: this.postsService.error.subscribe(errorMessage=> {
+ this.error=errorMessage;
+ });
+ 
+ i) Using CatchError Operator:
+ -> To catch errors 
+ -> helps in logging or doing something post an error occurs 
+ -> throwError is a function that will yield a new observable . It yields a new observable by wrapping error 
+ -> in CatchError we  needed to return the observable that is created by throwError 
+ 
+ catchError(errorRes =>
+ {
+  return throwError(errorRes); 
+ }

@@ -1,0 +1,222 @@
+Dependency Injection
+-> Framework creates instances of things and injects them into places where they are needed. 
+a) In angular , dependency injection is handled in two steps
+i) First is : Service registration - in which we provide angular with the list of things you want it to know about that can be injected
+ii) The second is the retrieval of those things, which can be done with constructor injection, either by leveraging TypeScript type annotations or by using the Angular Inject decorator. 
+b) Angular also provides access to the injector itself for cases where you want to locate a service specifically, but this is typically not needed. 
+c) The majority of application architecting can be accomplished by Constructor injection
+d) STEP1:
+-> So step one is to tell Angular, hey, I have this class or this value that I want you to handle for me. 
+-> This is done with the Angular PROVIDER class, or the provide helper function, or even by providing the type. You let angular know either at the bootstrap call or in the component directive metadata in the decorators.
+E) STEP2: 
+-> 
+Step two is to tell Angular from within class constructor signatures, 
+hey, I want these constructor parameters to be of this type. 
+This is done with a bit of TypeScript, or can be done with the Inject decorator. 
+From there, Angular takes over, COLLECTING ALL THE THINGS YOU SPECIFY AS PROVIDERS INTO A LIST, AND THEN GETTING THOSE WHEN IT GOES TO EXECUTE THE CONSTRUCTORS ON YOUR CLASSES. 
+
+When it goes to get the things, it checks to see if it has an instance of one already created, and if not, in news one up and stores it. 
+Then the next time the thing is needed, it uses the existing one. This means that the things, being classes and values, end up being singletons.
+ Remember that Angular is a client side framework designed around the concept that the client side code keeps working as the user interacts with the application. 
+ 
+ There are no calls to the server to retrieve a new visual state as the app is used. 
+ So when Angular's dependency injection creates a new instance of something, that something stays in memory, and because the browser is not reloading, 
+ that something is able to live around for the run of the application. 
+ And because Angular has a component tree, and you can register things at a component level, those SINGLETON of things become available from the point in the component tree that they were registered on down. 
+ 
+->  So something registered at bootstrap is available in the entire component tree. Something registered at a component is available in that component and its children and their children.
+f) SERVICE:
+ And finally, if you create your own classes to encapsulate some logic, referred to as services, 
+ it is extremely simple to tell Angular that you want it to do constructor injection for your service class as well. You use a decorator for it.
+ 
+ g) Services in angular:
+ 
+-> if angular dependency injection creates instances for a service, then it is singleton instance
+-> Since angular follows component tree model, something(service) registered at a component level will be available to all its child component levels
+-> Similarly if something(service) registered at bootstrap will be available to all the components 
+
+i) Why use services: Like services in mvc pattern
+-> It provides architectural way to encapsulate business logic . Thus keeping business logic out of 
+components, directives and pipe classes 
+a) For Data service - Class that gets/stores data from datastore 
+eg: if there are two components one for listing items from db and another for adding items to db. we can use a service class which takes care of connecting to db
+b) For handling business logic 
+c) Angular's out of the box service classes: Http, FormBuilder, Router 
+d) Makes the code more testable . Easy to create mock service 
+ii) To create service, we need to create plain old javascript class and no directives are needed to specify it as a service 
+iii) Doing constructor injection of a service in component . Two things
+-> Import statement
+-> Constructor parameters with type annotation 
+
+iv) Using inbuilt FormBuilder service 
+eg:
+a) import and constructor parameters for FormBuilder service
+
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
+
+  constructor(private formBuilder:FormBuilder)
+  {
+
+  }
+  
+  
+b) using the  FormBuilder service:
+
+###
+  ngOnInit(): void {
+this.myform = this.formBuilder.group({
+  medium: this.formBuilder.control('Movies'),
+  name: this.formBuilder.control('',Validators.compose([Validators.required, Validators.pattern('[\\w\\-\\s\\/]+')])),
+  category: this.formBuilder.control(''),
+  year: this.formBuilder.control('',this.yearValidator)
+});
+  }
+###
+
+
+v) Creating our own Service 
+
+a) To use this service elsewhere we need to export this service:
+
+##
+export class MediaItemService 
+##
+b) Move static list of media list from media-list-component to  MediaItemService
+##
+  mediaItems = [
+    {
+      id: 1,
+      name: 'Firebug',
+      medium: 'Series',
+      category: 'Science Fiction',
+      year: 2010,
+      watchedOn: 1294166565384,
+      isFavorite: false
+    },
+	......
+##
+
+
+c) To work with this data, create add() and delete() methods 
+
+##
+get(){
+    return this.mediaItems;
+  }
+
+  add(mediaItem){
+    this.mediaItems.push(mediaItem);
+  }
+
+  delete(mediaItem)
+  {
+    const index= this.mediaItems.indexOf(mediaItem);
+    if(index>=0)
+    {
+      this.mediaItems.splice(index,1);
+    }
+##
+
+d) PROVIDING THE SERVICE 
+
+Now with the service class built, we need to let the app module that the new service is available
+-> we can do that in app.module.ts file 
+a) add import for service
+##
+import { MediaItemService } from './media-item.service';
+b) add entry for provider for MediaItemService
+  ##
+  providers: [    MediaItemService],
+  ##
+-> this will tell angular to instantiate MediaItemService for use by any ngModules down the tree [AppModule]
+-> Until now we have created the service and provided in service. 
+
+
+e)  Providing services in the root 
+
+
+-> By making use of the provider's meta data property for the NG module decorator, we can declare what services we want to be included in the injector for that NG module. 
+-> We did that with the media item service in the last video, adding it to the appmodule. 
+-> Now, the appmodule is our root NG module for this application, meaning that is it the top level NG module. 
+-> Registering that media item service in there was like registering it in the root injector. 
+
+-> Angular has another way to wire up injectables to the root provider-- 
+a) one that can be done without using the provider's meta data property for the NG module decorator. 
+b) The @injectable decorator has a meta data property named 'providedIn' that can be used to tell Angular where the decorated service should be registered at.
+c) In the media-item.service.ts file, we can import the injectable decorator from @Angular/core. 
+###
+import { Injectable } from '@angular/core';
+###
+
+d) Then we can decorate the media item service class with the @Injectable decorator, and pass it in an object literal with a property named providedIN, 
+and set that to a string literal with a value of 'root'. 
+##
+@Injectable({
+  providedIn: 'root'
+})
+##
+
+e) With this set, Angular will instantiate a single instance of this service in the root injector, 
+and will provide it to any class that ask for it in the application. 
+-> If we know that we want to provide a service throughout our entire application, this is the preferred approach to registering it. 
+-> Not only because it keeps the registration logic next to the service class itself, 
+but it also provides an optimization opportunity for the Angular compiler. 
+-> If this service is not actually requested in any other class constructor, the Angular compiler will exclude it from the build.
+
+
+F) USING THE SERVICE IN COMPONENTS:
+Using the service in components
+->  Let's see how we can use the media item service from within a component. 
+-> In the media-item-list.component.ts file, we want to create the import statement for the service. 
+##
+import { MediaItemService } from '../media-item.service';
+##
+-> Then we need to create a constructor function so we can have Angular do constructor injection. 
+
+-> We give that a private parameter named mediaItemService and set the type to MediaItemService. 
+##
+ constructor(private mediaItemService:MediaItemService){
+    
+  }
+##
+
+-> Then we can make use of the onInit lifecycle event by importing onInit from Angular Core and declaring that the class implements onInit.
+->  Then we can add an ngOnInit method and set the media items property of the component class equal to a call to this.mediaItemService.get.
+-> And now we can delete the sample data from here. 
+-> This component class has the onMediaItemDelete function
+->  so we can fill out the body of that with a call to this.mediaItemService.delete and pass it in the media item it receives. 
+
+###
+constructor(private mediaItemService:MediaItemService){
+
+  }
+
+ngOnInit(): void {
+   this.mediaItems=this.mediaItemService.get(); 
+}
+  onMediaItemDelete(mediaItem) { 
+    this.mediaItemService.delete(mediaItem);
+  }
+  
+###
+
+-> Finally, we can head over to the media-item-form.component.ts file then import the service at the top 
+-> then add it to the constructor parameters, setting it as private just like we did in the list component. 
+-> And now we can use it in the onSubmit method to add the media item through the add method of the service. 
+###
+constructor(private formBuilder:FormBuilder, private mediaItemService:MediaItemService)
+  {
+
+  }
+
+
+  onSubmit(mediaItem)
+  {
+    console.log(mediaItem);
+    this.mediaItemService.add(mediaItem);
+  }
+###
+
+-> So over in the browser, we see the list loaded and if we remove an item, we see the list change. 
+-> And if we add an item we can see the list update as expected.
+

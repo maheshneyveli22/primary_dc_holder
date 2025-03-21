@@ -1,0 +1,26 @@
+1) cs106a
+https://www.youtube.com/playlist?list=PLdSF_YgPvyiOAJZCcIz3tpHgXE7_G-GF4 PROGRAMMING
+
+2) CS106b
+https://www.youtube.com/watch?v=kMzH3tfP6f8&list=PLFE6E58F856038C69&index=1 PROGRAMMING
+
+
+3) cs107
+https://www.youtube.com/watch?v=xuRkyNqqecc&list=PLoCMsyE1cvdWivlV-39KKsBKUX-4DvraN PROGRAMMING
+
+4) CS103
+
+https://www.youtube.com/watch?v=Q4evEO0laas computation 
+
+5) cs109
+https://www.youtube.com/watch?v=2MuDZIAzBMY&list=PLoROMvodv4rOpr_A7B9SriE_iZmkanvUg PROBABILITY 
+
+
+6) Actual video :
+https://www.youtube.com/watch?v=J8Eh7RqggsU&list=PLoROMvodv4rO1NB9TD4iUZ3qghGEGtqNX
+
+....Pre-requisites....
+https://www.youtube.com/watch?v=L3LMbpZIKhQ&list=PLWX710qNZo_sT8y9Nt8vyC_fXOEo-ebTS  - Discrete mathematics 
+Linear Algebra 
+Probability 
+

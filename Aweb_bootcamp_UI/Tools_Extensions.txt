@@ -1,0 +1,8 @@
+1) Chrome Extensions 
+a) HTML tree generator - To visualize html elements as DOM tree 
+
+
+
+
+2) Tools :
+a) for flow charts: https://app.diagrams.net/

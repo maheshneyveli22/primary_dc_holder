@@ -1,0 +1,1941 @@
+1) Brendan Eich - Javascript 
+2) LiveScript-> JScript -> Javascript
+3) ECMAScript - European computer manufacturers association
+-> Here different versions of Javascript are called as ES5, ES6 etc 
+4) Why is it called Javascript: i.e as Script 
+-> In world of webdevelopment: Comparing Javascript with Actors and movie
+Script is Javascript
+Actors are HTML elements
+eg: Brad is paragraph element and Gwyneth is h1 element 
+-> Thus javascript is something which tells html elements what it should do 
+5) Java vs Javascript
+-> Like Car vs Carpet 
+-> Just name similarity but has big differences 
+
+Javascript:
+-> Interpreted programming language 
+--> eg for interpreted language: Javascript, Python, Ruby 
+-> Olden days interpreted languages were not powerful , looked like toy language
+-> They were slow and had to execute all instructions line by line 
+
+
+Java:
+-> Compiled programming language 
+---> eg: Java, C/C++, Swift 
+-> Compiled languages in older days had fast running programs 
+
+
+6) Modern Javascript: 
+-> Used in all sorts of places 
+-> Traditionally while it was a front end language used to add some animations to your website and allow a 
+bit of user interaction  
+-> Nowadays javascript can be seen in frameworks ranging from front end to the backend and everything in between 
+-> Javascript is the one language that is supported by all the major browsers 
+-> While you can use other languages that can be compiled into Javascript and run on the browser, it is Javascript that powers the 
+web 
+
+
+7) Javascript Alerts - Adding behavior to websites 
+-> There are different ways of executing  Javascript code in browsers
+
+a) CONSOLE: 
+-> in console type:
+alert("mahesh");
+
+-> for multiline command execution in console:
+-> Type first command : alert("charan");
+-> Shift+enter
+-> Type second command: alert("akshi");
+
+
+b) SNIPPETS:
+-> go to inspect-> Sources -> SNIPPETS-> + New Snippet 
+-> After typing the script ->Press Ctrl+Enter to run the code 
+
+-> While console editor helps to write one line and test it, snipper editor helps to execute the code only after you 
+finish writing the entire script 
+
+##Gobbledygook - Language that is meaningless or is made unintelligible by excessibe use of technical terms 
+
+
+
+8) Javascript keywords and all doc on Javascript:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+9) cmd: alert
+
+syntax: function("message"):
+        alert("Hello");
+	
+-> here alert is a function, which tells the browser to show the message in the popup
+-> in alert function we can use either double quotes or single quotes 
+-> But most javascript programmers prefer to use single quotes in alert message 
+
+
+10) Standards for writing javascipt code: 
+https://github.com/rwaldron/idiomatic.js
+
+for writing proper english:
+https://en.wikipedia.org/wiki/The_Elements_of_Style
+
+11) Javascript datatypes
+a) string
+b) numbers
+c) boolean: true or false
+
+
+12) cmd: typeof()
+-> tells the datatype of the whatever we put in between the brackets 
+
+> type("mahesh");
+<.'string'
+>typeof(mahesh);
+'undefined'
+
+13) cmd: prompt
+-> Helps to enter some input in browser 
+
+eg:
+> prompt("mahesh");
+<.'maheshinput'
+
+
+14) cmd: Variables:
+
+
+
+eg:
+var myName= "Angela";
+
+a)  var is keyword, which tells that we are creating a new variable or we are 
+creating a data container 
+-> var means we can vary the data, that i keep inside my data container 
+-> the name of the variable is myName 
+-> "Angela" is the value of the variable 
+
+b) if i decide to change the value of the variable i can change it 
+-> Now there is no need to include the keyword var while changing the value of variable 
+
+eg:
+  var myname= "Angela";
+  myname="Mahesh";
+  
+c) Alert output the value of variable 
+
+
+eg:
+var myname= "mahesh";
+myname="Angela";
+alert(myname);
+
+d) Storing value entered in prompt to variable:
+
+eg:
+var myname= "mahesh";
+var promptedName = prompt("Enter a name");
+alert(promptedName);
+
+e) When you declare a variable and assign it with a value, we will be able to see the value of variable in console
+-> But if you reload the browser, all the contents of the variable will be lost from memory  
+
+
+e) Naming/Naming conventions for Javascript variables:
+i)    Give variables with meaningful names 
+ii)   Dont give variables with name "var"
+iii)  Variable name should not begin with a number, but it can contain numbers 
+iv)   Variable name should not contains spaces 
+v)    Variable name can contain only letters, numbers, dollar sign and underscore. Other symbols are invalid for variable name 
+vi)   Name variables through camel casing 
+
+
+15) 
+Javascript - String concatenation:
+
+eg:
+var myname= "mahesh";
+var secondName = "waran";
+alert(myname+secondName);
+
+16) String lengths and Retrieving number of characters:
+a) We can find length of string using length property of string
+eg:
+var myname= "mahesh";
+console.log(myname.length);
+
+o/p:
+6
+
+
+16) 
+Javascript - Slicing and extracting parts of string 
+
+-> Here 0 is the start index to slice 
+-> 3 is the ending length upto which it will be cut 
+
+eg:
+var sliceName="angela";
+sliceName.slice(0,3);
+
+o/p:
+ang
+
+
+17) Javascript: Changing case in text: toUpperCase 
+
+
+syntax: 
+ word.toUpperCase()
+ 
+ eg: 
+ var sliceName="angela";
+sliceName=sliceName.toUpperCase();
+
+o/p:
+ANGELA
+
+-> Here only after reassigning sliceName will have updated value, else 
+if we just call the method, it will have the old value with lower 
+case "angela" 
+
+
+18) Javascript: Numbers and Basic Arithmetic
+
+
+
+var a = 2+3;  //5 
+var b = 10-3; //7
+var c=  3*3;  //9
+var d=  10/2; //5
+var e = 5%4;  //1 
+
+Var x=5;
+x=x+1; //6 
+or
+x++;  //6
+
+var x=5;
+x--; //4 
+
+
+var x=5;
+x+=2; //7  it is equal to x=x+2;
+
+
+
+19) Javascript: functions 
+
+eg:
+function getMilk()
+{
+    console.log("go and get milk");
+}
+
+getMilk();
+
+
+
+20) Javascript: Function types
+a) Functions comes in 3 classic versions 
+-> above one is the simplest form for javascript  function 
+
+b) function with arguments 
+
+eg:
+function getMilk(bottles)
+{
+    console.log("go and get "+bottles+" bottles milk");
+}
+
+getMilk(33);
+
+
+o/p:
+go and get 33 bottles milk
+
+#######round off values in javascript 
+
+
+eg: 
+console.log(Math.floor(2.666));
+
+
+o/p:
+2
+
+#######
+
+c) function: Outputs and return values 
+
+
+eg:
+function getMilk(money)
+{
+    return money%3;
+}
+
+var change= getMilk(95);
+console.log("Value of change is "+change);
+
+
+
+o/p:Value of change is 2
+
+
+d) THings to remember in function:
+i) Specify function keyword while implementing function
+ii) Specify the parameters in curly braces if needed 
+iii) Use return keyword to return some values from function 
+iv) While calling function, call the method with arguments and assign the returned value to a variable 
+
+
+### for 3 power 4 which is 81,
+
+Math.pow(3,4); 
+
+#####for rounding 
+
+Math.round(2.5)  -> output is 3
+
+######
+
+21) Javascript: Random number generation 
+
+a) Random number generation:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+
+var n = Math.random();
+
+-> random number that gets generated is a 16 decimal places number . 
+-> it can be any number between 0 and .9999999999999999
+
+eg:
+var n = Math.random();
+console.log(n);
+
+o/p:
+0.3521436146394348
+
+b) To get numbers between 0 and 60 
+-> Multiply by 60 , and floor it 
+
+eg: 
+var n = Math.random();
+n=n*60;
+n=Math.floor(n)
+console.log(n);
+
+o/p:
+18 
+
+22) Javascript - Control statements 
+
+a) if else 
+
+ eg:
+ if(track==="clear")
+ {
+ goStraight();
+ }
+ else 
+ {
+ turnRight();
+ }
+ 
+22) Javascript: Comparators and Equality 
+
+=== Is equal to 
+!== Is not equal to 
+>   Is greater than 
+<   Is lesser than 
+>=  Is greater or equal to 
+<= Is lesser or equal to 
+
+a) Difference between === and == 
+
+-> Both are for checking equality, but === means it additionally checks datatype equality also in addition to content 
+while == just checks if content is equal 
+
+
+b) Combining comparators : &&  ||  !
+
+
+23) Working with Javascript Arrays 
+a) Array definition
+eg:
+var guestList= ["Angela","Jack","Patrick","James","Lara","Jason"];
+
+b) Array access:
+console.log(guestList[0]);
+
+c) Array element check: using includes
+-> includes checks if an element is there in array or not 
+
+eg:
+var guestList= ["Angela","Jack","Patrick","James","Lara","Jason"];
+var guestName=prompt("enter your name:")
+console.log(guestList[0]);
+console.log(guestName);
+
+if(guestList.includes(guestName))
+{
+    console.log("i am there in array")
+}
+else
+{
+    console.log("i am not in array");
+}
+
+24) Javascript - Adding elements to arrays:using push
+-> push always pushes elements to the end of the array 
+-> we can remove elements from array by using pop,which 
+remove the last item at the end of the array. 
+
+
+a) declare an empty array
+
+eg:
+var output= [];
+
+b) Adding elements to array:
+
+eg:
+output.push(1);
+output.push(2);
+
+-> after pushing, it returns the number of elements in 
+array 
+
+eg:
+var output =[];
+output.push(1);
+output.push(73);
+
+o/p:
+<. 2
+
+c) Using pop to remove last item at the end of array
+
+eg:
+var output =[];
+output.push(1);
+output.push(73);
+console.log(output)
+output.pop();
+console.log(output);
+
+
+o/p: 
+(2) [1, 73]
+[1]
+
+
+-> pop returns the element that was removed 
+
+
+d) incrementing numbers in array:
+
+eg:
+var output = [];
+var i =0;
+
+function fizbuzz()
+{
+output.push(++i);
+console.log(output);
+}
+
+
+o/p:
+fizbuzz()
+[1]
+undefined
+fizbuzz()
+ (2)[1, 2]
+ 
+ 
+25) javascript - while loop
+
+a) syntax:
+
+while(smething is true)
+{
+// Do something 
+}
+
+eg:
+var i=1;
+
+while(i>1)
+{
+console.log(i);
+i++;
+}
+ 
+ 
+26) javascript - for loops 
+
+a) syntax:
+Here i=0 is start of the loop
+     i<2 is end of the loop
+	 i++ is change for the loop 
+
+for(i=0; i<2; i++)
+{
+//Do something 
+}
+
+eg:
+for(var i=0; i<20; i++)
+{
+console.log(i);
+}
+
+b) fibonacci using javascript 
+
+
+function fibonacciGenerator(n)
+{
+
+var output= [];
+
+if(n===1)
+{
+output=[0];
+}
+else if (n==2)
+{
+output= [0,1];
+}
+else{
+
+output = [0,1];  //[0,1]
+
+
+for(var i=2; i<n; i++)
+{
+output.push(ouput[output.length - 2]+output[output.length-1]); 
+}
+}
+
+return output; 
+}
+
+outputNew = fibonacciGenerator(5);
+console.log(outputNew);
+
+o/p:
+(5) [0, 1, 1, 2, 3]
+
+
+26) Javascript DOM - Adding Javascript to websites 
+
+-> Like in css, where we have 3 methods of adding css to html like:
+Inline, Internal and External, there are three methods of adding Javascript to html 
+
+a) Inline Javascript: 
+-> done by adding an attribute onload in <body> element of html 
+-> By doing this, When the body of our website gets loaded up,then whatever javascript we mention here will 
+get executed 
+-> to avoid confusion, we use single quotes in javascript here 
+
+eg:
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body onload="alert('Hello')">
+ <h1>Hello</h1>
+    </body>
+
+</html>
+
+disadvantages of inline javascript:
+i) Not modular ii) difficult to debug iii) Not good practice 
+
+
+b) Internal Javascript:
+-> done by adding a script tag and everything mentioned can be javascript code 
+-> here we can use double quotes also without any issue 
+
+
+eg:
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body >
+ <h1>Hello</h1>
+ <script type="text/javascript">
+alert("Hellllooo");
+
+ </script>
+    </body>
+
+</html>
+
+
+c) External Javascript:
+-> Javascript is added as an external file 
+-> In this also we have script tag, but we point it to an external source 
+
+eg: index.html
+ <script src="index.js" charset="utf-8">
+ </script>
+ 
+index.js:
+alert("helloww")
+
+
+d) Position of script tag and its impact:
+->  While we put the link element for css in head element , so that it gets loaded up first before any of the content
+of our website which are in body element 
+-> This is important because, if we place the css code in the bottom of our website like at the end of the body 
+-> Here first the content comes up, then the js alert and then it gets painted in red 
+
+
+eg:
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+   
+    </head>
+    <body >
+ <h1>Hello</h1>
+ <script src="index.js" charset="utf-8">
+ </script>
+ <link rel="stylesheet" href="styles.css">
+    </body>
+
+</html>
+
+styles.css:
+h1{
+    color: red;
+}
+
+-> Hence we always put css at the top i.e in the head section 
+
+
+i) In Javascript, it is the opposite story:
+Inside the javascript if we try to change a html element that does not exist, then it will fail.
+
+eg:
+index.js
+document.querySelector("h1").innerHTML ="Good Day"
+
+And if we put the script before declaring html element, then it will throw the following error: 
+-> This is because, javascript looks for the selector i.e h1 and when it finds that element - we try to change the 
+inner HTML which does not exist at that moment  
+
+index.html<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+   
+    </head>
+    <body >
+        <script src="index.js" charset="utf-8">
+        </script>
+ <h1>Hello</h1>
+
+ <link rel="stylesheet" href="styles.css">
+    </body>
+
+</html>
+
+
+error: 
+index.js:1 Uncaught TypeError: Cannot set properties of null (setting 'innerHTML')
+    at index.js:1:40
+	
+27) Javascript - DOM Introduction 
+- Dominating the DOM to add functionality to HTML elements 
+
+a) In an dynamic website, we need to change contents of website based on user action 
+-> DOM solves the problem of dynamically reacting to user actions
+-> DOM catalogs the webpage into indiviudal objects which we can select and manipulate 
+
+b) Task of converting HTML website's html elements into DOM is done by the browser, when you load the web page. 
+-> During this process of converting html elements into DOM, browser converts html elements and its associated data into 
+a tree structure with a whole bunch of objects which we can select and manipulate . 
+-> Hence DOM is nothing but an object which is created from HTML elements 
+
+
+eg: index.html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+  <body>
+
+    <h1>Hello</h1>
+
+    <input type="checkbox">
+
+    <button style=":active color:red;">Click Me</button>
+
+    <ul>
+      <li class="list">
+        <a href="https://www.google.com">Google</a>
+      </li>
+      <li class="list">Second</li>
+      <li class="list">Third</li>
+    </ul>
+
+  </body>
+
+</html>
+
+
+
+
+DOM Structure:
+
+Document -> HTML -----> Head ---> title ---> MyWebsite
+               |
+			   |
+			  Body -> Button -> Alert 
+			  
+			  
+
+			  
+			  
+c) document
+-> if we type document in console, we can see the entire html file we have currently got 
+
+i)document.firstElementChild:
+-> To navigate to the document, we can use document.firstElementChild , to see everything that is inside the html element 
+<html>
+<head>...</head>
+<body>...<body>
+
+ii)document.firstElementChild.firstElementChild
+-> Further we can check, what is the first child of the first child of the document 
+
+eg:
+document.firstElementChild
+
+<head>....
+<head> 
+
+
+iii) To get the body we can use: document.firstElementChild.lastElementChild;
+
+eg:
+document.firstElementChild.lastElementChild
+
+<body>....</body> 
+
+
+iv) To get a particular element in <body> 
+
+eg:
+document.firstElementChild.lastElementChild.firstElementChild;
+
+<h1>...</h1> 
+
+-> We can also store this heading <h1> we got, inside a variable 
+
+eg:
+var heading = document.firstElementChild.lastElementChild.firstElementChild;
+
+
+v) To manipulate the heading text:
+
+
+eg:
+var heading = document.firstElementChild.lastElementChild.firstElementChild;
+heading.innerHTML= "Manipulated Heading"
+
+-> now we can see the new Heading in the UI 
+
+
+vi) Manipulating the heading style:
+eg:
+var heading = document.firstElementChild.lastElementChild.firstElementChild;
+heading.style.color = "blue"
+
+vii) Selecting elements and make it do things 
+
+-> in our html, if we want to select the input 
+
+    <input type="checkbox">
+	
+	
+eg:
+document.querySelector("input").click();
+
+
+-> This click simulates the mouse click 
+
+d) Objects in dom have Properties and methods :
+
+button -----Properties
+     |
+	 |------Methods
+
+-> Properties describe something about the object 
+---> we can get properties by just using dot and we can set values by using dot and then use = sign to assign value 
+
+eg: Properties of button are : innerHTML, style, firstChild 
+
+-> Methods are things that object can do 
+
+eg: Methods of button are 
+ click(), appendChild(), setAttribute() 
+
+
+
+28) Javascript - Selecting HTML elements in DOM 
+
+a) getElementsByTagName 
+-> it looks through the web page and searches for the elements with a particular tag name ,
+eg: to get a list item
+
+document.getElementsByTagName("li"); 
+
+-> this statement fetches all the elements with this particular tag name 
+
+b) Setting the style by getting elements;
+
+eg:
+document.getElementsByTagName("li").style.color = "purple";
+
+o/p:
+VM1264:1 Uncaught TypeError: Cannot set properties of undefined (setting 'color')
+    at <anonymous>:1:49
+
+
+Root cause:
+We are trying to set the colour purple to an array which does not work
+
+-> The above code getElementsByTagName gives us the array with all three list items 
+--> SInce we are trying to set the style property for this array it is throwing error 
+-> hence to solve this issue we need to select the item in the array that we want to change 
+
+eg:
+document.getElementsByTagName("li")[2].style.color ="yellow";
+
+-> Here in the array, when we specify the exact element in array by specifying the index, the issue is solved 
+
+
+c) getElementsbyClassName
+
+eg:
+document.getElementsByClassName("btn")[0].style.color="red";
+	
+d) document.getElementById   -> for selecting single element 
+-> here the element is no longer plural
+-> Using this method, you will get only item instead of an array  
+-> This is because on a single web page, every single Id should be unique i.e we dont have the same id on more than one element 
+
+eg: in html
+
+    <h1 id="title">Hello</h1>
+	
+
+in js:
+document.getElementById("title")
+
+o/p:
+<h1 id="title">Hello</h1>
+
+-> to change title of this id : title
+
+document.getElementById("title").innerHTML="Mahesh";
+
+
+e)  document.querySelector -> for selecting single element 
+
+-> document.querySelector returns single element , but here we specify a css selector 
+-> for css selector, we can specify element, class or id 
+
+i) eg: by specifying html element - css selector 
+document.querySelector("h1");
+
+o/p:
+<h1 id="title">Mahesh</h1>
+
+ii) eg: by specifying id
+
+document.querySelector("#title");
+
+o/p
+<h1 id="title">Mahesh</h1>
+
+
+iii) by specifying class
+
+document.querySelector(".btn");
+
+o/p:
+<button class="btn">Click Me</button>
+
+iv) Combining selectors 1
+document.querySelector("li a");
+
+eg:
+document.querySelector("li a");
+
+<a href="https://www.google.com">Google</a>
+
+
+v) Combining selectors 2
+document.querySelector("li.item");
+
+vi) Combining selectors 3: looking for anchor tag, that is inside something that has an id of "list" 
+document.querySelector(#list a"");
+
+vii) what if selector matches more than one object? 
+
+eg:
+document.querySelector("#list .item");
+
+-> even though this will match three elements, we will get back only the first item in document that 
+satisfies that selector 
+-> If we want all objects that match that selector, then we need to use:querySelectorAll instead of querySelector 
+
+eg:
+
+document.querySelectorAll("#list .item");
+
+f) Which one should we use? 
+-> querySelector and querySelectorAll allows more complex queries as we are able to specify id, class, element,tag names and combine them 
+to get the exact element 
+-> Whereas getElement methods are more broad and difficult to target indiviudal objects without changing html
+---> hence querySelector will be used more than getElement 
+
+
+29) Manipulating and changing styles of HTML elements with Javascript 
+-> Until now, we saw how to select elements using DOM, now we will see how to use Javascript to manipulate elements that 
+we have selected. 
+-> We are able to change CSS style, dynamically using javascript by tapping into style property of element object 
+
+eg:
+document.querySelector("h1").style.color = "red"
+
+a) Every single css property can be changed in this way using javascript, but the property names might look different 
+-> When trying to change css styles, you will find that property names dont look the same - as you see in css 
+
+eg: fontSize - font-size in css 
+
+-> we can find the list of all names in DOM Style documentation :
+https://www.w3schools.com/jsref/dom_obj_style.asp
+
+b) Thus names of css properties will be in camelcase and values will be quotes 
+
+
+30) Separation of Concerns : Structure vs Styles vs Behaviour 
+a) HTML should be only for content 
+b) CSS only for styling
+c) Javascript only for behavior
+
+a) to get the list of classes for a dom object i.e html element
+eg:
+document.querySelector("button").classList;
+
+o/p:
+DOMTokenList ['btn', value: 'btn']
+
+b) adding classes to the list of classes for dom object through javascript 
+
+eg:
+document.querySelector("button").classList.add("invisible"); 
+
+
+c) for toggling class 
+
+eg:
+document.querySelector("button").classList.toggle("invisible"); 
+
+
+31) Text Manipulation and Text content property; 
+Until now we saw that we can change text inside html element using document.innerHTML, but we can use another property too 
+a) textContent
+
+eg:
+document.getElementById("title").textContent= "Hello"; 
+
+
+b)  innerHTML gives the HTML that is in between the element tags  
+
+eg:document.querySelector("h1").innerHTML;    
+
+<h1 id="title"><strong>Hello</strong></h1>
+
+-> here the output will be: <strong>Hello</strong>
+
+
+c) But if we try the same thing using textContent we will get only "Hello" in the output 
+
+
+32) Manipulating HTML element attributes: 
+
+a) get list of attributes for a html element 
+
+eg:
+document.querySelector("a").attributes; 
+
+b) get current value of an attribute 
+
+eg:
+document.querySelector("a").getAttribute("href")
+
+o/p:
+'https://www.google.com'
+
+c) To change value of attribute:
+
+eg:
+document.querySelector("a").setAttribute("href", "https://www.ndtv.com")
+
+
+33) Javascript - adding event listeners to a button:
+Consider we have buttons in our html and we want event listeners to listen to our button clicks 
+a) To register button clicks, add event listeners 
+b) Create a function in js file, which does something when user clicks the button 
+
+eg:
+function handleClick()
+{
+    alert("Button is clicked");
+}
+
+https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+events: https://developer.mozilla.org/en-US/docs/Web/Events
+
+
+c) in js file, add event listener for the button
+
+eg:
+document.querySelector("button").addEventListener()
+
+-> addEventListener takes two parameters one is event 
+type to listen 
+-> Here we will mention eventtype as "click" event 
+
+document.querySelector("button").addEventListener("click",)
+
+-> second parameter is a listener, which is a javascript 
+function which is going to be called, when the click 
+event gets detected  
+
+document.querySelector("button").addEventListener("click",handleClick)
+
+-> Now everytime, button gets clicked, handleClick method will be triggerred. 
+
+
+d) The keypoint to note is, we dont call the method with paranthesis, instead we specify method name alone without parenthesis 
+
+eg:
+document.querySelector("button").addEventListener("click",handleClick)
+
+-> in case we add parenthesis, immediately this method will be called upon loading the page 
+-> To make the method to be called, only upon click -we just need to pass the name of the function 
+-> This means we are waiting for the click event to happen, before we call the handleClick function 
+
+index.html:
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Drum Kit</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+</head>
+
+<body>
+
+  <h1 id="title">Drum 🥁 Kit</h1>
+  <div class="set">
+    <button class="w drum">w</button>
+    <button class="a drum">a</button>
+    <button class="s drum">s</button>
+    <button class="d drum">d</button>
+    <button class="j drum">j</button>
+    <button class="k drum">k</button>
+    <button class="l drum">l</button>
+  </div>
+
+<script src="index.js" charset="utf-8"></script>
+  <footer>
+    Made with ❤️ in London.
+  </footer>
+</body>
+
+</html>
+
+
+index.js:
+document.querySelector("button").
+addEventListener("click",handleClick());
+
+
+function handleClick()
+{
+    alert("Button is clicked");
+}
+
+
+e) Passing the function as Input:
+-> We pass the function as input, so that it can be called at a later point of time. 
+-> There are other ways to specify the function also. We can specify the function as anonymous function also. 
+
+
+i) anonymous function is function without a name:
+
+eg:
+function ()
+{
+    alert("Button is clicked");
+}
+
+
+ii) we can specify the anonymous function in addEventListener
+
+eg:
+addEventListener("click",function ()
+{
+    alert("Button is clicked");
+});
+
+-> Now this change will make alert to be thrown only for the first click 
+
+iii) Now we need to change code, to add EventListener to every single button 
+
+
+eg:
+var numberOfButtons = document.querySelectorAll(".drum").length;
+
+for(var i=0;i<numberOfButtons;i++)
+{
+    document.querySelectorAll(".drum")[i].addEventListener
+    ("click", function(){
+        alert("button is clicked");
+    })
+}
+
+
+-> in a general hmtl element, it takes the first element
+
+eg:
+
+$0.addEventListener("click", respondToClick);
+
+function respondToClick()
+{
+console.lo("i got clicked"); 
+}
+
+
+34) How EventListeners work? 
+
+a) addEventListener takes two inputs .
+first -> Which event it should listen to 
+second -> what it should do, once the event gets detected 
+
+b) Here in second argument, we pass the function 
+as an input 
+
+c) Consider the below function:
+
+function add(num1, num2)
+{
+return num1+num2; 
+}
+
+function multiply(num1, num2)
+{
+return num1*num2; 
+}
+
+function calculator(num1,num2, operator)
+{
+return operator(num1,num2); 
+}
+
+calling the function:
+calculator(2,3,add)
+
+o/p:
+5
+
+calculator(2,3,mul)
+
+o/p:
+6
+
+d) Thus we pass the name of the function in 
+method argument to call that specified method  using the 
+other arguments supplied as input 
+
+###using debugger#######
+1) enter debugger in console 
+2) shift+enter
+
+eg:
+debugger;
+calculator(4,5,mul);
+
+3) We will be able to see code debug 
+
+4) step into next function call(down arrow) will
+be used to go the next function that is being 
+called in debug 
+
+5) while debug in calculator method we can 3 arguments like this 
+
+num1 = 4, num2 = 5, operator = f add(num1,num2) 
+
+6) here important point to note is the third 
+argument, which is a function 
+and if we step through debugger, it finds that function 
+and executes it  
+#######################
+
+e) Higher Order Functions:
+Thus these type of functions, which can take 
+other functions as inputs are called Higher 
+order functions 
+
+
+35) How to play sounds on a website:
+a) Now in our addEventListener method, we will call audio, 
+using below code :
+
+eg:
+var numberOfButtons = document.querySelectorAll(".drum").length;
+
+for(var i=0;i<numberOfButtons;i++)
+{
+    document.querySelectorAll(".drum")[i].addEventListener
+    ("click", function(){
+        var audio = new Audio('sounds/tom-1.mp3');
+        audio.play();
+    })
+
+
+}
+
+
+b) mdn web docs for HtMLAudioElement:
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
+
+c) Now we need to make each one to have different image:
+
+1) first in html we need to point to classes: w a s d j k l 
+
+eg:
+  <div class="set">
+    <button class="w drum">w</button>
+    <button class="a drum">a</button>
+    <button class="s drum">s</button>
+    <button class="d drum">d</button>
+    <button class="j drum">j</button>
+    <button class="k drum">k</button>
+    <button class="l drum">l</button>
+  </div>
+  
+2) in css we need to assign different background images 
+for each of these classes :
+
+eg: 
+
+.w {
+background-image: url("images/tom1.png");
+}
+
+.a {
+  background-image: url("images/tom2.png");
+}
+
+.s {
+  background-image: url("images/tom3.png");
+}
+
+.d {
+  background-image: url("images/tom4.png");
+}
+
+.j {
+  background-image: url("images/snare.png");
+}
+
+.k {
+  background-image: url("images/crash.png");
+}
+
+.l {
+  background-image: url("images/kick.png");
+}
+
+
+d) Now to play different sounds for each button, 
+we will use the innerHTML's text content to 
+identify each button 
+
+1) here this is the current object, it is 
+the reference of the button that triggerred 
+the event listener 
+
+lets try to print this and see it in output
+eg:
+var numberOfButtons = document.querySelectorAll(".drum").length;
+
+for(var i=0;i<numberOfButtons;i++)
+{
+    document.querySelectorAll(".drum")[i].addEventListener
+    ("click", function(){
+      console.log(this);
+    })
+
+
+}
+
+o/p:
+<button class="w drum">w</button>
+
+
+2) changing the style of the button upon 
+clicking the button 
+
+eg:
+var numberOfButtons = document.querySelectorAll(".drum").length;
+
+for(var i=0;i<numberOfButtons;i++)
+{
+    document.querySelectorAll(".drum")[i].addEventListener
+    ("click", function(){
+ this.style.color ="white"
+    })
+
+
+}
+
+3) Now we will use switch statements to play different 
+sounds for different button
+
+
+eg:
+var numberOfButtons = document.querySelectorAll(".drum").length;
+
+for (var i = 0; i < numberOfButtons; i++) {
+  document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+    var buttonInnerHtml = this.innerHTML;
+
+    switch (buttonInnerHtml) {
+      case "w":
+        var tom1 = new Audio("sounds/tom-1.mp3");
+        tom1.play();
+        break;
+
+      case "a":
+        var tom2 = new Audio("sounds/tom-2.mp3");
+        tom2.play();
+        break;
+
+      case "s":
+        var tom3 = new Audio("sounds/tom-3.mp3");
+        tom3.play();
+        break;
+
+      case "d":
+        var tom4 = new Audio("sounds/tom-4.mp3");
+        tom4.play();
+        break;
+
+      case "j":
+        var snare = new Audio("sounds/snare.mp3");
+        snare.play();
+        break;
+
+      case "k":
+        var crash = new Audio("sounds/crash.mp3");
+        crash.play();
+        break;
+
+      case "l":
+        var kickBash = new Audio("sounds/kick-bass.mp3");
+        kickBash.play();
+        break;
+
+      default:
+        console.log(this.innerHTML);
+        break;
+    }
+  });
+}
+
+36) Deeper understanding of Javascript objects:
+a) defining an object in javascript 
+
+-> we need to define it in curly brackets 
+-> property name and value separated by semicolon 
+-> Each property name/value serparated by commas, 
+eg:
+
+var houseKeeper1 = 
+{
+yearsOfExperience : 12,
+name: "Jane",
+cleaningRepertorire: ["bathroom","lobby",
+"bedroom"]
+
+}
+
+-> now if we go to console and type houseKeeper1
+
+we get o/p:
+houseKeeper1;
+{yearsOfExperience: 12, name: 'Jane', cleaningRepertorire: Array(3)}
+
+b) We can access properties in console using the objectname dot notation 
+
+eg:
+console.log(houseKeeper1.name);
+ 
+o/p:
+Jane 
+
+c) Now if our hotel  has gone bigger and if we 
+want to create more houseKeepers it is tedious 
+process to create objects one by one separately 
+
+d) We can create a factory we creates houseKeepers always when 
+needed 
+
+
+eg:
+
+function HouseKeeper(name, age, hasWorkPermit, languages)
+{
+this.name = name;
+this.age= age;
+this.hasWorkPermit= hasWorkPermit;
+this.languages = languages; 
+}
+
+-> This is called a constructor function 
+
+1) Constructor function's names have to be 
+capitalized at the beginning
+2) / Constructor function takes a number of inputs 
+and these are the inputs, we are going to 
+provide, when we create new objects 
+3) Inside constructor function, we match inputs to 
+property names 
+
+eg:
+this.name = name;
+4) how to initialize object from constructor 
+
+eg:
+var houseKeeper1= new HouseKeeper("Timmy",19,true,["French", "English"]);
+
+-> by constructor we can create any number of 
+objects by passing the required parameters
+
+5) Only difference between calling a constructor and 
+calling a normal function is the keyword "new" 
+and the name of the function is capitalized at the 
+beginning 
+
+eg:
+
+a) Constructor definition 
+function HouseKeeper(yearsOfExperience, name, cleaningRepertorire)
+{
+this.yearsOfExperience = yearsOfExperience;
+this.name=name;
+this.cleaningRepertorire= cleaningRepertorire; 
+
+}
+
+b) Creating object;
+
+var houseKeeper1= new HouseKeeper(9, "Tom", ["lobby","bedroom"]);
+
+
+c) accessing created object:
+
+console.log(houseKeeper1.name); 
+o/p:
+Tom 
+
+
+37) Objects, Methods and dot notation 
+a) If we want our object to have an 
+associated function, then all we have to do 
+is to provide the name of 
+the function as a new parameter, then colon, and 
+after the colon we need to put in the 
+anonymous function 
+
+eg:
+
+var bellBoy1 = 
+{
+name: "Timmy",
+age: 19,
+hasWorkPermit: true,
+languages: ["French", "English"],
+moveSuitCase: function()
+{
+alert("May i take your suitcase?");
+pickupSuitCase();
+move(); 
+}
+
+}
+
+b) We can now call the method like this:
+
+eg: 
+bellBoy1.moveSuitCase();
+
+c) Thus while using properties or calling 
+a method, we are always using the dot 
+notation 
+d) Only difference between method and property are 
+the parenthesis 
+
+
+e) To incorporate this method into our 
+constructor function, we need to write like this:
+i.e. this.moveSuitCase is equal to the function 
+
+eg:
+function BellBoy(name, age, hasWorkPermit, languages) 
+{
+this.name= name;
+this.age= age;
+this.hasWorkPermit= hasWorkPermit;
+this.languages = languages;
+this.moveSuitCase= function()
+{
+alert("May i take your suitcase?");
+pickupSuitCase();
+move(); 
+}
+}
+
+f) Now we can create any object using this function and 
+all those objects will have have that function of 
+moveSuitCase
+
+g) Our new example:
+
+i) Constructor function with clean method
+function HouseKeeper(yearsOfExperience, name, cleaningRepertorire)
+{
+this.yearsOfExperience = yearsOfExperience;
+this.name=name;
+this.cleaningRepertorire= cleaningRepertorire; 
+this.clean = function ()
+{
+alert("cleaning in progress");
+}
+}
+
+ii) Creating the object
+var houseKeeper1 = new HouseKeeper(12, "James", ["bedroom"]);
+
+iii) calling the method using object:
+
+housekeper1.clean(); 
+
+
+38) Using keyboard event listeners to check for 
+key presses 
+
+https://developer.mozilla.org/en-US/docs/Web/Events
+
+
+a) Adding event listener for keypressed:
+
+eg:
+addEventListener("keydown", function(){
+ alert("key was pressed");
+})
+
+
+b) Earlier we added the event listener to all the buttons and listened for click event
+
+eg:
+ document.querySelectorAll(".drum")[i].addEventListener
+    ("click", function(){
+        alert("button is clicked");
+    })
+}
+
+
+c) Now in this case, we are waiting for the keyboard keys 
+to be pressed. 
+-> How to add event listener for the keyboard ? 
+-> We dont need it. we can add an event 
+listener to the entire document - so that entire 
+webpage starts listening for the keyboard strokes 
+
+document.addEventListener("keydown", function(){
+ alert("key was pressed");
+})
+
+
+i) Now with any key press, our alert will be triggerred
+ii) Now we need to figure out, which key was 
+pressed 
+iii) In the addEventListener function, there is 
+also an option to pass a parameter, we can call that 
+parameter event or e, but what it allows us to do is, it helps to 
+tap the event that triggerred the event listener 
+
+eg:
+document.addEventListener("keydown", function(event){
+console.log(event);
+})
+
+
+o/p:
+KeyboardEvent {isTrusted: true, key: 'ArrowDown', code: 'ArrowDown', location: 0, ctrlKey: false, …}
+
+39) Challenge: Create a function that takes a character and checks it against the switch statement, in order to 
+play the correct sound .
+-> Then we are going to call it, inside event listener for the keypress as well as the event listener for our drum buttons 
+
+a) Create a function makeSound 
+
+eg:
+function makeSound(key)
+{}
+
+b) Inside the function, lets relocate the switch 
+statement 
+
+eg: 
+function makeSound(key)
+{
+    switch (key) {
+        case "w":
+          var tom1 = new Audio("sounds/tom-1.mp3");
+          tom1.play();
+          break;
+  
+        case "a":
+          var tom2 = new Audio("sounds/tom-2.mp3");
+          tom2.play();
+          break;
+  
+        case "s":
+          var tom3 = new Audio("sounds/tom-3.mp3");
+          tom3.play();
+          break;
+  
+        case "d":
+          var tom4 = new Audio("sounds/tom-4.mp3");
+          tom4.play();
+          break;
+  
+        case "j":
+          var snare = new Audio("sounds/snare.mp3");
+          snare.play();
+          break;
+  
+        case "k":
+          var crash = new Audio("sounds/crash.mp3");
+          crash.play();
+          break;
+  
+        case "l":
+          var kickBash = new Audio("sounds/kick-bass.mp3");
+          kickBash.play();
+          break;
+  
+        default:
+          console.log(this.innerHTML);
+          break;
+      }
+}
+
+c) call makeSound for button press 
+
+eg:
+for (var i = 0; i < numberOfButtons; i++) {
+  document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+    var buttonInnerHtml = this.innerHTML;
+
+  makeSound(buttonInnerHtml);
+  });
+}
+  
+ 
+d) in the keypress event listener, call this method:
+
+eg:
+document.addEventListener("keydown", function(event){
+makeSound(event.key);
+})
+
+
+e) Thus now we have one section of code detecting button 
+press and another section of code detecting keyboard press 
+
+-> if a button was pressed, i will check the innerHTML of 
+the button that got pressed and send that data to 
+makeSound in order to play the relevant sound 
+
+-> if a keypress was detected instea, i will 
+send the event.key  to the makeSound  method and play the 
+relevant sound 
+
+
+40) Understanding callbacks and how to 
+respond to events : 
+
+a) We know higherorder functions means functions 
+that are able to take functions as arguments :
+
+eg:
+
+document.addEventListener("keydown", respondToKey(event));
+
+function respondToKey(event) 
+{
+console.log("key pressed"); 
+}
+
+-> here addEventListener is the higherorder function , as it 
+takes the respondToKey function as an input 
+
+b) On the otherside, the function that gets 
+passed in as input is called as a callback function 
+-> Because it allows us to wait for something to finish 
+happening 
+
+eg:
+waiting for a click event and then the callback 
+function gets called back and executed 
+
+c) So previously when a button detects a click, it 
+calls the callback function 
+
+d) In this case, when the document or entire page 
+detects a key press, the document will call the callback function respondToKey
+
+eg:
+document.addEventListener("keydown", respondToKey(event));
+
+function respondToKey(event) 
+{
+console.log("key pressed"); 
+}
+
+-> When it hapens, we can get it to send us 
+some information, that it will only know 
+once the event happens, namely say which button was clicked or whick 
+keyboard key was pressed 
+
+e) Another point to note is: Callback function is not 
+called by us, intead it is called by the object 
+that experienced the click 
+-> When it happens, the object can send us some 
+information that it will know once the event is 
+fired 
+
+
+f) Consider this function
+eg:
+function addAnotherEventListener(typeofEvent, callback)
+{
+//detect event code 
+
+var eventThatHappened = {
+eventType: "keypress",
+key: "p",
+durationOfKeypress: 2
+
+}
+
+if(eventThathappened.eventType === typeOfEvent)
+{
+callback(eventThatHappened);
+}
+}
+
+-> Here when event happens, namely passing a key 
+on keyboard, then this object gets created 
+based on that event. 
+-> Then we pass that event back, through the 
+callback method . 
+-> We pass that object back through the 
+callback method so that the programmer, they can 
+get the event object 
+-> our listener will check for specify type of event 
+--> this it the code, that happens behind the scenes for 
+callback function and addEventListener behind the scenes 
+
+
+f) Now calling addAnotherEventListener 
+
+eg:
+addAnotherEventListener("keydown", function(event)
+{
+console.log(event);
+});
+
+
+
+41) Adding animation to website 
+
+a) Create new method: buttonAnimation() 
+
+
+buttonAmination()
+{
+
+}
+
+b) Lets make this method to be called for button press and key press 
+
+
+eg:
+
+for (var i = 0; i < numberOfButtons; i++) {
+  document.querySelectorAll(".drum")[i].addEventListener("click", function () {
+    var buttonInnerHtml = this.innerHTML;
+
+  makeSound(buttonInnerHtml);
+  buttonAnimation(buttonInnerHtml);
+  });
+}
+
+
+document.addEventListener("keydown", function(event){
+makeSound(event.key);
+buttonAnimation(event.key);
+})
+
+c) Since each key has separate class, we can 
+use it to query our document for that selector 
+
+eg:
+document.querySelector(".w");
+
+o/p:
+<button class="w drum">w</button>
+
+d) Similarly using querySelector and currentkey  to 
+get the active button 
+
+eg:
+buttonAnimation(currentKey)
+{
+var activeButton=  document.querySelector("."+currentKey);
+}
+
+##############
+-> now we need to assign the activeButton here with the 
+class .pressed defined in css 
+
+.pressed {
+  box-shadow: 0 3px 4px 0 #DBEDF3;
+  opacity: 0.5;
+}
+
+-> get h1's list of classes, that has been applied 
+
+--> in our case, class list is empty 
+
+eg:
+document.querySelector("h1").classList;
+
+o/p:
+DOMTokenList[value: '']
+
+-> Now we can add new class to the "h1" element 
+
+
+eg: 
+document.querySelector("h1").classList.add("pressed");
+
+-> now immediately the look of "h1" element gets changed 
+
+
+---> now if check for classlist, we can see the updated 
+
+eg:
+document.querySelector("h1").classList;
+DOMTokenList ['pressed', value: 'pressed']
+
+##############
+e) Now we will apply the same logic in buttonAnimation method 
+
+eg: 
+function buttonAnimation(currentKey)
+{
+var activeButton=  document.querySelector("."+currentKey);
+activeButton.classList.add("pressed");
+}
+
+
+f) Now the press button gets pressed, but it does 
+not come out 
+
+-> to do that, after a delay we want this class 
+to be removed again so that we set back to original look 
+
+-> so we need timeout function for the same 
+
+
+https://www.w3schools.com/jsref/met_win_settimeout.asp
+
+
+
+###
+syntax: setTimeout(function, milliseconds, param1, param2, ...)
+
+
+function		Required.
+                The function to execute.
+milliseconds	Optional.
+                 Number of milliseconds to wait before executing.
+                 Default value is 0.
+param1,			 ...	Optional.
+param2,			Parameters to pass to the function.
+				
+				
+eg:
+const myTimeout = setTimeout(myGreeting, 5000);
+
+function myGreeting() {
+  document.getElementById("demo").innerHTML = "Happy Birthday!"
+}
+
+################
+
+-> so the final function is:
+
+eg:
+
+function buttonAnimation(currentKey)
+{
+var activeButton=  document.querySelector("."+currentKey);
+activeButton.classList.add("pressed");
+
+setTimeout(function(){
+    activeButton.classList.remove("pressed");
+},100)
+}

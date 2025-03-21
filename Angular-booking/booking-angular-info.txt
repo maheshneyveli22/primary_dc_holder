@@ -1,0 +1,62 @@
+1) \src\host\environments\environment.ts
+{ host: '{{host}}', configFile: 'dev' },
+
+
+
+2) 
+To load mock
+http://localhost:4205/booking?services=mock
+To Clear locale
+http://localhost:4205/booking?locale=clear
+TO go arabic locale
+http://localhost:4205/booking?locale=ar
+
+
+3) 
+
+dist\resources\colors.scss
+-> for colors and hex value mapping
+
+dist\resources\z-indexes.scss
+-> for z indexes 
+
+
+
+4) To  run: npm run start
+
+after enabling source map:
+run: npm run build-dev 
+
+5) Any problem while npm run start:
+delete contents in below:
+
+C:\ExpoNow\All UI\angular15upgrade\booking-ui\.angular
+C:\Users\GS1-MA~1\AppData\Local\Temp
+C:\Users\gs1-maheswarane\AppData\Local\npm-cache
+
+
+
+5) to run local backend ::
+
+a) in C:\ExpoNow\booking-ui\src\booking\framework\environments\environment.ts
+
+change from: 
+
+        graphQL: 'https://api.dev.test-expeditors.com/graphql',
+		
+		to 
+
+   graphQL: 'http://localhost:9442/graphql'
+
+b) To hit backend directly from ui without graphql:
+C:\ExpoNow\booking-ui\src\booking\framework\environments\environment.ts
+change in booking-ui -> environment.ts 
+-> here we change so because 8443 is port of backend 
+
+from:
+   graphQL: 'http://localhost:9442/graphql',
+   
+   
+to: 
+
+   graphQL: 'http://localhost:8443/graphql',

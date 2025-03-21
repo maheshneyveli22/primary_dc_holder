@@ -1,0 +1,54 @@
+Dependency Injection and Service -> @Inject decorator
+
+-> Constructor injection of class types can be done with a bit of TypeScript and that's it. 
+-> To get value types injected into constructors Angular needs a bit more help. 
+-> Let's create a value provider for our app to store some lookup lists and provide them at Bootstrap. 
+-> In the app.module.ts file, we can add a local variable named lookup lists and set it to an object literal, with a property for mediums. 
+##
+const lookupLists={
+  mediums:['Movies','Series']
+}
+##
+
+-> To add the value to the provider, we need to add it to the list of providers in the module metadata. 
+-> But to do that for a value provider we need to use a different syntax to add it to the providers array. 
+-> We can add a provider object literal as an array entry here. The provider object literal needs a property named provide, that gets set to either a type, or a String literal.
+-> For our lookup lists, we can set it to a String literal of lookup list token. And then it needs the value to use. 
+-> We can make use of another property named, use value, and set that to the lookup lists we created above. 
+###
+ providers: [
+    {provide: 'lookupListToken',useValue: lookupLists}
+   ],
+###
+-> Okay, let's go over what you need to do to use that in class constructors. 
+-> The media item form component can benefit from using this new lookup list value type. 
+-> Using it to help render out the dropdown options in the form. Let's switch over to the media-item-form.component.ts file. 
+-> We need to import the inject decorator, found in the Angular core scoped package so that's add that to the import list. 
+-> Similar to how you use some decorators to decorate class properties, the inject decorator is used to decorate function parameters. 
+##
+import { Component,OnInit,Inject } from '@angular/core';
+##
+-> So we will add a new constructor parameter named, lookup lists, and in front of it, we add @inject with a pair of parentheses. 
+-> The inject decorator supports passing in a String literal that represents the value type. 
+##
+providers: [
+    {provide: 'lookupListToken',useValue: lookupLists}
+   ],
+##
+-> So we put look-up list token in single quotes, the same value we use in the provide object in the module providers metadata. 
+
+-> This tells Angular that we want it to pass in the lookupListToken object, into this constructor during constructor injection. 
+##
+constructor(private formBuilder:FormBuilder, private mediaItemService:MediaItemService, @Inject('lookupListToken') lookupLists)
+##
+-> Now we want to be able to use this lookup list object within the template markup, so we can render out the select options in the form.
+-> Remembering that any public properties we put on the component class, will be available to the template. We can leverage a bit of TypeScript syntactic sugar here to do this for us. 
+
+-> If we put the public access modifier in between the inject decorator and the lookup lists parameter name, it will work like the private modifier we added to the other parameters above it. 
+-> Creating a class property for the parameter, and setting it the constructor call. 
+##
+constructor(private formBuilder:FormBuilder, private mediaItemService:MediaItemService, @Inject('lookupListToken') public lookupLists)
+##
+-> Now we can switch to the media-item-form.component.html file. And we can refactor the medium select options to use lookup lists in an ngFor directive on just one of the option elements. 
+-> And we also need to update the option element to use the medium template input variable from the ngFor for the value property binding, as well as to display it in the template interpolation. 
+-> And with that, the medium form select field options are driven by the look-up list medium token provided in the injector at the root level.

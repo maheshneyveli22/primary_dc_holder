@@ -1,0 +1,70 @@
+Error Handling 
+-> Error handling
+Selecting transcript lines in this section will navigate to timestamp in the video
+-> Let's take a look at how you can use the Angular form system to provide some error feedback in the UI. 
+a) The media item form has the required pattern and year validators. We can use the errors property off of the parts of the form to show some text messages for these fields. 
+b) Angular will add an ERRORS PROPERTY to the form control, form group or form array objects when they are invalid. 
+c) And since we are doing the model driven or reactive approach here, we have a component property named FORM that has our form group we created to represent the form. 
+d) The form group object has a method named GET that takes in a string and can be used to FIND A CHILD CONTROL BY NAME. 
+e) We can use this method to get to the named controls we created off of that form object. 
+f) And form groups controls and arrays have a method named hasError that takes a string that can be used to check if there are any errors by an error name. 
+-> We can use that to identify if we have a specific error. 
+g) So in the media-item-form.component.html file, let's add a div with an ngIf directive, setting the statement to form.get name .hasError pattern. 
+h) And in this div, let's display some error texts. We can also add a CSS class named error which the form.css file in the project code for this lesson already has some styling for.
+##
+  <li>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" formControlName="name">
+      <div *ngIf="myform.get('name').hasError('pattern')" class="error">Name has invalid Characters</div>
+    </li>
+##
+i)  Switching over to the browser, we see that if we put in an invalid character in the name, we see the message appear. 
+-> And as soon as we correct it, the error message gets removed.
+j)  Let's add an error message for the year which has the custom validator. 
+-> Back in the component.html, we can add another div with an ngIf for the year field, setting the statement to form.get year .hasError year. 
+##
+ <li>
+      <label for="year">Year</label>
+      <input type="text" name="year" id="year" maxlength="4" formControlName="year">
+      <div *ngIf="myform.get('year').hasError('year')" class="error">Must be between 1900 and 2100 </div>
+    </li>
+##
+
+
+-> And we can add the CSS error class and then give it an error message. 
+->  And over in the browser, we can enter some invalid year and see the message and enter in a valid year and see it go away. 
+j) Okay, there's one more cool thing that you can do here when it comes to custom validators. 
+-> Back in the component class, the year validator code is in control of returning the object that gets put on the year.errors property.
+->  so we can actually update it to contain the range values the validator is checking on. We can change true to an object that has min and max properties set to the min and max year values. 
+
+###
+const year =parseInt(control.value,10);
+    const minYear= 1800;
+    const maxYear= 2500;
+    if(year >=minYear && year<=maxYear)
+    {
+      return null;
+    }
+    else {
+      return {
+        min:minYear,
+        max:maxYear
+      };
+      }
+    }
+	
+###
+And let's change those while we're in here to be 1800 and 2500 so we can confirm we are seeing the change. 
+k) We can then go over to the component HTML. and instead of using hasError, we can check the ERRORS property on the form control. 
+-> If there are any errors, this property will be an object. If not, it will be null. 
+l) So we can update the ngIf statement to be form.get year .errors and we can grab a handle to that errors object so we can use it in our template to show those min and max values. 
+->We can do this by using the as syntax in the ngIf statement. So we can add as space yearErrors to the end of that statement and Angular will capture that errors object when the if statement evaluates to true 
+and we'll store it in a template variable named yearErrors. With this in place in the markup, we can add some interpolation in the error message to show the year.min and year.max values. 
+##
+   <li>
+      <label for="year">Year</label>
+      <input type="text" name="year" id="year" maxlength="4" formControlName="year">
+      <div *ngIf="myform.get('year').errors as yearErrors" class="error">Must be between {{yearErrors.min}} and {{yearErrors.max}} </div>
+    </li>
+##
+-> And now over in the browser, if we enter in an invalid year, we can see the error message is now reporting info driven by the custom validator rules.

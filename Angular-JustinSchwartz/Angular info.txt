@@ -1,0 +1,23 @@
+1) https://www.tutorialspoint.com/angular_cli/angular_cli_ng_serve.htm
+https://www.geeksforgeeks.org/how-to-bundle-an-angular-app-for-production/
+https://www.javatpoint.com/how-an-angular-app-get-loaded-and-started
+https://www.w3schools.com/nodejs/nodejs_get_started.asp
+https://www.simplilearn.com/tutorials/angular-tutorial/what-is-angular-node
+https://www.simplilearn.com/tutorials/angular-tutorial/what-is-angular-node#:~:text=Once%20this%20is%20configured%2C%20the,need%20to%20run%20npm%20start.
+
+2) 
+
+main.ts -> we can specify the bootstrap module to start the application
+Node.js -> Node.js is an open source server environment
+package.json -> contains all modules and dependencies
+angular.json -> contains info on outputPath, index.html location, main.ts etc 
+
+
+3) 
+ng build -> builds and deploys the angular application
+ng serve -> builds and serves application for any change detected 
+
+4) node.js acts as webserver for angular applications 
+-> NodeJS server and the Angular application run on two different ports in the development phase, making it easier and faster to implement while developing an application. 
+-> For example, in the development phase, we can say that with the help of the webpack dev server, 
+   AngularJS application is running on port 4200, whereas the NodeJS server is running on port no. 3080.

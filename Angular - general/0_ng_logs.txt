@@ -1,0 +1,4 @@
+1) C:\Users\gs1-maheswarane\AppData\Local\npm-cache\_logs
+
+
+2) npm install --verbose
