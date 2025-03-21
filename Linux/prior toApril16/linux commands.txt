@@ -1,0 +1,269 @@
+1) to list all files recursively in a directory
+
+[bookingapi@g09-8 may19]$ ls -ltR
+.:
+total 117352
+drwxrwxr-x. 2 bookingapi bookingapi        47 May 20 09:01 withChanges
+drwxrwxr-x. 2 bookingapi bookingapi        25 May 19 11:21 withoutChanges
+-rwxr--r--. 1 bookingapi bookingapi 120165248 May 19 10:43 bookingapi.jar
+
+./withChanges:
+total 117356
+-rwxr--r--. 1 bookingapi bookingapi 120165248 May 20 09:01 bookingapi.jar
+-rwxr--r--. 1 bookingapi bookingapi      1717 May 19 11:02 startApp.sh
+
+./withoutChanges:
+total 4
+-rwxr--r--. 1 bookingapi bookingapi 1313 May 19 11:21 startApp.sh
+
+2) To rename a file:
+
+mv bookingapi.jar bookingapi-1.jar
+[bookingapi@g09-8 withChanges]$ ls
+bookingapi-1.jar  startApp.sh
+
+
+3) to find files with specific name
+
+ find / -name *start*
+ 
+ #######
+ /opt/omi/bin/support/omid.upstart
+find: ‘/opt/sa-unix’: Permission denied
+/opt/python-3.5.1/lib/python3.5/test/__pycache__/test_startfile.cpython-35.opt-1.pyc
+/opt/python-3.5.1/lib/python3.5/test/__pycache__/test_startfile.cpython-35.opt-2.pyc
+/opt/python-3.5.1/lib/python3.5/test/__pycache__/test_startfile.cpython-35.pyc
+/opt/python-3.5.1/lib/python3.5/test/test_startfile.py
+/opt/python-3.5.1/lib/python3.5/test/test_startfile.pyc
+/opt/python-3.5.1/lib/python3.5/test/test_startfile.pyo
+find: ‘/opt/opsview/package’: Permission denied
+find: ‘/opt/opsview/agent’: Permission denied
+find: ‘/opt/fireeye’: Permission denied
+/prod/jvm/bookingapi/startApp.sh
+#########
+
+
+
+4) o follow all symbolic links , instead of -r, use the -R option (or --dereference-recursive).
+
+Here is an example showing how to search for the string linuxize.com in all files inside the /etc directory:
+
+grep -r linuxize.com /etc
+
+
+5) Show Only the Filename
+To suppress the default grep output and print only the names of files containing the matched pattern, use the -l ( or --files-with-matches) option.
+The command below searches through all files ending with .conf in the current working directory and prints only the names of the files containing the string linuxize.com:
+
+grep -l linuxize.com *.conf
+Copy
+The output will look something like this:
+
+tmux.conf
+haproxy.conf
+Copy
+The -l option is usually used in combination with the recursive option -R:
+
+grep -Rl linuxize.com /tmp
+
+
+6) Case insenstive search
+But if you perform a case insensitive search using the -i option, it will match both upper and lower case letters:
+
+grep -i Zebra /usr/share/words
+grep -ir mahesh /
+
+ grep -irl "chq.ei" /prod/
+ 
+ ##output###
+ querybld@querybld1qa:/$ grep -irl "chq.ei" /prod/
+/prod/web/querybld/current/webapps/querybld/WEB-INF/classes/catalog.xml
+/prod/web/querybld/previous/webapps/querybld/WEB-INF/classes/catalog.xml
+/prod/web/querybld/next/webapps/querybld/Configuration.properties
+/prod/web/querybld/next/webapps/querybld/WEB-INF/classes/catalog.xml
+/prod/web/qbsvc/current/temp/jccdiag.log
+/prod/web/qbsvc/current/temp/connlicj.bin
+/prod/web/qbsvc/current/webapps/qbsvc/WEB-INF/classes/catalog.xml
+/prod/web/qbsvc/current/webapps/qbsvc/WEB-INF/classes/querybuildservice.properties
+grep: /prod/web/qbsvc/current/work/Catalina/localhost/qbsvc/org/apache/jsp/webcheck_jsp.java: Permission denied
+grep: /prod/web/qbsvc/current/work/Catalina/localhost/qbsvc/org/apache/jsp/webcheck_jsp.class: Permission denied
+grep: /prod/web/qbsvc/current/work/Catalina/localhost/ROOT: Permission denied
+grep: /prod/web/qbsvc/current/conf/Catalina: Permission denied
+/prod/web/qbsvc/previous/webapps/qbsvc/WEB-INF/classes/catalog.xml
+/prod/web/qbsvc/previous/webapps/qbsvc/WEB-INF/classes/querybuildservice.properties
+/prod/web/qbsvc/next/webapps/qbsvc/Configuration.properties
+/prod/web/qbsvc/next/webapps/qbsvc/WEB-INF/classes/catalog.xml
+/prod/web/qbsvc/next/webapps/qbsvc/WEB-INF/classes/querybuildservice.properties
+grep: /prod/app/filebeat-7.17.9-linux-x86_64/logs/filebeat.3: Permission denied
+grep: /prod/app/filebeat-7.17.9-linux-x86_64/logs/filebeat.2: Permission denied
+grep: /prod/app/filebeat-7.17.9-linux-x86_64/logs/filebeat.1: Permission denied
+grep: /prod/app/filebeat-7.17.9-linux-x86_64/logs/filebeat: Permission denied
+grep: /prod/app/filebeat-7.17.9-linux-x86_64/data: Permission denied
+querybld@querybld1qa:/$
+
+ 
+ 
+ #####
+
+7) To list only files containing specific test and search recursive and to suppress error
+
+[bookingapi@g09-8 ~]$ grep -irls gci /prod/
+/prod/jvm/bookingapi/logs/bookingapi.log.1
+/prod/jvm/bookingapi/logs/application.log.2020-12-05.0.gz
+/prod/jvm/bookingapi/logs/application.log.2023-05-21.0.gz
+/prod/jvm/bookingapi/logs/bookingapi.log.2023-05-18.0.gz
+/prod/jvm/bookingapi/logs/application.log.2023-05-25.0.gz
+/prod/jvm/bookingapi/logs/bookingapi.log
+/prod/jvm/bookingapi/logs/bookingapi.log.2023-04-05.7
+/prod/jvm/bookingapi/logs/bookingapi.log.2023-04-03.0
+/prod/jvm/bookingapi/logs/application.log
+/prod/jvm/bookingapi/logs/.bookingapi.log.swn
+/prod/jvm/bookingapi/tempfile/tomcat.2368137868454534155.8443/work/Tomcat/localhost/ROOT/upload_e191750e_c0a1_4e61_a347_c88447876f64_00000101.tmp
+/prod/jvm/bookingapi/conf/application.properties
+/prod/jvm/bookingapi/bookingapi.jar
+[bookingapi@g09-8 ~]$
+
+
+
+8) To grep recursively in solaris:
+ find /  -type f -exec grep -l ".log" {} +
+ 
+ 
+ 
+  find /  -type f -exec grep -l "java-1.6.0_18" {} +
+  
+    find /etc  -type f -exec grep -l "JAVA_HOME" {} +
+  JAVA_HOME
+ 
+ 
+ 
+ 
+ 
+ java-1.6.0_18
+ 
+ 
+9) to find linux version:
+
+a) use cat /etc/*-release 
+
+[mahesh@GS1-MAHESWAR-LX python_programs]$ cat /etc/*-release
+
+
+Oracle Linux Server release 9.1
+NAME="Oracle Linux Server"
+VERSION="9.1"
+ID="ol"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="9.1"
+PLATFORM_ID="platform:el9"
+PRETTY_NAME="Oracle Linux Server 9.1"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:oracle:linux:9:1:server"
+HOME_URL="https://linux.oracle.com/"
+BUG_REPORT_URL="https://github.com/oracle/oracle-linux"
+
+ORACLE_BUGZILLA_PRODUCT="Oracle Linux 9"
+ORACLE_BUGZILLA_PRODUCT_VERSION=9.1
+ORACLE_SUPPORT_PRODUCT="Oracle Linux"
+ORACLE_SUPPORT_PRODUCT_VERSION=9.1
+Red Hat Enterprise Linux release 9.1 (Plow)
+Oracle Linux Server release 9.1
+[mahesh@GS1-MAHESWAR-LX python_programs]$ 
+
+b) use lsb_release -a
+
+
+[gs1-maheswarane@entG091382 ~]$ lsb_release -a
+LSB Version:    :core-4.1-amd64:core-4.1-noarch
+Distributor ID: RedHatEnterpriseServer
+Description:    Red Hat Enterprise Linux Server release 7.9 (Maipo)
+Release:        7.9
+Codename:       Maipo
+
+
+c) use: hostnamectl
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ hostnamectl
+   Static hostname: g09-8
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: a34d496ad3514c718a709b8443ab1962
+           Boot ID: 24aa4d9ac04c42e992ce2763abd09075
+    Virtualization: microsoft
+  Operating System: Red Hat Enterprise Linux Server 7.9 (Maipo)
+       CPE OS Name: cpe:/o:redhat:enterprise_linux:7.9:GA:server
+            Kernel: Linux 3.10.0-1160.105.1.el7.x86_64
+      Architecture: x86-64
+[gs1-maheswarane@g09-8 ~]$
+
+d) use: cat /etc/os-release
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ cat /etc/os-release
+NAME="Red Hat Enterprise Linux Server"
+VERSION="7.9 (Maipo)"
+ID="rhel"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="7.9"
+PRETTY_NAME="Red Hat Enterprise Linux Server 7.9 (Maipo)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:7.9:GA:server"
+HOME_URL="https://www.redhat.com/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 7"
+REDHAT_BUGZILLA_PRODUCT_VERSION=7.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="7.9"
+[gs1-maheswarane@g09-8 ~]$
+
+
+e) use: uname -srm
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ uname -srm
+Linux 3.10.0-1160.105.1.el7.x86_64 x86_64
+
+
+10) 
+a) Cmds to install in ubuntu:
+sudo apt-get install (to install a package)
+sudo apt-get remove (package removal)
+sudo apt-get update (for updating a package)
+sudo apt-get upgrade (for upgrading a package)
+apt-get help (to know more about a command )
+
+b) to list installed programs:
+mahesh@GS1-MAHESWAR-LX:/home/py_programs/network-scanner$ apt list --installed
+Listing... Done
+
+c) install wsl:
+mahesh@GS1-MAHESWAR-LX:/home/py_programs/network-scanner$ sudo apt install wsl
+
+
+RHEL
+cmds to install in rhel:
+
+a) $ sudo yum install <packagename>
+
+eg:
+[mahesh@GS1-MAHESWAR-LX python_programs]$ sudo yum install scapy
+
+b) to yum remove:
+$  yum remove [package_name]
+
+or
+
+$ yum erase [package_name]
+
+c) to list:
+yum list installed
+
+
+
+

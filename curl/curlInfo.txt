@@ -1,0 +1,42 @@
+1) 
+https://www.baeldung.com/curl-rest
+
+2) https://www.geeksforgeeks.org/curl-command-in-linux-with-examples/
+
+
+3) curl with auth token:
+curl -H "Authorization: Bearer b1094abc0-54a4-3eab-7213-877142c33fh3" http://example.com/
+
+4) curl with pwd:
+curl --user baeldung:secretPassword http://example.com/
+
+5) Custom Headers
+We can replace the default headers or add headers of our own.
+
+For instance, to change the Host header, we do this:
+
+curl -H "Host: com.baeldung" http://example.com/
+Copy
+To switch off the User-Agent header, we put in an empty value:
+
+curl -H "User-Agent:" http://example.com/
+Copy
+The most common scenario while testing is changing the Content-Type and Accept header. We just have to prefix each header with the -H option:
+
+curl -d @request.json -H "Content-Type: application/json" 
+  -H "Accept: application/json" http://localhost:8082/spring-rest/foos/new
+  
+6) DELETE
+Again, we specify that we want to use DELETE by using the -X option:
+
+curl -X DELETE http://localhost:8082/spring-rest/foos/9
+
+
+7) PUT
+This method is very similar to POST, but we use it when we want to send a new version of an existing resource. In order to do this, we use the -X option.
+
+curl -d @request.json -H 'Content-Type: application/json' 
+  -X PUT http://localhost:8082/spring-rest/foos/9
+  
+  
+8)   

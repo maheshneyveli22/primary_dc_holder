@@ -1,0 +1,273 @@
+1) grep
+
+1) Using grep 
+[gs1-maheswarane@entG091380 ~]$ sudo -iu bookingapi
+[bookingapi@entG091380 ~]$ grep -irl "on-boarding" /prod/jvm/bookingapi/logs/
+/prod/jvm/bookingapi/logs/bookingapi.log.1
+[bookingapi@entG091380 ~]$ grep -ir "on-boarding" /prod/jvm/bookingapi/logs/
+/prod/jvm/bookingapi/logs/bookingapi.log.1:2024-04-19 00:53:47.092 INFO [,] 6712 --- [nio-8443-exec-8] c.e.e.b.core.security.ei.UserHelperImpl  : User Onborading Status is No User To Migrate On-Boarding process Stopped here, because this user on-boarding process failed !!. PLEASE REST THE USER STATUS TO NOT_STARTED.
+/prod/jvm/bookingapi/logs/bookingapi.log.1:2024-04-19 03:33:23.933 INFO [,] 6712 --- [nio-8443-exec-3] c.e.e.b.core.security.ei.UserHelperImpl  : User Onborading Status is In Complete On-Boarding process Stopped here, because this user on-boarding process failed !!. PLEASE REST THE USER STATUS TO NOT_STARTED.
+/prod/jvm/bookingapi/logs/bookingapi.log.1:2024-04-19 09:01:40.144 INFO [,] 6712 --- [nio-8443-exec-4] c.e.e.b.core.security.ei.UserHelperImpl  : User Onborading Status is In Complete On-Boarding process Stopped here, because this user on-boarding process failed !!. PLEASE REST THE USER STATUS TO NOT_STARTED.
+[bookingapi@entG091380 ~]$
+
+
+2) Using zgrep 
+
+[bookingapi@g09-8 logs]$ zgrep -ic 'on-boarding' /prod/jvm/bookingapi/logs/*.gz
+/prod/jvm/bookingapi/logs/application.log.2020-12-05.0.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-08.0.gz:13
+/prod/jvm/bookingapi/logs/application.log.2024-04-08.1.gz:10
+/prod/jvm/bookingapi/logs/application.log.2024-04-08.2.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-09.0.gz:32
+/prod/jvm/bookingapi/logs/application.log.2024-04-09.1.gz:25
+/prod/jvm/bookingapi/logs/application.log.2024-04-09.2.gz:47
+/prod/jvm/bookingapi/logs/application.log.2024-04-10.0.gz:23
+/prod/jvm/bookingapi/logs/application.log.2024-04-10.1.gz:20
+/prod/jvm/bookingapi/logs/application.log.2024-04-10.2.gz:2
+/prod/jvm/bookingapi/logs/application.log.2024-04-11.0.gz:1
+/prod/jvm/bookingapi/logs/application.log.2024-04-11.1.gz:7
+/prod/jvm/bookingapi/logs/application.log.2024-04-12.0.gz:6
+/prod/jvm/bookingapi/logs/application.log.2024-04-12.1.gz:6
+/prod/jvm/bookingapi/logs/application.log.2024-04-12.2.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-13.0.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-13.1.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-14.0.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-14.1.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-15.0.gz:17
+/prod/jvm/bookingapi/logs/application.log.2024-04-15.1.gz:2
+/prod/jvm/bookingapi/logs/application.log.2024-04-16.0.gz:3
+/prod/jvm/bookingapi/logs/application.log.2024-04-16.1.gz:9
+/prod/jvm/bookingapi/logs/application.log.2024-04-16.2.gz:12
+/prod/jvm/bookingapi/logs/application.log.2024-04-16.3.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-17.0.gz:3
+/prod/jvm/bookingapi/logs/application.log.2024-04-17.1.gz:3
+/prod/jvm/bookingapi/logs/application.log.2024-04-17.2.gz:15
+/prod/jvm/bookingapi/logs/application.log.2024-04-17.3.gz:5
+/prod/jvm/bookingapi/logs/application.log.2024-04-18.0.gz:10
+/prod/jvm/bookingapi/logs/application.log.2024-04-18.1.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-19.0.gz:1
+/prod/jvm/bookingapi/logs/application.log.2024-04-20.0.gz:0
+/prod/jvm/bookingapi/logs/application.log.2024-04-21.0.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-08.0.gz:17
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-09.0.gz:40
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-09.1.gz:64
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-10.0.gz:42
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-10.1.gz:3
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-11.0.gz:8
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-12.0.gz:9
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-13.0.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-14.0.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-15.0.gz:14
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-16.0.gz:3
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-16.1.gz:12
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-16.2.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-17.0.gz:6
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-17.1.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-18.0.gz:2
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-19.0.gz:1
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-20.0.gz:0
+/prod/jvm/bookingapi/logs/bookingapi.log.2024-04-21.0.gz:0
+[bookingapi@g09-8 logs]$
+
+
+3) zgrep for searching using multiple options 
+
+ zgrep -e 'on-boarding' -e 'boarding'  /prod/jvm/bookingapi/logs/*.gz
+
+
+
+
+4) to identify a process is running or not: 
+
+a) Using ps -A
+
+#########
+eg:
+ps -A | grep 'apache\|httpd
+
+[bookingapi@g09-8 ~]$ ps -A | grep 'apache\|httpd'
+[bookingapi@g09-8 ~]$ ps -A | grep 'apache\|python2'
+ 2276 ?        00:05:56 python2
+ 2278 ?        00:00:32 python2
+[bookingapi@g09-8 ~]$ ps -A | grep 'apache\|java'
+17733 ?        00:29:02 java
+#########
+
+b) Using ps -ef 
+
+#########
+eg:
+[bookingapi@g09-8 ~]$ ps -ef | grep 'java'
+booking+ 17733     1  0 Apr18 ?        00:29:02 /opt/java-17/bin/java -DappName=bookingapi -DAPP_HOME=/prod/jvm/bookingapi/ -XX:+HeapDumpOnOutOfMemoryError -Xmx2G -Djavax.net.ssl.trustStore=/prod/jvm/bookingapi/conf/expd-ca-truststore.jks -Djavax.net.ssl.trustStorePassword=expeditors --add-exports=java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED --add-exports=java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED -Dspring.profiles.active=dev -Dhttp-agent=java/17.0.6 -jar /prod/jvm/bookingapi/bookingapi.jar --spring.config.location=/prod/jvm/bookingapi/conf/
+booking+ 30756 29997  0 06:15 pts/0    00:00:00 grep --color=auto java
+[bookingapi@g09-8 ~]$ ps -ef | grep 'apache\ |httpd'
+[bookingapi@g09-8 ~]$
+#########
+
+5) to find linux version:
+
+a) use cat /etc/*-release 
+
+[mahesh@GS1-MAHESWAR-LX python_programs]$ cat /etc/*-release
+
+
+Oracle Linux Server release 9.1
+NAME="Oracle Linux Server"
+VERSION="9.1"
+ID="ol"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="9.1"
+PLATFORM_ID="platform:el9"
+PRETTY_NAME="Oracle Linux Server 9.1"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:oracle:linux:9:1:server"
+HOME_URL="https://linux.oracle.com/"
+BUG_REPORT_URL="https://github.com/oracle/oracle-linux"
+
+ORACLE_BUGZILLA_PRODUCT="Oracle Linux 9"
+ORACLE_BUGZILLA_PRODUCT_VERSION=9.1
+ORACLE_SUPPORT_PRODUCT="Oracle Linux"
+ORACLE_SUPPORT_PRODUCT_VERSION=9.1
+Red Hat Enterprise Linux release 9.1 (Plow)
+Oracle Linux Server release 9.1
+[mahesh@GS1-MAHESWAR-LX python_programs]$ 
+
+b) use lsb_release -a
+
+
+[gs1-maheswarane@entG091382 ~]$ lsb_release -a
+LSB Version:    :core-4.1-amd64:core-4.1-noarch
+Distributor ID: RedHatEnterpriseServer
+Description:    Red Hat Enterprise Linux Server release 7.9 (Maipo)
+Release:        7.9
+Codename:       Maipo
+
+
+c) use: hostnamectl
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ hostnamectl
+   Static hostname: g09-8
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: a34d496ad3514c718a709b8443ab1962
+           Boot ID: 24aa4d9ac04c42e992ce2763abd09075
+    Virtualization: microsoft
+  Operating System: Red Hat Enterprise Linux Server 7.9 (Maipo)
+       CPE OS Name: cpe:/o:redhat:enterprise_linux:7.9:GA:server
+            Kernel: Linux 3.10.0-1160.105.1.el7.x86_64
+      Architecture: x86-64
+[gs1-maheswarane@g09-8 ~]$
+
+d) use: cat /etc/os-release
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ cat /etc/os-release
+NAME="Red Hat Enterprise Linux Server"
+VERSION="7.9 (Maipo)"
+ID="rhel"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="7.9"
+PRETTY_NAME="Red Hat Enterprise Linux Server 7.9 (Maipo)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:7.9:GA:server"
+HOME_URL="https://www.redhat.com/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 7"
+REDHAT_BUGZILLA_PRODUCT_VERSION=7.9
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="7.9"
+[gs1-maheswarane@g09-8 ~]$
+
+
+e) use: uname -srm
+
+eg:
+[gs1-maheswarane@g09-8 ~]$ uname -srm
+Linux 3.10.0-1160.105.1.el7.x86_64 x86_64
+
+
+6) check the user: whomai
+
+##
+[mahesh@GS1-MAHESWAR-LX ~]$ whoami
+mahesh
+###
+
+7) Check kernel version of computer: uname -a 
+
+####
+[mahesh@GS1-MAHESWAR-LX ~]$ uname
+Linux
+[mahesh@GS1-MAHESWAR-LX ~]$ uname -a
+Linux GS1-MAHESWAR-LX 4.4.0-19041-Microsoft #3996-Microsoft Thu Jan 18 16:36:00 PST 2024 x86_64 x86_64 x86_64 GNU/Linux
+[mahesh@GS1-MAHESWAR-LX ~]$
+####
+
+8) Check user/pwd and privileges: [mahesh@GS1-MAHESWAR-LX etc]$ cat /etc/passwd
+
+#######
+[mahesh@GS1-MAHESWAR-LX etc]$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+systemd-coredump:x:999:996:systemd Core Dumper:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+tss:x:59:59:Account used for TPM access:/dev/null:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/sbin/nologin
+mahesh:x:1000:1000::/home/mahesh:/bin/bash###############
+
+
+9) To get salted passwd: cat /etc/shadow 
+
+####
+[mahesh@GS1-MAHESWAR-LX etc]$ sudo cat /etc/shadow
+[sudo] password for mahesh:
+root:*:19267:0:99999:7:::
+bin:*:19267:0:99999:7:::
+daemon:*:19267:0:99999:7:::
+adm:*:19267:0:99999:7:::
+lp:*:19267:0:99999:7:::
+sync:*:19267:0:99999:7:::
+shutdown:*:19267:0:99999:7:::
+halt:*:19267:0:99999:7:::
+mail:*:19267:0:99999:7:::
+operator:*:19267:0:99999:7:::
+games:*:19267:0:99999:7:::
+ftp:*:19267:0:99999:7:::
+nobody:*:19267:0:99999:7:::
+systemd-coredump:!!:19424::::::
+dbus:!!:19424::::::
+tss:!!:19424::::::
+sshd:!!:19424::::::
+mahesh:$6$cerGwt9kwV6.8N7a$jlXm1CZOWUYHNd2WTbuJMf9vvqQdmqaTtqPSJGKjwtwt7FKJOimHQToXFtX8OnwoBwUvdp2TJoV9nFCXASnGl0:19595:0:99999:7:::
+[mahesh@GS1-MAHESWAR-LX etc]$
+####
+
+
+10) to download any file: wget
+
+
+###
+mahesh@GS1-MAHESWAR-LX etc]$ wget https://www.mediacollege.com/linux/command/linux-command.html
+--2024-05-19 11:36:10--  https://www.mediacollege.com/linux/command/linux-command.html
+Resolving www.mediacollege.com (www.mediacollege.com)... 54.165.2.46
+Connecting to www.mediacollege.com (www.mediacollege.com)|54.165.2.46|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 63320 (62K) [text/html]
+###

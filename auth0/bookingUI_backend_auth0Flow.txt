@@ -1,0 +1,24 @@
+1) in expo-ui  src\environments\environment.ts
+
+client id ,  domain, scope  will be specified  which is used by Auth service(src\app\api\api.module.ts) for generation of tokens 
+
+
+...
+    authenticationConfigMapping: [
+        {
+            host: '{{host}}',
+            config: {
+                clientID: 'TKiAoi8saKj1oCg31iyTEcbdUEhTX7d1',
+                domain: 'login.dev.test-expeditors.com', // Custom vanity login used.  Original setting: 'dev-test-expeditors.auth0.com',
+                responseType: 'token id_token',
+                audience: 'https://expo-api-dev-expeditors.com',
+                redirectUri: 'https://expo-origin.dev.test-expeditors.com/session-setup',
+                logoutUri: 'https://expo-origin.dev.test-expeditors.com/logout',
+                scope: 'openid offline_access',
+                tokenNamespace: 'https://go2expo.expeditors.com',
+            },
+			
+....
+
+
+2) This will help generation of tokens 

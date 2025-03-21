@@ -1,0 +1,86 @@
+1) Overview
+Sometimes we need to run multiple Bash commands in a single line in Linux. Such commands are called one-liners. They are useful when we don’t want to wait until the execution of one command completes before issuing another.
+
+Let’s look at an example:
+
+$ touch new_file ; ls new_file
+new_file
+
+Here, we created a new file and listed it in the current directory, all on a single line.
+
+However, there are different ways to run this one-liner. With the same result, we can use the && operator:
+
+$ touch new_file && ls new_file
+new_file
+
+2) The && Operator
+The && is a logical operator. It means that it takes into account the state of the previous command.
+
+For instance, if the first command fails (i.e., produces a non-zero exit code), then the second command won’t be executed.
+
+Let’s generate a Bash error using a non-existing command:
+
+$ non-existing-command
+non-existing-command: command not found
+
+As we expect, we are getting the error that the non-existing command wasn’t found. In fact, this can be any command that has a non-zero exit code.
+
+Let’s now use this command in a single line with an echo command separated by the && operator:
+
+$ non-existing-command && echo "Hello"
+non-existing-command: command not found
+
+As we can see, the command doesn’t print the Hello message because of the error.
+
+3) The ; Operator
+Unlike the above, the ; operator is simpler and doesn’t check the output of previous commands. If we use this operator, all the commands will be executed regardless of their status as long as the Bash syntax is correct.
+
+This is true even when some of the commands fail.
+
+Let’s use the same example as above, but using the operator ; instead:
+
+$ non-existing-command ; echo "Hello"
+non-existing-command: command not found
+Hello
+
+What we are seeing is that despite the error in the first command, we are still getting the Hello message.
+
+
+4. Other Operators
+Although the ; and && operators are widely used in Bash, there are more operators that we can use to link commands in one-liners.
+
+4.1. The || Operator
+The || operator is a logical OR operator. It works like the && one, but the other way around.
+
+In essence, the || operator executes the second command only if the first command fails.
+
+Let’s see a simple example:
+
+$ echo "1" || echo "2"
+1
+
+The second echo command didn’t run, because the first one was successful.
+
+However, if we use the non-existing command like in the examples above, we’ll see another result:
+
+$ non-existing-command || echo "Hello"
+non-existing-command: command not found
+Hello
+
+The Hello message prints correctly because the non-existing command failed.
+
+
+
+5) The | Operator
+This operator looks similar to ||, but they aren’t related. The | is a pipe operator and allows us to direct an output of a first command into an input of a second command.
+
+For example, let’s use the wc -l command that counts the number of lines in the input:
+
+$ echo "Hello" | wc -l
+1
+
+As we can see, the wc -l command has taken the output of the echo command using the pipe and then calculated that the Hello message contains 1 line.
+
+Notably, the set pipefail option makes a pipe terminate on the first encountered error instead of passing that along to the next command in the chain. This can prevent any following commands from executing similar to the case of &&.
+
+

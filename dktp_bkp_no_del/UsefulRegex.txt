@@ -1,0 +1,5 @@
+1) responseData=\{.*?=null\}
+
+-> regex filters all texts where response data has a particular operation as null 
+Output: 
+responseData={saveBooking=null})

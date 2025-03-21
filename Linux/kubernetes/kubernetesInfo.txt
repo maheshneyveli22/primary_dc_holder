@@ -1,0 +1,9 @@
+https://signoz.io/blog/kubectl-top/
+
+kubectl top node
+
+eg:
+NAME                                  CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+aks-runnerspool-42108056-vmss0000fs   7954m        50%    28104Mi         101%
+aks-runnerspool-42108056-vmss0000ga   13220m       83%    25068Mi         90%
+aks-systempool-42108056-vmss000023    226m         11%    3594Mi          79%

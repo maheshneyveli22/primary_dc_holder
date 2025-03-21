@@ -1,0 +1,7 @@
+https://tecadmin.net/how-to-install-apache-solr-on-ubuntu-22-04/
+
+
+https://solr.apache.org/guide/8_11/installing-solr.html
+
+
+https://solr.apache.org/guide/8_11/taking-solr-to-production.html

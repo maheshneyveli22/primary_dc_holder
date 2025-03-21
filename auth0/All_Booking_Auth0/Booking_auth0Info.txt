@@ -1,0 +1,24 @@
+DEV:
+https://manage.auth0.com/dashboard/us/dev-test-expeditors/applications
+
+https://manage.auth0.com/dashboard/us/dev-test-expeditors/applications/TKiAoi8saKj1oCg31iyTEcbdUEhTX7d1/settings
+
+QA:
+https://manage.auth0.com/dashboard/us/qa-test-expeditors/applications
+
+Name of application: go2expo-dev
+
+
+
+1) 
+Auth0-> Applications 
+2) Select the application and in that there will be Settings
+
+Settings 
+-Basic Information -> Name/Domain/Client ID /Client Secret 
+-Application URIs -> application login URI, Allowed Callback URLs , Allowed Logout URls  , Allowed  Web Origins 
+Refresh Token Expiration -> Absolute Lifetime, Inactivity Lifetime 
+
+2) AUtho automation:
+https://gitlab.expeditors.com/EnterpriseTechnology/auth0-automation/-/tree/develop/src/main/java/com/expd/auth0?ref_type=heads
+

@@ -1,0 +1,71 @@
+1) Shift+g end of the file
+
+2) / to search
+3) To match the beginning of a line, start the search string with a caret (^). For example, to find the next line beginning with “Search”, type:
+
+
+/^Search
+4) To match the end of a line, end the search string with a dollar sign ($). For example, to find the next line ending with “search.”, type:
+
+
+/search\.$
+
+5) n -> to search next text 
+
+
+6) exit without saving:
+:q!
+7) exit after saving 
+:wq!
+
+
+
+8) to paste from clipboard:
+copy the content of the text from the text file (Ctrl-C or right-click & copy)
+open the file you want to edit with the vim editor.
+type 'i' to enter the insert mode ( check at the bottom for — INSERT –)
+hit this key combination: Shift + Right-click & choose the 'Paste' from the menu.
+
+
+Changes in startApp.sh
+a) change this line:
+JAVA_RT="/opt/java-8/bin/java"  to JAVA_RT="/opt/java-17/bin/java"
+
+b) Add the following VM arguments: 
+
+JAVA_OPTS="-XX:+HeapDumpOnOutOfMemoryError -Xmx2G --add-exports=java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED
+--add-opens=java.base/java.util=ALL-UNNAMED
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED  -Djavax.net.ssl.trustStore=${APP_HOME}conf/expd-ca-truststore.jks -Djavax.net.ssl.trustStorePassword=expeditors -Dspring.profiles.active=dev -Dhttp-agent=java/11.0.8"
+
+Changes in Gitlab.yml: 
+
+
+a) In build stage, update tags for runner, set JAVA_HOME and PATH 
+
+  tags:
+    - JAVA_17
+  script:
+    - export JAVA_HOME=/opt/java-17
+    - export PATH=$JAVA_HOME/bin:$PATH
+	
+	a) In  module_test stage, update tags for runner, set JAVA_HOME and PATH 
+
+ tags:
+    - JAVA_17
+  only:
+    refs:
+      - develop
+  script:
+    # Sleep to stagger start times to avoid Nexus contention
+    - export JAVA_HOME=/opt/java-17
+    - export PATH=$JAVA_HOME/bin:$PATH
+	
+b) In refs section add your branch Name 
+
+
+custapps.expeditors.com
+
+mail.host=custapps.expeditors.com

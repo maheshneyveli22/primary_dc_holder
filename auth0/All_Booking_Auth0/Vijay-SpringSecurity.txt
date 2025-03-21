@@ -1,0 +1,141 @@
+1) 
+booking : preprod - 1 hr and prod -15 min
+-> interceptors renews the token when it is about to expire 
+
+
+2) Tenant 
+-> like in application context we have environments, tenant is something parallel to that in auth0
+-> in auth0 we have separate tenants for dev,qa and prod
+-> for prod and preview, tenants are the same .
+
+####
+You tenant is a container for all the configuration elements you might use to build your authentication and authorization service. 
+Typically you would probably have one production tenant and one or more non-production tenants. 
+All you real users would exist in your prod tenant only. Users in the non-prod tenant would typically be fake users created by your dev team. 
+I would point test / staging / QA / etc. versions of an app at your prod tenant and use role / attribute-based access control to provision access to those environments, 
+rather than creating new credentials in your non-prod tenant.
+####
+
+
+-> during login , there is a condition if it is expeditors it goes to idp
+-> so in idp, if we give our ldap username/pwd, it hits devtest-auth0, this is the custom domain we have mapped for auth0 tenant for development environment. Similarly
+   we have one tenant for qa and one tenant for prod. For prod it takes username/pwd from the system
+   
+   
+
+
+3) Authentication :
+-> checks if you are valid user
+
+
+
+How it works:
+a) From UI :user logs in to the application
+b) When i login, a request goes to auth0 tenant, it takes your ldap username/pwd
+c) Then it validates with tenant credentials 
+d) Tenant in return gives jwt token as response 
+e) JWT token is sent back to application
+f) Then token is stored in session storage of browser. In session storage we will have key/value pair for authentication. 
+-> under that we will have bearer token and all other details
+g) From now, any request from application goes to the graphql, and from there it goes to the respective microservices like: bookingapi,quote gateway or visibility microservices  
+h) auth0 has custom java packages which we use to decode the jwt token . In booking we take email address from jwt token and check if email address is present and then we take the booking 
+i) VERIFICATION OF JWT TOKEN
+ 
+i) Token is encrypted using private key 
+ii)Token is decrypted using public key and for that we have auth0 keys end points 
+iii) Application takes the key value and using auth0 keys application decodes the token 
+iv) From the token we can see certain functions like securityuser.getUserName , securityUser.getUserId()  to get the relevant values . this code can be seen in booking-code
+
+
+That's all with authentication
+
+4) Authorization:
+-> checks on the permissions and the actions you can perform 
+
+How it works: 
+a) In auth0 tenant we have set Roles and permissions, where we can set roles and permissions for some users 
+b) In booking, we dont include permissions in the token because the token will become heavier
+c) Each roles has n number of permissions, this is written in application code level
+Eg; Admin user role , Read only access
+
+http://admin-dev.aeu1.ei/admin
+d) User's role list/permissions is sent to the application's backend from auth0 , and then it is sent to the UI for displaying 
+e) A particular user's role can be added in tenant of auth0.
+https://jwt.io/
+
+
+
+
+5) In code:
+-> Authorization happens at both places: graphql and backend . May be 
+a) BookingGraphQLQueryInvoker.queryAccessDenied(operationName).orElseGet(()->query(singleInvocationInput));
+
+###
+    private Optional<ExecutionResult> queryAccessDenied(String operationName)   {
+       if (!authorizationEnabled || isAnonymousAccessQuery(operationName) || (allowInvalidTokens &&  (environment.getActiveProfiles()[0].equalsIgnoreCase("local") || environment.getActiveProfiles()[0].equalsIgnoreCase("dev")))) {
+           return Optional.empty();
+       }
+       UserDetailsImpl user = (UserDetailsImpl)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       logger.info("queryAccessDenied:=> "+user.getUser());
+       return user.getUser() != null ? Optional.empty()
+               : Optional.of(new ExecutionResultImpl(new BookingAccessDeniedException(user.getEmail())));
+    }
+###
+ private static final List<String> allowedOpNameToSkipProfileCheck = Arrays.asList("getPlatformUserConfiguration","platformUserStatus","getBookingUserStatus","bookingUserSearch","setBookingUser","getBookingUserStatusList");
+###
+
+b) Interceptors are there in ui to check if token is present or not
+
+
+
+6) Auth0 link:
+
+manage.auth0.com/dashboard/us/dev-test-expeditors/users
+
+a)  dev-test-expeditors is the dev tenant 
+b) qa-test-expeditors is the qa tenant 
+
+
+
+7) Auth0 dev: 
+API Name: go2expo-api-dev
+domain:dev-test-expeditors.auth0.com
+client id: TKiAoi8saKj1oCg31iyTEcbdUEhTX7d1
+
+
+applications: 
+go2expo-admin-dev  - for admin
+go2expo-dev    - for dev 
+
+
+Permissions 
+eg: add: visibility-user-approval-document
+    add: visibility-user-default-document
+	delete: visibility-user 
+	modify: book-user-access 
+
+Roles 
+eg: ExpoNowAdminTools - BookReadOnlyAdmin
+    ExpoNowAdminTools - BookChqAdmin
+	ExpoNowAdminTools - PlatformAdmin
+
+
+
+
+
+Links:
+http://admin-dev.aeu1.ei/admin
+https://jwt.io/
+manage.auth0.com/dashboard/us/dev-test-expeditors/users
+
+
+
+
+1) Where to check user-agent in browser
+2) 
+
+
+ 
+   
+
+

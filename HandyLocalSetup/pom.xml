@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.10</version>
+    </parent>
+
+    <groupId>com.expd.expo</groupId>
+    <artifactId>booking-parent</artifactId>
+    <version>0.3.61-SNAPSHOT</version>
+    <name>booking-parent</name>
+    <description>parent project</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>booking-service</module>
+<!--        Excluding identity as we dont deploy it -->
+<!--        <module>booking-identity</module>-->
+        <module>booking-submission</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>17</java.version>
+        <dockerfile-maven-version>1.4.0</dockerfile-maven-version>
+        <!-- <sonic-version>8.5.1.14</sonic-version> Don't think we need this here... ?-->
+        <require-snapshot>false</require-snapshot>
+        <require-release>false</require-release>
+        <!--Version properties only make sense if build-helper:parse-versions is run-->
+        <!--suppress UnresolvedMavenProperty -->
+        <currentVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</currentVersion>
+        <!--suppress UnresolvedMavenProperty -->
+        <nextPatchVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}</nextPatchVersion>
+        <!--suppress UnresolvedMavenProperty -->
+        <nextMinorVersion>${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.0</nextMinorVersion>
+        <!--suppress UnresolvedMavenProperty -->
+        <nextMajorVersion>${parsedVersion.nextMajorVersion}.0.0</nextMajorVersion>
+        <flyway-maven-plugin.version>8.0.5</flyway-maven-plugin.version>
+
+        <!-- instrument for code coverage only when "-Djacoco.skip=false"
+        is included on mavaen command line.  This workaround allows us to
+        run automation tests via maven that would otherwise fail because
+        of extra "synthetic" fields added to our classes by jacoco. -->
+        <jacoco.skip>true</jacoco.skip>
+
+        <jacoco.percentage.instruction>0.92</jacoco.percentage.instruction>
+        <jacoco.percentage.branch>0.89</jacoco.percentage.branch>
+        <jacoco.percentage.class>0.50</jacoco.percentage.class>
+        <visibility.module>3.3.0</visibility.module>
+        <sonic-version>8.5.1.14</sonic-version>
+        <common-utility.version>0.3.41</common-utility.version>
+        <test-utility.version>0.3.38</test-utility.version>
+        <OWASP_VERSION>8.2.0</OWASP_VERSION>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.expd.expo</groupId>
+                <artifactId>common-utility</artifactId>
+                <version>${common-utility.version}</version>
+            </dependency>
+            <!--          TODO removed idenity contracts service-->
+            <dependency>
+                <groupId>com.expd.expo</groupId>
+                <artifactId>test-utility</artifactId>
+                <version>${test-utility.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+
+            <!--          TODO removed idenity service, booking  and reporting-->
+
+            <!--  TODO Added spring bom details, it was earlier resolving transitively from spring-retry which is antipattern-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework</groupId>-->
+            <!--                <artifactId>spring-framework-bom</artifactId>-->
+            <!--                <version>${spring.framework.version}</version>-->
+            <!--                <type>pom</type>-->
+            <!--                <scope>import</scope>-->
+            <!--            </dependency>-->
+
+
+
+            <!--      TODO removed identity services and reporting-->
+            <!--<dependency>
+                <groupId>com.expd.expo</groupId>
+                <artifactId>expo-telemetry-events</artifactId>
+                <version>0.0.1</version>
+            </dependency>-->
+            <!--<dependency>
+                <groupId>com.expd.expo</groupId>
+                <artifactId>expo-telemetry-service</artifactId>
+                <version>0.0.1</version>
+            </dependency>-->
+
+            <!--        TODO Removed visibility services and identity-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.expd.expo</groupId>-->
+            <!--                <artifactId>visibility-contracts</artifactId>-->
+            <!--                <version>3.4.5</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.expd.expo</groupId>-->
+            <!--                <artifactId>visibility-identity</artifactId>-->
+            <!--                <version>3.3.1</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.expd.expo</groupId>-->
+            <!--                <artifactId>visibility-service</artifactId>-->
+            <!--                <version>RELEASE</version>-->
+            <!--            </dependency>-->
+
+
+            <dependency>
+                <!-- This dependency and its version (6.0.9) are necessary to comply with our JPA libraries. -->
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>6.0.9.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--1-->
+            <dependency>
+                <groupId>com.mashape.unirest</groupId>
+                <artifactId>unirest-java</artifactId>
+                <version>1.4.9</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.13</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpasyncclient</artifactId>
+                <version>4.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>4.5.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.2.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-runner</artifactId>
+                <version>1.2.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>5.2.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.junit.dataprovider</groupId>
+                <artifactId>junit-dataprovider-core</artifactId>
+                <version>2.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.junit.dataprovider</groupId>
+                <artifactId>junit-jupiter-dataprovider</artifactId>
+                <version>2.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.junit.dataprovider</groupId>
+                <artifactId>junit-jupiter-params-dataprovider</artifactId>
+                <version>2.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tngtech.junit.dataprovider</groupId>
+                <artifactId>junit4-dataprovider</artifactId>
+                <version>2.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>auth0</artifactId>
+                <version>1.13.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>auth0-spring-security-api</artifactId>
+                <version>1.0.0-rc.3</version>
+            </dependency>
+
+
+            <!--2-->
+            <dependency>
+                <groupId>com.ibm.db2</groupId>
+                <artifactId>db2jcc-license-cu</artifactId>
+                <version>4.19.26</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>3.2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>com.expd.service.temporary</groupId>
+                <artifactId>query-service</artifactId>
+                <version>1.2</version>
+                <classifier>client</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.expd.library</groupId>
+                <artifactId>messaging-client</artifactId>
+                <version>65.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sonicsw</groupId>
+                <artifactId>sonic-client</artifactId>
+                <version>${sonic-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sonicsw</groupId>
+                <artifactId>sonic-crypto</artifactId>
+                <version>${sonic-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sonicsw</groupId>
+                <artifactId>sonic-xmessage</artifactId>
+                <version>${sonic-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sonicsw</groupId>
+                <artifactId>sonic-selector</artifactId>
+                <version>${sonic-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.expd.arch</groupId>
+                <artifactId>soa</artifactId>
+                <version>2.24.46</version>
+                <exclusions>
+                    <exclusion>
+                        <!-- excluded for dependency conflicts -->
+                        <artifactId>spring</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded for dependency conflicts -->
+                        <artifactId>c3p0</artifactId>
+                        <groupId>c3p0</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded for dependency conflicts -->
+                        <artifactId>hibernate-entitymanager</artifactId>
+                        <groupId>org.hibernate</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded for dependency conflicts with graphql-java-tools -->
+                        <groupId>asm</groupId>
+                        <artifactId>asm-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded for dependency conflicts with newer asm -->
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.expd.arch</groupId>
+                        <artifactId>legacy-messaging-client</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sonicsw</groupId>
+                        <artifactId>sonic-client</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sonicsw</groupId>
+                        <artifactId>sonic-crypto</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sonicsw</groupId>
+                        <artifactId>sonic-xmessage</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sonicsw</groupId>
+                        <artifactId>sonic-selector</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded to get newer version -->
+                        <groupId>com.sun.xml.messaging.saaj</groupId>
+                        <artifactId>saaj-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded b/c it interferes with the logback logging impl -->
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- excluded to allow health to manage version -->
+                        <artifactId>logback-classic</artifactId>
+                        <groupId>ch.qos.logback</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <!-- boost to last patch version in this release -->
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>1.3.28</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>2.1.212</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.14.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.14.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.14.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.minidev</groupId>
+                <artifactId>json-smart</artifactId>
+                <version>2.4.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-sleuth</artifactId>
+                <version>2.2.8.RELEASE</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.bouncycastle</groupId>
+                        <artifactId>bcprov-jdk15on</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.yaml</groupId>
+                        <artifactId>snakeyaml</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+
+        <!--START TEST-->
+        <!--1-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+            <version>2.7.0</version>
+           </dependency>
+
+
+        <!--1-->
+
+
+        <!--2-->
+        <dependency>
+            <groupId>com.ibm.db2</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>4.19.26</version>
+        </dependency>
+
+        <!--2-->
+
+        <!--END TEST-->
+        <!--TODO boot related dependencies redeclared-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <!--            TODO added this exclusion-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin.external.google</groupId>
+                    <artifactId>android-json</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230227</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.expd.expo</groupId>-->
+        <!--            <artifactId>identity.contracts</artifactId>-->
+        <!--        </dependency>-->
+
+
+
+
+
+
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <version>2.3.3</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.4.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <!-- <pluginManagement> -->
+        <plugins>
+            <!--            <plugin>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--                <version>2.1.1.RELEASE</version>-->
+            <!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                  <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>
+                        <arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED</arg>
+                        <arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED</arg>
+                        <arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED</arg>
+                        <arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED</arg>
+                        <arg>--add-opens</arg><arg>java.base/java.util=ALL-UNNAMED</arg>
+                        <arg>--add-opens</arg><arg>java.base/java.util.concurrent=ALL-UNNAMED</arg>
+                        <arg>--add-opens</arg><arg>java.base/java.lang=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>parse-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-no-releases</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireSnapshotVersion>
+                                    <failWhenParentIsRelease>false</failWhenParentIsRelease>
+                                    <message>No Releases Allowed in develop!</message>
+                                </requireSnapshotVersion>
+                            </rules>
+                            <fail>${require-snapshot}</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-no-snapshots</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireReleaseVersion>
+                                    <message>No Snapshots Allowed in release or hotfix!</message>
+                                </requireReleaseVersion>
+                            </rules>
+                            <fail>${require-release}</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>patch</id>
+                        <configuration>
+                            <newVersion>${nextPatchVersion}-SNAPSHOT</newVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>minor</id>
+                        <configuration>
+                            <newVersion>${nextMinorVersion}-SNAPSHOT</newVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>major</id>
+                        <configuration>
+                            <newVersion>${nextMajorVersion}-SNAPSHOT</newVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>release</id>
+                        <configuration>
+                            <newVersion>${currentVersion}</newVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <dependencies>
+                    <!-- need to upgrade to working version 8.19 -->
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.19</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <configLocation>expo_checks.xml</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <consoleOutput>true</consoleOutput>
+                            <failOnViolation>true</failOnViolation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                	<version>${OWASP_VERSION}</version>
+                	<configuration>
+                    	<failBuildOnCVSS>11</failBuildOnCVSS>
+						<yarnAuditAnalyzerEnabled>false</yarnAuditAnalyzerEnabled>
+                    	<bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
+                    	<nodeAnalyzerEnabled>false</nodeAnalyzerEnabled>
+                    	<nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled>
+                    	<retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                    	<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+			<ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+			<disableOssIndex>true</disableOssIndex>
+                    	<skip>true</skip>
+
+<!--                    	<suppressionFiles>-->
+<!--                        <suppressionFile>${CI_PROJECT_DIR}/owasp-dependency-check-suppressions.xml</suppressionFile>-->
+<!--			</suppressionFiles>-->
+                	<!--<reportSets>
+	                    <reportSet>
+	                        <reports>
+	                            <report>aggregate</report>
+	                        </reports>
+			</reportSet>
+			</reportSets> -->
+                    </configuration>
+                    <inherited>false</inherited>
+		    <executions>
+                    	<execution>
+                        	<goals>
+                            	<goal>check</goal>
+                        	</goals>
+                    	</execution>
+		    </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.8</version>
+                <configuration> <!-- instrument only our code -->
+                    <includes> <!-- instrument only our code -->
+                        <include>com/expd/**/*</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*Test</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <!-- When updating excludes, please make sure to change them in both the report and
+                                check goals in order for reports to accurately show what's enforced-->
+                                <!-- the expo/omb subpackages should be ignored as they are copied legacy code.
+                                No new code should be added, so it is okay to ignore a whole package -->
+                                <exclude>com/expd/expo/booking/expo/**</exclude>
+                                <exclude>com/expd/expo/booking/omb/**</exclude>
+                                <!-- There is no need to unit test an enum -->
+                                <exclude>com/expd/expo/booking/USER_ORGANIZATION_ROLE.class</exclude>
+                                <!-- Only used for reading properties and should have no logic -->
+                                <exclude>com/expd/expo/booking/BookingConfig.class</exclude>
+                                <!-- Same with the inner classes -->
+                                <exclude>com/expd/expo/booking/BookingConfig$**.class</exclude>
+                                <!-- Should get unit tested once actually fetching reference data from DB -->
+                                <exclude>com/expd/expo/booking/services/ReferenceDataService.class</exclude>
+                                <!-- TODO: Fix in 280033 -->
+                                <exclude>com/expd/expo/booking/services/LegacyOMProfileService.class</exclude>
+                                <!-- There is no need to unit test an enum -->
+                                <exclude>com/expd/expo/booking/services/LegacyOMProfileService$OMB_USER_ROLE.class</exclude>
+                                <!-- TODO: Fix in 280036 -->
+                                <exclude>com/expd/expo/booking/services/validation/BookingSectionValidationService.class</exclude>
+                                <!-- TODO: Fix in 280038 -->
+                                <exclude>com/expd/expo/booking/services/validation/ShipmentDescriptionValidation.class</exclude>
+                                <exclude>com/expd/expo/booking/services/validation/ShipmentDescriptionValidation$*.class</exclude>
+                                <!-- TODO: Fix in 280040 -->
+                                <exclude>com/expd/expo/booking/services/validation/SectionFieldValidation.class</exclude>
+                                <!-- TODO: Fix in 280047 -->
+                                <exclude>com/expd/expo/booking/services/SignatureServices/BookingAllowInvalidSignatureService.class</exclude>
+                                <!-- JPA repositories are not unit tested, as they are really only relevant to
+                                integration.  Only JPA repositories should have this naming scheme.-->
+                                <exclude>com/expd/expo/booking/repositories/**/Jpa*.class</exclude>
+                                <!-- Fixed repositories will be replaced before go-live and are not worth testing -->
+                                <exclude>com/expd/expo/booking/repositories/FixedShipmentPickupRepository.class</exclude>
+                                <exclude>com/expd/expo/booking/repositories/FixedInsuranceRepository.class</exclude>
+                                <!-- TODO: Fix in 280124 -->
+                                <exclude>com/expd/expo/booking/repositories/BookingPermissionsDeserializer.class</exclude>
+                                <!-- Models can be excluded.  Exhaustively testing every get, every set, and all the
+                                branches in the equals method is not worth the benefit. Only POJOs should be here. -->
+                                <exclude>com/expd/expo/booking/models/**</exclude>
+                                <!-- Entities can be excluded for the same reasons as models -->
+                                <exclude>com/expd/expo/booking/entities/*</exclude>
+                                <!-- Exceptions can be excluded -->
+                                <exclude>com/expd/expo/booking/exceptions/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <!-- When updating excludes, please make sure to change them in both the report and
+                                check goals in order for reports to accurately show what's enforced-->
+                                <!-- the expo/omb subpackages should be ignored as they are copied legacy code.
+                                No new code should be added, so it is okay to ignore a whole package -->
+                                <exclude>com/expd/expo/booking/expo/**</exclude>
+                                <exclude>com/expd/expo/booking/omb/**</exclude>
+                                <!-- There is no need to unit test an enum -->
+                                <exclude>com/expd/expo/booking/USER_ORGANIZATION_ROLE.class</exclude>
+                                <!-- Only used for reading properties and should have no logic -->
+                                <exclude>com/expd/expo/booking/BookingConfig.class</exclude>
+                                <!-- Same with the inner classes -->
+                                <exclude>com/expd/expo/booking/BookingConfig$**.class</exclude>
+                                <!-- Should get unit tested once actually fetching reference data from DB -->
+                                <exclude>com/expd/expo/booking/services/ReferenceDataService.class</exclude>
+                                <!-- TODO: Fix in 280033 -->
+                                <exclude>com/expd/expo/booking/services/LegacyOMProfileService.class</exclude>
+                                <!-- There is no need to unit test an enum -->
+                                <exclude>com/expd/expo/booking/services/LegacyOMProfileService$OMB_USER_ROLE.class</exclude>
+                                <!-- TODO: Fix in 280036 -->
+                                <exclude>com/expd/expo/booking/services/validation/BookingSectionValidationService.class</exclude>
+                                <!-- TODO: Fix in 280038 -->
+                                <exclude>com/expd/expo/booking/services/validation/ShipmentDescriptionValidation.class</exclude>
+                                <exclude>com/expd/expo/booking/services/validation/ShipmentDescriptionValidation$*.class</exclude>
+                                <!-- TODO: Fix in 280040 -->
+                                <exclude>com/expd/expo/booking/services/validation/SectionFieldValidation.class</exclude>
+                                <!-- TODO: Fix in 280047 -->
+                                <exclude>com/expd/expo/booking/services/SignatureServices/BookingAllowInvalidSignatureService.class</exclude>
+                                <!-- JPA repositories are not unit tested, as they are really only relevant to
+                                integration.  Only JPA repositories should have this naming scheme.-->
+                                <exclude>com/expd/expo/booking/repositories/**/Jpa*.class</exclude>
+                                <!-- Fixed repositories will be replaced before go-live and are not worth testing -->
+                                <exclude>com/expd/expo/booking/repositories/FixedShipmentPickupRepository.class</exclude>
+                                <exclude>com/expd/expo/booking/repositories/FixedInsuranceRepository.class</exclude>
+                                <!-- TODO: Fix in 280124 -->
+                                <exclude>com/expd/expo/booking/repositories/BookingPermissionsDeserializer.class</exclude>
+                                <!-- Models can be excluded.  Exhaustively testing every get, every set, and all the
+                                branches in the equals method is not worth the benefit. Only POJOs should be here. -->
+                                <exclude>com/expd/expo/booking/models/**</exclude>
+                                <!-- Entities can be excluded for the same reasons as models -->
+                                <exclude>com/expd/expo/booking/entities/*</exclude>
+                                <!-- Exceptions can be excluded -->
+                                <exclude>com/expd/expo/booking/exceptions/**</exclude>
+                            </excludes>
+                            <rules>
+                                <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit implementation="org.jacoco.report.check.Limit">
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${jacoco.percentage.instruction}</minimum>
+                                        </limit>
+                                        <limit implementation="org.jacoco.report.check.Limit">
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${jacoco.percentage.branch}</minimum>
+                                        </limit>
+                                        <limit implementation="org.jacoco.report.check.Limit">
+                                            <counter>CLASS</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${jacoco.percentage.class}</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+        <!-- </pluginManagement> -->
+    </build>
+</project>

@@ -1,0 +1,277 @@
+1) Why OAUTH:
+-> Not related to Authentication 
+-> Meant only for Authorization 
+-> Originally created for authorization between Services 
+on behalf of user 
+
+2) OAUTH
+
+-> Valet key example - Common Analogy 
+a) Valet key and Master car key 
+-> Valet key can only start and stop the car 
+-> Master car key - Full access
+
+
+b) Car Owner uses two services 
+Valet Service and Car Service
+-> Valet service needs access to car service directly 
+to do the job 
+-> Rather than giving complete credentials of 
+car service, Car owner gives limited access of Car 
+service to Valet service by providing Valet key 
+
+
+c) This is similar to how an OAUTH works 
+d) OAUTH in general is an authorization mechanism 
+where service can authorize each other on your behalf 
+e) OAUTH - Access delegation 
+
+
+
+2) OAUTH Flow:
+a) Certain spec that all these services need to 
+follow,  when these services 
+talk to each other 
+-> Also a certain flow that needs to be followed while the 
+services talk to each other and this is called OAUTH flow 
+
+3) How OAUTH flow works: Analogy 
+a) Consider a PHOTO print app and Google drive service 
+example here. 
+-> We have a service here that needs to access Google 
+drive 
+-> We have a user who is logged to both Photo printing 
+service and Google 
+-> Each service trusts the user, but the services 
+dont trust each other 
+b) Without OAUTH implementation, these services 
+cannot talk to each other.
+-> But with these two services, having OAUTH implemented - they can talk 
+to each other 
+c) When Photo print app goes and access Google service: google 
+does something intersting 
+d) It goes to the user and says: This service wants 
+to access and shall i allow? Also it has list of 
+things that this service wants to do, shall i allow? 
+e) User sees who is the service and what all things 
+the service wants access 
+f) if user is ok, it will say ok to google. Now google will say my user 
+is verified - so it will say to photo print app that 
+you can access now and then gives the Photo print service access 
+a key token called an Authorization token - which contains 
+only the allowed permissions - similar to Valet key 
+-> This token is a key with limited permissions 
+g) The photo printing service, saves this Authorization token and 
+every time the photo printing service needs to access Google 
+drive, it just gives this token and asks for the service 
+h) google will validate the token  and it will allow 
+the access 
+i) With this token, Photo print service has limited 
+access to Google service 
+
+
+4) OAUTH terminologies  
+-> Consider the same PHOTO print app and Google drive service 
+example here.
+-> Where user uses Photo printing service and user wants 
+to access photos from Google drive  in order to print it 
+
+a) Resource: 
+-> Also referred as Protected Resource 
+-> In our example we want Photos to be accessed in 
+google drive 
+-> Here Photos in google drive is the Resource and that is 
+the Protected resource 
+-> Here google drive is called Protected since not everyone 
+has access to it. 
+
+
+b) Resource Owner:
+-> The person who has access to the resource right now
+-> In our example it is the User 
+-> Resource owner is also an entity/person which 
+is capable of granting access to a Protected resource 
+
+c) Resource Server:
+-> Server that holds the protected resource or the 
+server that hosts the protected resources 
+-> In our example, Google drive is the Resource server 
+
+d) Client
+-> Photo printing service in this example is called 
+CLIENT 
+---> Client is that application making protected 
+resource request on behalf of resource owner and with 
+Resource owner's authorization 
+
+-> Resource owner will say client: Hey client, get me protected server 
+and do something with  it 
+
+e) Who has the burden of security in these roles:
+CLIENT
+RESOURCE OWNER
+RESOURCE SERVER
+RESOURCE
+
+-> The person who has the resource will have the burden of 
+security 
+-> In our case Resource has the burden of security
+
+f) Typically Resource server has coupled with it the 
+authorization server 
+-> The authorization server is responsible for making 
+sure - whoever is accessing the resource server is 
+authorized 
+
+g) Hence in our example Google drive - implements OAUTH 
+-> Thus google implements Authorization server which takes 
+care of Authorization
+-> Most of the time Resource server and Authorization server 
+are coupled 
+-> Authorization server could be separate server 
+or it could be along with Resource server 
+
+h) Authorization server;
+-> The server that issues access tokens to the client 
+
+-> Thus authorization server's responsibility is to 
+authorize and resource server's responsibility is to 
+manage the resource 
+
+
+i) ROLES:
+CLIENT
+RESOURCE OWNER
+RESOURCE SERVER
+RESOURCE
+AUTHORIZATION SERVER 
+
+
+5) How Typical OAUTH flow works:
+-> There are different variations of OAUTH flow 
+-> 3 common flows 
+a) OAUTH flow 1: Authorization Code Flow 
+
+
+
+6) OAUTH flow 1: Authorization code flow
+a) User logged in to PHOTO printing service and but says 
+my photo is in google drive
+-> Can you fetch my photos from Google drive 
+
+---> Here Resource Owner(user) tells the Client(Photo printing service), 
+ Go and access the resource(Photos in google drive) in 
+ the Resource server(google drive) 
+ 
+b) What does the CLIENT do ? 
+CLIENT knows that: to access Resource in Resource server, 
+it needs  OAUTH 
+-> Because Resource server uses OAUTH
+-> CLIENT knows that it needs to talk to authorization server 
+first 
+
+-> Hence it talks to Authorization server and says it wants 
+to access Resource from the Resource server 
+
+c) Authorization talks to client i.e Resource Owner   
+and says about who is the Client and also the list of permissions needed by Client
+d) Then Resource owner provides acceptance to allow  and then authorization server 
+provides Client access to the resource 
+-> Authorization server does it by sending Authorization token which is short lived to the client 
+e) Client uses this authorization token and contacts the 
+authorization server to get second token which is 
+Access Token 
+f) THus a couple of exchanges happen here : Auth token and Access Token 
+
+Access Token is like Room card given in hotel 
+
+
+g) Now whenever client(Photo printing service) wants access to Resource(Photos in google drive),
+Client calls the Resource server(google drive) directly  through an api call with Access Token 
+h) Resource server(google drive) Now can validate the token by itself or have it validated with Authorization server 
+i) Once it is validated, the Resource server provides the resource to the Client 
+
+-> This ends OAUTH flow 1:
+
+
+7) OAUTH flow 2: Implicit flow
+-> Works very similar to flow 1, but a little bit simplified 
+
+a) This flows starts in same way.  
+Resource Owner(user) makes a request to the client(Photo printing service) 
+b) Client(Photo printing service) calls the authorization server 
+c) Authorization server calls Resource Owner and asks if the client and its permissions are ok to be allowed?
+d) If the resource owner says yes, step5 is going to be different than flow 1.
+-> Rather than Authorization server handing over authorization token and then exchanging it back from Client to provide the access token 
+--> THis time authorization server directly sends the access token to the client 
+e) Now client makes api call with access token to Resource server 
+f) Resource server validates token by itself or with authorization server and then it hands over the resource to the Client 
+
+This is a slightly simplified flow, where there is no exchange of AUTH token and only exchange of ACCESS token happens in this flow 
+
+
+DRAWBACK:
+-> Client has the access token and it uses access token anytime it wants to contact the resource server 
+---> The only thing that is needed now to access the resource server is the ACCESS token 
+-> If someone gets access to access token, then can impersonate the client and access the Resource server 
+a) Not so secure
+b) Primarily used with short lived access tokens 
+c) Used with Javascript apps 
+
+
+8)OAUTH Flow 3: Client Credentials Flow 
+-> When the client is well trusted(Confidential clients) 
+a) Used when client is very trustworthy 
+eg: If you write the client by yourself i.e in situation 
+of microservices. Where we have two microservices
+-> Where microservices1 wants to talk with microservices2
+-> Both of these are written by us 
+
+
+Example:
+i) We have two microservices: microservices1 and microservices2
+and an AUTH server 
+
+b) Here microservices1 makes a call to AUTH server  and it provides 
+a client id to AUTH server 
+c) AUTH server understands the client and it 
+provides an ACCESS token to microservices1
+d) microservices1 makes a call to microservices2 using the 
+ACCESS token and calls the target api in microservices2
+e) Then microservices2 validates the access token and 
+serves the required information to microservices1
+ 
+ 
+-> This flow works well in the context of communication 
+between microservices 
+
+
+9) Using OAUTH for authentication 
+a) Consider you are building photo printing 
+service i.e the CLIENT which is trying to access the resource server 
+-> First step, we need to authenticate your user 
+first -> Authenticating Photo printing service 
+b) Then after authenticate user with CLIENT service,
+ we need to add the ability to access the resource server 
+c) We know that we can use oauth server and get information about the 
+user  
+-> By accessing Resource server, we are basically validating the person's 
+google or facebook or github account 
+d) When you are successfully done oauth, you know that the user has 
+a google account and you know what the email id is. 
+-> If we are getting these details from Authorization server, 
+why should i implment authorization again? 
+-> If authorization server says this person is reliable, then it is fine for me 
+e) This is typical, when you build a client service and 
+when you interface with a popular Resource server 
+-> if a user has an account with that service, you can easily 
+delegate authentication to that resource server
+f) thus we are using oauth to leverage authentication also 
+
+HOW it works 
+g) When you create a spring security app, we can have 
+authentication on our own or make an oauth call to google 
+
+
+
+

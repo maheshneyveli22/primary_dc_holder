@@ -1,0 +1,27 @@
+No Pattern/Trade observed
+
+In Middle of Range, better to stay away
+
+Previous support could act as resistance
+
+Look For Long if previous day high broken
+
+Watch out for the price action after triangle breakout
+
+Take position when it comes out of this box
+
+Watch out for descending triangle breakout
+
+
+Near support, wait and watch
+Near resistance, wait and watch
+
+
+1) Replace [\r\n]  with single space
+2) Replace double space with single space
+3) Replace "\." with "\.\n"
+
+
+for linked in:
+Replace "\." with "\.\n->"
+

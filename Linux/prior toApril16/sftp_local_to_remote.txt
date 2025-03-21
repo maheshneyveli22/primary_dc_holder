@@ -1,0 +1,19 @@
+C:\Users\gs1-maheswarane>sftp gs1-maheswarane@cxpdmzjump.chq.ei
+gs1-maheswarane@cxpdmzjump.chq.ei's password:
+Connected to cxpdmzjump.chq.ei.
+sftp> ls
+Backup_bookingservice_May19   Java17_BookingService         mah.txt
+sftp> lpwd
+Local working directory: c:\users\gs1-maheswarane
+sftp> lcd C:\ExpoNow\booking-parent\booking-service\target
+sftp> lpwd
+Local working directory: c:\exponow\booking-parent\booking-service\target
+sftp> ls
+Backup_bookingservice_May19   Java17_BookingService         mah.txt
+sftp> put bookingapi.jar
+Uploading bookingapi.jar to /home/gs1-maheswarane/bookingapi.jar
+bookingapi.jar                                                                          8%   11MB  22.8KB/s 1:29:25 ETA
+
+
+
+

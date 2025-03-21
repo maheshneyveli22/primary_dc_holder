@@ -1,0 +1,549 @@
+OAUTH 2.0 AND OPENID CONNECT 
+https://www.youtube.com/watch?v=996OiexHze0&t=1863s&ab_channel=OktaDev
+https://oauthdebugger.com/
+
+1) Identity Use cases (pre 2010) 
+-> Simple Login(forms and cookies) 
+-> Single sign on across sites(SAML) 
+-> Mobile app login(???)
+-> Delegated authorization(???) 
+
+2) Delegated Authorization is the genesis or origin of where OAUTH came in 
+a) Delegated Authorization problem: How can i let a website access my data(Without giving it my password) 
+
+eg: 
+SO and so app is trying to access your facebook account or google or twitter account , which allows to see your public 
+profile like bday, but wont allow the app to post facebook posts on your page 
+-> Then we click yes or allow to access oru facebook or google account 
+
+b) This pattern is OAUTH . OAUTH means open authorization 
+-> If we ever clicked "yes" on that prompt, then we have already used OAUTH 
+
+
+c) Why is this pattern invented? 
+-> To solve the problem what yelp faced by taking gmail credentials 
+-> While we use MINT, we still give bank credentials, this is because banks have not adopted OAUTH yet today 
+
+3) HoW OAUTH solves this problem? 
+a) I trust gmail and i kindg of trust yelp. 
+-> I want yelp to have access to my contacts only , but i dont want them to delete my email or look at my google photos etc
+b) For that we have a button on yelp saying -> Connect with google or Authorize with google button 
+-> when user clicks on that button - User is put into OAUTH flow 
+c) OAUTH flow is the set of steps that ultimately reuslts in the application being able to access that information or having that authorization to access that information. 
+
+i) Once user clicks on connect with google button, user is redirected to a google domain(accounts.google.com)  
+ii) And in that google domain, we will be prompted to login, so we need to enter email and password 
+-> Here we give the email and password to google and not yelp 
+iii) After logging in successfully, i get a prompt saying " Hey this application yelp is trying to access your list of things like public profile, contacts etc." -> Are you sure you want to allow this? 
+-> Here the user has to explicitly consent to whatever they are granting access"
+iv) Now if user clicks yes, then the browser is once again redirected back to the application , back to application ie. where it started to a special place on the application called a callback or redirect URI 
+v) Now the application is allowed to talk to some other API eg: google contacts API( contacts.google.com) and say "hey normally i would not have access to Nate's  
+
+
+1Yelp.com(COnnect with google button)-------> 2[accounts.google.com email/pwd] 
+														|
+														|
+														|
+														|
+											 [accounts.google.com]
+											Allow yelp to access your public profile and 
+											contacts? {YES/NO} 
+                                                        |
+														|
+														|
+														|
+												yelp.com/callback-------------------> Contacts.google.com 	
+
+
+
+----------------OAUTH2.0 terminology-------------------------
+● Resource Owner 
+-> User who can click yes i.e User who owns the data that the application wants to get.
+-> In our example, contacts is the resource and user is the "Resource owner" 
+-> Resource owner is the person who can click "yes" 
+
+● Client 
+-> Client means the application , in our case it is YELP  Here YELP is the client , which wants access to "contacts" data
+ 
+● Authorization server 
+-> System that i can use to say "yes" to which i authorized . 
+-> Here accounts.google.com is the authorization reserver 
+
+
+● Resource Server 
+-> It is the API or the system that holds the data which is needed by client 
+-> Here it is google contacts API: Contacts.google.com 
+--> Sometimes authorization server and resource server are same. 
+
+	 
+
+● Authorization grant 
+-> The whole point of using OAUTH having back and forth flow is to get something called an Authorization grant 
+-> Authorization grant is the one, that basically proves that the user has clicked "YES" , which consents to the level of 
+permission 
+
+● Redirect URI 
+-> When authorization server redirects back to the client application, it needs to know where to "redirect back to" 
+-> "redirect" is also called "call back" or "redirect URI" -> It is basically where is should end up at the end of this flow 
+-> If the user clicks "Yes"  where do they need to go next
+---> in expo now it is the email/password entering screen   
+
+● Access Token 
+-> While authorization grant is the ultimate aim of this flow, at a higher level what the client really needs is an "Access Token" 
+-> Access token is the key that they use to get into whatever data that i granted access or permission on the resource server. 
+
+												
+----------------OAUTH2.0 terminology-------------------------
+
+vi) Now fitting these terminologies, we will get the diagram as below : 
+
+->Authorization server could be accounts.google.com or facebook.com  or Autorization server hosted by OCTA 
+-> As the client is redirected over to the authorization server, it is already passing along some information or configuration information 
+that the authorization server needs. 
+-> It says authorization server, when you are done i.e when everything is successful, here is where i want you to redirect back at the end  
+
+REDIRECT URI 
+-> Hence we pass the REDIRECT URI at the very beginning 
+
+GRANT_TYPE:
+-> also we need to tell what type of authorization grant do we want 
+-> While there are different types of authorization grants, here we will use code grant or authorization code grant . 
+-> eg: grant_type: authorization_code
+
+-> Authorization server then prompts the user login consent to that permission , it goes to the place which is specified in the REDIRECT_URI (yelp.com/callback) 
+-> It redirects back with an authorization code , because that is what we asked for, at the beginning 
+
+GETTING ACCESS TOKEN USING AUTHORIZATION CODE 
+Client can do a lot of things with the authorization code . One thing which client can do with authorization code is : going back to the authorization server one more time and say "hey you just sent me the authorization code, but what is really want is an access token 
+-> so can i excchange authorization code with access token. Authorization server says "sure" and it just makes sure that the code is valid and returns client with the access token 
+---> Then client talks back to resource server with the access token 
+-> Thus client with the access token can go to resource server(contacts.google.com) and ask for the users contacts 
+-> SInce the client has attached the access token to the request, contacts.google.com will  share the information of contacts 
+---> if client asks for other operation apart from viewing contacts like deleting contacts -> then that wont be allowed 
+
+-> Thus this is the WHOLE FLOW 
+
+            USER(Resource owner)
+             |
+			 |
+             | 
+	       CLIENT                           goto authorizationserver            AUTHORIZATION SERVER           
+	1Yelp.com(COnnect with google button)-------------------------> 2[accounts.google.com email/pwd] 
+										RedirectURI:								|             
+										yelp.com/callback							|
+										Response Type:Code							|
+																					|
+																	 [accounts.google.com]
+																	Allow yelp to access your public profile and 
+																	contacts? {YES/NO} 
+																					|
+																					|
+																					|
+																					|
+															            Contacts.google.com 
+                                                                                    |
+                                                                                    |
+																				    |
+																			Back to redirection URI 
+																			yelp.com/callback 
+																			        |
+                                                                                    |
+																				    |
+																		Exchange authorization code for access token 
+																		Authorization server gets Authorization code and returns Access to token to client 
+																		(yelp.com/callback )
+																		           |
+																				   |
+																				   |
+																Client Talk to resource server with Access token
+																                   |
+																				   |
+																				   |
+																				   |
+																        contacts.google.com
+																(Thus client can talk to resource server and get the user's contacts) 
+																	
+
+
+4) Scope 
+a) Authorization server has a list of scopes that it can understand 
+eg: contacts.read , contacts.write , email. read, email.delete etc 
+
+-> Basically any type of permissions 
+b) Client application can use the scope or permissions they want in their application 
+c) List of permissions that the client is asking for, is then used by the authorization server to generate the consent screen, that is presented to the user 
+which says "hey yelp is asking permission to do XYZ, ABC, are you sure you want to allow this? 
+->>Users will be able  to consent or not consent to that particular level of access  or particular list of scopes 
+
+
+d) Now diagram updated with scope 
+-> Not much changed here, except the beginning , during initial request to authorization server  client specifically enumerates all the scopes separated by spaces for the user 
+{in our case, yelp application wants to access my public profile and contacts] 
+1) because client requested scope profile and contacts , in flow after client exchanges authorization code and gets the access token , then uses that access token to call some api 
+2) The access token itself if limited or scoped, to exactly whats scopes were requested at the beginning 
+-> In our case, access token is specifically scoped to PROFILE CONTACTS, which means that yelp application could not turn around and send some other api request to : google calendar api or delete request to contacts, because accesss token even though it is valid, it is not scoped to do those particular things 
+
+
+
+    USER(Resource owner)
+             |
+			 |
+             | 
+	       CLIENT                           goto authorizationserver            AUTHORIZATION SERVER           
+	1Yelp.com(COnnect with google button)-------------------------> 2[accounts.google.com email/pwd] 
+										RedirectURI:								|             
+										yelp.com/callback							|
+										Response Type:Code							|
+									SCOPE:PROFILE CONTACTS							|
+																	 [accounts.google.com]
+																	Allow yelp to access your public profile and 
+																	contacts? {YES/NO} 
+																					|
+																					|
+																					|
+																					|
+															            Contacts.google.com 
+                                                                                    |
+                                                                                    |
+																				    |
+																			Back to redirection URI 
+																			yelp.com/callback 
+																			        |
+                                                                                    |
+																				    |
+																		Exchange authorization code for access token 
+																		Authorization server gets Authorization code and returns Access to token to client 
+																		(yelp.com/callback )
+																		           |
+																				   |
+																				   |
+																Client Talk to resource server with Access token
+																                   |
+																				   |
+																				   |
+																				   |
+																        contacts.google.com
+																(Thus client can talk to resource server and get the user's contacts) 
+
+
+
+5) [general question] 
+-> Why do we have authorization code and then exchange it to get access token?  why cant we just use authorization code or get access token immediately? 
+
+.............Terminology.............................
+● Back Channel(highly secure channel) 
+-> If i have my server code running in my server, in which only i have access and if i try to make an api request from my server to another server like Google's API.
+-> This goes over https which ssl encrypted , where no one can intercept that communication which is highly secure.
+-----> This will be considered as back channel : where request goes from my server to some other system 
+● Front Channel(less secure channel) 
+-> Front channel on the other hand is like your browser - where the browser is secure but there are some loopholes in browsers , because we can see source code in browser and we can see the network and see what is happening there . Hence browsers are considered to be front channel where wecan trust the browser but not completely 
+
+->Thus in server means there is complete trust and in browser means there is no complete trust 
+............................................................
+
+6) 
+a) Thus the whole OAUTH flow is designed to take advantage of the best things about the front channel and the best things about the back channel , to make sure it is highly secure. 
+
+b) Coming back to OAUTH2.0 authorization code flow 
+1) We have client which goes to the authorization server  and all things happening in the flow are happening on the front channel 
+i.e all these are full page redirects in the browser. 
+-> In flow, we have outgoing request, we have redirect over to the authorization server - stuff we pass to the authorization server, the redirect uri, response type, scopes were all passed through the browser via query parameters of the http request 
+-> Thus if someone sees the address bar of the user, they can see the stuff. 
+---> It is ok to see the redirecturi, response type or scope . But that is not a problem 
+2) Now in the flow, where there is data coming back from the authorization server  to Client - this is also happening on the front channel 
+--> In this flow, authorization code is also transmitted through the browser which is through front channel 
+3) Authorization code is also sent in the query parameterss of the request ,  
+-> Authorization code comes back to the redirect uri  i.e to the call back over the browser 
+
+4) The next step which is Exchanging authorization code for access token happens on a back channel 
+Reason for happening in back channel: 
+-> Lets say some one is intercepting your browser requests , can see the code as it comes through the browser - where some has maliciously installed a tool in your browser which watches all the browser requests 
+-> In that case, he will be able to see as it came across the browser /callback?code=xxxxx
+-> The malicious person could steal the code , then beat you to the exchange and try to get the access token before i could. 
+-> The person cant do that because the exchange happens only in the back channel 
+
+
+
+ 
+    USER(Resource owner)
+             |
+			 |
+             | 
+	       CLIENT                           goto authorizationserver            AUTHORIZATION SERVER           
+	1Yelp.com(COnnect with google button)-------------------------> 2[accounts.google.com email/pwd] 
+										RedirectURI:								|             
+										yelp.com/callback							|
+										Response Type:Code							|
+									SCOPE:PROFILE CONTACTS							|
+																	 [accounts.google.com]
+																	Allow yelp to access your public profile and 
+																	contacts? {YES/NO} 
+																					|
+																					|
+																					|
+																					|
+															            Contacts.google.com 
+                                                                                    |
+                                                                                    |
+																				    |
+																			Back to redirection URI 
+																			yelp.com/callback 
+																			        |
+                                                                                    |
+																				    |
+																		EXCHANGE AUTHORIZATION CODE FOR ACCESS TOKEN 
+																		AUTHORIZATION SERVER GETS AUTHORIZATION CODE AND RETURNS ACCESS TO TOKEN TO CLIENT 
+																		(YELP.COM/CALLBACK )-------------> Back channel 
+																		           |
+																				   |
+																				   |
+																CLIENT TALK TO RESOURCE SERVER WITH ACCESS TOKEN-------------> Back channel 
+																                   |
+																				   |
+																				   |
+																				   |
+																        contacts.google.com
+																(Thus client can talk to resource server and get the user's contacts) -------------> Back channel 
+
+
+5) Thus token exchange happens when the applicationi.e client  grabs that code, then makes a back-channel request - from the backend server code  to the Authorization server 
+-> This exchange does not happen through the browser. 
+-> This is for security 
+6) As part of this Client(yelp.com) which is the application will http post the authorization code to the authorization server, along with other information like SECRET KEY that only the server knows. 
+-> Thus even if someone stole the authorization code, they would not be able to make that exchange request and get access token 
+7) Thus this operation happens in back channel, because we dont even want that secret key to be in browser 
+8) Communication with resource server using the access token is also done using the back channel 
+-> Access token contains sensitive information 
+-> If i transmit access token to browser, someone could steal it and do whatever possible with that access token. 
+9) We told that this flow is designed to take best things about back channel and best things about front channel. 
+-> Front channel is used to interact with user: login screen, consent screen. That is what browser is good at 
+-> Back channel: SInce we cannot completely trust the browser with information like secret keys etc , last step of the flow i.e exchange of authorization id with token, happens in back channel  i.e the system we trust  
+
+10) Do we need to setup with Google i.e Authorization server to get that secret key? 
+
+11) Starting the flow:
+-> Looking at the flow will help answering the 10 th question too. 
+
+a) If we look at the button which says connect with google or link to google, this is the place where that would be going 
+-> This is where the browser gets redirected to 
+1) starting the flow
+https://accounts.google.com/o/oauth2/v2/auth?client_id=abc123&redirect_uri=https://yelp.com/callback&scope=profile&response_type=code&state=foobar
+
+12) If i am building the next yelp and if i want to have people authorize their google contacts, so that yelp can have access to their contacts . 
+a) To do the same, i need to do a one time setup , where i go to google  i.e authorization server and i will create a client
+b) By creating a client, i get two things: i get client ID and  also a client secret 
+
+eg:
+Client ID:
+194853530508
+urd4bp97kjg9kc2ke7bh28g8e5kkra0h.apps.googleusercontent.com 
+
+c) Client id and client secret  identifies me to the authorization server 
+d) Thus client id is passed along with initial request which is on the front channel because clientid is not sensitive . Client id just identifies the yelp application 
+e) Client secret on the other hand is like my secret key. THis is what i use in the back channel request during the token exchange step. 
+
+CALLING BACK:
+https://yelp.com/callback?error=access_denied&error_description= The user did not consent -> If the user did not give consent 
+
+
+https://yelp.com/callback?code=oMsCeLvIaQm6bTrgtp7& state=foobar   -> if the user gave consent 
+
+f) Now the next step is exchanging the code for an access token 
+
+3) Exchange code for an access Token 
+-> request for access token happens on different route: www.googleapis.com/oauth2/v4/token 
+-> We send a post request that has the code that we just got , client_id , client_secret , grant_type 
+
+POST www.googleapis.com/oauth2/v4/token 
+Content-Type: application/x-www-form-urlencoded 
+
+code= oMsCeLvIaQm6bTrgtp7 &
+client_id=abc123&
+client_secret=secret123&
+grant_type=authorization_code 
+
+
+g) Now authorization server returns an access token 
+
+
+4) Authorization server returns an access token 
+{
+"access_token": "fFAGRNJru1FTz70BzhT3Zg",
+"expires_in": 3920,
+"token_type": "Bearer" , 
+
+}
+
+h) Thus client got the access token , which is needed to make a request. 
+-> Client will use this token and send request to the downstream API 
+-> It is the duty of downsteam API to make sure token is valid, check its expiry and also the scope to do what needs to be done . 
+
+5) Use the access token 
+Get api.google.com/some/endpoint 
+Authorization: Bearer fFAGRNJru1FTz70BzhT3Zg 
+
+               Token 
+CLIENT-----------------------------> API    * Validate Token, Use Token scope for authorization 
+
+
+
+i) Assuming all checks and validations have passed, the resource would be made accessible by the downstream api 
+j) There are couple of different oauth flow.s Now we have seen grant_type as AUTHORIZATION_CODE oauth flow 
+-> There are couple of different flows based on couple of grant_types 
+k) OAuth 2.0 Flows
+● Authorization code flow(front channel + back channel) 
+● Implicit flow(front channel only) 
+-> for some reason you dont have back channel, you only have a front channel , then you can skip that exchange step and and just give  token right back from the authorization server. 
+-> Here no authorization code will be returned from authorization server and we will get the access token. 
+-> Implicit is used sometimes when you have situations where you dont have a back channel and you only have a front channel. 
+-> It happens when you have a pure javascript app like pure react app or pure angular app which does not have backend 
+
+eg: Response Type: token 
+-> less secure, since we dont have assurance , that the exchange steps happened as back channel . Here token is exposed to browser 
+
+---->  Ideally if we have backchannel, we should use Authorization code flow , but for single page applications you can give implicit 
+---> in this case we will give: Response Type as Token , which means give me the access token immediately 
+
+● Resource owner password credentials(back channel only)  or ● Client credentials(back channel only) 
+-> These two flows are back channel only . They dont involve user's browser at all. It is just your backend code  posting a message to authorization server 
+-> This is not commonly used like authorization code flow or implicit flow 
+-> It is used when we are doing machine to machine or service communication flow 
+-> This flow used to make older applications work correctly, but not recommended for new applications  
+
+l)
+
+##################################################################################
+1) starting the flow
+https://accounts.google.com/o/oauth2/v2/auth?client_id=abc123&redirect_uri=https://yelp.com/callback&scope=profile&response_type=code&state=foobar
+2) CALLING BACK:
+https://yelp.com/callback?error=access_denied&error_description= The user did not consent -> If the user did not give consent 
+
+
+https://yelp.com/callback?code=oMsCeLvIaQm6bTrgtp7& state=foobar   -> if the user gave consent 
+
+3) Exchange code for an access Token 
+-> request for access token happens on different route: www.googleapis.com/oauth2/v4/token 
+-> We send a post request that has the code that we just got , client_id , client_secret , grant_type 
+
+POST www.googleapis.com/oauth2/v4/token 
+Content-Type: application/x-www-form-urlencoded 
+
+code= oMsCeLvIaQm6bTrgtp7 &
+client_id=abc123&
+client_secret=secret123&
+grant_type=authorization_code 
+
+
+4) Authorization server returns an access token 
+{
+"access_token": "fFAGRNJru1FTz70BzhT3Zg",
+"expires_in": 3920,
+"token_type": "Bearer" , 
+
+}
+
+5) Use the access token 
+Get api.google.com/some/endpoint 
+Authorization: Bearer fFAGRNJru1FTz70BzhT3Zg 
+
+               Token 
+CLIENT-----------------------------> API    * Validate Token, Use Token scope for authorization 
+
+##################################################################################
+
+13) Nowadays OAUTH is used for more than Delegated authorization and is overused. 
+
+a) Identity user cases
+-> Simple signon (OAuth 2.0)
+-> Single sign-on across sites (OAuth 2.0) 
+-> Mobile App login (OAuth 2.0) 
+-> Delegated authorization(OAuth 2.0) 
+
+14) Using OAuth for Authentication : via OIDC 
+-> OAuth is not really built for authentication 
+
+a) In OAuth there is no standard way of getting the users information 
+-> If you login to a website and you wan to know little bit of information about : Your name, email address etc 
+---> Originally oAuth was designed for permissions, scopes etc of access tokens> It does not really care who you are 
+-> Hence there is no standward way  to get users information 
+
+b) Problems with OAuth2.0 for authentication 
+► No standard way to get user's information 
+► Every implementation is a little different 
+► No common set of scopes 
+
+
+c) Because of the above problems, whiel OAuth2.0 is used for Authorization ie. for solving delegated authorization problem - In order to make it useful for Authentication - they came up with a protocol called 
+Open ID connect. 
+d) Open ID Connect is just a 5to10% layer on top of OAuth2.0 
+-> It says if you are using Oauth for these authentication use cases, just do this extra stuff. 
+e) OIDC is just an extension to OUth2.0 
+
+15) What OpenID Connect Adds? 
+a) ID Token 
+-> ID token has some of the users inforamtion. It represents the ID or the information about the user 
+
+b) UserInfo endpoint for getting more user information 
+-> if for some reason, the ID token you get back from Authorization does not have all of the information you want, we can request more user information from userInfo endpoint 
+-> Thus with OIDC i can ask for access token as well as ID token 
+c) Standard set of scopes 
+-> only difference here is in addition to profile scope, we will also request for openid scope 
+--> this will mean that this is an oauth+OIDC request 
+
+-> Here we exchange authorization code for access token and ID token 
+
+Redirect URI: yelp.com/callback 
+Response type: code 
+Scope: openid profile 
+
+
+---> In the access token we get from Authorization server in the yelp application we get USERINFO ALONG WITH ACCESS TOKEN
+
+d) Standard implementation 
+
+
+e) ID token contains the following: Header/ Payload /Signature
+
+(Header).{.....}.(signature) 
+
+
+-> Payload portion is also called claims 
+
+f) Claims can be decoded by our application(yelp.com) 
+-> It helps to identify who logged in 
+-> User information 
+-> When does the token expire 
+
+g) Signature is also important , because signature is used to verify that the ID token has not been modified or compromised or changed in any way in flight. 
+-> so client application can take that signature , do some crypto math on it and check its validity 
+
+h) Also we can use access token to get the /userinfo endpoint 
+
+i) 
+a) Identity user cases
+-> Simple signon (OAuth 2.0)  Authentication
+-> Single sign-on across sites (OAuth 2.0) Authentication
+-> Mobile App login (OAuth 2.0) Authentication
+-> Delegated authorization(OAuth 2.0) Authentication
+
+
+j) Use OAuth2.0 for :
+-> Granting access to your api 
+-> Getting access to user data in other systems. 
+(Authorization) 
+
+User OpenID connect for:
+-> Logging the user in 
+-> Making your accounts available in other systems 
+(Authentication) 
+
+
+16) Which grant type(flow) do i use?
+
+
+● Web application w/server backend : authorization code flow 
+● Native mobile app: Authorisation code flow tih PKCE - proof code for key exchange 
+● Javascript app(SPA) w/ API backend: Implicit flow 
+● Microservices and APIs: Client credentitals flow 
+
+

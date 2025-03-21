@@ -1,0 +1,3 @@
+through the process running in server
+ps -ef | grep -i postgres
+it will give you user name and IP

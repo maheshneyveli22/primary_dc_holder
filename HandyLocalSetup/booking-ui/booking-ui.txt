@@ -1,0 +1,36 @@
+1) 
+Change in UI:
+For doc upload-- Change in C:\Workspace\booking-ui\src\booking\framework\environments\environment.ts----
+
+
+
+        resetPasswordUrl: 'http://api.dev.test-expeditors.com/api/booking/reset-password',
+        documentUploadUrl: 'http://localhost:8443/booking/document-upload',
+        documentDeleteUrl: 'http://localhost:8443/booking/document-delete',
+        documentDownloadUrl: 'http://localhost:8443/booking/document-download',
+		
+		
+2) 
+To load mock
+http://localhost:4205/booking?services=mock
+To Clear locale
+http://localhost:4205/booking?locale=clear
+TO go arabic locale
+http://localhost:4205/booking?locale=ar
+
+
+3) for pointing local ui to local db:
+
+Change in C:\Workspace\booking-ui\src\booking\framework\environments\environment.ts----
+
+   from:   graphQL: 'https://api.dev.test-expeditors.com/graphql',
+	 
+	 to 
+	 
+	 
+        graphQL: 'http://localhost:8443/graphql',
+		
+		
+		to 
+		
+		        graphQL: 'http://localhost:9442/graphql',

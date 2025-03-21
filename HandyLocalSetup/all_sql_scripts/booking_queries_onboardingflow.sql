@@ -1,0 +1,22 @@
+--Onboarding flow--
+--1-NOWDB select * from BOOKING_USER u where lower(u.email) = lower('MAHESWARAN.ELUMALAI@EXPEDITORS.COM')
+--2-NOWDB  select u from USER_PROFILE u where lower(u.email) = lower('MAHESWARAN.ELUMALAI@EXPEDITORS.COM')
+--3-NOWDB select onboarding_status from BOOKING_USER u where lower(u.email)=lower('MAHESWARAN.ELUMALAI@EXPEDITORS.COM')
+--4-NOWDB CREATE merge new entry in BOOKING_USER 
+
+--select * from booking_user where lower(email)= lower('maheswaran.elumalai@expeditors.com');
+--select * from user_profile where email = 'maheswaran.elumalai@expeditors.com'
+
+--5-NOWDB select * from BOOKING_USER u where lower(u.email) = lower('MAHESWARAN.ELUMALAI@EXPEDITORS.COM')
+--6-EXPODB select * from user_profile where email = 'maheswaran.elumalai@expeditors.com'
+--7-NOWDB SELECT * FROM Customer_GCI_Organization where lower(gci_code) = lower('G0200162');
+--8-NOWDB select * from USER_PROFILE u where lower(u.email)= lower('booking-internal-admin-do-not-reply@expeditors.com')
+--9-NOWDB select * from external_permission where id in (673001,673101,673151,673051,673201)
+--10-NOWDB select * from customer_gci_organization where id =672901
+--11-NOWDB 
+--select MAX(id) from USER_PROFILE
+--12-NOW DB Create Mappings between User_profile and User_profile_external permission and external_permission
+--13-NOW DB Create Mappings between User_profile and user_cust_organization and customer_gci_organization
+--14-NOW DB -> Save User_profile object to USER_PROFILE DB 
+--15-NOW DB -> Update booking_user onboading status to COMPLETE 
+-- select * from user_cust_organization

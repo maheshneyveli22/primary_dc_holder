@@ -1,0 +1,1299 @@
+Auth0 - grant types:
+a) Client credentials 
+b) Password 
+c) authorization_code
+
+
+------------------------------------------------------------
+1) implicit	Implicit Grant
+2) authorization_code	Authorization Code Grant
+-> https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow
+a) Authorization code flow should be used, if the client is a regular web application executing on a server 
+
+3) client_credentials	Client Credentials Grant
+-> For M2M applications 
+-> a) When client credential flow is applied - Client is the resource owner 
+-> Which means application is the user 
+-> So application will directly call authorization server to get the token 
+-> The obtained token will be used for further requests to access Resources 
+
+4) password	Resource Owner Password Grant
+->  It will be used where redirect based flows are not possible and the client which is the application is absolutely trusted with the user credentials 
+-> eg: in your application you have to directly pass the user's email and password to get the token from Auth0 
+
+5) refresh_token	Use Refresh Tokens
+6) urn:ietf:params:oauth:grant-type:device_code	Device Authorization Grant
+------------------------------------------------------------
+
+1) Starting steps 
+a) Registration 
+-> i did using maheshneyveli22@gmail.com 
+-> after sign up it went to: https://manage.auth0.com/dashboard/us/dev-q5abtr17rg5us64u/onboarding
+
+
+2) Auth0 Dashboard 
+a) Applications 
+-> Applications is used to manage the connections between your project and Auth0
+b) Authentication 
+-> Authentication is used to manage in which way you want to login 
+eg: you want to use email and password or use third party social media like google for authentication 
+c) User Management 
+-> It is used to monitor user history and manipulate users 
+  -> eg: When we sign up with personal account, we can see that the user is listed in this User Management -> Users section 
+d) Branding 
+-> It is used to customize login page and emails 
+e) Security 
+-> It is used to protect auth0 security and helps avoid attacks 
+f) Actions /Auth Pipeline 
+-> Actions and Auth pipelines is used to customize your sign up and login flows
+g) Monitoring 
+-> Monitoring is used  to monitor logs
+h) Extensions 
+-> Extensions is used to find and install extensions that you can use in Auth0 
+-> Eg: we can monitor real time logs through extensons 
+i) Settings 
+-> Settings are for tenant settings 
+-> You can set up your company logo , login policy , invite tenant members to this tenant 
+
+
+3) Creating a tenantSwithc tenant  
+a) Current tenant -> Create Tenant 
+-> Once you create Tenant name, it cant be changed 
+b) While creating tenant, specify region, environment tag like development or staging or production
+c) After clicking create, a new tenant gets created and it automatically gets switched to that new tenant. 
+d) If you want to switch back to the old tenant, we click swith tenant 
+
+
+3) Applications in Auth0 dashboard: 
+a) If we have front end and backend in our project 
+-> APIs in auth0 is used for Backend or trusted third parties 
+-> Applications are used more in front end. 
+b) When you create a tenant there is a default API and default application 
+c) Default API is Auth0 Management API 
+-> Through this api we can implement all the operations in the dashboard  
+d) In Auth0 Management API page, we can see yellow section which tells: This API represents an Auth0 entity and cannot be modified or deleted. You can still authorize applications to consume this API. 
+-> Because this is the unique identifier for this tenant 
+--> In Settings we can see a) general settings b) Token settings c) Access Settings 
+-> In PERMISSIONS Tab -> We can list of permissions that this API uses 
+-> Here we can see all permissions are related to users like Client_grants, read:users , update:users etc 
+e) We will need to configure permissions when we use applications 
+-> In Applications -> Default App 
+-> We can see specific information related to aplication, like basic information, application properties 
+-> We can configure application URIs, ID token, Refresh Token  rule and its advanced settings  
+f) Connections Tab in Applications : 
+-> It is used to configure in which way you want to configure login with auth0.
+---> By default Username-password-Authentication and google-oauth2 is enabled by default 
+g) In dashboard under Applications we can see : 
+APIs - Provide endpoints and identifiers - mostly used for server  backend 
+       -> Id, Name, Identifier, Access Token settings, Token Sender Constraining, Access Settings etc 
+
+APPs  or applications - Provide credentials and grant types 
+         -> credentials like Name/Domain/ Client ID, Client secret
+		 --> Application URIs/CORs ID token/Refresh token rules etc
+		 
+		 
+4) Customized API and Applications 
+4.1) Creating Customized Application 
+a) We can create API and Applications like this: 
+Dashboard-> Applications-> APIs -> Create API 
+Dashboard-> Applications-> Applications -> Create Application  
+
+b) Under Aplication there are 4 types: Web, Single Page Apps, Native, Machine to Machine 
+
+c) Native - IOS, Electron, App,e TV apps 
+  Single Page apps - Angular, React, Vue 
+  Web -> Node js, express java, php 
+  Machine to Machine - Script, daemons, CLIs , services running on backend 
+  -> eg: if we want to use management sdks through your backend to manage users we can use M2M 
+  -> If we choose Machine To Machine, it will ask what authorization you want to give this application 
+  ---> Once we select Application -> Permissions -> 
+  ---> Under permissions we can see different permissions like read:client_grants, create: client_grants, delete:client_grants, update:client_grants, read:users etc 
+  
+d) Now the application will be created and listed under Applications 
+-> Now if we go to  new App and we can see 4 tabs: Quickstart, settings, Credentials, APIs 
+
+-> In APIs -> We can see list of your APIs. You can authorize this application to request access tokens for these APIs by executing client credentials exchange. 
+
+-> This is the API which grants authorization to these m2m application 
+-> Here in our case it is: Auth0 Management API
+
+e) Also if we go to Auth0 Management API under Dashboard-> Applications-> APIs -> Auth0 Management API -> Machine To Machine Applications 
+
+-> We can see the newly created "My Apps"
+
+
+4.2) Creating Customized API 
+a)  From Applications/API -> Create API 
+---> Name of application or API can be modified at any time 
+
+b) Identifier is logic identifier , it must be an url . We need not publish that url because no one will call that url 
+-> One thing to be noticed is, after you create the identifier - it cant be modified but you can delete the identifier 
+
+c) Then click create after specifying identifier url 
+d) Now it will open "Mahesh Service API" page. 
+
+e) This Identifier is the Audience and Authority is the tenant name along with us.auth0.com 
+
+    options.Authority = "https://dev-q5abtr17rg5us64u.us.auth0.com/";
+            options.Audience = "https://mahesh-service.com";
+			
+f) In Settings we can General Settings/ Access Token Settings and other settings similar to Management API setting 
+
+-> We can change Access token expiry time or any settings based on our need. 
+
+g) We can also delete the Api using delete button present in danger zone 
+
+h) We can add permission for this api as well. We can also grant access to applications to this api 
+
+-> After we create API, M2M application is automatically created and it is granted Access. 
+
+i) Now if we go to Applications  we can see our new API : Mahesh Service API  as Machine to Machine application 
+
+-> If needed we cna delete the application there.  So i will delete "Mahesh Service API" in applications section 
+
+
+PROVIDING ACCESS FOR M2M APPLICATION TO ACCESS A PARTICULAR API 
+j) If i want Machine to Machine APplication "My App" to visit the custom API(Mahesh Service API) we created 
+
+-> So i can grant access to that API 
+
+1) I will go to the M2M application - My App under applications section 
+-> In "My App" , there will be 4 tabs: Quickstart, Settings, Credentials, APIs 
+
+2) In APIs i will see the created APIs :
+ Auth0 Management API -> which is created by default and has Authorized enabled 
+ 
+ Mahesh Service API -> Created by us and "Unauthorized" 
+ 
+ -> I will enable "Mahesh Service API" 
+ 
+3) Thus by this step, we allowed M2M application "My App" to visit the custom API "Mahesh Service API"
+
+4) Since we already have an API for our M2M application - My App, we can disable "Auth0 Management API" to Unauthorized 
+
+5) Now if we come to API-> Auth0 Management API ->Machine to Machine Applications 
+
+-> We can find My App which is an M2M Application has been disabled, i.e Unauthorized 
+
+6) But if we go to API-> Auth0 Management API -> Machine to Machine Applications 
+
+-> We can see "My App" is Authorized, which means that "Mahesh Service API" can be accessed from M2M application "My App" 
+ 
+ 
+ 5) When Should we use Custom APIs and Applications 
+ APIs: 
+ a) Since management API can do anything on dashboard , which helps do all administrative operations to outside
+ -> If we dont want to expose everything to public, you can customize an API  
+ b) When you need a different settings from management API 
+ -> Because management api cannot be changed or deleted 
+ -> Eg: if you want a longer expiry time for your access token , you have to customize the API 
+ 
+ Applications:
+ -> For applications, customizing applications is always needed - if you need a specific authorization flow 
+
+
+6) How to Choose Application Type 
+Dashboard-> Applications -> Create Application -> Choose Application Type and Technology 
+-> We have 4 types : Web, Single Page Apps, Native, Machine to Machine 
+
+a)  If you dont have front end ---> Then  choose: Machine to Machine Application 
+b) If you have front end and Running on Mobile device -> Then choose: Native 
+c) If Have front end and Not running on Mobile device and Running on Server instead of JS --> Then choose Regular/Web  
+d) If you have front end and not running on Mobile device and Not running on server ---> Then choose Single page 
+
+
+ 7) How to Choose SDK type for Single page application 
+ i.e Technology 
+ 
+ a) We can find several Technologies or SDKs 
+ Auth0- Javascript 
+ -> Embedded login, need to call the management api or authentication API 
+ Auth0-angular 
+ -> For Angular application 
+
+ Auth0-React 
+ -> For react application
+ Auth0-spa-js 
+ For universal login in a spa(eg: Vue, React, angular) 
+ 
+ 
+8) How to implement angular based application using Auth0 
+a) Create an angular Application 
+b) Now go to Auth0 and create application with Angular 
+c) After creating application, in application we can see quick start which contains instructions on how to integrate auth0 with angular 
+d) The first thing after creating application is : we can get client id and client secret for the application , which will be used later in the application 
+-> Also we need to configure Callback urls, logout urls, Allowed Web Origins 
+- Since we run locally, we just add the localhost portal into the configuration: http://localhost:4200
+
+STEPS:
+CONFIGURE CALLBACK URLS/CONFIGURE LOGOUT URLS/CONFIGURE ALLOWED WEB ORIGINS
+1) For that, in our newly created application under settings , 
+Update Allowed Callback URLs, Allowed Logout URLs, Allowed Web Origins  with http://localhost:4200/ and save the changes 
+INSTALL THE AUTH0 ANGULAR SDK
+2) Instal the Auth0 angular SDK by using the following command in our angular application
+
+npm install @auth0/auth0-angular
+
+###
+PS C:\ExpoNow\1maheangularprojects\dummy_angular\angular-dummy-app> npm install @auth0/auth0-angular
+
+added 2 packages, removed 1 package, and audited 970 packages in 43s
+
+127 packages are looking for funding
+  run `npm fund` for details
+
+10 vulnerabilities (3 moderate, 7 high)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+###
+
+-> Then give ng serve and bring up the application 
+
+REGISTER AND PROVIDING AUTH0
+3) Register and providing Auth0
+-> Open the app.module.ts file.
+-> Import the AuthModule type from the @auth0/auth0-angular package.
+-> Add AuthModule to the application by calling AuthModule.forRoot and adding to your application module's import array 
+-> Inject AuthService into AppComponent.
+
+
+####
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthModule.forRoot({
+      domain: 'dev-q5abtr17rg5us64u.us.auth0.com',
+      clientId: 'uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b',
+      authorizationParams: {
+        redirect_uri:'http://localhost:4200/'
+      }
+
+    })
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+####
+
+-> Refresh the page and ensure that it is running 
+
+ADD LOGIN TO YOUR APPLICATION
+4) The Auth0 Angular SDK gives you tools to quickly implement user authentication in your Angular application, such as creating a login button using the loginWithRedirect() method from the AuthService service class. Executing loginWithRedirect() redirects your users to the Auth0 Universal Login Page, where Auth0 can authenticate them. Upon successful authentication, Auth0 will redirect your users back to your application.
+
+i) -> For that we will create a new Component login component 
+
+###
+PS C:\ExpoNow\1maheangularprojects\dummy_angular\angular-dummy-app> ng g c login
+CREATE src/app/login/login.component.html (20 bytes)
+CREATE src/app/login/login.component.spec.ts (619 bytes)
+CREATE src/app/login/login.component.ts (271 bytes)
+CREATE src/app/login/login.component.css (0 bytes)
+UPDATE src/app/app.module.ts (658 bytes)
+PS C:\ExpoNow\1maheangularprojects\dummy_angular\angular-dummy-app>
+###
+
+
+ii) Lets clean the default page in our angular application by editing app.component.html 
+iii) Then use the login component in our route in app-routing.module.ts
+
+###
+const routes: Routes = [
+  {
+    path:'',
+    component:LoginComponent
+  }
+];
+###
+
+iv) now if we bring up the application, we can see login works 
+v) Now add the login button in login component html: login.component.html 
+
+<p>login works!</p>
+<button (click)="auth.loginWithRedirect()">Log in </button>
+
+vi) In Login.component.ts add AuthService with auth as variable 
+
+###
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  constructor(public auth:AuthService ) { }
+
+  ngOnInit(): void {
+  }
+###
+
+
+vii) in app.module.ts, the import we specify is very important 
+
+###
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthModule.forRoot({
+      domain: 'dev-q5abtr17rg5us64u.us.auth0.com',
+      clientId: 'uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b',
+      authorizationParams: {
+        redirect_uri:'http://localhost:4200/'
+      }
+
+    })
+  ],
+###
+
+-> Now you will be able to successfully login to application using Auth0 
+
+
+5) ADDING LOGOUT TO APPLICATION 
+ Earlier we have completed login to our application, now we need a way to logout 
+
+---> You can create a logout button using the logout() method from the AuthService service. Executing logout() redirects your users to your Auth0 logout endpoint (https://YOUR_DOMAIN/v2/logout) and then immediately redirects them to your application.
+
+
+a) As first step of logout, as specified in start up section of application lets copy the below import statements and put into login.component.ts 
+
+import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
+
+b) Change the constructor like below:for login.component.ts
+
+constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService) {}
+
+c) Change the template to login.component.html 
+
+####
+ <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+      <button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
+        Log out
+      </button>
+    </ng-container>
+
+    <ng-template #loggedOut>
+      <button (click)="auth.loginWithRedirect()">Log in</button>
+    </ng-template>
+
+####
+
+d) After adding about changes in html and if we load the application, we can login to it. 
+-> Only after successful login or authentication, we can see the logout button inscreen in our application based on the above html. 
+-> Then if we try to logout, it will logout application 
+
+
+
+6) How to configure Callback URL: 
+a) What is a callback url:
+-> After you go to your application , we will login with auth0. 
+-> We will enter our credentials and then login and after login we 
+-> Then after login we will be redirected back to your application. 
+-> The url what you want to be redirected to is called the callback url
+
+-> in our case we want it to be redirected to http://localhost:4200 which is the callback url 
+
+b) We have set http://localhost:4200 as the callback url which is the landing page. 
+
+c) What will happen if we remove the callback url in the Auth0 applications page 
+-> We will get an error page saying the below when we try to login to application 
+
+####
+Callback URL mismatch.
+The provided redirect_uri is not in the list of allowed callback URLs.
+Please go to the Application Settings page and make sure you are sending a valid callback url from your application.
+
+unauthorized_client: Callback URL mismatch. http://localhost:4200/ is not in the list of allowed callback URLs
+###
+
+
+7) How to configure Allowed Logout URL 
+a) It is similar to callback url 
+b) If we delete "Allowed logout url" which is currently set as "http://localhost:4200/
+
+b) Then in application if we try to logout we will set below error message 
+
+###
+There could be a misconfiguration in the system or a service outage. We track these errors automatically, but if the problem persists feel free to contact us.
+Please try again.
+
+invalid_request: The "returnTo" querystring parameter "http://localhost:4200" is not defined as a valid URL in "Allowed Logout URLs". To add a new URL, please do it here: https://manage.auth0.com/#/applications/uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b/settings
+###
+
+
+c) Currently in our sample application, callback url and logout url are same as the home or landing page 
+
+d) If you want to redirect to another url for callback, apart from home page - we need to configure in your application  and also we need to add that callback url in the auth0 applications dashboard 
+
+e) We can give multiple callback urls and logout urls, based on application code it will be loaded after authentication for redirect or logout 
+
+
+8)  Access Token Vs Id Token 
+
+
+a) Access Token Vs Id Token 
+-> ID token indicates that the user is authenticated and this token can be used by other components in your application 
+-> While Access token does not contain the user info - but it contains audience and other information which can be used in the backend 
+
+b) When should we use access token and Id token 
+-> ID token is more used for your web application 
+eg: front end 
+-> While access token as it contains user's access scope and audience, it is more used for the resource server 
+
+eg: an api or endpoints 
+
+c) If you look in detail into ID token, we can find that ID token does not contain audience and the scope  
+
+
+eg:
+{
+  "nickname": "maheshneyveli22",
+  "name": "maheshneyveli22@gmail.com",
+  "picture": "https://s.gravatar.com/avatar/7b2870cd1fc968be88ad677442948ece?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fma.png",
+  "updated_at": "2024-07-22T08:41:18.787Z",
+  "email": "maheshneyveli22@gmail.com",
+  "email_verified": true,
+  "iss": "https://dev-q5abtr17rg5us64u.us.auth0.com/",
+  "aud": "uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b",
+  "iat": 1721637906,
+  "exp": 1721673906,
+  "sub": "auth0|669a343ca2a21905b4748e7b",
+  "sid": "_mgsOtFGcLvzWyIRRVVv2ZJRKu4xH2lo",
+  "nonce": "cy1tQzFBaWtSfjBjNmZoOTVGVUd1TUk4UVBnTTUwRUdqM3hUV2ZZdGlpNw=="
+}
+
+Token:
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJuaWNrbmFtZSI6Im1haGVzaG5leXZlbGkyMiIsIm5hbWUiOiJtYWhlc2huZXl2ZWxpMjJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzdiMjg3MGNkMWZjOTY4YmU4OGFkNjc3NDQyOTQ4ZWNlP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbWEucG5nIiwidXBkYXRlZF9hdCI6IjIwMjQtMDctMjJUMDg6NDE6MTguNzg3WiIsImVtYWlsIjoibWFoZXNobmV5dmVsaTIyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2Rldi1xNWFidHIxN3JnNXVzNjR1LnVzLmF1dGgwLmNvbS8iLCJhdWQiOiJ1SWtRVUkzRU5OUWRjMWlwdHNnVFczZWRadkFQNWU2YiIsImlhdCI6MTcyMTYzNzkwNiwiZXhwIjoxNzIxNjczOTA2LCJzdWIiOiJhdXRoMHw2NjlhMzQzY2EyYTIxOTA1YjQ3NDhlN2IiLCJzaWQiOiJfbWdzT3RGR2NMdnpXeUlSUlZWdjJaSlJLdTR4SDJsbyIsIm5vbmNlIjoiY3kxdFF6RkJhV3RTZmpCak5tWm9PVFZHVlVkMVRVazRVVkJuVFRVd1JVZHFNM2hVVjJaWmRHbHBOdz09In0.ORxZ7xGNL5sOJdNnDIPOqc6x2wHqSM5iTqHkWkkeGY1oZATKEbsLAqXdLEr3GyP_dQulVsButjyJFHOjUZe2X_a-SJq_Zbz7Qbmop7OvfABlrIl4BhhgfVIR7-VTOuBsmVrrWkH_i9FpOwNVLn-ktl6jmA0icU4EjY6xJ25rGbnHve4O9GPFrmEMoepJIRtc_xf8wjECHrP6-jiy4ljd9AL-WkxMc-TQX-GknVhd_8GYCJkroL1OagtxKFFsEbPy1FpqGKKLuXK8eBU-UkXhtbGWeDFq9RYbybONWaHZFpS6Yy3wYdbdmAFGZTVR4UKvKAP_lsQEOUwHJcrj_tWSfQ
+
+
+
+d) Access Token:
+-> If we check Access token - we can find Audience scope etc 
+
+aud -> Audience -> it is the resource server 
+----> Audience is the identifier which is specified for APIs which Machine to Machine applications 
+
+9) Roles and Flow 
+
+
+There are different workflows:
+Client Credentials Flow
+Resource Owner Password Flow
+Authorization Code Flow
+Authorization Code Flow with Proof key for Code Exchange(PKCE) 
+ 
+
+a) ABSTRACT PROTOCOL FLOW 
+
+1) Application(Client) 1. Authorization request to User(resource owner) 
+
+2) User(resource Owner) provides  Authorization Grant to Application(Client) 
+
+3) Application(Client) asks for Authorization grant from Authorization server 
+
+4) Authorization server provides Access token to Application(client) 
+
+5) Application(Client) with access token requests for the protected resource to Resource Server 
+
+6) Resource Server ---> provides access to protected resource to Application(client) 
+
+
+b) Roles:
+
+a) Application(Client) - Angular b) application eg;booking-ui
+c) User(resource owner) - Maheswaran
+d) Authorization Server - Auth0
+e) Resource Server - Service api eg: booking-service api 
+
+f) User Agent - Browser or Native application 
+
+
+10) Client credential flow:
+a) When client credential flow is applied - Client is the resource owner 
+-> Which means application is the user 
+-> So application will directly call authorization server to get the token 
+-> The obtained token will be used for further requests to access Resources 
+
+
+b) Work Flow : https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow
+
+1) M2M App with Client ID+ Client secret  makes request for /token  to Auth) Tenant 
+
+-> ie. M2M Application sends application's credentials to the Auth0 Authorization Server.
+
+2) Auth0 tenant validates Client ID+ Client Secret and provides Access Token 
+
+-> Auth0 Authorization Server validates application's credentials.
+
+3) Auth0 Authorization Server responds with an access token.
+
+4) Application can use the access token to call an API on behalf of itself.
+
+5) API responds with requested data.
+
+
+c) In our example , we will use Auth0 managment API as example
+
+d) In Auth0 dashboard, lets create machine to Machine Application because we need to use Manage API(Management API) as the end point  
+
+-> While creating Machine to Machine Application we will select "Management API"  in "Authorize Machine to Machine Application"  as the end point and provide all the access 
+
+e) Now M2M application will be created and we can see all the details in the settings 
+
+
+f) Thus we have created M2M application which exposes Managment API as the end point  
+
+g) Now after creating application, first step is to get access token 
+
+https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow
+
+https://auth0.com/docs/secure/application-credentials
+
+get token documentation: 
+https://auth0.com/docs/api/authentication#get-token
+
+
+h) We need to send request to this end point: POST /oauth/token
+with these "required" parameters 
+
+eg:
+POST https://{yourDomain}/oauth/token
+Content-Type: application/json
+{
+  "grant_type" : "http://auth0.com/oauth/grant-type/passwordless/otp",
+  "client_id": "{yourClientId}",
+  "client_secret": "YOUR_CLIENT_SECRET", // for web applications
+  "otp": "CODE",
+  "realm": "email|sms" //email or sms
+  "username":"USER_EMAIL|USER_PHONE_NUMBER", // depends on which realm you chose
+  "audience" : "API_IDENTIFIER", // in case you need an access token for a specific API
+  "scope": "SCOPE",
+  "redirect_uri": "REDIRECT_URI"
+}
+
+i) Now if we go to our newly created m2m application: Mahesh M2M Management API
+
+-> Under quickstart we can see CURL request like below:
+
+curl --request POST \
+  --url https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"N1OjLc6U1UJzJL5UsqvT053ZLcbfDsSZ","client_secret":"7bkxhsoCopy-KbMRuZ_TFYujwyzbrXjhVhy-B4H08WVkDuTvpXZNVqyn0miAkbEv","audience":"https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/","grant_type":"client_credentials"}'
+
+
+
+j) Copy the curl request and import in postman  and we will get access_token in response 
+
+Request URL: 
+https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token
+
+Response: 
+
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1xNWFidHIxN3JnNXVzNjR1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJOMU9qTGM2VTFVSnpKTDVVc3F2VDA1M1pMY2JmRHNTWkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTcyMTY0ODU1MiwiZXhwIjoxNzIxNzM0OTUyLCJzY29wZSI6InJlYWQ6Y2xpZW50X2dyYW50cyBjcmVhdGU6Y2xpZW50X2dyYW50cyBkZWxldGU6Y2xpZW50X2dyYW50cyB1cGRhdGU6Y2xpZW50X2dyYW50cyByZWFkOnVzZXJzIHVwZGF0ZTp1c2VycyBkZWxldGU6dXNlcnMgY3JlYXRlOnVzZXJzIHJlYWQ6dXNlcnNfYXBwX21ldGFkYXRhIHVwZGF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgZGVsZXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBjcmVhdGU6dXNlcnNfYXBwX21ldGFkYXRhIHJlYWQ6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX2N1c3RvbV9ibG9ja3MgZGVsZXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBjcmVhdGU6dXNlcl90aWNrZXRzIHJlYWQ6Y2xpZW50cyB1cGRhdGU6Y2xpZW50cyBkZWxldGU6Y2xpZW50cyBjcmVhdGU6Y2xpZW50cyByZWFkOmNsaWVudF9rZXlzIHVwZGF0ZTpjbGllbnRfa2V5cyBkZWxldGU6Y2xpZW50X2tleXMgY3JlYXRlOmNsaWVudF9rZXlzIHJlYWQ6Y29ubmVjdGlvbnMgdXBkYXRlOmNvbm5lY3Rpb25zIGRlbGV0ZTpjb25uZWN0aW9ucyBjcmVhdGU6Y29ubmVjdGlvbnMgcmVhZDpyZXNvdXJjZV9zZXJ2ZXJzIHVwZGF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGRlbGV0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGNyZWF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIHJlYWQ6ZGV2aWNlX2NyZWRlbnRpYWxzIHVwZGF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgZGVsZXRlOmRldmljZV9jcmVkZW50aWFscyBjcmVhdGU6ZGV2aWNlX2NyZWRlbnRpYWxzIHJlYWQ6cnVsZXMgdXBkYXRlOnJ1bGVzIGRlbGV0ZTpydWxlcyBjcmVhdGU6cnVsZXMgcmVhZDpydWxlc19jb25maWdzIHVwZGF0ZTpydWxlc19jb25maWdzIGRlbGV0ZTpydWxlc19jb25maWdzIHJlYWQ6aG9va3MgdXBkYXRlOmhvb2tzIGRlbGV0ZTpob29rcyBjcmVhdGU6aG9va3MgcmVhZDphY3Rpb25zIHVwZGF0ZTphY3Rpb25zIGRlbGV0ZTphY3Rpb25zIGNyZWF0ZTphY3Rpb25zIHJlYWQ6ZW1haWxfcHJvdmlkZXIgdXBkYXRlOmVtYWlsX3Byb3ZpZGVyIGRlbGV0ZTplbWFpbF9wcm92aWRlciBjcmVhdGU6ZW1haWxfcHJvdmlkZXIgYmxhY2tsaXN0OnRva2VucyByZWFkOnN0YXRzIHJlYWQ6aW5zaWdodHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpsb2dzX3VzZXJzIHJlYWQ6c2hpZWxkcyBjcmVhdGU6c2hpZWxkcyB1cGRhdGU6c2hpZWxkcyBkZWxldGU6c2hpZWxkcyByZWFkOmFub21hbHlfYmxvY2tzIGRlbGV0ZTphbm9tYWx5X2Jsb2NrcyB1cGRhdGU6dHJpZ2dlcnMgcmVhZDp0cmlnZ2VycyByZWFkOmdyYW50cyBkZWxldGU6Z3JhbnRzIHJlYWQ6Z3VhcmRpYW5fZmFjdG9ycyB1cGRhdGU6Z3VhcmRpYW5fZmFjdG9ycyByZWFkOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGRlbGV0ZTpndWFyZGlhbl9lbnJvbGxtZW50cyBjcmVhdGU6Z3VhcmRpYW5fZW5yb2xsbWVudF90aWNrZXRzIHJlYWQ6dXNlcl9pZHBfdG9rZW5zIGNyZWF0ZTpwYXNzd29yZHNfY2hlY2tpbmdfam9iIGRlbGV0ZTpwYXNzd29yZHNfY2hlY2tpbmdfam9iIHJlYWQ6Y3VzdG9tX2RvbWFpbnMgZGVsZXRlOmN1c3RvbV9kb21haW5zIGNyZWF0ZTpjdXN0b21fZG9tYWlucyB1cGRhdGU6Y3VzdG9tX2RvbWFpbnMgcmVhZDplbWFpbF90ZW1wbGF0ZXMgY3JlYXRlOmVtYWlsX3RlbXBsYXRlcyB1cGRhdGU6ZW1haWxfdGVtcGxhdGVzIHJlYWQ6bWZhX3BvbGljaWVzIHVwZGF0ZTptZmFfcG9saWNpZXMgcmVhZDpyb2xlcyBjcmVhdGU6cm9sZXMgZGVsZXRlOnJvbGVzIHVwZGF0ZTpyb2xlcyByZWFkOnByb21wdHMgdXBkYXRlOnByb21wdHMgcmVhZDpicmFuZGluZyB1cGRhdGU6YnJhbmRpbmcgZGVsZXRlOmJyYW5kaW5nIHJlYWQ6bG9nX3N0cmVhbXMgY3JlYXRlOmxvZ19zdHJlYW1zIGRlbGV0ZTpsb2dfc3RyZWFtcyB1cGRhdGU6bG9nX3N0cmVhbXMgY3JlYXRlOnNpZ25pbmdfa2V5cyByZWFkOnNpZ25pbmdfa2V5cyB1cGRhdGU6c2lnbmluZ19rZXlzIHJlYWQ6bGltaXRzIHVwZGF0ZTpsaW1pdHMgY3JlYXRlOnJvbGVfbWVtYmVycyByZWFkOnJvbGVfbWVtYmVycyBkZWxldGU6cm9sZV9tZW1iZXJzIHJlYWQ6ZW50aXRsZW1lbnRzIHJlYWQ6YXR0YWNrX3Byb3RlY3Rpb24gdXBkYXRlOmF0dGFja19wcm90ZWN0aW9uIHJlYWQ6b3JnYW5pemF0aW9uc19zdW1tYXJ5IGNyZWF0ZTphdXRoZW50aWNhdGlvbl9tZXRob2RzIHJlYWQ6YXV0aGVudGljYXRpb25fbWV0aG9kcyB1cGRhdGU6YXV0aGVudGljYXRpb25fbWV0aG9kcyBkZWxldGU6YXV0aGVudGljYXRpb25fbWV0aG9kcyByZWFkOm9yZ2FuaXphdGlvbnMgdXBkYXRlOm9yZ2FuaXphdGlvbnMgY3JlYXRlOm9yZ2FuaXphdGlvbnMgZGVsZXRlOm9yZ2FuaXphdGlvbnMgY3JlYXRlOm9yZ2FuaXphdGlvbl9tZW1iZXJzIHJlYWQ6b3JnYW5pemF0aW9uX21lbWJlcnMgZGVsZXRlOm9yZ2FuaXphdGlvbl9tZW1iZXJzIGNyZWF0ZTpvcmdhbml6YXRpb25fY29ubmVjdGlvbnMgcmVhZDpvcmdhbml6YXRpb25fY29ubmVjdGlvbnMgdXBkYXRlOm9yZ2FuaXphdGlvbl9jb25uZWN0aW9ucyBkZWxldGU6b3JnYW5pemF0aW9uX2Nvbm5lY3Rpb25zIGNyZWF0ZTpvcmdhbml6YXRpb25fbWVtYmVyX3JvbGVzIHJlYWQ6b3JnYW5pemF0aW9uX21lbWJlcl9yb2xlcyBkZWxldGU6b3JnYW5pemF0aW9uX21lbWJlcl9yb2xlcyBjcmVhdGU6b3JnYW5pemF0aW9uX2ludml0YXRpb25zIHJlYWQ6b3JnYW5pemF0aW9uX2ludml0YXRpb25zIGRlbGV0ZTpvcmdhbml6YXRpb25faW52aXRhdGlvbnMgcmVhZDpzY2ltX2NvbmZpZyBjcmVhdGU6c2NpbV9jb25maWcgdXBkYXRlOnNjaW1fY29uZmlnIGRlbGV0ZTpzY2ltX2NvbmZpZyBjcmVhdGU6c2NpbV90b2tlbiByZWFkOnNjaW1fdG9rZW4gZGVsZXRlOnNjaW1fdG9rZW4gZGVsZXRlOnBob25lX3Byb3ZpZGVycyBjcmVhdGU6cGhvbmVfcHJvdmlkZXJzIHJlYWQ6cGhvbmVfcHJvdmlkZXJzIHVwZGF0ZTpwaG9uZV9wcm92aWRlcnMgZGVsZXRlOnBob25lX3RlbXBsYXRlcyBjcmVhdGU6cGhvbmVfdGVtcGxhdGVzIHJlYWQ6cGhvbmVfdGVtcGxhdGVzIHVwZGF0ZTpwaG9uZV90ZW1wbGF0ZXMgY3JlYXRlOmVuY3J5cHRpb25fa2V5cyByZWFkOmVuY3J5cHRpb25fa2V5cyB1cGRhdGU6ZW5jcnlwdGlvbl9rZXlzIGRlbGV0ZTplbmNyeXB0aW9uX2tleXMgcmVhZDpzZXNzaW9ucyBkZWxldGU6c2Vzc2lvbnMgcmVhZDpyZWZyZXNoX3Rva2VucyBkZWxldGU6cmVmcmVzaF90b2tlbnMgY3JlYXRlOnNlbGZfc2VydmljZV9wcm9maWxlcyByZWFkOnNlbGZfc2VydmljZV9wcm9maWxlcyB1cGRhdGU6c2VsZl9zZXJ2aWNlX3Byb2ZpbGVzIGRlbGV0ZTpzZWxmX3NlcnZpY2VfcHJvZmlsZXMgY3JlYXRlOnNzb19hY2Nlc3NfdGlja2V0cyByZWFkOmZvcm1zIHVwZGF0ZTpmb3JtcyBkZWxldGU6Zm9ybXMgY3JlYXRlOmZvcm1zIHJlYWQ6Zmxvd3MgdXBkYXRlOmZsb3dzIGRlbGV0ZTpmbG93cyBjcmVhdGU6Zmxvd3MgcmVhZDpmbG93c192YXVsdCB1cGRhdGU6Zmxvd3NfdmF1bHQgZGVsZXRlOmZsb3dzX3ZhdWx0IGNyZWF0ZTpmbG93c192YXVsdCByZWFkOmNsaWVudF9jcmVkZW50aWFscyBjcmVhdGU6Y2xpZW50X2NyZWRlbnRpYWxzIHVwZGF0ZTpjbGllbnRfY3JlZGVudGlhbHMgZGVsZXRlOmNsaWVudF9jcmVkZW50aWFscyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImF6cCI6Ik4xT2pMYzZVMVVKekpMNVVzcXZUMDUzWkxjYmZEc1NaIn0.WY6rdDxkSYfSU1eQyAEOZSyf-RP23s4tM9d3h77xaJBjndOg8EjiLSIp8ngxfa6_jbSZjSW4Z3_YFdlkrhmNHLcsVGyYuawmcrIWPJyLI3YoKozh7Ju3zun5poBIcNmVx_15RZ6O6l2Ffq9g7Vi6otU_nKxxMktkV_RHD_u7Iu4eoFqCtQPHeAgQ09uZkuW8FrEjFSQ4jLNP9cLSEfCS0hGj35hQeiwn9wwXuYaFV8-Pyu-GGPDmeFbTTnQ1H5YxYm9jPrDhdqDX2GicN2suw_Ydn3nxSgmZaCr77tHjWvlK8dKjZkRWuwmkoMaXAVKUo0nv7RmPRYkO9Op_dJJfBA",
+    "scope": "read:client_grants create:client_grants delete:client_grants update:client_grants read:users update:users delete:users create:users read:users_app_metadata update:users_app_metadata delete:users_app_metadata create:users_app_metadata read:user_custom_blocks create:user_custom_blocks delete:user_custom_blocks create:user_tickets read:clients update:clients delete:clients create:clients read:client_keys update:client_keys delete:client_keys create:client_keys read:connections update:connections delete:connections create:connections read:resource_servers update:resource_servers delete:resource_servers create:resource_servers read:device_credentials update:device_credentials delete:device_credentials create:device_credentials read:rules update:rules delete:rules create:rules read:rules_configs update:rules_configs delete:rules_configs read:hooks update:hooks delete:hooks create:hooks read:actions update:actions delete:actions create:actions read:email_provider update:email_provider delete:email_provider create:email_provider blacklist:tokens read:stats read:insights read:tenant_settings update:tenant_settings read:logs read:logs_users read:shields create:shields update:shields delete:shields read:anomaly_blocks delete:anomaly_blocks update:triggers read:triggers read:grants delete:grants read:guardian_factors update:guardian_factors read:guardian_enrollments delete:guardian_enrollments create:guardian_enrollment_tickets read:user_idp_tokens create:passwords_checking_job delete:passwords_checking_job read:custom_domains delete:custom_domains create:custom_domains update:custom_domains read:email_templates create:email_templates update:email_templates read:mfa_policies update:mfa_policies read:roles create:roles delete:roles update:roles read:prompts update:prompts read:branding update:branding delete:branding read:log_streams create:log_streams delete:log_streams update:log_streams create:signing_keys read:signing_keys update:signing_keys read:limits update:limits create:role_members read:role_members delete:role_members read:entitlements read:attack_protection update:attack_protection read:organizations_summary create:authentication_methods read:authentication_methods update:authentication_methods delete:authentication_methods read:organizations update:organizations create:organizations delete:organizations create:organization_members read:organization_members delete:organization_members create:organization_connections read:organization_connections update:organization_connections delete:organization_connections create:organization_member_roles read:organization_member_roles delete:organization_member_roles create:organization_invitations read:organization_invitations delete:organization_invitations read:scim_config create:scim_config update:scim_config delete:scim_config create:scim_token read:scim_token delete:scim_token delete:phone_providers create:phone_providers read:phone_providers update:phone_providers delete:phone_templates create:phone_templates read:phone_templates update:phone_templates create:encryption_keys read:encryption_keys update:encryption_keys delete:encryption_keys read:sessions delete:sessions read:refresh_tokens delete:refresh_tokens create:self_service_profiles read:self_service_profiles update:self_service_profiles delete:self_service_profiles create:sso_access_tickets read:forms update:forms delete:forms create:forms read:flows update:flows delete:flows create:flows read:flows_vault update:flows_vault delete:flows_vault create:flows_vault read:client_credentials create:client_credentials update:client_credentials delete:client_credentials",
+    "expires_in": 86400,
+    "token_type": "Bearer"
+}
+
+
+k) If we decode the token we will get the following for payload:
+
+{
+  "iss": "https://dev-q5abtr17rg5us64u.us.auth0.com/",
+  "sub": "N1OjLc6U1UJzJL5UsqvT053ZLcbfDsSZ@clients",
+  "aud": "https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/",
+  "iat": 1721648552,
+  "exp": 1721734952,
+  "scope": "read:client_grants create:client_grants delete:client_grants update:client_grants read:users update:users delete:users create:users read:users_app_metadata update:users_app_metadata delete:users_app_metadata create:users_app_metadata read:user_custom_blocks create:user_custom_blocks delete:user_custom_blocks create:user_tickets read:clients update:clients delete:clients create:clients read:client_keys update:client_keys delete:client_keys create:client_keys read:connections update:connections delete:connections create:connections read:resource_servers update:resource_servers delete:resource_servers create:resource_servers read:device_credentials update:device_credentials delete:device_credentials create:device_credentials read:rules update:rules delete:rules create:rules read:rules_configs update:rules_configs delete:rules_configs read:hooks update:hooks delete:hooks create:hooks read:actions update:actions delete:actions create:actions read:email_provider update:email_provider delete:email_provider create:email_provider blacklist:tokens read:stats read:insights read:tenant_settings update:tenant_settings read:logs read:logs_users read:shields create:shields update:shields delete:shields read:anomaly_blocks delete:anomaly_blocks update:triggers read:triggers read:grants delete:grants read:guardian_factors update:guardian_factors read:guardian_enrollments delete:guardian_enrollments create:guardian_enrollment_tickets read:user_idp_tokens create:passwords_checking_job delete:passwords_checking_job read:custom_domains delete:custom_domains create:custom_domains update:custom_domains read:email_templates create:email_templates update:email_templates read:mfa_policies update:mfa_policies read:roles create:roles delete:roles update:roles read:prompts update:prompts read:branding update:branding delete:branding read:log_streams create:log_streams delete:log_streams update:log_streams create:signing_keys read:signing_keys update:signing_keys read:limits update:limits create:role_members read:role_members delete:role_members read:entitlements read:attack_protection update:attack_protection read:organizations_summary create:authentication_methods read:authentication_methods update:authentication_methods delete:authentication_methods read:organizations update:organizations create:organizations delete:organizations create:organization_members read:organization_members delete:organization_members create:organization_connections read:organization_connections update:organization_connections delete:organization_connections create:organization_member_roles read:organization_member_roles delete:organization_member_roles create:organization_invitations read:organization_invitations delete:organization_invitations read:scim_config create:scim_config update:scim_config delete:scim_config create:scim_token read:scim_token delete:scim_token delete:phone_providers create:phone_providers read:phone_providers update:phone_providers delete:phone_templates create:phone_templates read:phone_templates update:phone_templates create:encryption_keys read:encryption_keys update:encryption_keys delete:encryption_keys read:sessions delete:sessions read:refresh_tokens delete:refresh_tokens create:self_service_profiles read:self_service_profiles update:self_service_profiles delete:self_service_profiles create:sso_access_tickets read:forms update:forms delete:forms create:forms read:flows update:flows delete:flows create:flows read:flows_vault update:flows_vault delete:flows_vault create:flows_vault read:client_credentials create:client_credentials update:client_credentials delete:client_credentials",
+  "gty": "client-credentials",
+  "azp": "N1OjLc6U1UJzJL5UsqvT053ZLcbfDsSZ"
+}
+
+l) Important information among them is: Issuer, Audience, Scope 
+
+-> Scope is where we grant all Permissions for that particular api 
+
+
+"iss": "https://dev-q5abtr17rg5us64u.us.auth0.com/",
+  "aud": "https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/",
+  "scope": "read:client_grants create:client_grants delete:client_grants update:client_grants read:users update:users delete:users create:users read:users_app_metadata update:users_app_metadata delete:users_app_metadata create:users_app_metadata read:user_custom_blocks
+
+
+m) In the request for token :  https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token
+-> Then end point is https://domain/oauth/token 
+
+-> We can get it from auth0 dashboard, if we go the m2m application -> advanced settings -> Endpoints -> Oauth Token URL -> https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token
+-> The content type of reques is application/json 
+
+-> In body of the token request we have the following: client_id, client_secret,audience, grant_type
+
+{"client_id":"N1OjLc6U1UJzJL5UsqvT053ZLcbfDsSZ","client_secret":"7bkxhsoCopy-KbMRuZ_TFYujwyzbrXjhVhy-B4H08WVkDuTvpXZNVqyn0miAkbEv","audience":"https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/","grant_type":"client_credentials"}
+
+
+n) In this:
+1) client_id, client_secret can be got from: 
+Applications -> Mahesh M2M Management API ->Settings->  Client ID, Client Secret 
+
+2) for audience, in Machine to Machine applications 
+
+Applications -> Mahesh M2M Management API -> APIs -> Auth0 Management API( which is linked and marked as Authorized) 
+
+-> so we can get audience from API Identifier : 
+
+API Identifier: https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/
+ 
+ 
+Or we can get audience from 
+
+Dashboard ->Applications->  APIs -> Application -> API Audience
+
+
+3) grant_type is "client_credentials" for client credential flow 
+
+o) Now with this access token we can get access to management api which is the resource server here 
+
+-> if we search for "auth0 management api endpoints" , we get this link: https://auth0.com/docs/api/management/v2 
+
+1) To get list of users we can find : https://auth0.com/docs/api/management/v2/users/get-users
+
+-> that get call should be made like this: 
+ENDPOINT
+GET  /api/v2/users
+
+2) Now use the audience and form the url: https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/users
+
+
+Response:
+[
+    {
+        "user_id": "auth0|669a343ca2a21905b4748e7b",
+        "picture": "https://s.gravatar.com/avatar/7b2870cd1fc968be88ad677442948ece?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fma.png",
+        "email_verified": true,
+        "updated_at": "2024-07-22T08:46:30.799Z",
+        "email": "maheshneyveli22@gmail.com",
+        "name": "maheshneyveli22@gmail.com",
+        "created_at": "2024-07-19T09:39:08.543Z",
+        "nickname": "maheshneyveli22",
+        "identities": [
+            {
+                "connection": "Username-Password-Authentication",
+                "user_id": "669a343ca2a21905b4748e7b",
+                "provider": "auth0",
+                "isSocial": false
+            }
+        ],
+        "last_login": "2024-07-22T08:46:30.799Z",
+        "last_ip": "2405:201:e031:7082:41de:ce5b:7b5:7132",
+        "logins_count": 7
+    },
+    {
+        "name": "Maheswaran",
+        "updated_at": "2024-07-22T06:43:51.797Z",
+        "identities": [
+            {
+                "isSocial": true,
+                "access_token": "ya29.a0AXooCguNkBlWRi1glFDbfnrUO5a7_3tvoCRr591XPmPQ7ht9d0G-A-Hy66vE25bLWAuXNC7kcOeS4uPOBmQedLx9TU7EOE1dfwYbvDtNr92rLk0VF59bgGldyoPJMknlcjHqqClXoATCYou0emWwbSIRHxc-w6xzxUAaCgYKAZ0SARMSFQHGX2Mi4ARYiuaJ1m8_QerH6Qjywg0170",
+                "expires_in": 3598,
+                "connection": "google-oauth2",
+                "user_id": "113290327553097174855",
+                "provider": "google-oauth2"
+            }
+        ],
+        "email": "maheshneyveli22@gmail.com",
+        "user_id": "google-oauth2|113290327553097174855",
+        "given_name": "Maheswaran",
+        "email_verified": true,
+        "created_at": "2024-07-19T09:33:15.573Z",
+        "nickname": "maheshneyveli22",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocKuMJ49f2VNW5NQJbYwNMr7AJL89bk08nHw4N98IMZICiZfdA=s96-c",
+        "last_login": "2024-07-22T06:43:51.797Z",
+        "last_ip": "142.79.233.24",
+        "logins_count": 7
+    }
+]
+
+
+
+11) Resource owner password flow:
+https://auth0.com/docs/get-started/authentication-and-authorization-flow/resource-owner-password-flow
+
+a) Resource owner password flow:
+-> It will be used where redirect based flows are not possible and the client which is the application is absolutely trusted with the user credentials 
+-> eg: in your application you have to directly pass the user's email and password to get the token from Auth0 
+
+b) Flow steps:
+
+1) The user clicks Login within the application and enters their credentials.
+
+2) Your application forwards the user's credentials to your Auth0 Authorization Server (
+/oauth/token
+endpoint).
+
+3) Your Auth0 Authorization Server validates the credentials.
+
+4) Your Auth0 Authorization Server responds with an Access Token (and optionally, a Refresh Token).
+
+5) Your application can use the Access Token to call an API to access information about the user.
+
+6) The API responds with requested data.
+
+
+
+c) Requesting tokens: 
+
+https://auth0.com/docs/api/authentication#resource-owner-password
+
+
+1) This flow still asks for grant_type and client_id, but in addition it asks for username and password 
+
+2) To get the url for token generation, lets go to dashboard -> Applications -> Anuglar App Mahesh--> Advanced Settings -> OAuth Token URL -> Copy the url:  https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token and put it into postman 
+
+3) Put content type as below:
+
+Content-Type: application/x-www-form-urlencoded
+
+4) In body also mark: x-www-form-urlencoded
+
+5) mark grant_type = "password" 
+        client_id is the client id of Anuglar App Mahesh and its credentials 
+		cliend_id= "uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b"
+		client_secret="bOMU_hteAvkO_rJDxCC8a8JI_z0aL-rbl6E0oe-HEvxlGJ9HOyeieR53tYP65cee"
+		username="maheshneyveli22@gmail.com"
+		password="Charan12#"
+
+
+6) On sending request, we get a response 
+
+"Unauthorized client 
+Grant type password not allowed for this client" 
+
+7) To enable the same, we need to go to advanced settings->Grant Types of angular app: Anuglar App Mahesh
+-> There already "Implicit" "Authorization code", "Refresh token" will be enabled, now enable "password" also 
+-> 
+
+8) Again if we send request, we get the below error:
+
+{
+    "error": "server_error",
+    "error_description": "Authorization server not configured with default connection."
+}
+
+-> So we need to configure "Default Connection" in Auth0 dashboard becauase we are using the connection of "Username-password-Authentication" in  Applications -> Angular App Mahesh -> Connections
+-> Here "Username-Password-Authentication" is the default database that Auth0 provided 
+
+-> In Dashboard-> Settings -> API Authorization Settings -> Default Directory --> "Username-Password-Authentication"
+
+By specifying it as "Username-Password-Authentication" we are asking to use Default database of Auth0 
+
+Here Settings is Tenant Settings 
+
+
+9) Now if we try it again in post man for https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token, we will get the below response:
+
+Request body:
+grant_type:password
+client_id:uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b
+client_secret:bOMU_hteAvkO_rJDxCC8a8JI_z0aL-rbl6E0oe-HEvxlGJ9HOyeieR53tYP65cee
+username:maheshneyveli22@gmail.com
+password:Charan12#
+
+
+Response :
+{
+    "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiaXNzIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vIn0..qLup0oMrrZgXQcDt.rYx-C-HA8kyeErpQrciLXpYGhnWNU5uX33N7EsJ7_5cCcjMZBMyvyvhlSZOKB6_VqclyL9FqHtbJr-8AFnfTffj5oycXULxyXalLyCnkc6kQ98N9LnRxlug6npM_TFAnzx6PILhqhQ3y1o4fd2n3ZI0D35JTtnpA--UGhWVQJgkvalTO8OSv2XTFzkDcWnY4Rzvi3A_79cK-UTwgzSAtzX0y0fj-y-ILSmsYvKt_EpiO6VF6_igqkNWuuE1Ql9JTppGA7Sk4g5wsGdwHzpV4bYzQWdT8OXzjxPTMXoLay8UGqLrn4ZZWowVjQvmluEuGBRSHUApfN4vko0TFeI_bHDbPl8BeXHBpONeyXzirxvAfLmKoGhJThfhW6OhdnKNicw.CA7Cr7G2utHL_S4vWXIB_Q",
+    "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJuaWNrbmFtZSI6Im1haGVzaG5leXZlbGkyMiIsIm5hbWUiOiJtYWhlc2huZXl2ZWxpMjJAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzdiMjg3MGNkMWZjOTY4YmU4OGFkNjc3NDQyOTQ4ZWNlP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbWEucG5nIiwidXBkYXRlZF9hdCI6IjIwMjQtMDctMjNUMDQ6MTU6MzIuNjE5WiIsImVtYWlsIjoibWFoZXNobmV5dmVsaTIyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczovL2Rldi1xNWFidHIxN3JnNXVzNjR1LnVzLmF1dGgwLmNvbS8iLCJhdWQiOiJ1SWtRVUkzRU5OUWRjMWlwdHNnVFczZWRadkFQNWU2YiIsImlhdCI6MTcyMTcwODEzMiwiZXhwIjoxNzIxNzQ0MTMyLCJzdWIiOiJhdXRoMHw2NjlhMzQzY2EyYTIxOTA1YjQ3NDhlN2IifQ.YFmR6iZs3yo22POnbezvwB529Oc192fAt8JSas7v0uhadKJpx-kWawzpVdaevWxh-dIBAhD2POFEm8aFeuie3CK7kRuHDN5Lf_-bPlmmhwWY2tzomAO0oWegzovE1019cRUHLKqXsAQ_CgGQle1wJtfB6oF9CgvEpUjhwl-OyOKuBDg0tuzcntxXd7unOmD1rw5Dg3STZrsZH587zzxz8YPtTQoXslRhpcbpoSSqaMPRhgVfkRhodjJ81eBaiQ_NHS3RAB6Kkc-Nb1B-EdS3pX7RQyGtEAjD05xPjHTmcEx8u0cVqJoYF2oHTE-ByfhASPnk-OTd3u_A8uragAgyfA",
+    "scope": "openid profile email address phone",
+    "expires_in": 86400,
+    "token_type": "Bearer"
+}
+
+
+10) if we give wrong password or grant type we get below error in response:
+
+Response:
+{
+    "error": "invalid_grant",
+    "error_description": "Wrong email or password."
+}
+
+11) Again if we give correct credentials we get appropriate response:
+
+Request:
+grant_type:password
+client_id:uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b
+client_secret:bOMU_hteAvkO_rJDxCC8a8JI_z0aL-rbl6E0oe-HEvxlGJ9HOyeieR53tYP65cee
+username:maheswaran.elumalai@expeditors.com
+password:Test@123
+
+Response:
+{
+    "access_token": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiaXNzIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vIn0..n7VfyW9T9gqAsIjE.28k5M0GvIrELNhlLXwcoLVv2oJWJdub7mg7xWT3vqs5Mrjm6Rui7SiIHUlB9j4nLCCpE8J2mkQYV0VpkcZrKD42gamIeA83kNL3hk6kqOu5OwqXVqZUoM61BLSP3Zhl4WQQUgDklCYcslPBrjGZ-Dm6ld5Chs-v2w1KIS02_--N0l5wCqtoRuPlTJC2gzMhP8oGKdUg9LhlQjDSUcQEj3SYROzdLepzv_odIKPGOB0lCWyPQCaYBXHwcN4whspD0bF2iUD6DXsOOJa-9r3hhXxzuuBpuRl4au4DxKe1cAAfioYvIdQuxtNYS6ptkXNf3yhDlWDxB084lrSGeT1PBTbP5yId7svK3pXl1gdpHas6j7FO8SgIjhOOpAPLx31UuUA.zzvkOnZX0Iaklr8uk7h1Ag",
+    "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJuaWNrbmFtZSI6Im1haGVzd2FyYW4uZWx1bWFsYWkiLCJuYW1lIjoibWFoZXN3YXJhbi5lbHVtYWxhaUBleHBlZGl0b3JzLmNvbSIsInBpY3R1cmUiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9lMDU4MDQzNzZlZWUzMTgzNDhjMmQ0ZTEyMzZhOGMyYj9zPTQ4MCZyPXBnJmQ9aHR0cHMlM0ElMkYlMkZjZG4uYXV0aDAuY29tJTJGYXZhdGFycyUyRm1hLnBuZyIsInVwZGF0ZWRfYXQiOiIyMDI0LTA3LTIzVDA0OjE3OjU2LjM3M1oiLCJlbWFpbCI6Im1haGVzd2FyYW4uZWx1bWFsYWlAZXhwZWRpdG9ycy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vIiwiYXVkIjoidUlrUVVJM0VOTlFkYzFpcHRzZ1RXM2VkWnZBUDVlNmIiLCJpYXQiOjE3MjE3MDgyNzYsImV4cCI6MTcyMTc0NDI3Niwic3ViIjoiYXV0aDB8NjY5ZjJjMmRkMGIwM2ExNWE5ODkyMTc3In0.AuwLplnjMtYJZwvgIRgFdAi3kPufXxThp6mwsDzRH4WdM1dmq3RxWrqYvdXQQHRMkSfEHcavCU7PanOPsbFuLHrJTU1DBnecw-Wy9AbYds7aJZkGGn7CqXB3-Rc192IVdhf3sRQUfnXbHn0Fd1-Onrm38cIVEk9ruRw1WKcjxMUPXie9tzF_OQiX53du28-wmevOPSoTkdHZqhSiktdUlO_CDvueP_bD9qEjxUEe-spi4unQ9tmL3VZ0q1iIyIvxv46tdLA4imssqiOOqCdqd0QnoImVzyfAMuU5em3xmJShUkNmW8BOt8Y1JOS74l9Gv1rHBzdDGTHP7aa3fCArjw",
+    "scope": "openid profile email address phone",
+    "expires_in": 86400,
+    "token_type": "Bearer"
+}
+
+
+
+12) If we decode access token 
+
+"eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiaXNzIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vIn0..A0Fv0Jp_ZMFYuZqy.S4B_1C3jrrEBNV4XaFPD9CB58GvnVVU-CsrcitJ9xaRJQLLzrhr5HUJvDTTLLS4fLld5tNkwHk3S4g_iCXeuP2LqxLve6HNDcDdDcFN878h3viKbPXYQ64-Iu1S1a8MWrzFcTh5orbttFi8WJkuKQzR4JQgwxmoqElHRq04gbYFu2rUGZramDv3LsVgbkC6OmS4mg8WCy89BtMedxQ4JvUxtEI4o50-7RuYAFxJUIU_A-wvI3E6mSNwZ0U_cM0xppBq-ZWAD9g0z9y1UNMZE_tNcuuAEMnhByVFViofHGArsDSw_Z9-pXQ0YigUQDmPnChwDe6V0H3Ew9ckxNgpa48c1mAyXlJkJIpuJu0uuP0PU2JzpjRwxJbYSHc4N77_a2Q.7JJorNuEFYXZPfwQlZgz0g" 
+
+-> We get Invalid Signature error 
+-> This is because we did not send audience in our request 
+
+
+13) So lets add audience in our request :
+-> Audience can be set as  custom api we created like: https://mahesh-service.com which is for Mahesh Service API or Auth0 Management API: https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/
+
+-> Upon setting the audience we get the updated access token :
+
+Request Body:
+grant_type:password
+client_id:uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b
+client_secret:bOMU_hteAvkO_rJDxCC8a8JI_z0aL-rbl6E0oe-HEvxlGJ9HOyeieR53tYP65cee
+username:maheswaran.elumalai@expeditors.com
+password:Test@123
+audience:https://mahesh-service.com
+
+Response:
+Header: 
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "kid": "rJa7TIBlcI0o3Aaq1HyLX"
+}
+Payload: 
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1xNWFidHIxN3JnNXVzNjR1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjlmMmMyZGQwYjAzYTE1YTk4OTIxNzciLCJhdWQiOiJodHRwczovL21haGVzaC1zZXJ2aWNlLmNvbSIsImlhdCI6MTcyMTcwODY4NCwiZXhwIjoxNzIxNzk1MDg0LCJndHkiOiJwYXNzd29yZCIsImF6cCI6InVJa1FVSTNFTk5RZGMxaXB0c2dUVzNlZFp2QVA1ZTZiIn0.HGMrJ8L3lG0GkI--k7lX-WEFWm-rZVlc8T9SH2MLHO6GWxwaKiXzEUFVoZAKXfpKglGEvsEcef5oq2Gv3PY9Io6nRK0Wm7TLZVmj0QLj05iXDWftdrSosXSTH_4RZFCxI_pAx5B3IThy2L66OJbvNUx-NzMVSSwGL6SNj-nHnPt2sa46TLSGoZCsBzuteZUezVHAe91CR6-tTVpctJNsXtFFjz3KSVbwQfjq6DrwgJSoK6Xc-pZ-AayxJkHktO0xzNEaI1y9hfWAhTBYg6hkRhfhRrWeNSR4vmZK3FsAIdNSllH04ElbwP9sw2gCTkM82StUAUDhdvI1ftTULYJ-Vg",
+    "expires_in": 86400,
+    "token_type": "Bearer"
+}
+
+
+Decoded Access Token 
+{
+  "iss": "https://dev-q5abtr17rg5us64u.us.auth0.com/",
+  "sub": "auth0|669f2c2dd0b03a15a9892177",
+  "aud": "https://mahesh-service.com",
+  "iat": 1721708684,
+  "exp": 1721795084,
+  "gty": "password",
+  "azp": "uIkQUI3ENNQdc1iptsgTW3edZvAP5e6b"
+}
+
+-> now we can see that the signature is verified 
+
+d) After we get the access token, we can use it in our application which is protected by Auth0 
+
+e) Similar to Access Token Credentials flow, we can use the access token in Post man in bearer token for authorization and acccess the protected resource 
+
+f) Now if we try to use the access token with Audience as https://mahesh-service.com to get https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/users, which is the end point which is under Auth0 Management API we get the below error response, saying "Bad Audience"
+
+{
+    "statusCode": 401,
+    "error": "Unauthorized",
+    "message": "Bad audience: https://mahesh-service.com"
+}
+
+
+12) Authorization Code Flow:
+https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow
+a) Authorization code flow should be used, if the client is a regular web application executing on a server 
+
+b) Flow:
+
+1) User selects Login within application.
+
+2) Auth0's SDK redirects user to Auth0 Authorization Server (
+/authorize
+endpoint).
+
+3) Auth0 Authorization Server redirects user to login and authorization prompt.
+
+4) User authenticates using one of the configured login options, and may see a consent prompt listing the permissions Auth0 will give to the application.
+
+5) Auth0 Authorization Server redirects user back to application with single-use AUTHORIZATION CODE.
+
+6) Auth0's SDK sends AUTHORIZATION CODE, APPLICATION'S CLIENT ID, AND APPLICATION'S CREDENTIALS, such as CLIENT SECRET or Private Key JWT, to Auth0 Authorization Server (
+/oauth/token
+endpoint).
+
+7) Auth0 Authorization Server verifies authorization code, application's client ID, and application's credentials.
+
+8) Auth0 Authorization Server responds with an ID token and access token (and optionally, a refresh token).
+
+9) Application can use the access token to call an API to access information about the user.
+
+10) API responds with requested data.
+
+c) To demonstrate regular web application lets use Post man. 
+
+-> lets create Regular Web application using: Applications -> Create Application -> Mahesh Regular Web Application  and select technology like Spring boot : Mahesh Regular Web Application
+
+d) First step: lets try /authorize endpoint : https://auth0.com/docs/api/authentication#authorization-code-grant and find the Authorized code flow 
+https://auth0.com/docs/api/authentication#authorize
+
+-> We need to get the /authorize url from the dashboard for application: Mahesh Regular Web Application
+Dashboard -> Applications -> Mahesh Regular Web Application-> Settings -> Advanced Settings -> Endpoints -> OAuth -> OAuth Authorization URL 
+https://dev-q5abtr17rg5us64u.us.auth0.com/authorize
+
+e) We can get required Request parameters from : https://dev-q5abtr17rg5us64u.us.auth0.com/authorize
+i) response_type = Code 
+---> it should be code for Authorization Grant flow 
+
+
+ii) client_id = It is the application's Client Id in dashboard 
+-> We can get client id from Application's(Mahesh Regular Web Application) Settings in dashboard
+
+client_id = 1Z1XPfFmIn3dhx2Ul9TE4176FhrhQLB9 
+
+iii) redirect_uri is the callback url 
+
+-> we will use the http://localhost:4200/ as the callback url 
+
+---> In our application , we have used so far the client id of single page angular application, now we will change it to client id of regular web application in app.module.ts file 
+
+Params:
+response_type:code
+client_id:1Z1XPfFmIn3dhx2Ul9TE4176FhrhQLB9
+redirect_uri:http://localhost:4200/
+
+iv) Now if we save the file and load the angular application  and try to login means we will get error:
+
+
+unauthorized_client: Callback URL mismatch. http://localhost:4200/ is not in the list of allowed callback URLs
+
+v) To solve the issue in our regular web application, we need to populate "Allowed Callback URLs", "Allowed Logout URLs", "Allowed Web Origins" and "Allowed Origins" with http://localhost:4200/ in Mahesh Regular Web Application
+
+-> Upon saving the change and reloading the page:  
+
+vi) Now copying the url we created  and putting in browser with inspect on :
+
+https://dev-q5abtr17rg5us64u.us.auth0.com/authorize?response_type=code&client_id=1Z1XPfFmIn3dhx2Ul9TE4176FhrhQLB9&redirect_uri=http://localhost:4200/
+
+
+we get consent request:
+https://dev-q5abtr17rg5us64u.us.auth0.com/u/consent?state=hKFo2SA4dXlFX3gxZWxwM2w3aldKUGx6WTVqbGpZT2J0QzVkcaFup2NvbnNlbnSjdGlk2SA1ZzBMaTdxd09RWWc4MWJYN1lMNWRUa2h6Z3o0YXk2VaNjaWTZIDFaMVhQZkZtSW4zZGh4MlVsOVRFNDE3NkZocmhRTEI5
+
+
+https://dev-q5abtr17rg5us64u.us.auth0.com/authorize/resume?state=5g0Li7qwOQYg81bX7YL5dTkhzgz4ay6U
+
+
+http://localhost:4200/?code=ztlzyy64SEjdgevXKbythNS0ouY-A3o-YSmNsUo07MHvz
+
+
+vii) Thus if we check url in browser we can see that we got authorization code:
+
+http://localhost:4200/?code=ztlzyy64SEjdgevXKbythNS0ouY-A3o-YSmNsUo07MHvz
+
+viii) THis authorization will be used along with client id and secret to call /oauth/token 
+
+ix) For that lets go to auth0 page for getting the token: 
+
+https://auth0.com/docs/api/authentication#get-token45
+
+x) To get token url we will go to regular web application page dashboard : Mahesh Regular Web Application in Advanced Settings ->End points -> Oauth-> Oauth Token URL:  https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token
+
+
+xi) Now in postman to populate request params lets go back to auth0 page: https://auth0.com/docs/api/authentication#get-token45
+
+
+xii) Forking request for get token:
+-> Headers 
+1) Content-Type: application/x-www-form-urlencoded
+
+-> Request Parameters 
+grant_type:authorization_code
+client_id:1Z1XPfFmIn3dhx2Ul9TE4176FhrhQLB9
+client_secret:afVQEmnitjeyh9qAywBJtdA80luBWAk_98a1Ytv0uVnhOlzH5BDdEkyhlU4cojMA
+code:ztlzyy64SEjdgevXKbythNS0ouY-A3o-YSmNsUo07MHvz
+redirect_uri:http://localhost:4200/
+
+Url formed is:
+https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token?grant_type=authorization_code&client_id=1Z1XPfFmIn3dhx2Ul9TE4176FhrhQLB9&client_secret=afVQEmnitjeyh9qAywBJtdA80luBWAk_98a1Ytv0uVnhOlzH5BDdEkyhlU4cojMA&code=ztlzyy64SEjdgevXKbythNS0ouY-A3o-YSmNsUo07MHvz&redirect_uri=http://localhost:4200/
+
+
+xiii) upon hitting the get token , we will get the access token 
+
+
+xiv) Thus using access token we can access the resource 
+
+
+13) Authorization Code Flow with Proof Key for Code Exchange(PKCE) 
+-> In this lesson we will see how to get JWT token for Authorization Code Flow with Proof key for Code Exchange(PKCE) 
+
+a) This flow should be used when the client is a single page application 
+
+-> https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce
+
+b) Flow details:
+
+1) The user clicks Login within the application.
+
+2) Auth0's SDK creates a cryptographically-random code_verifier and from this generates a code_challenge.
+
+3) Auth0's SDK redirects the user to the Auth0 Authorization Server (
+/authorize
+endpoint) along with the code_challenge.
+
+4) Your Auth0 Authorization Server redirects the user to the login and authorization prompt.
+
+5) The user authenticates using one of the configured login options and may see a consent page listing the permissions Auth0 will give to the application.
+
+6) Your Auth0 Authorization Server stores the code_challenge and redirects the user back to the application with an authorization code, which is good for one use.
+
+7) Auth0's SDK sends this code and the code_verifier (created in step 2) to the Auth0 Authorization Server (
+/oauth/token
+endpoint).
+
+8) Your Auth0 Authorization Server verifies the code_challenge and code_verifier.
+
+9) Your Auth0 Authorization Server responds with an ID token and access token (and optionally, a refresh token).
+
+10) Your application can use the access token to call an API to access information about the user.
+
+11) The API responds with requested data.
+
+
+c) Lets use our "Angular App"  which is a single page application in our dashboard 
+
+d) Next step is to generate a code verifier and code challenge 
+
+-> We will use the below end point : https://auth0.com/docs/api/authentication#-get-authorize-
+
+GET /authorize 
+
+-> We use same set of parameters, but in addition we will use :
+code_challenge_method, code_challenge,
+
+
+e) We will use below url for the same: https://dev-q5abtr17rg5us64u.us.auth0.com/authorize
+
+14)What is Rule:
+a) Rule will be executed each time after login or during refresh token and before back to your application 
+b) If there are several rules, rules will be executed in order. 
+c) There is a time limit to execute a rule. which is 20 seconds 
+
+-> Rule is arbitrary javascript code that can be used to extend Auth0s default behaviour when authenticating a user. Enabled rules will be executed in orterfor all users and clients as the final step of authentication process 
+
+-> Rules can be used to enrish and tranform user profile, deny access to specific users under certain conditions, retrieve information from external services and much more 
+
+d) Common Rules 
+-> Verify email rule 
+-> Add extra claims into token 
+-> Call external API 
+-> Add metadata 
+
+
+12) To debug rules 
+-> Install extension Real time Webtask logs 
+
+
+13) How Hooks work in flow?
+a) Hooks helps to customize the behaviour of Auth0 with Node.js code that is executed in selected extension points.
+b) There are different hooks 
+c) Client Credentials Exchange hook:
+-> Allows custom code to modify the scopes and add custom claims to the tokens issued from the POST /oauth/token/Auth0 API 
+
+
+d) Post Change Password hook:
+-> This hook will be triggered after you change your password 
+
+e) Post User Registration hook:
+ 
+-> Allows custom  actions to be executed after a new user has been created in database 
+-> It executes asynchronously with the rest of the Auth0 pipeline and its outcome does not affect the Auth0 transaction 
+
+
+f) Pre User Registration hook:
+-> This hook allows custom code to prevent creation of a user in database or to add custom apps, metadata or user_metadata to a newly created user 
+
+g) Send Phone Message hook:
+-> This hook allows you to customixe your sms provider for mulitfactor authentication 
+
+--> Rules and Hooks are deprecated in Auth0 
+
+
+14) How Actions work in your flow
+a) Flows are set of actions executed in sequence whenever any of the various triggers are invoked in Auth0 pipeline(such are User Logging in) 
+-> Actions can be added to a Flow from either the market place or be built with custom code to extend the default Auth0 behaviour 
+
+Flows include: Login, Machine to Machine, Pre User Registration, Post User Registration, Post Change Password, Send Phone Message 
+
+-> Login flow is the replace for Rules 
+
+b) Library - In Library we can add some built in actions 
+
+
+15) How to customize auth0 UI for Login/SignUp 
+a) In Auth0  Dashboard -> Branding-> Universal Login 
+--> Under Customization -> Company Logo, Primary Color, Page Background colour 
+
+b) Universal Login -> Login -> Customize Login Page 
+
+-> The code here will be applied to the page 
+
+c) In Customize Login Page -> Default Templates there are three options 
+
+Lock
+Lock(passwordless) 
+Custom Login Form 
+
+d) There will be preview option to view the html page 
+
+
+15) Management API:
+https://www.youtube.com/watch?v=VNgKNXgs7fQ&ab_channel=HelenaLi
+https://auth0.com/docs/api/management/v2
+
+a) While we use Auth0 management API, we need to first get the Management API access token to get access to the list of endpoints 
+
+b) First Create application to access Management API and in that application grant access to Management API 
+c) In API go to Auth0 Management API -> Machine to Machine Applications --> your newly created Machine to Machine application will be listed 
+d) There you edit the permissions and provide the required permissions 
+e) Just point to url in postman 
+
+https://dev-q5abtr17rg5us64u.us.auth0.com/oauth/token 
+
+Following needs to be populated as part of request body 
+
+client_id ---> it is the id from machine to machine application 
+client_secret -> it is the client secret from machine to machine application 
+audience -> We need to use the API audience of Management API 
+grant_type -> client_credentials 
+
+f) We will successfully get the access token 
+g) now lets create new request to search for a particular user 
+-> to form the request in this link: https://auth0.com/docs/api/management/v2 , go to Users -> List or Search users section 
+
+
+h) here end point is : GET  /api/v2/users 
+
+so the end point is, first we copy the domain and the rest end point 
+: https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/users 
+
+
+Request body:
+{
+    "audience": "https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/",
+    "client_id": "N1OjLc6U1UJzJL5UsqvT053ZLcbfDsSZ",
+    "client_secret": "7bkxhsoCopy-KbMRuZ_TFYujwyzbrXjhVhy-B4H08WVkDuTvpXZNVqyn0miAkbEv",
+    "grant_type": "client_credentials"
+}
+
+Response:
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJKYTdUSUJsY0kwbzNBYXExSHlMWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1xNWFidHIxN3JnNXVzNjR1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJOMU9qTGM2VTFVSnpKTDVVc3F2VDA1M1pMY2JmRHNTWkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtcTVhYnRyMTdyZzV1czY0dS51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTcyMTc5NTAyMCwiZXhwIjoxNzIxODgxNDIwLCJzY29wZSI6InJlYWQ6Y2xpZW50X2dyYW50cyBjcmVhdGU6Y2xpZW50X2dyYW50cyBkZWxldGU6Y2xpZW50X2dyYW50cyB1cGRhdGU6Y2xpZW50X2dyYW50cyByZWFkOnVzZXJzIHVwZGF0ZTp1c2VycyBkZWxldGU6dXNlcnMgY3JlYXRlOnVzZXJzIHJlYWQ6dXNlcnNfYXBwX21ldGFkYXRhIHVwZGF0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgZGVsZXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBjcmVhdGU6dXNlcnNfYXBwX21ldGFkYXRhIHJlYWQ6dXNlcl9jdXN0b21fYmxvY2tzIGNyZWF0ZTp1c2VyX2N1c3RvbV9ibG9ja3MgZGVsZXRlOnVzZXJfY3VzdG9tX2Jsb2NrcyBjcmVhdGU6dXNlcl90aWNrZXRzIHJlYWQ6Y2xpZW50cyB1cGRhdGU6Y2xpZW50cyBkZWxldGU6Y2xpZW50cyBjcmVhdGU6Y2xpZW50cyByZWFkOmNsaWVudF9rZXlzIHVwZGF0ZTpjbGllbnRfa2V5cyBkZWxldGU6Y2xpZW50X2tleXMgY3JlYXRlOmNsaWVudF9rZXlzIHJlYWQ6Y29ubmVjdGlvbnMgdXBkYXRlOmNvbm5lY3Rpb25zIGRlbGV0ZTpjb25uZWN0aW9ucyBjcmVhdGU6Y29ubmVjdGlvbnMgcmVhZDpyZXNvdXJjZV9zZXJ2ZXJzIHVwZGF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGRlbGV0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGNyZWF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIHJlYWQ6ZGV2aWNlX2NyZWRlbnRpYWxzIHVwZGF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgZGVsZXRlOmRldmljZV9jcmVkZW50aWFscyBjcmVhdGU6ZGV2aWNlX2NyZWRlbnRpYWxzIHJlYWQ6cnVsZXMgdXBkYXRlOnJ1bGVzIGRlbGV0ZTpydWxlcyBjcmVhdGU6cnVsZXMgcmVhZDpydWxlc19jb25maWdzIHVwZGF0ZTpydWxlc19jb25maWdzIGRlbGV0ZTpydWxlc19jb25maWdzIHJlYWQ6aG9va3MgdXBkYXRlOmhvb2tzIGRlbGV0ZTpob29rcyBjcmVhdGU6aG9va3MgcmVhZDphY3Rpb25zIHVwZGF0ZTphY3Rpb25zIGRlbGV0ZTphY3Rpb25zIGNyZWF0ZTphY3Rpb25zIHJlYWQ6ZW1haWxfcHJvdmlkZXIgdXBkYXRlOmVtYWlsX3Byb3ZpZGVyIGRlbGV0ZTplbWFpbF9wcm92aWRlciBjcmVhdGU6ZW1haWxfcHJvdmlkZXIgYmxhY2tsaXN0OnRva2VucyByZWFkOnN0YXRzIHJlYWQ6aW5zaWdodHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpsb2dzX3VzZXJzIHJlYWQ6c2hpZWxkcyBjcmVhdGU6c2hpZWxkcyB1cGRhdGU6c2hpZWxkcyBkZWxldGU6c2hpZWxkcyByZWFkOmFub21hbHlfYmxvY2tzIGRlbGV0ZTphbm9tYWx5X2Jsb2NrcyB1cGRhdGU6dHJpZ2dlcnMgcmVhZDp0cmlnZ2VycyByZWFkOmdyYW50cyBkZWxldGU6Z3JhbnRzIHJlYWQ6Z3VhcmRpYW5fZmFjdG9ycyB1cGRhdGU6Z3VhcmRpYW5fZmFjdG9ycyByZWFkOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGRlbGV0ZTpndWFyZGlhbl9lbnJvbGxtZW50cyBjcmVhdGU6Z3VhcmRpYW5fZW5yb2xsbWVudF90aWNrZXRzIHJlYWQ6dXNlcl9pZHBfdG9rZW5zIGNyZWF0ZTpwYXNzd29yZHNfY2hlY2tpbmdfam9iIGRlbGV0ZTpwYXNzd29yZHNfY2hlY2tpbmdfam9iIHJlYWQ6Y3VzdG9tX2RvbWFpbnMgZGVsZXRlOmN1c3RvbV9kb21haW5zIGNyZWF0ZTpjdXN0b21fZG9tYWlucyB1cGRhdGU6Y3VzdG9tX2RvbWFpbnMgcmVhZDplbWFpbF90ZW1wbGF0ZXMgY3JlYXRlOmVtYWlsX3RlbXBsYXRlcyB1cGRhdGU6ZW1haWxfdGVtcGxhdGVzIHJlYWQ6bWZhX3BvbGljaWVzIHVwZGF0ZTptZmFfcG9saWNpZXMgcmVhZDpyb2xlcyBjcmVhdGU6cm9sZXMgZGVsZXRlOnJvbGVzIHVwZGF0ZTpyb2xlcyByZWFkOnByb21wdHMgdXBkYXRlOnByb21wdHMgcmVhZDpicmFuZGluZyB1cGRhdGU6YnJhbmRpbmcgZGVsZXRlOmJyYW5kaW5nIHJlYWQ6bG9nX3N0cmVhbXMgY3JlYXRlOmxvZ19zdHJlYW1zIGRlbGV0ZTpsb2dfc3RyZWFtcyB1cGRhdGU6bG9nX3N0cmVhbXMgY3JlYXRlOnNpZ25pbmdfa2V5cyByZWFkOnNpZ25pbmdfa2V5cyB1cGRhdGU6c2lnbmluZ19rZXlzIHJlYWQ6bGltaXRzIHVwZGF0ZTpsaW1pdHMgY3JlYXRlOnJvbGVfbWVtYmVycyByZWFkOnJvbGVfbWVtYmVycyBkZWxldGU6cm9sZV9tZW1iZXJzIHJlYWQ6ZW50aXRsZW1lbnRzIHJlYWQ6YXR0YWNrX3Byb3RlY3Rpb24gdXBkYXRlOmF0dGFja19wcm90ZWN0aW9uIHJlYWQ6b3JnYW5pemF0aW9uc19zdW1tYXJ5IGNyZWF0ZTphdXRoZW50aWNhdGlvbl9tZXRob2RzIHJlYWQ6YXV0aGVudGljYXRpb25fbWV0aG9kcyB1cGRhdGU6YXV0aGVudGljYXRpb25fbWV0aG9kcyBkZWxldGU6YXV0aGVudGljYXRpb25fbWV0aG9kcyByZWFkOm9yZ2FuaXphdGlvbnMgdXBkYXRlOm9yZ2FuaXphdGlvbnMgY3JlYXRlOm9yZ2FuaXphdGlvbnMgZGVsZXRlOm9yZ2FuaXphdGlvbnMgY3JlYXRlOm9yZ2FuaXphdGlvbl9tZW1iZXJzIHJlYWQ6b3JnYW5pemF0aW9uX21lbWJlcnMgZGVsZXRlOm9yZ2FuaXphdGlvbl9tZW1iZXJzIGNyZWF0ZTpvcmdhbml6YXRpb25fY29ubmVjdGlvbnMgcmVhZDpvcmdhbml6YXRpb25fY29ubmVjdGlvbnMgdXBkYXRlOm9yZ2FuaXphdGlvbl9jb25uZWN0aW9ucyBkZWxldGU6b3JnYW5pemF0aW9uX2Nvbm5lY3Rpb25zIGNyZWF0ZTpvcmdhbml6YXRpb25fbWVtYmVyX3JvbGVzIHJlYWQ6b3JnYW5pemF0aW9uX21lbWJlcl9yb2xlcyBkZWxldGU6b3JnYW5pemF0aW9uX21lbWJlcl9yb2xlcyBjcmVhdGU6b3JnYW5pemF0aW9uX2ludml0YXRpb25zIHJlYWQ6b3JnYW5pemF0aW9uX2ludml0YXRpb25zIGRlbGV0ZTpvcmdhbml6YXRpb25faW52aXRhdGlvbnMgcmVhZDpzY2ltX2NvbmZpZyBjcmVhdGU6c2NpbV9jb25maWcgdXBkYXRlOnNjaW1fY29uZmlnIGRlbGV0ZTpzY2ltX2NvbmZpZyBjcmVhdGU6c2NpbV90b2tlbiByZWFkOnNjaW1fdG9rZW4gZGVsZXRlOnNjaW1fdG9rZW4gZGVsZXRlOnBob25lX3Byb3ZpZGVycyBjcmVhdGU6cGhvbmVfcHJvdmlkZXJzIHJlYWQ6cGhvbmVfcHJvdmlkZXJzIHVwZGF0ZTpwaG9uZV9wcm92aWRlcnMgZGVsZXRlOnBob25lX3RlbXBsYXRlcyBjcmVhdGU6cGhvbmVfdGVtcGxhdGVzIHJlYWQ6cGhvbmVfdGVtcGxhdGVzIHVwZGF0ZTpwaG9uZV90ZW1wbGF0ZXMgY3JlYXRlOmVuY3J5cHRpb25fa2V5cyByZWFkOmVuY3J5cHRpb25fa2V5cyB1cGRhdGU6ZW5jcnlwdGlvbl9rZXlzIGRlbGV0ZTplbmNyeXB0aW9uX2tleXMgcmVhZDpzZXNzaW9ucyBkZWxldGU6c2Vzc2lvbnMgcmVhZDpyZWZyZXNoX3Rva2VucyBkZWxldGU6cmVmcmVzaF90b2tlbnMgY3JlYXRlOnNlbGZfc2VydmljZV9wcm9maWxlcyByZWFkOnNlbGZfc2VydmljZV9wcm9maWxlcyB1cGRhdGU6c2VsZl9zZXJ2aWNlX3Byb2ZpbGVzIGRlbGV0ZTpzZWxmX3NlcnZpY2VfcHJvZmlsZXMgY3JlYXRlOnNzb19hY2Nlc3NfdGlja2V0cyByZWFkOmZvcm1zIHVwZGF0ZTpmb3JtcyBkZWxldGU6Zm9ybXMgY3JlYXRlOmZvcm1zIHJlYWQ6Zmxvd3MgdXBkYXRlOmZsb3dzIGRlbGV0ZTpmbG93cyBjcmVhdGU6Zmxvd3MgcmVhZDpmbG93c192YXVsdCB1cGRhdGU6Zmxvd3NfdmF1bHQgZGVsZXRlOmZsb3dzX3ZhdWx0IGNyZWF0ZTpmbG93c192YXVsdCByZWFkOmNsaWVudF9jcmVkZW50aWFscyBjcmVhdGU6Y2xpZW50X2NyZWRlbnRpYWxzIHVwZGF0ZTpjbGllbnRfY3JlZGVudGlhbHMgZGVsZXRlOmNsaWVudF9jcmVkZW50aWFscyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsImF6cCI6Ik4xT2pMYzZVMVVKekpMNVVzcXZUMDUzWkxjYmZEc1NaIn0.k8e6dZ4c3QK3bffiqhUYlsr-8FELqlll9-oPseAeajIov5BTAxSBtT5-FQcBXlkMATDXJHFfLLd_95xHsKcT5tAY7IPm82ZKbE-dtWiwWJEHNQ09oCfz5v6eR_jcr7Sz3mR5p3ZvsBadumexmVFcD9td4EsqHa4uMj-o9mN-Yq_U6X7lYmr7_pGkmfuv99pnzVoB9WyC5X88ax8oy659VLHx3I6eKBRC40galcUtkFxKtUvQq1XKLHZMh6rneGKmzErta4XcZJ9fJiEft4fhOK5lKyai0irxj9K-k0sekwEpcKkDxdpyimJvk0QuoiuGtD8rFihIspv4uazuVeweWg",
+    "scope": "read:client_grants create:client_grants delete:client_grants update:client_grants read:users update:users delete:users create:users read:users_app_metadata update:users_app_metadata delete:users_app_metadata create:users_app_metadata read:user_custom_blocks create:user_custom_blocks delete:user_custom_blocks create:user_tickets read:clients update:clients delete:clients create:clients read:client_keys update:client_keys delete:client_keys create:client_keys read:connections update:connections delete:connections create:connections read:resource_servers update:resource_servers delete:resource_servers create:resource_servers read:device_credentials update:device_credentials delete:device_credentials create:device_credentials read:rules update:rules delete:rules create:rules read:rules_configs update:rules_configs delete:rules_configs read:hooks update:hooks delete:hooks create:hooks read:actions update:actions delete:actions create:actions read:email_provider update:email_provider delete:email_provider create:email_provider blacklist:tokens read:stats read:insights read:tenant_settings update:tenant_settings read:logs read:logs_users read:shields create:shields update:shields delete:shields read:anomaly_blocks delete:anomaly_blocks update:triggers read:triggers read:grants delete:grants read:guardian_factors update:guardian_factors read:guardian_enrollments delete:guardian_enrollments create:guardian_enrollment_tickets read:user_idp_tokens create:passwords_checking_job delete:passwords_checking_job read:custom_domains delete:custom_domains create:custom_domains update:custom_domains read:email_templates create:email_templates update:email_templates read:mfa_policies update:mfa_policies read:roles create:roles delete:roles update:roles read:prompts update:prompts read:branding update:branding delete:branding read:log_streams create:log_streams delete:log_streams update:log_streams create:signing_keys read:signing_keys update:signing_keys read:limits update:limits create:role_members read:role_members delete:role_members read:entitlements read:attack_protection update:attack_protection read:organizations_summary create:authentication_methods read:authentication_methods update:authentication_methods delete:authentication_methods read:organizations update:organizations create:organizations delete:organizations create:organization_members read:organization_members delete:organization_members create:organization_connections read:organization_connections update:organization_connections delete:organization_connections create:organization_member_roles read:organization_member_roles delete:organization_member_roles create:organization_invitations read:organization_invitations delete:organization_invitations read:scim_config create:scim_config update:scim_config delete:scim_config create:scim_token read:scim_token delete:scim_token delete:phone_providers create:phone_providers read:phone_providers update:phone_providers delete:phone_templates create:phone_templates read:phone_templates update:phone_templates create:encryption_keys read:encryption_keys update:encryption_keys delete:encryption_keys read:sessions delete:sessions read:refresh_tokens delete:refresh_tokens create:self_service_profiles read:self_service_profiles update:self_service_profiles delete:self_service_profiles create:sso_access_tickets read:forms update:forms delete:forms create:forms read:flows update:flows delete:flows create:flows read:flows_vault update:flows_vault delete:flows_vault create:flows_vault read:client_credentials create:client_credentials update:client_credentials delete:client_credentials",
+    "expires_in": 86400,
+    "token_type": "Bearer"
+}
+
+
+
+i) Now if we copy the access token and pass it for accessing this resource: 
+
+https://dev-q5abtr17rg5us64u.us.auth0.com/api/v2/users
+
+Response:
+
+[
+    {
+        "nickname": "maheshneyveli22",
+        "picture": "https://s.gravatar.com/avatar/7b2870cd1fc968be88ad677442948ece?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fma.png",
+        "email_verified": true,
+        "created_at": "2024-07-19T09:39:08.543Z",
+        "user_id": "auth0|669a343ca2a21905b4748e7b",
+        "email": "maheshneyveli22@gmail.com",
+        "identities": [
+            {
+                "connection": "Username-Password-Authentication",
+                "user_id": "669a343ca2a21905b4748e7b",
+                "provider": "auth0",
+                "isSocial": false
+            }
+        ],
+        "name": "maheshneyveli22@gmail.com",
+        "updated_at": "2024-07-23T14:53:48.092Z",
+        "last_password_reset": "2024-07-23T03:57:17.629Z",
+        "last_login": "2024-07-23T14:53:48.091Z",
+        "last_ip": "2405:201:e031:7082:fc2e:dc16:a43c:bfaf",
+        "logins_count": 10
+    },
+    {
+        "picture": "https://s.gravatar.com/avatar/e05804376eee318348c2d4e1236a8c2b?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fma.png",
+        "created_at": "2024-07-23T04:06:05.328Z",
+        "nickname": "maheswaran.elumalai",
+        "user_id": "auth0|669f2c2dd0b03a15a9892177",
+        "email": "maheswaran.elumalai@expeditors.com",
+        "name": "maheswaran.elumalai@expeditors.com",
+        "email_verified": true,
+        "updated_at": "2024-07-23T04:42:09.636Z",
+        "identities": [
+            {
+                "connection": "Username-Password-Authentication",
+                "user_id": "669f2c2dd0b03a15a9892177",
+                "provider": "auth0",
+                "isSocial": false
+            }
+        ],
+        "last_login": "2024-07-23T04:42:09.636Z",
+        "last_ip": "142.79.233.23",
+        "logins_count": 10
+    },
+    {
+        "name": "Maheswaran",
+        "updated_at": "2024-07-22T06:43:51.797Z",
+        "identities": [
+            {
+                "isSocial": true,
+                "access_token": "ya29.a0AXooCguNkBlWRi1glFDbfnrUO5a7_3tvoCRr591XPmPQ7ht9d0G-A-Hy66vE25bLWAuXNC7kcOeS4uPOBmQedLx9TU7EOE1dfwYbvDtNr92rLk0VF59bgGldyoPJMknlcjHqqClXoATCYou0emWwbSIRHxc-w6xzxUAaCgYKAZ0SARMSFQHGX2Mi4ARYiuaJ1m8_QerH6Qjywg0170",
+                "expires_in": 3598,
+                "connection": "google-oauth2",
+                "user_id": "113290327553097174855",
+                "provider": "google-oauth2"
+            }
+        ],
+        "email": "maheshneyveli22@gmail.com",
+        "user_id": "google-oauth2|113290327553097174855",
+        "given_name": "Maheswaran",
+        "email_verified": true,
+        "created_at": "2024-07-19T09:33:15.573Z",
+        "nickname": "maheshneyveli22",
+        "picture": "https://lh3.googleusercontent.com/a/ACg8ocKuMJ49f2VNW5NQJbYwNMr7AJL89bk08nHw4N98IMZICiZfdA=s96-c",
+        "last_login": "2024-07-22T06:43:51.797Z",
+        "last_ip": "142.79.233.24",
+        "logins_count": 7
+    }
+]
+
+16) Rules for Using Management API or Any API with Client credentials flow 
+
+a) While generating token:
+a) First your application in Autho should have permission for accessing that api 
+
+-> for that go Dashboard -> API -> Machine to Machine Applications-> Mark the application as Authorized 
+  - Multiple applications can be marked as authorized for a particular API 
+  
+b) Then in Post man for getting the token :
+
+Use Client Id, Client Secret of application  from which you want to access API
+Use Audience of API which is requested 
+
+c) Then after obtaining token , Access the API resource in postman using the token in Bearer Authorization 

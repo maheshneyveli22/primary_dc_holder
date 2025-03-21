@@ -1,0 +1,52 @@
+1) git config --global --unset http.proxy
+
+2) to add a file and push it into repository from command line:
+
+a) First create a repository in github with readme file
+b) Copy the clone link and in the local desktop, clone the repository using git clone command:
+ git clone  xxxxxx.git 
+c) Now in local create a new file inside the particular repository folder
+d) Now its time to push the file into remote github repository:
+i) git add application.properties
+ii) git status
+-> you will see the branch and tells that file is staged
+iii) git commit -m "Mahesh adding application.properties file"
+-> now we commit the file
+iv) git push
+-> now we push the application.properties file into the remote repository
+-> Now if we go to the github repository, we can the newly added file 
+
+
+####################SAMPLE###########################
+C:\ExpoNow\All Sample Spring Boot\zeeks_rmi>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\ExpoNow\All Sample Spring Boot\zeeks_rmi>git add application.properties
+
+C:\ExpoNow\All Sample Spring Boot\zeeks_rmi>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   application.properties
+
+
+C:\ExpoNow\All Sample Spring Boot\zeeks_rmi>git commit -m "Mahesh adding the application.properties file"
+[main 607c0c4] Mahesh adding the application.properties file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 application.properties
+
+C:\ExpoNow\All Sample Spring Boot\zeeks_rmi>git push
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 395 bytes | 98.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/maheshneyveli22/zeeks_rmi.git
+   8c24e97..607c0c4  main -> main
+########################################################

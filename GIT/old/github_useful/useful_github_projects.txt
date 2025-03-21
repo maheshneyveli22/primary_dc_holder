@@ -1,0 +1,8 @@
+1) https://github.com/eugenp/tutorials/tree/master/spring-cloud-modules/spring-cloud-circuit-breaker
+https://github.com/eugenp/tutorials/tree/master/spring-cloud-modules/spring-cloud-circuit-breaker.git
+Spring cloud circuit-breaker
+
+2) Resilience4j circuit-breaker tech primers:
+https://github.com/TechPrimers/resilience4j-circuitbreaker
+
+https://github.com/TechPrimers/resilience4j-circuitbreaker.git

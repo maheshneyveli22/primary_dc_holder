@@ -1,0 +1,5878 @@
+1) official git page: https://git-scm.com/
+2) detached state: https://stackoverflow.com/questions/3965676/why-did-my-git-repo-enter-a-detached-head-state
+
+
+2) GIT:
+-> Version control software that runs locally on your machine
+-> You dont need to register for an account 
+-> Dont need the internet to use it 
+-> Can use git without ever touching github 
+
+3) GIThub:
+-> Service that hosts GIT repositories in cloud 
+-> Makes it easier to collaborate with other people
+-> dont need to sign up for an account to use github
+-> Online place to share work that is done using GIT 
+
+4) GIT installation 
+a) GIT bash 
+-> Bash is a command line interface widely used by developers
+-> default shell for linux and machine
+-> GIT was designed to run on a Unix based interface(like Bash)
+
+-> Windows comes with a different default command line interface called command prompt, that is not unix based
+
+-> Fortunately we have Gitbash
+-> Gitbash is a tool that emulates a bash experience on a Windows Machine 
+-> it comes with GIT too 
+
+b) git link: https://git-scm.com/ 
+-> download GIT installer for windows 
+-> There will be option to choose default editor, can choose vis code if needed
+-> Also there will option to choose default branch, let get decide or we can give name like we gave develop for expeditors 
+
+
+c) command to check if git was installed; git -v :
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-parent (wsdl2java)
+$ git -v
+git version 2.43.0.windows.1
+###
+
+
+5) Configuring GIT name and email 
+a) To configure the name, that git will associate with your work:
+
+git config --global user.name "gs1-maheswarane"
+
+b) Check the current user name:
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 ~
+$ git config user.name
+gs1-maheswarane
+
+c) To configure email:
+
+git config -global user.email maheswaran.elumalai@expeditors.com
+
+d) Check the current email:
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 ~
+$ git config user.email
+maheswaran.elumalai@expeditors.com
+
+
+e) git fetches config information from file: C:\Users\gs1-maheswarane\.gitconfig
+
+###
+[https]
+	proxy = http://devproxy01.chq.ei:8080
+[user]
+	email = maheswaran.elumalai@expeditors.com
+	name = gs1-maheswarane
+[url "https://"]
+	insteadOf = git://
+[gui]
+	recentrepo = C:/ExpoNow/booking-parent
+###
+
+
+6) Terminal crash course: 
+a) Navigation - ls, pwd, cd, cd ..  , ls -a 
+b) Navigation - start . 
+-> opens file explorer 
+c) Navigation - clear
+-> clears the terminal 
+d) file creation: touch mahe.txt yellow.py good.pdf 
+e) folder creation: mkdir cars bikes cycles 
+f) Delete files : rm mahe.txt 
+g) delete folders: rm -rf mahe 
+
+
+7) Repository:
+-> A GIT repo is a workspace which tracks and manages files within a folder 
+-> Anytime we want o use GIT with a project, app, etc we need to create a new git repository. 
+-> we can have as many repos on our machines as needed, all with separate histories and contents 
+
+8) Git commands
+
+8.1) git status:
+-> gives information on the current status of a git repository and its contents 
+
+eg:
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-parent (wsdl2java)
+$ git status
+On branch wsdl2java
+Your branch is up to date with 'origin/wsdl2java'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   booking-service/configs/local/application.properties
+        modified:   booking-service/src/test/java/com/expd/expo/booking/automationtests/API/Booking/ExpoNow_Booking_TemplateAutomation.java
+        modified:   booking-submission/src/main/java/com/expd/expo/booking/service/helper/BookingServiceHelper.java
+        modified:   booking-submission/src/main/java/com/expd/expo/booking/service/impl/BookingSubmissionServiceImpl.java
+        modified:   booking-submission/src/main/resources/application.properties
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        booking-submission/test.txt
+        tmest.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+###
+
+
+#######Before git-init#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ mkdir gitlab-1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ cd gitlab-1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1
+$ git status
+fatal: not a git repository (or any of the parent directories): .git
+
+
+
+
+#################
+
+
+
+9) git init
+a) 
+-> command to create a new repository 
+-> before we can do anything git-related, we must initialize repo first 
+-> git init is done once per project 
+-> git init initialization should be done in the top-level folder containing your project 
+
+
+eg:
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1
+$ git init
+Initialized empty Git repository in C:/ExpoNow/gitlab-tutorials/gitlab-1/.git/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$
+#######
+
+b) Post creation of repository , we can check the git status: 
+
+
+eg:
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$
+####
+
+
+C) MORE ON .GIT FOLDER 
+-> WHile git init creates an empty GIT repository, a .git directory with subdirectories for objects, refs/heads, refs/tags and templates files will be created 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/.git (GIT_DIR!)
+$ ls
+HEAD  config  description  hooks/  info/  objects/  refs/
+
+
+-> .git folder contains the above folders. If these folders are deleted , git history will be completely deleted 
+
+d) DONT INIT A REPO INSIDE OF A REPO
+1) Git tracks a directory and all nested sub-directories 
+-> hence if you go to subdirectory and hit: git status we get the repository details 
+2) It is important to undertand this for two reasons ;
+ i) Any files/changes we do within this directory for this one project are tracked by GIT, if we initialize via git init 
+ ii) We dont want to initialize another repo within an existing repo 
+ 
+ 
+ 
+10) Committing Workflow Overview: - High level conceptual overview 
+ WORK ON STUFF(Make new files, edit, delete files etc) 
+      |
+	  |
+ ADD CHANGES(Group specific changes together, in preparation of committing)
+      |
+	  |
+    COMMIT(Commit everything that was previously added) 
+	
+
+
+a) What is git committing: 
+-> commits are checkpoints in time, when we add a feature or change in code 
+-> Each commit is a snapshot of the repository and the new changes we added 
+-> Each commit has a comment and description to it 
+
+b) Making a commit is not the same as just saving a file 
+-> commit is built on saving a file 
+-> We have to make changes first, save them locally before we commit 
+
+
+c) Commit can be on a single or multiple files
+-> Once we saved files, we can group them together into a commit 
+
+11) COMMIT ASSOCIATED COMMANDS:
+a) git add 
+-> We use git add to select the files for a particular commit. 
+b) git commit 
+
+12) Steps: Creating,Adding and Committing a file:
+a) Create a file using touch 
+
+eg:
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ touch mahtest.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ ls
+mahtest.txt
+
+
+b) Check for git status:
+
+eg:
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ./
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+
+####Three different locations############
+a) Working Directory:
+-> Actually directory where we are working on project 
+-> In our case above: gitlab-1 is the working directory 
+
+ b) Staging Area 
+ -> Place where we add our changes, before we make a commit  
+ -> We group related files and do a staging of files. staging of files is done by git add command
+ 
+ c) Repository 
+-> This is the .git folder 
+-> Inside of that folder, at the moment(after doing git init, touching a file there are some default contents ).. 
+-> But once we make a commit , git commit adds new commits to that folder 
+-> So when we actually make a commit, we are updating .git folder i.e the actual git repository . 
+-> otherwise everything that we are doing is in the working directory only 
+
+
+WORKING DIRECTORY ---git add-----> STAGING AREA ---git commit---->REPOSITORY 
+
+#########################
+
+C) Adding:
+-> Use git add command to add specific files to the staging area. 
+-> Separate files with spaces to add multiple file at once 
+
+syntax: git add file1 file2 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git add mahtest.txt mahtestnew.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   mahtest.txt
+        new file:   mahtestnew.txt
+
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+###
+
+
+d) Committing the file
+
+i) git commit 
+-> We use git commit command to actually commit changes from staging area 
+
+-> When making a commit, we need to provide a commit message that summarizes the changes and work snapshot in the commit 
+
+syntax: git commit 
+
+-> This will open a text editor where we need to provide the commit message 
+
+
+ii) git commit -m:
+-> -m flag allows us to pass in line commit message, rather than launching a text editor 
+
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git commit -m "mahesh committing 2 files:1"
+[master (root-commit) feaf319] mahesh committing 2 files:1
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 source/mahtest.txt
+ create mode 100644 source/mahtestnew.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+###
+
+
+e) Now if i change file: mahtest.txt and  check git status,we will see that file got modified 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/source (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   mahtest.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+###
+
+
+
+f) To  restore staged file: git restore --staged source\mahtest.txt
+
+#######
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git restore --staged source\mahtest.txt
+
+-> git status post unstaging 
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   source/mahtest.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+########
+
+
+g) Adding/staging it back:
+
+
+############
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git add source\mahtest.txt
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git statu
+git: 'statu' is not a git command. See 'git --help'.
+
+The most similar commands are
+        status
+        stage
+        stash
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   source/mahtest.txt
+
+########
+
+
+
+h) Commit again with modified file  
+
+
+###########
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git add source\mahtest.txt
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git statu
+git: 'statu' is not a git command. See 'git --help'.
+
+The most similar commands are
+        status
+        stage
+        stash
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   source/mahtest.txt
+		
+#######
+
+
+
+
+12)  git log - gives a log of the commits for a given repository
+
+
+##
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2 (HEAD -> master)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+
+commit feaf3194790ef9d041d7686fa56fbf4f08d55387
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Mar 6 15:19:17 2024 +0530
+
+    mahesh committing 2 files:1
+##
+
+12.1) git log --oneline ---> prints commits in one line 
+
+
+#########
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log --oneline
+da851f5 (HEAD -> master) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+#######
+
+
+13) Staging/adding all files at once:
+
+git add .  -> It will stage all changes at once
+
+14) git documentation
+-> git docs are accessible at: 
+a) https://git-scm.com/docs - complete reference manual of all git commands 
+b) git docs and explanation of git concepts - https://git-scm.com/book/en/v2
+
+
+14) git commit using text editor : 
+
+git commit 
+
+-> once text editor opens , enter i to go into insert mode 
+-> Then :wq! will save the file 
+
+
+15) git commit --amend 
+-> Suppose you just made a commit and then realized you forgot to include a file 
+-> Rather than making brand new separate commit, you can redo/amend the previous commit using --amend option 
+-> Here amend will work only to amend 1 previous commit, it cannot be more than 1 previous commit 
+
+syntax:
+git commit -m "some commit"
+git add forgotten_file 
+git commit --amend 
+
+16) Ignoring files:
+a) We can tell GIT which files and directories to ignore in a given repository using .gitignore file
+-> this is useful for files you know you never want to commit including
+* secrets, api keys, credentials,etc 
+* Operating system files(.DS_Store on Mac)
+* Log files 
+* Dependencies and packages 
+b) Even if we do changes, git will not track those files and wont show in git status if marked gitignore 
+
+a) .gitignore file is traditionally put in the root of the repository 
+b) If we create a file with that name, git will look for that file and inside of it we can tell, what to ignore. 
+
+
+
+17) GIT Branches:
+General on GIT
+-> Every commit has a unique hash identifier that corresponds to the commit 
+-> Each commit references atleast one parent commit, that became before it  
+
+a) Branches enable us to create separate contexts which helps us to work in parallel 
+b) If we make changes on one branch, they dont impact other branches
+c) If we check git status on our git project  it shows the following 
+-> It tells : on which branch we are currently in : master 
+-> though we did not create the master branch, it will be present by default 
+
+#########
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch master
+nothing to commit, working tree clean
+###########
+
+
+d) Master Branch:
+-> It is default branch when you make a new GIT repository 
+-> It has the same capability as other branches  and same commands 
+-> Many people designate master branch as their "source of truth" or the "official branch" for their code base but that is left for us to decide 
+-> From git's perspective , master branch is just like any other branch. It does not have to hold the master copy of your project 
+
+Master vs Main 
+-> github renamed default branch from master to main 
+-> default git branch name is still master, though the git team is exploring a potential change 
+
+
+18)  What is HEAD 
+a) If we have a repository(booking-parent) and you have created multiple branches for that repository 
+ and if you have checkedout wsdl2java branch in that repository currently, then head will point to wsdll2java 
+b) We can check that by using git log and git branch command 
+c) head always points to the current branch in the repo 
+
+git branch command tells the current branch in the repo
+eg:git branch 
+
+##############
+C:\ExpoNow\booking-parent>git branch
+  83818-PortRestrictionChange
+  838186_Port_Restriction_Changes
+  838186_portTobeMerged
+  PerformancCheckJune12
+  PerformanceCheckJune14
+  PerformanceCheck_July10
+  develop
+  htkn_test
+  
+##############
+
+
+#############
+  C:\ExpoNow\booking-parent>git log
+commit 45bdd2ce489726a9f5a36914a5400effc748482d (HEAD -> wsdl2java, origin/wsdl2java)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Feb 28 14:22:19 2024 +0530
+
+    Removed owasp property
+
+commit 6120b9a73c404be5b6581f8ac0f81038963980b0
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Feb 28 14:12:36 2024 +0530
+
+    Reverted back snapshot and added bug ref: 1039418
+
+commit 83112c471df45fc4100b6253d43968a990c75eba
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Feb 28 12:47:39 2024 +0530
+
+    For Debugging
+
+commit 243ae56071caccc991372c78035cfedf6beebd9f
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Feb 28 12:36:37 2024 +0530
+
+    Removed snapshot
+
+commit ce0053b63552704e52bbeb96730c6b84f706c182
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Feb 14 14:43:19 2024 +0530
+
+  java17_upgrade
+  spring_boot_3
+  test_performance
+* wsdl2java
+
+##############
+
+
+19) Creating branches
+
+a) git branch <branch-name> 
+-> this command is used to create a new branch based on the current HEAD 
+-> This command just creates the branch, it does not switch you to that branch[Head stays the same 
+
+
+eg:
+####git branch###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch testbranch_1
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  
+####git log######
+  C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit da851f54d21c38f79ef9bf209db68ca3b53787f0 (HEAD -> master, testbranch_1)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:55:39 2024 +0530
+
+    test commit
+
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+
+commit feaf3194790ef9d041d7686fa56fbf4f08d55387
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Mar 6 15:19:17 2024 +0530
+
+    mahesh committing 2 files:1
+
+#############
+-> Here we can see 2 branches (master,testbranch_1) pointing to the same branch 
+
+b) While "git branch" lists the current branches, "git branch <branch-name>" creates a new branch
+
+c) Now if we give git status, we can see:
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch master
+nothing to commit, working tree clean
+
+###
+###
+
+20) Switching Branches:
+a) Once you created a new branch, use: 
+git switch <branch-name> to switch to it 
+
+
+###before switch###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  
+###git switch###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_1
+Switched to branch 'testbranch_1'
+
+
+####after switch########
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+* testbranch_1
+
+###git status after switch########
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+* testbranch_1
+
+
+###git log after switch###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit da851f54d21c38f79ef9bf209db68ca3b53787f0 (HEAD -> testbranch_1, master)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:55:39 2024 +0530
+
+    test commit
+
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+
+commit feaf3194790ef9d041d7686fa56fbf4f08d55387
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Mar 6 15:19:17 2024 +0530
+
+    mahesh committing 2 files:1
+
+
+-> We can note that head is now pointing to testbranch_1 and not master 
+
+
+b) If we try switch to branch which does not exist it will throw invalid reference:
+
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_1
+Switched to branch 'testbranch_1'
+####
+
+21) Add and commit in single line:
+
+a) git commit -a -m 
+
+###git commit -a -m ####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git commit -a -m "first commit with testbranch_1"
+[testbranch_1 633341b] first commit with testbranch_1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+#########
+
+b) git log post commit:
+
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit 633341b5f4c51550bd6b2420cdc744b9c18822bb (HEAD -> testbranch_1)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Mon Mar 11 04:49:52 2024 +0530
+
+    first commit with testbranch_1
+
+commit da851f54d21c38f79ef9bf209db68ca3b53787f0 (master)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:55:39 2024 +0530
+
+    test commit
+
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+#####
+
+c) git status post commit 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit 633341b5f4c51550bd6b2420cdc744b9c18822bb (HEAD -> testbranch_1)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Mon Mar 11 04:49:52 2024 +0530
+
+    first commit with testbranch_1
+
+commit da851f54d21c38f79ef9bf209db68ca3b53787f0 (master)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:55:39 2024 +0530
+
+    test commit
+
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+
+####
+
+d) git branch post commit
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+* testbranch_1
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>
+####
+
+
+22) Another way of switching 
+a) Eariler we used: git checkout <branch-name> to switch branches , but this still works 
+b) checkout command does many additional things, so decision was made to add a standalone switch command which is much simpler 
+
+syntax: 
+git checkout <branch-name>
+
+###git checkout####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git checkout master
+Switched to branch 'master'
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  testbranch_2
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git checkout testbranch_2
+Switched to branch 'testbranch_2'
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+  testbranch_1
+* testbranch_2
+
+##################
+
+
+23) Creating and Switching:
+a) Instead of creating a branch and switching a branch in 2 different steps, we can use git switch with -c flag to create new branch and switch to it all in one go 
+
+-> -c is short for create 
+
+syntax:
+> git switch -c <branch-name> 
+
+eg:
+#####create and switch branch######
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch -c testbranch_4_fromMaster
+Switched to a new branch 'testbranch_4_fromMaster'
+###########
+
+
+24) Switching branches with Unstaged changes
+a) If i am on a branch and i have some work that is not currently committed, 
+b) Consider my current branch is testbranch_3
+1) its git status 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch testbranch_3
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+nothing added to commit but untracked files present (use "git add" to track)
+###
+
+2) now if we modify a file and check git status 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch testbranch_3
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   source/mahtest.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+###
+
+3) After modifying a file and without committing, if i switch to another branch:
+-> it throws error asking to commit or stash the file before you switch branch 
+-> This is because if i switch to different branch, the current changes would be lost
+
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_4_fromMaster
+error: Your local changes to the following files would be overwritten by checkout:
+        source/mahtest.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+###
+
+4) so for now , to escape the situation, lets not stash and commit the file 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git add .
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git commit -m "committed feb11"
+[testbranch_3 e1b3f84] committed feb11
+ 8 files changed, 40 insertions(+), 1 deletion(-)
+ create mode 100644 .idea/.gitignore
+ create mode 100644 .idea/gitlab-1.iml
+ create mode 100644 .idea/misc.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/sonarlint/issuestore/index.pb
+ create mode 100644 .idea/sonarlint/securityhotspotstore/index.pb
+ create mode 100644 .idea/vcs.xml
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+  testbranch_1
+  testbranch_2
+* testbranch_3
+  testbranch_4_fromMaster
+  
+###
+
+5) Now if i switch to testbranch_4_fromMaster, it will allow 
+
+c) when you have unstaged changes which are not conflicting, it will come with you to all branches, but if unstaged changes are conflicting, git will yell at you. 
+
+1) create a branch named testbranch_5
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch -c testbranch_5
+Switched to a new branch 'testbranch_5'
+###
+
+2) Now add a new file test5.txt 
+
+3) do a git status 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch testbranch_5
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+        source/test5.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>
+###
+
+4) Now switch to testbranch_3 without committing this new file change 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_3
+Switched to branch 'testbranch_3'
+###
+
+5) Now if you see git status in testbranch_3, you will be able to see the change for test5.txt carried in this branch also 
+
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git status
+On branch testbranch_3
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        source/test5.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+#####
+
+6) Thus 
+ when you have unstaged changes which are not conflicting, it will come with you to all branches, but if unstaged changes are conflicting, git will yell at you.
+
+25) Deleting  branches 
+a) deleting a branch
+-> branch can be deleted using: git branch -d command 
+b) To understand the case lets create a new branch
+1) create new branch deleteme
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch -c deleteme
+Switched to a new branch 'deleteme'
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* deleteme
+  master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4_fromMaster
+  testbranch_5
+
+###
+
+2) Now if i try to delete: deleteme branch, it will throw error 
+
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch -d deleteme
+error: cannot delete branch 'deleteme' used by worktree at 'C:/ExpoNow/gitlab-tutorials/gitlab-1'
+
+####
+
+-> This means that you can sit on a branch and delete it
+-> you need to move to another branch and delete this 
+
+
+3) so lets switch to another branch 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch master
+Switched to branch 'master'
+
+###
+
+4) now try to delete deleteme branch 
+-> It will not allow to delete,s ince the branch is not completely deleted 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch -d deleteme
+error: the branch 'deleteme' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D deleteme'
+
+###
+
+5) before deleting the branch: git branch 
+
+##
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  deleteme
+* master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4_fromMaster
+  testbranch_5
+##
+
+5) Now use -D option and delete the branch
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch -D deleteme
+Deleted branch deleteme (was e1b3f84).
+###
+
+6) Now if you check branches, delete me wont be there 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4_fromMaster
+  testbranch_5
+###
+
+
+26) Renaming branches 
+a) first go to the branch to which you want to rename 
+fyi: for deleting we should go away from the branch you want to delete 
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4_fromMaster
+  testbranch_5
+
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_4_fromMaster
+Switched to branch 'testbranch_4_fromMaster'
+
+####
+
+b) Rename using command: git branch -m  <branchname>
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch -m testbranch_4
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+  master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+* testbranch_4
+  testbranch_5
+
+
+####
+
+27) How GIT stores Head and branches 
+
+a) In this lesson , we will take a look at the .git directory  and will see how head works 
+-> about the fact that head is just referencing a branch 
+-> Each branch reference is referencing a commit 
+
+##Switch to master and see the log ###
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git log
+commit 1ba10d1062fa486e53e64098abb715ebb9062a03 (HEAD -> master)
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Mon Mar 11 06:21:25 2024 +0530
+
+    adding
+
+commit da851f54d21c38f79ef9bf209db68ca3b53787f0
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:55:39 2024 +0530
+
+    test commit
+
+commit 655250cdd7398cc54fb2b723e6c331ea59278cf2
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Thu Mar 7 15:10:56 2024 +0530
+
+    modified file on mahtest.txt
+
+commit feaf3194790ef9d041d7686fa56fbf4f08d55387
+Author: gs1-maheswarane <maheswaran.elumalai@expeditors.com>
+Date:   Wed Mar 6 15:19:17 2024 +0530
+
+    mahesh committing 2 files:1
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>
+
+
+###############################
+
+b) 
+In git log output , we can see head is referring the master, because we are on the master branch 
+c) The master branch is pointing to this commit:1ba10d1062fa486e53e64098abb715ebb9062a03, which is the most recent commit on the tip of the master branch 
+d) Now lets take a look at the commit hash: 
+1ba10d1062fa486e53e64098abb715ebb9062a03
+e) Also we have a hidden directory called .git 
+f) Inside .git folder, we have a folder called HEAD 
+
+####
+C:\ExpoNow\gitlab-tutorials\gitlab-1\.git>ls
+'ls' is not recognized as an internal or external command,
+operable program or batch file.
+
+ Directory of C:\ExpoNow\gitlab-tutorials\gitlab-1\.git
+
+03/11/2024  06:29 AM                 6 COMMIT_EDITMSG
+03/11/2024  06:30 AM               189 config
+03/05/2024  03:42 PM                73 description
+03/11/2024  06:38 AM                23 HEAD
+03/05/2024  03:42 PM    <DIR>          hooks
+03/11/2024  06:38 AM               432 index
+03/05/2024  03:42 PM    <DIR>          info
+03/06/2024  03:19 PM    <DIR>          logs
+03/11/2024  06:29 AM    <DIR>          objects
+03/11/2024  06:17 AM                46 packed-refs
+03/05/2024  03:42 PM    <DIR>          refs
+               6 File(s)            769 bytes
+               5 Dir(s)  227,975,602,176 bytes free
+
+############
+
+g) If we do a cat HEAD, we can see that -  ref: refs/heads/master
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gt (GIT_DIR!)
+$ cat HEAD
+ref: refs/heads/master
+###
+
+-> It says that head is pointing to the master branch 
+
+1) From our current branch master, lets switch to testbranch_1
+
+###
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git branch
+* master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4
+  testbranch_5
+
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch testbranch_1
+Switched to branch 'testbranch_1'
+###
+
+2) Now if we check the HEAD file 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gt (GIT_DIR!)
+$ cat HEAD
+ref: refs/heads/testbranch_1
+
+###
+
+###
+$ cat HEAD
+ref: refs/heads/master
+###
+
+h) Thus HEAD file references a particular branch 
+-> And ref: refs/heads/testbranch_1
+  THis line references a particular commit 
+  
+
+  
+eg:
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gt (GIT_DIR!)
+$ cat refs/heads/testbranch_1
+2020c3845bb26e1f944037f6eae50300c9e3e22f
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1/.git (GIT_DIR!)
+$ cat refs/heads/master
+1ba10d1062fa486e53e64098abb715ebb9062a03
+
+#########
+
+
+-> Thus each file, holds a pointer to a particular commit 
+i.e each file contains the last commit hash for that particular branch 
+
+i) git branch -v 
+
+-> more verbose on branches
+
+####
+eg: 
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git branch -v
+* master       edaca11 Merge branch 'testbranch_5' to ensure branch5 code reaches master
+  testbranch_1 2020c38 second commit in testbranch_1
+  testbranch_2 5d2bca4 another one
+  testbranch_3 e1b3f84 committed feb11
+  testbranch_4 d05641a added
+  testbranch_5 f79919f test
+####
+
+
+28) Merging 
+a) Merging is needed to incorporate changes from one branch into another 
+-> we use: git merge command for the same 
+b) Common Workflow
+
+1)  Master branch is considered as the source of truth  or the most stable build of an application 
+-> People work on feature branch and that can be merged back into master branch, if we are confident on the same 
+-> Most of the actual work done in feature branch 
+c) Two important merging concepts 
+
+1) We merge branches, not specific commits 
+2) We always merge to the current HEAD branch 
+
+eg:
+ i have two branches in this example : master branch and bugfix branch 
+ 
+-> To merge bugfix branch into master; 
+ git switch master 
+ git merge bugfix 
+ 
+d) Two basic steps in merging 
+1) Switch or checkout to the branch you want to merge changes into [Receiving branch: Master]
+2) Use the git merge command to merge changes from specific branch into the current branch 
+
+
+e) What is fast forward merge:
+1) You have two branches, one of the branches contain changes i.e additional commits(bugfix) that the first branch(Master) does not have.  
+-> in that it is just a case of moving the pointer forward 
+-> git merge command just moves the pointer foward, in case of fast forward merge 
+2) Now master has all that history , it has the work it had from before and also the work from bugfix 
+
+-> this is called fast forward merge 
+
+
+29) Performing a fast forward merge:
+-> According to git's perpective fast forward merge is moving the pointer to some number of commits to catch up with the destination commit 
+
+eg:
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (testbranch_1)
+$ git switch master
+Switched to branch 'master'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git merge testbranch_5
+Merge made by the 'ort' strategy.
+ source/mahtest.txt    | 2 +-
+ source/mahtestnew.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+
+#########
+
+29_1) 
+git merge --no-ff new-heading 
+-> Now we are going to merge the new-heading(feature branch) into  main branch 
+--> --no-ff means we are telling git merge, not to fastforward , even if it detects it. Because when we do a fastforward, instead of making a merge 
+commit   , git will just move the branch pointer to some new commit 
+-> Sometimes we want to prevent that from happening, especially when we want to preserve or maintain our specific branch 
+
+
+30) What happens if master also has commits? Resolving conflicts 
+-> This happens when one of your team mates merged in a new feature or change to master, while you were working on a branch
+
+a) In this scenario, if we try to merge - the merge is not fast forward 
+-> Here there is new information on bugfix which master does not have 
+-> And there is new information on master which bugfix does not have 
+
+b) In this scenario, git will not be able to do merge automatically for us. 
+-> it depends on the particulars of our commits 
+
+c) If we dont arrive at a conflict, and if git is able to make the merge for us automatically , when it is not a fast forward merge: 
+MERGE COMMIT: 
+1) A merge commit is generated 
+-> Basically git makes a commit for us on the branch, that we are merging into i.e recipient branch(Master)
+-> And it will prompt us to include a message 
+2) This new merge commit is the first commit that we have seen having two different parent commits. 
+-> Every commit has a parent and it normally has one commit, While merge commit has two parents 
+
+d) Thus whenever there is a merge and if it is not fast forward, git creates a MERGE COMMIT  when we try to do : git merge 
+-> It opens up text editor giving commit message 
+
+e) Upon closing the editor, git will make a new commit and the new merge will be based on recursive strategy 
+
+
+f) Thus in Non Fast forward merge, things are still automatically merged, but we need to provide a commit message 
+-> There are no conflicting problems that arose 
+
+Conflict means -> changing two things in same file 
+
+g) In Next lesson we will see what we will do, if there is a conflict and how to resole them 
+
+
+31) Merge Conflicts: 
+a) When we merge two branches, git will do its best to automatically merge those changes 
+-> whether it is fast forward or needs to make a merge commit - git tries to do things automatically 
+
+b) But if we have CONFLICTING CHANGES -  
+eg: 
+SITUATION 1:
+One file someone modified a file and on the second branch that we are merging, someone deleted the same file 
+
+SITUATION 2: 
+-> If on one branch i edit one line 77 of some file, and somebody else on other branch edited the same line 77 in same file. 
+
+
+c) In both these situations, git does not know how to automatically merge it. 
+-> How does it keep what keep and what to get rid off. 
+-> This is where merge conflicts come up 
+-> You have to manually resolve those conflicts 
+
+d) PROCESS FOR RESOLVING MERGE Conflicts
+-> When we run git merge and if there are conflicts we will get a message like this:
+
+> CONFLICT(content): Merge conflict in blah.txt 
+  Automatic merge failed; fix conflicts and then commit the result. 
+  
+
+e) Resolving merge conflicts is a multi step process
+1) git tells there are conflcits 
+2) Then we have to open the files with conflicts and fix them 
+3) Then we commit those changes 
+
+f) Files that are with conflicts are actually decorated 
+-> Whenever you encounter a merge conflict, git warns you in console, that it could not automatically merge 
+-> It also changes contents of your file to indicate the conflicts that it wants you to resolve 
+
+eg: 
+
+<<<<<<<<<<<<<<<<<<HEAD 
+I have 2 cats 
+I also have chickens 
+
+======================
+
+I used to have a dog:(
+>>>>>>>>>>>>bug-fix 
+
+
+
+g) The content above indicates us:
+-> What content came from head branch [recipient branch : Master]
+
+-> It is indicated between less than symbol and equal sign : <<<<<<<<<<<<<<<<<<  Master content ==============
+
+eg:
+<<<<<<<<<<<<<<<<<<HEAD 
+I have 2 cats 
+I also have chickens 
+
+======================
+
+h) This content is from bug-fix branch, from branch 
+-> Content from the branch you are trying to merge from is displayed between ====== and >>>>> symbols 
+
+i) It is our job, to delete or figure out which part i want and which part i dont want 
+
+j) I resolve it and get rid of these conflict markers , save the file and then i go back and add/commit changes 
+
+
+###############
+k) Thus RESOLVING CONFLICTS step by step:
+-> When you encounter merge conflicts, follow these steps to resolve them:
+1) Open up the file(s) with merge conflicts 
+2) Edit the file(s) to remove the conflicts. Decided which branch's content you want to keep in each conflict Or keep the content from both
+3) Remove the conflict "markers" in the document 
+4) Add your changes and then make a commit 
+###############
+
+l) Demonstration of RESOLVING conflicts:
+i) Create a branch : mahesh
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git switch -c mahesh
+Switched to a new branch 'mahesh'
+###
+
+
+ii) Switch back to master branch
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (mahesh)
+$ git switch master
+Switched to branch 'master'
+########
+
+iii) Create another branch: divya
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git switch -c divya
+Switched to a new branch 'divya'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+
+#####
+
+iv) Now we have three branches: divya, mahesh and master 
+-> All referrring to same spot: master 
+
+v) Switch to divya branch 
+-> Make changes in file: mahtest.txt 
+
+...
+Divya created this
+this is Divya's taste
+and this is combination of divya and mahesh
+...
+
+
+-> then commit it:
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git switch -c divya
+Switched to a new branch 'divya'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+$ git commit -a -m "divya's 1st change"
+[divya 6e4d652] divya's 1st change
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+$
+
+#####
+
+vi) THen add some more changes to mahtest.txt file and add/commit those changes 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+$ git commit -a -m "divyas second set of changes"
+[divya e79bfcb] divyas second set of changes
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+
+###
+
+vii) Now switch to mahesh branch  
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+$ git switch mahesh
+Switched to branch 'mahesh'
+###
+
+viii) Make changes in mahtest.txt and commit it 
+
+###
+Mahesh created this
+this is Mahesh's taste
+and this is combination of divya and mahesh
+###
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (mahesh)
+$ git commit -a -m "Mahesh's first commit"
+[mahesh 1d27e25] Mahesh's first commit
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (mahesh)
+$
+
+####
+
+
+ix) Make second change in mahtest.txt and commit it 
+x) Now we have two branches divya/mahesh and two sets of changes each and each of them are created from master branch 
+xi) When we try to merge branches here, we will definitely have conflicts, because we edit same file and some of the same lines 
+xii) Create a new combo branch and i will be branching from divya, so it will have all stuff of divya , so that i can merge changes of mahesh into combo 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (divya)
+$ git switch -c combodivimahe
+Switched to a new branch 'combodivimahe'
+
+###
+
+xiii) Now i will merge changes from source(mahesh) to recipient(combodivimahe) 
+-> for that ensure that you are in branch combodivimahe
+-> Now merge using command: git merge mahesh
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git merge mahesh
+Auto-merging source/mahtest.txt
+CONFLICT (content): Merge conflict in source/mahtest.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+###
+
+-> Now we get merge conflict and automatic merge fails 
+
+xiv) Now if we go to the file in editor(intellij in our case) we will have the following contents 
+
+####
+<<<<<<< HEAD
+Divya created this
+this is Divya's taste
+and this is combination of divya and mahesh
+Next set of divya's changes 
+=======
+Mahesh created this
+this is Mahesh's taste
+and this is combination of divya and mahesh
+this is Mahesh's second commit change 
+>>>>>>> mahesh
+###
+
+
+xv) now i will edit the files, to keep what i want and i will remove the markers 
+
+###
+Divya created this
+this is Divya's taste
+and this is combination of divya and mahesh
+Next set of divya's changes
+Mahesh created this
+this is Mahesh's taste
+and this is combination of divya and mahesh
+this is Mahesh's second commit change 
+###
+
+
+
+xvi) In the below mentioned steps we have completed 3, last step is to add and commit 
+###############
+k) Thus RESOLVING CONFLICTS step by step:
+-> When you encounter merge conflicts, follow these steps to resolve them:
+1) Open up the file(s) with merge conflicts 
+2) Edit the file(s) to remove the conflicts. Decided which branch's content you want to keep in each conflict Or keep the content from both
+3) Remove the conflict "markers" in the document 
+4) Add your changes and then make a commit 
+###############
+
+
+-> also if we do git status , it shows the following ,
+where it says unmerged paths 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe|MERGING)
+$ git status
+On branch combodivimahe
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   source/mahtest.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+###
+
+
+xvii) Now add and commit those changes 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe|MERGING)
+$ git commit -a -m "to resolve merge conflict"
+[combodivimahe 9846243] to resolve merge conflict
+
+###
+
+xviii) git status now
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git status
+On branch combodivimahe
+nothing to commit, working tree clean
+
+###
+
+-> Thus resolving conflicts completed successfully \\
+
+31) Merge types:
+a) Fast forward mege
+b) Merge commit( No conflicts) 
+c) Conflicts 
+
+32) GIT diff 
+a) go to the recepient branch : git switch recipientBranch 
+b) execute git merge command: git merge sourceBranch
+c) We often use git diff alongside commands like git status and git log, to get a better picture of a repository and how it has changed over time 
+d) Just like git status and git log, git diff is also a purely informative command 
+
+
+a) git diff helps to make comparison between different commits, different branches , different files , between staging area and working directory etc 
+
+b) git diff command without additional options, lists all changes in our working directory that are not staged for next commit:
+
+syntax: 
+> git diff 
+
+c) When there are no changes , git diff shows the following output 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git diff
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git status
+On branch combodivimahe
+nothing to commit, working tree clean
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+
+###
+
+33) Analysing git diffs:
+
+
+SAMPLE OUTPUT:
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git diff
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+index 32f50f8..b87e647 100644
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+@@ -4,6 +4,7 @@ and this is combination of divya and mahesh
+ Next set of divya's changes
+ Mahesh created this
+ this is Mahesh's taste
+-and this is combination of divya and mahesh
+-this is Mahesh's second commit change
+
++
++just for the sake of git diff
++i am adding this
+
+a_1) In a single file, diff command tells the differences of each of the files separately
+
+#######
+
+a) 
+---------------------------------------
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+---------------------------------------
+
+-> This tells the files that are being compared. 
+-> Usually they are the same files , just two versions. Old version of mahtest.txt and new version 
+-> git declares one version as a and other version as b 
+-> Here the version from the last commit is the old version(a)- committed file and new version(b) -local file
+-> It could be different files, but its mostly the same file just over time: between commits, between branches, between staging area and working directory
+
+b) 
+---------------------------------------
+index 32f50f8..b87e647 100644
+---------------------------------------
+
+-> it is metadata about the files that being compared to 
+-> Each file has its own hash and that is what displayed here 
+
+-> This section not important 
+
+
+c) 
+---------------------------------------
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+---------------------------------------
+ 
+-> Then we see two line of markers 
+-> This is gits way of telling: file a changes with minus sign and file b changes in  with plus sign 
+
+d) 
+---------------------------------------
+@@ -4,6 +4,7 @@ and this is combination of divya and mahesh
+ Next set of divya's changes
+ Mahesh created this
+ this is Mahesh's taste
+-and this is combination of divya and mahesh
+-this is Mahesh's second commit change
+
++
++just for the sake of git diff
++i am adding this
+
+---------------------------------------
+
+-> if a file contains 1000 lines and if you are changing one line, git diff is not going to show entire 1000 lines 
+-> file contents are shown in chunks. It shows the context before, changed parts and context after
+-> One file can show multiple chunks if changes are in different parts of the file 
+
+
+1_1) Chunk header :  @@ -4,6 +4,7 @@ 
+-> Chunk header is the header at the beginning of each chunk and you can identify them by the two @ signs and then some weird looking numbers inside
+-> In chunk header there are two pairts of numbers
+-> One pair of number corresponds to file a and other pair to file b 
+-> In chunk header, - is for file a and + is for file b eg: -4 for file a and +4 for file b 
+
+WHAT THESE NUMBERS TELL US:
+-> From file a, 6 lines are extracted starting from line 4
+-> From file b, 7 lines are extracted starting from line 4 
+
+-> Here first line shall be ignored. it is the previous line eg: and this is combination of divya and mahesh
+
+
+
+ 
+
+1) Here this part:mostly in white color, is the context before   
+
+-----------------------
+@@ -4,6 +4,7 @@ and this is combination of divya and mahesh
+ Next set of divya's changes
+ Mahesh created this
+ this is Mahesh's taste
+-------------------------
+
+2) 
+
+White means unchanged 
+red means removal  and 
+green means addition 
+
+
+Here lines indicated starting with + means, it came from file a(committed file and with - indicates changes came from file b( local file) 
+
+---------------------------------------
+@@ -4,6 +4,7 @@ and this is combination of divya and mahesh
+ Next set of divya's changes
+ Mahesh created this
+ this is Mahesh's taste
+-and this is combination of divya and mahesh
+-this is Mahesh's second commit change
+
++
++just for the sake of git diff
++i am adding this
+
+---------------------------------------
+
+
+
+34)git diff
+-> Without additional options, git diff lists all thqe changes in our working directory that are not staged for next commit 
+-> git diff primarily compares staging area and working directory 
+-> it does not compare working directory and committed file. instead it compares working directory and staging area 
+
+35) git diff head:gi
+-> lists all changes in the working tree since your last commit 
+-> it includes both staged and unstaged changes 
+
+syntax:
+> git diff head 
+
+35_2) git diff head~1 head
+-> This tells the difference between previous commit and current commit 
+-> Head points to current commit, while head~1 points to previous commit 
+
+#################
+$ git diff head~1 head
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+index ee8c8d1..32f50f8 100644
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+@@ -1,4 +1,9 @@
+ Divya created this
+ this is Divya's taste
+ and this is combination of divya and mahesh
+-Next set of divya's changes
+\ No newline at end of file
++Next set of divya's changes
++Mahesh created this
++this is Mahesh's taste
++and this is combination of divya and mahesh
++this is Mahesh's second commit change
++
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$
+#################
+
+35_3) 
+git diff hash 
+-> here hash is the hash of the last commit
+
+########################
+eg:
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git log --oneline
+9846243 (HEAD -> combodivimahe) to resolve merge conflict
+4d4d7d9 (mahesh) Mahesh Second set of changes
+1d27e25 Mahesh's first commit
+e79bfcb (divya) divyas second set of changes
+6e4d652 divya's 1st change
+edaca11 (master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ ^C
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git diff 9846243
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+index 32f50f8..b87e647 100644
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+@@ -4,6 +4,7 @@ and this is combination of divya and mahesh
+ Next set of divya's changes
+ Mahesh created this
+ this is Mahesh's taste
+-and this is combination of divya and mahesh
+-this is Mahesh's second commit change
+
++
++just for the sake of git diff
++i am adding this
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$
+########################
+
+36) git diff --staged / git diff --cached 
+-> It will list the changes between staging area and our last commit 
+
+
+This command answers this question:
+"Show me what will be included in my commit if i run git commit right now"? 
+
+37) Diff-ing specific files:
+-> We can view the changes with specific file by providing diff with a file name 
+
+syntax:
+>git diff head [filename]
+
+>git diff head [filename1] [filename]
+-> for multiple files
+
+> git diff --staged [filename] 
+
+#########
+eg:
+C:\ExpoNow\booking-parent>git diff pom.xml
+diff --git a/pom.xml b/pom.xml
+index 718ec72e0..ee83f4d66 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -54,6 +54,7 @@
+         <common-utility.version>0.3.41</common-utility.version>
+         <test-utility.version>0.3.38</test-utility.version>
+         <junit-platform.version>5.3.1</junit-platform.version>
++        <OWASP_VERSION>8.2.0</OWASP_VERSION>
+     </properties>
+
+     <dependencyManagement>
+@@ -109,12 +110,21 @@
+                 <version>4.5.5</version>
+             </dependency>
+
++
+             <dependency>
+                 <groupId>org.junit.jupiter</groupId>
+                 <artifactId>junit-jupiter-api</artifactId>
+                 <version>${junit-platform.version}</version>
+                 <scope>test</scope>
+             </dependency>
++
++            <dependency>
++                <groupId>org.junit.vintage</groupId>
++                <artifactId>junit-vintage-engine</artifactId>
++                <version>{junit-platform.version}</version>
++                <scope>test</scope>
+
+##############
+
+38) Comparing Branches:
+a) git diff branch1..branch2 will list the changes between tips of branch1 and branch2 
+
+syntax:
+git diff branch1..branch2 
+or 
+git diff branch1 branch2
+
+-> Here in output left is in minus sign and right one in plus sign
+
+eg:
+#####
+$ git diff master combodivimahe
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+index 5a87297..32f50f8 100644
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+@@ -1 +1,9 @@
+-hi from 4 master
+\ No newline at end of file
++Divya created this
++this is Divya's taste
++and this is combination of divya and mahesh
++Next set of divya's changes
++Mahesh created this
++this is Mahesh's taste
++and this is combination of divya and mahesh
++this is Mahesh's second commit change
++
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+#####
+
+
+39) Comparing Commits: 
+-> To compare two commits, provide git diff with the commit hashes of the commits in question 
+-> it tells all changes between commits 
+
+syntax:
+> git diff commit1..commit2 
+
+eg:
+#########
+$ git log --oneline
+9846243 (HEAD -> combodivimahe) to resolve merge conflict
+4d4d7d9 (mahesh) Mahesh Second set of changes
+1d27e25 Mahesh's first commit
+e79bfcb (divya) divyas second set of changes
+6e4d652 divya's 1st change
+edaca11 (master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+
+$ git diff 4d4d7d9..e79bfcb
+diff --git a/source/mahtest.txt b/source/mahtest.txt
+index 2191b7a..ee8c8d1 100644
+--- a/source/mahtest.txt
++++ b/source/mahtest.txt
+@@ -1,4 +1,4 @@
+-Mahesh created this
+-this is Mahesh's taste
++Divya created this
++this is Divya's taste
+ and this is combination of divya and mahesh
+-this is Mahesh's second commit change
+\ No newline at end of file
++Next set of divya's changes
+\ No newline at end of file
+
+
+#######
+
+
+39) git stashing - preface
+a)  Imagine we are working on a repository and you are in master branch 
+
+() -----> (Master) 
+            HEAD
+
+b)  We have a single file that we work: cat.py . did some whole bunch of work and made some commits 
+-> Then i switch over to new branch 
+
+
+() -----> (Master) -------> puppy(HEAD) 
+              
+
+
+c) Consider i have some uncommitted work in puppy branch and i wanted to switch back to master now
+
+d) In that case i have two options 
+1) my changes come with me to the destination branch 
+2) GIT wont let me switch if it detects potential conflicts 
+
+
+e) Lets see examples for the same 
+
+f) eg for:  MY CHANGES COME WITH ME TO THE DESTINATION BRANCH 
+1) Create new branch:gitlab-2 
+
+eg:
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ git branch
+fatal: not a git repository (or any of the parent directories): .git
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ mkdir gitlab-2
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ cd gitlab-2/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2
+$ git init
+Initialized empty Git repository in C:/ExpoNow/gitlab-tutorials/gitlab-2/.git/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$
+
+#########
+
+2) Create two files 
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ touch chara.txt aksh.txt
+######
+
+
+3) Add some changes to those files 
+
+4) do a git status check 
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+        aksh.txt
+        chara.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+######
+
+5) adding and committing not working simultaneously for newly created files that are not added, hence adding first 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git commit -a -m "create and add those text files"
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+        aksh.txt
+        chara.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git add aksh.txt chara.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$
+
+#########
+
+
+6) now commit the file 
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlster)
+$ git commit -m "first commit of text files"
+[master (root-commit) 9f49e7a] first commit of text files
+ 2 files changed, 2 insertions(+)
+ create mode 100644 aksh.txt
+ create mode 100644 chara.txt
+
+#######
+
+
+7) create new branch mahesh and switch to it 
+
+###########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+#########
+
+8) Make some changes in chara.txt 
+
+from:
+Chara is a good boy
+
+
+
+to:
+Chara is a good boy
+And his father is Mahesh
+
+-> Now check for git status 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git status
+On branch mahesh
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   chara.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+################
+
+9) Now switch back to master branch from (mahesh) branch 
+
+######
+
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git switch master
+Switched to branch 'master'
+M       chara.txt
+
+##########
+
+-> Thus it got switched to master branch without any issue 
+
+-> This falls under category: MY CHANGES COME WITH ME TO THE DESTINATION BRANCH. This is because there is no conflicting changes between master and mahesh branch 
+
+10) you can check the same by putting git status in master branch.. you will have changes we had in mahesh branch carried out to master branch 
+
+eg:
+################
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   chara.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+####################
+
+
+g) eg for: GIT WONT LET ME SWITCH IF IT DETECTS POTENTIAL CONFLICTS 
+10) Now switch back to mahesh branch
+
+eg:
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch mahesh
+Switched to branch 'mahesh'
+M       chara.txt
+#############
+
+11) On doing git status we can see changes coming with me 
+
+#############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git status
+On branch mahesh
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   chara.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#################
+
+12) Now commit those changes in mahesh branch 
+
+############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git commit -am "mahesh committing first change"
+[mahesh 0ee1e05] mahesh committing first change
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+############
+
+13) Now check git status
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git status
+On branch mahesh
+nothing to commit, working tree clean
+
+#######
+
+14) Switch back to master branch 
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (mahesh)
+$ git switch master
+Switched to branch 'master'
+#########
+
+
+13) Create a new branch divya
+
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch -c divya
+Switched to a new branch 'divya'
+##########
+
+
+14) Before i do anything on divya branch,  i will switch to master branch and make changes 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git switch master
+Switched to branch 'master'
+
+####
+
+-> change contents of aksh.txt 
+
+from:
+Akshima is  a good girl
+
+to:
+Akshima is  a good girl and her mother is Divya
+
+15) Now add and commit those changes 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git commit -am "new changes on aksh.txt"
+[master df48026] new changes on aksh.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+#####
+
+16) Now switch again to divya branch and make change in same file : aksh.txt 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch divya
+Switched to branch 'divya'
+
+###
+
+######
+from:
+Akshima is  a good girl
+
+to:
+Akshima is  a good girl and her father is Mahesh
+
+#######
+
+
+17) Check the git status of divya branch
+
+-> We will have unstaged and uncommitted change in divya branch 
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+####
+
+
+18) Now again switch back to master: and you will encounter 2nd scenario: GIT WONT LET ME SWITCH IF IT DETECTS POTENTIAL CONFLICTS 
+
+###########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git switch master
+error: Your local changes to the following files would be overwritten by checkout:
+        aksh.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+###############
+
+40) git stashing - need?
+-> If you need to switch to some branch and if you have some uncommitted files - 
+1) git wants the changes to come with me [if unconflicting changes]
+2) git does not let me switch [if conflicting files ]
+
+-> This is where git stash comes with me.
+-> If i dont want to commit or dont want to get changes with me - git stash gives a chance to save my changes without committing them 
+
+
+
+41) git stash and git stash pop 
+a) git provides easy way of stashing these uncommitted changes so that we can return to them later without having to make unnecessary commits 
+b) git stash command helps to save changes that you are not ready to commit. you can stash changes and come back to them later
+
+-> Running git stash will take all uncommitted changes(staged and unstaged) and stash them, thus reverting changes in working copy 
+
+syntax: 
+> git stash 
+
+or 
+
+> git stash save 
+
+
+c) git stash pop: to remove the most recently stashed changes in your stash and reapply them to your working copy 
+
+d) now lets see an example for git stash
+
+1) lets see the current status of divya branch
+
+#######################
+eg:
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#######################
+
+
+2) if i try to switch to master branch , gi throws error that local changes must be committed, because of conflicting changes 
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git switch master
+error: Your local changes to the following files would be overwritten by checkout:
+        aksh.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+#############
+
+3) since we dont want to commit, we will be using git stash 
+-> you can use : git stash or git stash save 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git stash
+Saved working directory and index state WIP on divya: 9f49e7a first commit of text files
+
+##########
+
+-> here it says: SAVED WORKING DIRECTORY AND INDEX STATE WIP
+Index is what GIT calls the staging area.  
+-> it means that git saved both staged and unstaged changes on this branch, but did not commit them 
+
+4) so if we type git status now, we wont see anything modified 
+
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+nothing to commit, working tree clean
+########
+
+5) Now we are free to switch to whatever branch we want:
+-> switch to master branch:
+---> Earlier we could not do the same because of conflicts 
+
+###########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git switch master
+Switched to branch 'master'
+##########
+
+
+6) now i can come back to divya branch and again reapply those stashed changes 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch divya
+Switched to branch 'divya'
+###
+
+7) checking git status of divya branch before applying stashed changes 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+nothing to commit, working tree clean
+
+###
+
+
+8) git stash pop:
+-> to remove the most recently stashed changes in your stash and reapply them to your working copy 
+
+syntax:
+git stash pop 
+
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git stash pop
+On branch divya
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (b6b48b46783052022a989da7c15c66b17805a3b5)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$
+
+##########
+
+
+9) After this pop operation, in gitkraken we can find that stash disappears and changes were applied to the current branch 
+
+
+42) git stash apply 
+-> you can use 'git stash apply' to apply whatever is stashed away without removing it from the stash
+-> This can be useful if you want to apply stashed changes to multiple branches 
+-> while 'git stash pop' removes the stash after applying, 'git stash apply' keeps the stash after applying 
+
+
+syntax:
+> git stash apply 
+
+a) Consider i have divya branch with uncommitted changes 
+-> lets stash them now 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git stash
+Saved working directory and index state WIP on divya: 9f49e7a first commit of text files
+####
+
+-> checking git status 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git status
+On branch divya
+nothing to commit, working tree clean
+####
+
+b) switch to master branch 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git switch master
+Switched to branch 'master'
+####
+
+c) now lets apply the stash to master branch using: git stash apply   and we will get conflict rwarnings
+-> we need to resolve the conflict and then add/commit those changes 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git stash apply
+Auto-merging aksh.txt
+CONFLICT (content): Merge conflict in aksh.txt
+On branch master
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+###
+
+
+d) Now make changes to aksh.txt and remove those merge conflicts 
+
+e) Now after resolving conflicts, add/commit those changes 
+
+############
+ gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git commit -am "commit after stash apply"
+[master 3de3335] commit after stash apply
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+############
+
+
+f) now we can find that in gitkraken, stash is still available, so that it can be applied in other branches 
+
+g) Now lets go other branch divya and try applying those stashed changes 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch divya
+Switched to branch 'divya'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git stash apply
+On branch divya
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$
+
+#########
+
+h) After applying stashed changes, add/commit those changes 
+
+eg:
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (divya)
+$ git commit -am "applying stashed changes to divya branch"
+[divya 2d5a4bc] applying stashed changes to divya branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+#############
+
+
+i) Now the point is: stash still remains in gitkraken 
+
+
+43) Stashing multiple times:
+-> You can add multiple stashes onto the stack of stashes 
+-> They all will be added in the order you stash them 
+
+syntax:
+> git stash 
+  do some stuff 
+> git stash 
+ do some stuff 
+> git stash 
+
+Lets demonstrate this with an example 
+
+a) We will create new branch : rainbow and make some changes in aksh.txt 
+
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (master)
+$ git switch -c rainbow
+Switched to a new branch 'rainbow'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+nothing to commit, working tree clean
+
+####
+
+############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+############
+
+b) We will not commit the changes and add it to the stash 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash
+Saved working directory and index state WIP on rainbow: 4528753 adding gitignore file
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+nothing to commit, working tree clean
+#############
+
+-> stash file created in list of stashes with message: 4528753 adding gitignore file
+
+c) Now i will make another change in the file and add it to the stash 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash
+Saved working directory and index state WIP on rainbow: 4528753 adding gitignore file
+####
+
+-> stash file created in list of stashes with message:4528753 adding gitignore file
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+nothing to commit, working tree clean
+####
+
+d) Add some more change in the file and add it to the stash 
+
+############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash
+Saved working directory and index state WIP on rainbow: 4528753 adding gitignore file
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git status
+On branch rainbow
+nothing to commit, working tree clean
+########
+
+e) Thus now, we have 3 sets of changes 
+
+f) Viewing stashes 
+-> run git stash list to view all stashes 
+
+syntax:
+> git stash list 
+
+-> Here the top one with {0} is the top of one in stack, which was stashed recently 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash list
+stash@{0}: WIP on rainbow: 4528753 adding gitignore file
+stash@{1}: WIP on rainbow: 4528753 adding gitignore file
+stash@{2}: WIP on rainbow: 4528753 adding gitignore file
+stash@{3}: WIP on divya: 9f49e7a first commit of text files
+#####
+
+
+g) Now if i give: git stash pop , it will take stash@{0} and pop it 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash pop
+On branch rainbow
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (0da0d133929ca3c0e2f3084f3c22613c15cd741f)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git commit -am "chara text added"
+[rainbow c07b517] chara text added
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+###
+
+h) Now if we give stash apply, it will also take the recent one i.e stash@{0} and apply it 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash list
+stash@{0}: WIP on rainbow: 4528753 adding gitignore file
+stash@{1}: WIP on rainbow: 4528753 adding gitignore file
+stash@{2}: WIP on divya: 9f49e7a first commit of text files
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash apply
+Auto-merging aksh.txt
+CONFLICT (content): Merge conflict in aksh.txt
+On branch rainbow
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git commit -am "merged changes after stash"
+[rainbow 05ac28f] merged changes after stash
+ 1 file changed, 2 insertions(+)
+###
+
+i) We can give specific stash to apply by specify particular stash like : git stash apply stash@{2} 
+
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash apply stash@{1}
+Auto-merging aksh.txt
+On branch rainbow
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   aksh.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git commit -am "rainbox text specific stash"
+[rainbow cbb08ce] rainbox text specific stash
+ 1 file changed, 1 insertion(+)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$
+#####
+
+
+44) Dropping Stashes 
+-> To delete a particular stash, you can use: git stash drop <stash-id> 
+-> Eventhough pop helps remove most recent stash, this command helps remove specific stash 
+
+syntax:
+> git stash drop stash@{2}
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash drop stash@{2}
+Dropped stash@{2} (ef44cd7f0c46e2526876889aefe648c00fd587af)
+####
+
+
+45) Clearing the stash:
+-> To clear out all stashes , run git stash clear 
+
+syntax: 
+git stash clear 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash list
+stash@{0}: WIP on rainbow: 4528753 adding gitignore file
+stash@{1}: WIP on rainbow: 4528753 adding gitignore file
+git
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash clear
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-2 (rainbow)
+$ git stash list
+####
+
+46) Checking out old commits : 
+
+-> git checkout command is like a git swiss army knife 
+-> Many developers think it is overloaded, which is what led to addition of 'git switch' and 'git restore' commands 
+--> We can use checkout to create branches, switch to new branches, restore files and undo history 
+
+a) checkout:
+-> We can use 'git checkout commit (commit-hash>' to view a previous commit 
+-> You can use the 'git log' command to view commit hashes . We just need the first 7 digits of a commit hash 
+
+
+syntax: 
+> git checkout d8194d6 
+
+b) Detached head:
+-> When we enter this command:' git checkout d8194d6 ', 
+     we get a message: "You are in 'detached HEAD' state" 
+-> In this example below, if we try to go to a commit: we give: git checkout da851f5, 
+
+
+
+########################
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git log --oneline
+64580fc (HEAD -> combodivimahe) combo comment
+9846243 to resolve merge conflict
+4d4d7d9 (mahesh) Mahesh Second set of changes
+1d27e25 Mahesh's first commit
+e79bfcb (divya) divyas second set of changes
+6e4d652 divya's 1st change
+edaca11 (master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (combodivimahe)
+$ git checkout da851f5
+Note: switching to 'da851f5'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at da851f5 test commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$
+
+#############
+
+
+c) -> as a result of this checkout command, it switches to branch:  da851f5
+
+-> Now if i give git branch, it gives the following output 
+  saying HEAD detached at da851f5 and does not point to any branch 
+  
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git branch
+* (HEAD detached at da851f5)
+  combodivimahe
+  divya
+  mahesh
+  master
+  testbranch_1
+  testbranch_2
+  testbranch_3
+  testbranch_4
+  testbranch_5
+#############
+
+d) One more thing to note is if we give: git log --oneline it shows only 3 commits - this is because we jumped back in time
+-> because by giving: git checkout  da851f5, we have travelled back to this commit 
+-> though we have jumped back in time, we have not lost all the other work that we had on the master branch 
+
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git log --oneline
+da851f5 (HEAD) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+#####
+
+
+e) SO, WHAT IS THIS DETACHED HEAD: 
+1) Head points to a particular branch reference, rather than a particular commit 
+-> Whether you are in master branch or on a feature branch , head points to the branch reference and the branch reference points to the most recent commit of a branch 
+
+2) Head is a pointer to the current branch reference 
+-> Branch reference is a pointer to the last commit made on  a particular branch 
+
+3) So if am on master branch, head points to master and master points to some commits 
+-> If i make a new commit, master updates to point to that new commit, and head points to the master 
+
+4) if we switch branches , head is updated to point to that specific branch reference 
+-> Assume we are in master branch and if we switch to bugfix branch, head is pointing to the bugfix reference instead of master 
+
+5) Thus the main takeaway is: HEAD USUALLY REFERS TO A BRANCH AND NOT A SPECIFIC COMMIT 
+
+6) Now coming to detached HEAD, when we checkout an earlier commit, what we are doing is, actually changing head to refer to a commit, rather than making head refer to a branch 
+
+-> IN DETACHED HEAD, HEAD DIRECTLY POINTS AT A COMMIT NOT AT A BRANCH REFERENCE 
+
+7) Detached head is weird state and it is not bad
+-> But  in DETACHED HEAD we can do all things that we do, which we did earlier when head was pointing to a branch reference. 
+
+##DETACHED HEAD####
+
+HEAD file contents:
+da851f54d21c38f79ef9bf209db68ca3b53787f0
+
+ORIGN_HEAD contents:
+e79bfcb43b8b1e7269a8cebeafad32ca8f3f93d4
+
+###################
+
+#####normal head###
+HEAD file contents:
+ref: refs/heads/rainbow
+
+ORIGN_HEAD contents:
+45287537cfb03f97612497aabefe944fe1a0c0fa
+
+
+##################
+
+8) In file contents we can see in HEAD file contents, in normal head scenario contains the branch reference 
+-> while in detached head scenario, HEAD file  contains commit hash 
+
+9) In DETACHED HEAD  state, if we go to gitkraken, it will show this warning message:
+"You are in a detached HEAD stage, if you checkout another branch or commit, you might lose any commits created in DETACHED head stage"
+-> In left tab, in branch section -  it will be in HEAD branch 
+
+f) THINGS TO DO IN DETACHED HEAD: 
+1) Stay in DETACHED HEAD to examine the contents of old commit. 
+2) Leave and go back to wherever you were before - REATTACH THE head 
+3) Create a new branch and switch to it. You can now make and save changes, since HEAD is no longer detached 
+
+g) EXAMINE CONTENTS OF OLD COMMIT: 
+-> We should examine contents of old commit, view the files 
+
+h) LEAVE BACK TO WHEREVER YOU WERE BEFORE - MASTER 
+
+-> If you have a detached head, switch back to whatever branch you were on before (MASTER branch in our case) 
+
+using: git switch master or git checkout master 
+
+- By this - head gets reattached 
+
+1) In our example, lets first check current git status :
+
+-> it tells HEAD detached at da851f5
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git status
+HEAD detached at da851f5
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+####
+
+2) Now switch to master and check git status
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git switch master
+Previous HEAD position was da851f5 test commit
+Switched to branch 'master'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+
+##
+
+-> Now we can see that we are not in detached head 
+-> Also the contents of HEAD and ORIG_HEAD 
+
+HEAD file contents:
+ref: refs/heads/master
+
+ORIGN_HEAD contents:
+e79bfcb43b8b1e7269a8cebeafad32ca8f3f93d4
+
+3) Also now if we see git log, we can see head pointing to branch and we can see all the commits done before
+
+###
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+#####
+
+
+4) Now in gitkraken also , we can see the warning for detached head getting disappeared and now we are in master branch 
+
+i) now the third option:
+CREATE A NEW BRANCH AND SWITCH TO IT. YOU CAN NOW MAKE AND SAVE CHANGES, SINCE HEAD IS NO LONGER DETACHED
+
+1) Consider a scenario, where we want to go to old branch (chapter1)- then i want to split off , try a  new version of chapter two and chapter three 
+-> Thereby getting rid of all the work after chapter1 which was present earlier 
+
+2) In our da851f5 if we see git log, lets try to branch off from : 655250c
+
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+3) Ensure that no uncommitted changes are present. 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git checkout da851f5
+Note: switching to 'da851f5'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at da851f5 test commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+
+################
+
+
+-> Now once again we are in detached head condition 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git log --oneline
+da851f5 (HEAD) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+
+
+4) Now create a new branch :chapter2-redo
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git switch -c chapter2-redo
+Switched to a new branch 'chapter2-redo'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$
+######## 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git log --oneline
+da851f5 (HEAD -> chapter2-redo) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+
+#####
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git log --oneline
+da851f5 (HEAD -> chapter2-redo) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git status
+On branch chapter2-redo
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+
+
+########
+
+5) Now my files looks like when i am in detached state, but now we are re attached 
+6) now create file mahtext2.txt and make changes to it. 
+
+............
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git status
+On branch chapter2-redo
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        source/mahtest2.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git add .
+
+.................
+$ git commit -m "new branch after detached"
+[chapter2-redo 44035b6] new branch after detached
+ 2 files changed, 2 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 source/mahtest2.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$
+
+........................
+
+
+7) Now git log after adding/committing new file 
+
+.............
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git log --oneline
+44035b6 (HEAD -> chapter2-redo) new branch after detached
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+
+..............
+
+8) Thus we dont have a full history seen in git log. but if we want to see full history - switch to master branch 
+
+...................  ..................
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (chapter2-redo)
+$ git switch master
+Switched to branch 'master'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+....................
+
+
+9)  CORE IDEA:
+-> To check previous commits 
+a) git checkout <commit-hash>
+-> will take us back but we will be in detached head 
+b) We can do changes 
+
+c) Switch back to previous branch 
+or 
+c_1) Create new branch based on particular commit 
+
+
+
+47) Referencing commits relative to HEAD:
+a) In last lesson, we saw that we can checkout a particular commit using a <commit-hash>
+b) But there is another  way in git to reference other commits 
+-> We can reference things based upon head 
+
+b) 'git checkout' supports a slightly odd syntax for referencing previous commits relative to a particular commit 
+
+HEAD~1 refers to the commit before HEAD(parent)
+HEAD~2 refers to 2 commits before HEAd(grandparent)
+
+syntax: git checkout HEAD~1
+
+                                                HEAD 
+                                                 |
+                                                 |                                                         |
+                                              [Master]
+												 |
+HEAD~3         HEAD~2          HEAD~1            |
+(93fj3hh)-----(dheh33f)-----(124239ed)------(feie83jd33)
+
+
+c) So in the above diagram, if give 'git checkout HEAD~1', it gives previous commit 
+                            if we give 'git checkout HEAD-2', it gives two commits before the HEAD 
+							
+d) Lets see a practical example of the same:
+1) lets see a git log 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+###
+
+2) 
+
+-> After going git checkout HEAD~1, we move to that commit, but we will be in DETACHED HEAD  state now 
+-> The reason is we checked out a particular commit, instead of switching or checkingout a branch 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git checkout HEAD~1
+Note: switching to 'HEAD~1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 1ba10d1 adding
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((1ba10d1...))
+###########
+
+3)Now going further one branch 
+
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((1ba10d1...))
+$ git checkout HEAD~1
+Previous HEAD position was 1ba10d1 adding
+HEAD is now at da851f5 test commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 
+###########
+
+-> git log 
+
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git log --oneline
+da851f5 (HEAD) test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+#####
+
+
+4) Now switching back to master 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((da851f5...))
+$ git switch master
+Previous HEAD position was da851f5 test commit
+Switched to branch 'master'
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+
+#####
+
+e) Another thing we can do is: we can go to the branch we were on earlier  
+-> If we checkout a commit, we go to detached state 
+
+
+48) To go to wherever branch i was present atlast"
+
+syntax: git switch - 
+
+
+Illustration
+
+a) Check git lab before checkout 
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+b) git checkout to a commit 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git checkout HEAD~3
+Note: switching to 'HEAD~3'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 655250c modified file on mahtest.txt
+
+c) check git log after switching to a commit 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((655250c...))
+$ git log --oneline
+655250c (HEAD) modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+d) go to previous branch using : git checkout - 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 ((655250c...))
+$ git checkout -
+Previous HEAD position was 655250c modified file on mahtest.txt
+Switched to branch 'master'
+
+d) check git log after switching to previous branch 
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+$ git log --oneline
+edaca11 (HEAD -> master) Merge branch 'testbranch_5' to ensure branch5 code reaches master
+1ba10d1 adding
+f79919f (testbranch_5) test
+da851f5 test commit
+655250c modified file on mahtest.txt
+feaf319 mahesh committing 2 files:1
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/gitlab-1 (master)
+
+48_1) git checkout -b new-heading origin/new-heading 
+
+syntax:
+>git checkout -b <new-branch> <start-point>
+Create a new branch named <new-branch>, start it at <start-point>, and check the resulting branch out
+
+48_1_1) Another way of doing the above: 
+> git switch new-heading 
+
+49) DISCARDING LOCAL CHANGES FROM A FILE AND GOING TO PREVIOUS COMMIT STATE:
+-> Suppose you have made some changes to a file bt dont want to keep them 
+-> To revert the file back to whatever it looked like when you last committed, you can use:
+
+syntax: git checkout HEAD <filename> 
+
+a) For illustration lets create a git repository 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff
+$ git status
+fatal: not a git repository (or any of the parent directories): .git
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff
+$ git init
+Initialized empty Git repository in C:/ExpoNow/gitlab-tutorials/undo-stuff/.git/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+####
+
+b) Create two files cat.txt,dog.txt, make changes to text , add them and commit them 
+
+
+#####
+$ git commit -am "first commit"
+[master (root-commit) b5b6ac3] first commit
+ 5 files changed, 3 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 cat.txt
+ create mode 100644 dog.txt
+ create mode 100644 lion.txt
+ create mode 100644 zebra.txt
+####
+
+
+C) Do some changes in both files and commit them 
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git commit -am "second commit"
+[master b633519] second commit
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+b633519 (HEAD -> master) second commit
+b5b6ac3 first commit
+
+
+###########
+
+
+d) do some more changes and make third commit 
+
+###########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git commit -am "THIRD COMMIT"
+[master 357a663] THIRD COMMIT
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+357a663 (HEAD -> master) THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+
+#########
+
+
+e) discarding local changes 
+-> Now make some local changes in all files 
+-> Assume that we want to go to previous commit state 
+
+1) For single file :
+
+syntax:
+git checkout HEAD <file> 
+
+
+2) For multiple files 
+
+
+syntax:
+git checkout HEAD .
+
+3) Illustration:
+Now make changes to file and do git status 
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+########
+
+
+4) now do git checkout HEAD . and do a git status 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git checkout HEAD .
+Updated 2 paths from bdbe55e
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+######
+
+
+5) for single file 
+
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   lion.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git checkout HEAD lion.txt
+Updated 1 path from bdbe55e
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+########
+
+
+f) another way of discarding local changes - shorter version 
+-> instead of typing HEAD, we can substitute -- followed by the files you want to restore 
+
+syntax: 
+> git checkout -- <file> 
+
+
+50) Restore
+-> git restore is a brand new GIT command that helps with undoing operations 
+
+-> since it is so new, most of the existing git tutorials and books dont mention, but it is worth knowing 
+
+a) We can recall that 
+-> git checkout does a lot of things which many git users find very confusing 
+
+b) git restore was introduced along with 'git switch' as alternative for 'git checkout' 
+
+c) To restore the file to the contents in the HEAD use 'git restore <file-name> 
+
+
+syntax:
+> git restore <file-name> 
+
+for all files: 
+> git restore .
+
+
+#############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+        modified:   lion.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git restore .
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+####################
+
+
+d) for a single file :
+
+############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   zebra.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git restore zebra.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#############
+
+e) thus 'git restore zebra.txt' is similar to 'git checkout zebra.txt'
+
+
+51) unmodifying files with Restore: 
+a) 'git restore <file-name> restores using HEAD as the default source, but we can change that using '--source' option 
+
+eg:
+'git restore --source HEAD~1 home.html' will restore the contents of home.html to its state from commit prior to head 
+
+b) you can also use a particular commit hash as its source 
+
+
+c) 
+syntax:
+> git restore --source HEAD~1 home.html
+
+d) Now make changes to files and do git restore 
+
+##############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+357a663 (HEAD -> master) THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git restore --source HEAD~1 .
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+357a663 (HEAD -> master) THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+########
+
+d) for individual files :
+
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git restore --source HEAD~1 cat.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+#######
+
+
+e) one thing to note is even after restoring, in git status it shows files are modified , this is because files are modified with regards to recent commit 
+
+
+f) Important point here is we have not time travelled, no detached head or anything 
+-> but files get modified 
+
+g) from the previous commit to the recent commit we can do it by:
+git restore dog.txt 
+
+
+
+52) Unstaging files with Restore 
+a) if you have accidentally staged a file with 'git add' and dont wish to include it in next commit, you can use 'git restore' to remove it from staging 
+
+
+syntax:
+> git restore --staged <file-name> 
+
+b) for illustration, make changes in files and check status 
+
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#########
+
+c) Now add the files to staging area
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git add .
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   cat.txt
+        modified:   dog.txt
+
+######
+
+
+d) 
+
+-> Now do a git restore  and we can see files moved from staging-area to working directory 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git restore --staged .
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#########
+
+e) Thus git restore can be used for discarding local changes and also moving files from staging area to unstaged area ie working directory 
+
+53) git reset:
+-> Suppose you have made a couple of commits on the master branch, but you actually meant to make them on separte branch instead.
+-> To undo those commits: 'git reset' 
+
+a) git reset <commit-hash> will reset repo back to a specific commit. the commits are gone 
+
+
+syntax: 
+> git reset <commit-hash> 
+
+b) To illustrate this, lets ensure there are no changes locally 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+####
+
+
+c) lets do some mistaked typings in cat.txt and dog.txt, so that we can undo it later 
+
+-> commit the changes 
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git commit -am "mistaked commit1"
+[master f0a1e85] mistaked commit1
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+######
+
+d) do some more mistaked typings in those 2 files and commit it 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git commit -am "mistaked commit2"
+[master abd78ab] mistaked commit2
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+######
+
+e) have a check of the git logs 
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+abd78ab (HEAD -> master) mistaked commit2
+f0a1e85 mistaked commit1
+e389434 fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+####
+
+
+f) Now i am in master and if i want to go to fourth commit , i can use this particular hash: e389434
+
+####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git reset e389434
+Unstaged changes after reset:
+M       cat.txt
+M       dog.txt
+
+####
+
+
+g) do a git log again 
+
+####
+$ git log --oneline
+e389434 (HEAD -> master) fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+####
+
+
+h) Now if we go to intellij, we will still the local changes we did for mistakened commits
+-> All we did is: go back to this last commit e389434
+-> in git's mind that's where the history stops and there is no commit after that 
+
+i) So if there are some changes in repository 
+-> to undo those commits we use git reset
+-> Those changes will be removed from git repository but those change will still be present in working directory 
+
+
+j) This behaviour can be useful if we make commits in last branch 
+-> so we removed commits from a branch 
+-> but we have local changes of those removed commits 
+-> We can switch to a new branch and commit them 
+
+
+
+54) git reset --hard <commit>
+-> if you want to undo both the commits and the local changes in your files , you can use the --hard option 
+
+syntax:
+> git reset --hard <commit> 
+
+-> eg: git reset --hard HEAD~1 will delete the last commit and its associated changes 
+
+
+a) To illustrate checking git log and status priorly:
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+e389434 (HEAD -> master) fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 second commit
+b5b6ac3 first commit
+
+########
+
+
+b) Now going to the second commit and doing hard reset( meaning removing from repository and also locally) 
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git reset --hard b633519
+HEAD is now at b633519 second commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (master)
+$ git log --oneline
+b633519 (HEAD -> master) second commit
+b5b6ac3 first commit
+
+
+########
+
+c) We can see that in local files too the content is reset 
+
+d) this reset is done in per branch basis or on what branch we do this reset command 
+
+
+
+55) GIT REVERT
+-> yet another similar sounding and confusing command that has to do with undoing changes 
+
+a) 'git revert' is similar to 'git reset' as they both "undo" changes, but they accomplish it in different ways
+
+b) 'git reset" moves the branch pointer backwards eliminating commits 
+
+c) git revert instead creates a brand new commit which reverses/undos the changes from a commit. 
+-> Because it results in a new commit, you will be prompted to enter a commit message 
+
+syntax: 
+> git revert <commit-hash>  
+
+
+
+d) "Undoing' with Reset 
+
+
+                                        HEAD 
+										 | 
+                                         |
+                                       Master
+                                         |
+                                         |
+(djddhd3333)-----(woiee23333)------(ddh3h3331uff)
+  head~2           head~1 
+
+
+
+
+with: git reset HEAD~2 
+
+
+    HEAD 
+	 |                                     
+     |									
+   Master                                    
+     |                                    
+     |                                                                     
+(djddhd3333)-----(woiee23333)------(ddh3h3331uff)
+  head~2           head~1 
+                     ERASED            ERASED 
+					 
+
+-> Branch pointer is moved to an earlier commit, erasing 2 later commits 
+
+
+e) "Undoing" with Revert 
+					 
+>git revert 51494a6  
+					                                     HEAD 
+										                   | 
+                                                           |
+                                                        Master
+                                                           |
+                                                           |
+(djdd3333)-----(woiee23333)---(51494a6)-----------(ddh3h3331uff)
+                                           This new commit reverses the changes 
+										               from 51494a6 
+
+
+-> Here the new commit, undoes this changes from 51494a6
+-> by doing this, it does not go away for repo, it is still in history - but changes from it are gone 
+
+f) Now lets see an example for the same: 
+
+g) lets make a bad change and a bad commit
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git status
+On branch badbranch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cat.txt
+        modified:   dog.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git commit -am "bad commit2"
+[badbranch dabe206] bad commit2
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git status
+On branch badbranch
+nothing to commit, working tree clean
+
+
+#####
+
+h) since revert helps to keep record and still undo the changes ,
+
+revert can be used with HEAD~1,2 and also directly with hash 
+
+i) we have the following log and we want to remove:dabe206
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git log --oneline
+dabe206 (HEAD -> badbranch) bad commit2
+955e004 bad branch commit
+e389434 fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 (master) second commit
+b5b6ac3 first commit
+
+
+ii) 
+
+############
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git log --oneline
+dabe206 (HEAD -> badbranch) bad commit2
+955e004 bad branch commit
+e389434 fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 (master) second commit
+b5b6ac3 first commit
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git revert dabe206
+[badbranch f58d081] Revert "bad commit2" maheshh
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git log --oneline
+f58d081 (HEAD -> badbranch) Revert "bad commit2" maheshh
+dabe206 bad commit2
+955e004 bad branch commit
+e389434 fourTH COMMIT
+357a663 THIRD COMMIT
+b633519 (master) second commit
+b5b6ac3 first commit
+
+############
+
+j) Why do we need revert:
+We will have the history of the commit being maintained, but the changes are reverted 
+
+56) GIT reset or git revert - which one should we use?
+a) Both git reset and git revert helps us reverse changes, but there is significant difference when it comes to collaboration 
+
+b) If you want to reverse some commits that other people already have on their machines, you should use revert 
+
+c) if you want to reverse commits that you have not shared with others, use reset and no one wil ever know 
+
+
+-> Sometimes reverting a commit can result in conflicts 
+-> we may need to manually resolve 
+
+
+57) What is github?
+-> git hub is a hosting platform for git repositories 
+-> you can put your own GIT repos on GIThub and access them from anywhere and share them with people around the world 
+
+-> Beyond hosting repos, github also provides additional collaboration features that are not native to GIT
+
+
+58) GIT vs GITHUB 
+
+GIT:
+-> It is the version control software that runs locally on your machine 
+-> you dont need to register for an account 
+-> You dont need internet to use it
+-> You can use git without even touching GIThub 
+
+GITHUB 
+-> It is a service that hosts GIT repositories in the cloud and makes it easier to collaborate with other people 
+-> You do need to sign up for an account to use GITHUB 
+-> It is an online place to share work that is done using GIT 
+
+
+59) Cloning github repos with git clone
+
+syntax:
+git clone <github url> 
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ git clone https://github.com/maheshneyveli22/javasamples_july18_23.git
+Cloning into 'javasamples_july18_23'...
+remote: Enumerating objects: 71, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 71 (delta 0), reused 0 (delta 0), pack-reused 67
+Receiving objects: 100% (71/71), 452.38 KiB | 2.37 MiB/s, done.
+Resolving deltas: 100% (21/21), done.
+
+##########
+
+
+60) Cloning GITHUB repos:
+a) Anyonne can clone a repository from github , provided the repo is public 
+-> You dont need to be an owner or collaborator to clone the repo locally to your machine 
+-> You jus need the url from github 
+
+b) Only for pushing changes to the Github repo - we need permission 
+
+c) git clone is a standard git command 
+-> It is not tied specifically to GitHub. 
+-> We can use it to clone repositories that are hosted anywhere. 
+
+3) Github Setup : SSH config 
+1) Ensure that you are signed in to github 
+
+
+61) GITHUB setup: SSH config 
+a) You need to be authenticated on GITHUB to do certain operations lie pushing up code from your local machine 
+-> your terminal will prompt every single time for your github email and password 
+
+b) You generate and configure an ssh key. once configured, you can connect to github without supplying username/password 
+
+c) After signing up with username and password, second step is to configure SSH key 
+-> Step involves generating ssh keys and tell github about it 
+
+d) To do what we need to follow certain instructions in GITHUB :
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+
+1) First step is to check for existing SSH keys 
+-> i.e to check if SSH key is generated already 
+-> This command just checks if .ssh files are present in 
+this directory : C:\Users\gs1-maheswarane\.ssh
+
+Use the below command:  
+> ls -al ~/.ssh
+
+
+
+-> in my local, it shows only the following the following:
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/javasamples_july18_23 (main)
+$  ls -al ~/.ssh
+total 45
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 11 16:37 ./
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 15 12:30 ../
+-rw-r--r-- 1 gs1-maheswarane 1049089 1680 Jul 14  2023 gitkraken_rsa
+-rw-r--r-- 1 gs1-maheswarane 1049089  382 Jul 14  2023 gitkraken_rsa.pub
+-rw-r--r-- 1 gs1-maheswarane 1049089  658 Nov  8 00:07 known_hosts
+-rw-r--r-- 1 gs1-maheswarane 1049089  289 Oct 26 09:49 known_hosts.old
+
+
+2) Check if you have files of any of the following names:
+
+#####
+Check the directory listing to see if you already have a public SSH key. By default, the filenames of supported public keys for GitHub are one of the following.
+
+id_rsa.pub
+id_ecdsa.pub
+id_ed25519.pub
+#####
+
+
+3) IF they are not present, we need to generate a new key 
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+
+
+>ssh-keygen -t ed25519 -C "maheshneyveli22@gmail.com"
+
+
+-> Upon entering the above in gitbash, presss enter for saving and enter for passphrase since i did not give any passphrase  
+-> thus ssh key is generated successfully 
+
+
+
+#######
+$ ssh-keygen -t ed25519 -C "maheshneyveli22@gmail.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/c/Users/gs1-maheswarane/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/gs1-maheswarane/.ssh/id_ed25519
+Your public key has been saved in /c/Users/gs1-maheswarane/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:96DB42dW36IrlsfGf5WfH1sDUl5DQTIwbKxTr/EFjoQ maheshneyveli22@gmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|          +o.o.+.|
+|         E *..+  |
+|          = +..o |
+|       . o ooo...|
+|        S +.=o. .|
+|       . = =.o.o.|
+|        o ++. oo*|
+|         ++ =. oB|
+|         . +oo.oo|
++----[SHA256]-----+
+
+
+###########
+
+3_1) Now if we check, we can find the files in below location:id_ed25519.pub and id_ed25519
+a) 
+-> THe file that ends with .pub is the public key 
+
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/javasamples_july18_23 (main)
+$  ls -al ~/.ssh
+total 47
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 15 13:59 ./
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 15 12:30 ../
+-rw-r--r-- 1 gs1-maheswarane 1049089 1680 Jul 14  2023 gitkraken_rsa
+-rw-r--r-- 1 gs1-maheswarane 1049089  382 Jul 14  2023 gitkraken_rsa.pub
+-rw-r--r-- 1 gs1-maheswarane 1049089  419 Mar 15 13:59 id_ed25519
+-rw-r--r-- 1 gs1-maheswarane 1049089  107 Mar 15 13:59 id_ed25519.pub
+-rw-r--r-- 1 gs1-maheswarane 1049089  658 Nov  8 00:07 known_hosts
+-rw-r--r-- 1 gs1-maheswarane 1049089  289 Oct 26 09:49 known_hosts.old
+##########
+
+
+b) Contents of id_ed25519.pub
+
+####
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILIWfx6GervnX58aMuDhpJ7oxXw3nH8qIAju9unJp+HZ maheshneyveli22@gmail.com
+####
+
+c) Contents of  id_ed25519
+####
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACCyFn8ehnq751+fGjLg4aSe6MV8N5x/KiAI7vbpyafh2QAAAKDkgUTr5IFE
+6wAAAAtzc2gtZWQyNTUxOQAAACCyFn8ehnq751+fGjLg4aSe6MV8N5x/KiAI7vbpyafh2Q
+AAAEAWj0OFPdSzIsmporIXn43ZMI47gK71FpLvSJlgwhBu07IWfx6GervnX58aMuDhpJ7o
+xXw3nH8qIAju9unJp+HZAAAAGW1haGVzaG5leXZlbGkyMkBnbWFpbC5jb20BAgME
+-----END OPENSSH PRIVATE KEY-----
+####
+
+
+
+4) Next step is to add your ssh key to the ssh-agent 
+
+i) start your ssh agent using below command 
+
+----> follw steps mentioned in the wiki docs  
+
+
+... since we dont have admin permissions in this laptop, skipping those 
+
+
+
+61) Creating your first GITHUB repo 
+
+Option 1: Existing Repo
+-> if you already have an existing repo locally that you want on github 
+	● Create a new empty repo on GIThub
+	● Connect your local repo(add a remote) 
+	-> Tell your local git repo, about the github repo 
+	● Push your changes to github 
+	-> Push from local repo to the new Github repo 
+	
+	
+Option 2: Start from Scratch 
+-> If you have not begun work on your local repo, you can 
+	● Create a brand new repo on Github 
+	-> Create a new empty repo on Github 
+	● Clone it down to your machine 
+	-> Clone the Github repo to your local machine 
+	-> The localhub is automatically connected to Github 
+	● Do some work locally 
+	● Push your changes to github 
+	
+	
+62) Now lets look into how to Create GITHUB repo using an existing Repo:
+a) If you have an existing repo - first step is to sign in git repo and create an new empty repo 
+-> give a repository name and create repo: https://github.com/maheshneyveli22/github-undo-stuff
+
+b) Now we will see quick setup page and repository will be created like this: maheshneyveli22/github-undo-stuff
+
+-> Now this repo is not connected to our local repo 
+
+c) Next we need to configure our local repo to know about this github repo 
+-> To do that, we need to setup a git remote.
+
+1) REMOTE: 
+-> Before we push anything to GITHUB, we need to tell GIT about our remote repository and GIThub.
+-> We need to setup a destination to push to
+
+-> In git we refer to these "destinations" as remotes .
+-> Each Remote is simply a URL where a hosted repository lives 
+-> Remote is just a fancy name for the destination URL . We set a label for the url
+
+
+
+2) Viewing Remotes:
+-> To view any existing remotes for your repository, we can run: git remote or git remote -v 
+
+-> This just displays a list of remotes 
+-> if you have not added any remotes yet, you wont see anything 
+
+syntax:
+> git remote -v 
+
+--> In our local repo, we have not configured, any remote ,hence our output is empty 
+
+
+●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+i) if we check: git remote -v for booking-parent, we will get the below output
+
+
+
+####
+C:\ExpoNow\booking-parent>git remote
+origin
+
+C:\ExpoNow\booking-parent>git remote -v
+origin  https://gitlab.expeditors.com/EnterpriseTechnology/booking-parent.git (fetch)
+origin  https://gitlab.expeditors.com/EnterpriseTechnology/booking-parent.git (push)
+#####
+
+-> Though we did not set it manually
+-> We just did a git clone of the above booking-parent git url 
+
+ii) By doing git clone, git created a local repo. It put all these files in here. 
+-> it gave me all the history 
+iii) It also set up a remote that : the original github URL that is repo came from
+iv) By setting this url: remote -> origin - it gives me the ability later on to ask : Hey git , is there  any new code on that URL? 
+-> Is there any updates? 
+-> Or if i was a collaborator , tell that : we can push new commits 
+
+●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●
+
+d) Now coming back to our project, there are no remotes.
+
+ADD A NEW REMOTE
+e) Remote consists of two things: URL and a label 
+
+syntax: 
+> git remote add <name> <url> 
+
+eg:
+> git remote add origin https://github.com/blah/repo.git 
+
+-> This is a way of telling git, remember this url using this name
+
+1) What is Origin:
+-> Conventional git remote name, it is just a name for a url 
+-> When we clone a github repo, default remote name setup for us is called origin .
+-> We can change it, but most people dont 
+
+-> Similar to master being default name for branches, origin is the default name for remote 
+
+f) Add remote using git remote add origin https://github.com/maheshneyveli22/github-undo-stuff.git fetched githug page:
+
+https://github.com/maheshneyveli22/github-undo-stuff
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git remote add origin https://github.com/maheshneyveli22/github-undo-stuff.git
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git remote
+origin
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git remote -v
+origin  https://github.com/maheshneyveli22/github-undo-stuff.git (fetch)
+origin  https://github.com/maheshneyveli22/github-undo-stuff.git (push)
+##############
+
+g) Thus we added remote and connected to our github repo 
+
+
+h) Rename remote:
+
+git remote rename <old> <new> 
+
+i) Remove remote:
+
+git remote remove <name> 
+
+
+j) Pushing commits: 
+
+-> We use git push command for the same 
+-> As part of git push command we need to specify the remote to which we want to push and the specific local branch to push to that remote 
+-> git push command is a git command and not a git hub command 
+
+syntax:
+> git push <remote> <branch> 
+
+1) check the remote and branch available :
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git remote -v
+origin  https://github.com/maheshneyveli22/github-undo-stuff.git (fetch)
+origin  https://github.com/maheshneyveli22/github-undo-stuff.git (push)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git branch
+* badbranch
+  master
+############
+
+2) Sample push command 
+###
+> git push origin master 
+#####
+
+3) github has default branch name as main while git has default name as master 
+
+--->Hence github suggests to rename master branch to main and push main 
+
+eg
+#####
+git branch -M main
+git push -u origin main
+#####
+
+
+4) This will be done later, hence we will push to master branch itself for now 
+
+
+eg:
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git push origin master
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (8/8), 616 bytes | 123.00 KiB/s, done.
+Total 8 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/maheshneyveli22/github-undo-stuff.git
+ * [new branch]      master -> master
+########
+
+5) Now in github page, we can see all the files being listed 
+-> it shows only one branch: master 
+
+6) Now pushing another branch:
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git push origin badbranch
+Enumerating objects: 18, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (15/15), 1.65 KiB | 338.00 KiB/s, done.
+Total 15 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), done.
+remote:
+remote: Create a pull request for 'badbranch' on GitHub by visiting:
+remote:      https://github.com/maheshneyveli22/github-undo-stuff/pull/new/badbranch
+remote:
+To https://github.com/maheshneyveli22/github-undo-stuff.git
+ * [new branch]      badbranch -> badbranch
+######
+
+-> Now it shows two branches 
+
+
+63) GIThub Repo: Walkthrough  
+a) We can view files 
+b) Switch branches 
+-> If in a branch, it tells how many commits ahead and behind 
+c) Tells about most recent push and its time 
+d) In  a branch, we can also see the commits being listed 
+e) If you want to see all commits,we can click 2 or # commits and that will take  to commits screen 
+-> This shows a visual representation of each commit 
+f) If we click on a commit, it shows the fill in diff view 
+g) We can switch to a branch and see the list of commits there 
+
+
+64) How Push works?
+a) 'git push origin master' tells git to push the master branch to our origin remote 
+
+
+######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (badbranch)
+$ git push origin badbranch
+Enumerating objects: 18, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (15/15), 1.65 KiB | 338.00 KiB/s, done.
+Total 15 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), done.
+remote:
+remote: Create a pull request for 'badbranch' on GitHub by visiting:
+remote:      https://github.com/maheshneyveli22/github-undo-stuff/pull/new/badbranch
+remote:
+To https://github.com/maheshneyveli22/github-undo-stuff.git
+ * [new branch]      badbranch -> badbranch
+######
+
+
+b) When we give 'git push origin master' 
+-> It pushes up my master branch with whatever commits on it to github 
+-> THis creates a master branch on github the very first time 
+-> local badbranch is connected to github badbranch by arrow 
+
+ badbranch -> badbranch
+ 
+ 
+c) To push a local branch to remote branch of different name, we have to do:
+ 
+ syntax: 
+> git push <remote> <local-branch>:<remote-branch>
+
+eg: 
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (cats)
+$ git push origin cats:master
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/maheshneyveli22/github-undo-stuff.git
+   b633519..77dd79d  cats -> master
+#####
+
+65) The -u option 
+a) The -u option helps to set the upstream of the branch we are pushing.
+-> We can think of this as a link connecting our local branch to  a branch on github 
+
+b) running 'git push -u origin master' sets the upstream of the local master branch so that it tracks the master branch on the origin repo 
+
+c) Once we set the upstream for a branch, we can use the 'git push' shorthand which will push our current branch to the upstream 
+
+First time:
+> git push -u origin master 
+
+Later times:
+> git push 
+
+-> After first time, just telling git push is enough 
+
+
+d) When we run 'git push -u origin master' :
+1) this tells GIT that on my computer, locally in my repo - I want to push the master branch to origin master 
+2) Also it tells that i want you to remember that in future, that my master branch on my computer is connected to the master branch on origin 
+
+
+e) if we try to use 'git push' shorthand without using -u option, it will throw error that current branch has no upstream branch 
+
+f) 'git push -u origin master' is equivalent to 'git push --set-upstream origin master'
+
+g) another point to remember :
+   git push -u origin dogs 
+   
+   -> if we dont specify colon and specify another branch, git will push dogs from local to dogs of github repo 
+   
+
+66) Another git workflow:
+
+####
+Option 2: Start from Scratch 
+-> If you have not begun work on your local repo, you can 
+	● Create a brand new repo on Github 
+	-> Create a new empty repo on Github 
+	● Clone it down to your machine 
+	-> Clone the Github repo to your local machine 
+	-> The localhub is automatically connected to Github 
+	● Do some work locally 
+	● Push your changes to github 
+######
+
+a) Create a new repository in github of name: chickens-demo 
+b) Clone the chickens-demo repo to the local machine 
+-> in local repo -> execute this git clone command 
+
+eg:
+> git clone https://github.com/Colt/chickents-demo.git 
+
+c) now cd into chickens-demo 
+d) if we do , git status it say "on branch master No commits yet"
+e) Then if we type remote -v it gives below output 
+
+
+origin https://github.com/Colt/chickents-demo.git  (fetch)
+origin https://github.com/Colt/chickents-demo.git  (push)
+
+f) Do some work locally
+-> create some files and commit them 
+
+g) Push that new work to github
+> git push origin master 
+
+
+---> Thus this is 2nd way of connecting our local repo to remote git hub repo 
+
+
+67) Main and Master : git default branches 
+
+a) In 2020 github decided to rename default branch from master to main 
+b) While pushing code from git to github, that did not impact us, we have been able to push up a master branch and github also default shows to be master 
+b) Now if i create new branch eg: colors and try to create readme file - it says that this will set main as the default branch 
+-> if we dont enable "Add a README file" option, i does not say anything about the main branch 
+c) Thus when we create repo with no README, ie completely empty - there is no branch that is initialized 
+-> but as soon as i add a file in github - it automatically needs to have a branch  because you can have files in git repo that are tracked and comitted without associating it to a branch 
+j) Hence we get this message :
+
+" This will set "main" as the default branch, Change the default name in your settings" 
+
+k) if we set main, then commit for the readme text will happen in main branch and we will be in main branch 
+
+l) In order to bring this to my local machine, i can clone this repository using: 
+git clone https://github.com/Colt/colors.git 
+
+m) Now after cloning , if we check in local we can find the repository to be in main branch 
+
+n) In case we are going with option 1, pushing an existing reprository we need to execute the following commands :
+
+git remote add origin https://github.com/Colt/asdasd.git 
+
+git branch -M main 
+
+git push -u origin main 
+
+
+
+-> by command "git branch -M main" we rename current branch to main 
+-> And then we push the push the main branch from local to repo with remote origin 
+
+
+68) Setting default branch in git hub 
+-> Settings/Branches/ Default Branch /<edit the name of default branch> 
+
+
+69) Remote Tracking Branches : Fetching and Pulling 
+
+a) This section is focussed on getting code from GITHUB to our machine  
+-> This is important while collaborating with others because other people will be changing our repositories, pushing new commits, pushing those up 
+-> In such a scenario, how will we get them all 
+
+b) Before we check on pull and fetch commands, lets take a closer look at cloning 
+
+WHAT HAPPENS WHEN WE CLONE A REPOSITORY:
+1) At the beginning there is nothing on my local machine 
+2) In git hub repository consider we have three commits and one master branch 
+
+IN GIT HUB REPO 
+								master
+								  |
+                                  |
+(dewhhe322)----(ddde22ddd)----(dd22ff3)
+
+IN LOCAL GIT :
+
+EMPTY 
+
+
+3) When we clone using : git clone , we end up with three commits and all files from repository into the local git 
+
+IN GIT HUB REPO 
+								master
+								  |
+                                  |
+(dewhhe322)----(ddde22ddd)----(dd22ff3)
+            |
+			|
+         GIT CLONE 
+		    |
+			|
+			↓
+IN LOCAL GIT :
+
+								master
+								  |
+                                  |
+(dewhhe322)----(ddde22ddd)----(dd22ff3)
+                               origin/master
+							   
+							   
+-> WHile we have talked about only one branch: master(pushed from github to git), we are able to see two branches here: master((pushed from github to git)) and origin/master 
+
+4) Now what is this origin/master branch:
+-> This is a "Remote tracking branch"  reference 
+-> It is a reference/pointer to the state of the master branch on the remote . THis pointer does not move 
+-> It is like a bookmark pointing to the last known commit on the master branch on origin 
+
+-> It points to wherever (master) on the github is pointing 
+
+5) So (master) and (origin/master) will be at same point after we clone, but once we make changes in local (master) reference will start moving 
+
+
+c) Remote tracking branches:
+-> They follow this pattern: <remote>/branch 
+
+Samples: 
+● origin/master references the state of the master branch on the remote repo named orgin 
+● upstream/logoredesign references the state of logoredesign branch on the remote named upstream 
+
+
+d) Remote branches:
+Run 'git branch -r' to view the remote branches our local repository knows about 
+
+> git branch -r 
+  orgin/master 
+  
+###sample from our machine ##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/undo-stuff (cats)
+$ git branch -r
+  origin/badbranch
+  origin/cats
+  origin/master
+  origin/poonai
+
+############################
+
+
+70) Checking out Remote Tracking branches:
+
+a) Imagin you have this repo:
+
+						        master
+								  |
+                                  |
+(dewhhe322)----(ddde22ddd)----(dd22ff3)
+                               origin/master
+							   
+-> It has three commits .
+-> it has a master branch and a remote tracking branch (origin/master) 
+
+b) if i do some work and make some commits being in the local master branch, master reference gets updated while the origin/master reference (remote reference) stays the same 
+
+
+												master
+								                  |
+												  |
+(dewhhe322)----(ddde22ddd)----(dd22ff3)-----(djeheeww)
+                              origin/master
+							  
+					
+c) Thus master is the local branch master. 
+-> Origin/master is the master branch on origin
+
+
+at this time you go do a git status you will get the following:
+
+########
+animals> git status                         main
+On branch main 
+Your branch is ahead of 'origin/master' by 1 commit.
+(user "git push" to publish your local commits)
+
+nothing to commit, working tree clean 
+#######
+
+d) it tells that the local repo is ahead of remote repo by 1 commit, we need do 'git push' to push the commits 
+
+e) if we needed , we can switch or checkout to the remote branch pointer, that is the point when we did git clone 
+
+
+eg:
+############
+> git checkout origin/master 
+
+Note: switching to 'origin/master'.
+You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you discard any commits you make in this 
+############
+
+f) If you checkout origin/master, you will go into detached HEAD .
+-> IF I WANT TO WORK FROM HERE[LIKE WE DID EARLIER WHEN WE ARE IN DETACHED HEAD] , I CAN CREATE A NEW BRANCH AND START WORKING
+
+-> Thus this(git checkout origin/master) is is the reference when we communicated with github last time 
+
+
+71) Working with Remote branches: 
+a) If we have a repo that we clone and if the repo has multiple branches on github, how do we work with those branches locally? 
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ ls
+gitlab-1/  gitlab-2/  javasamples_july18_23/  undo-stuff/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ git clone https://github.com/Colt/remote-branches-demo
+Cloning into 'remote-branches-demo'...
+remote: Enumerating objects: 57, done.
+remote: Counting objects: 100% (57/57), done.
+remote: Compressing objects: 100% (43/43), done.
+remote: Total 57 (delta 11), reused 37 (delta 8), pack-reused 0
+Receiving objects: 100% (57/57), 14.89 KiB | 129.00 KiB/s, done.
+Resolving deltas: 100% (11/11), done.
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials
+$ cd remote-branches-demo/
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+#####
+
+a_1) branch command in local repo 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git branch
+* main
+
+###
+
+a_2) branch in remote git hub 
+
+###
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/fantasy
+  origin/food
+  origin/main
+  origin/more-fantasy
+  origin/morefood
+  origin/movies
+#########
+
+
+b) Here we can see this repo is in branch: main 
+-> Though in git hub,we have multiple branches - upon cloning we have only one branch 
+
+c) So the question here is: how do we get the other branches ? 
+
+d) Before that lets see about relationship between full-fledged branch and a remote tracking branch 
+
+
+ 
+
+workspace				remote
+(MASTER)-------------->origin/master 
+                     
+					   
+1) By default when we clone a repository, we end up with master branch in local 
+-> And this master branch is automatically tracking and connected to remote branch : origin/master 
+
+-> Both local and remote branch will have branch name as master and that is the default behaviour 
+-> In our example local branch : main is connected to remote branch: origin/main and this connection between local and remote is automatic
+
+#####Our local example####
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+#######
+
+
+e) Now our task is to connect to local branch to origin/puppies 
+
+
+workspace				remote
+(MASTER)-------------->origin/master 
+                       origin/puppies
+					   
+-> We can checkout origin/puppies but that puts me in detached HEAD 
+
+-> We have local branch called puppies and connect it to origin/puppies, just like local master branch is connected to orgin/master 
+
+--> We know that following are the remote branches ::
+
+##
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/fantasy
+  origin/food
+  origin/main
+  origin/more-fantasy
+  origin/morefood
+  origin/movies
+##
+
+f) so lets 'checkout origin/food '
+-> as a result we are in 'detached HEAD' state 
+---> Here it goes to 'detached HEAD' state because 
+
+#####
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git checkout origin/food
+Note: switching to 'origin/food'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at ae2d02f Create tea.txt
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo ((ae2d02f...))
+$
+
+###########
+
+g) Now we have switched to a branch: origin/food, but that does not mean that we have connected remote(origin/puppies) with local (puppies) 
+-> Rather than checking out the remote origin/food branch, i want to have my own branch here that is connected to remote branch(origin/food) 
+
+h) The way to do this super easy with the new switch command 
+
+
+i) git switch <remote-branch-name 
+-> 'git switch<remote-branch-name> helps to create a new local branch from the remote branch of the same name 
+
+syntax:
+> git switch puppies 
+
+-> Here 'git switch puppies' creates a local puppies branch and sets it up to track the remote branch origin/puppies 
+
+-> If git detects there is no local branch puppies and there is remote branch called puppies - then git assumes that we want them connected 
+
+->  We can also change that and make local puppies branch tracking origin/cats branch 
+
+-> But here in default case this behaviour occurs 
+
+j) If git detects there is no local branch puppies and there is remote branch called puppies - then git assumes that we want them connected 
+1) git creates new local branch puppies 
+2) Automatically set the local branch puppies to track remote branch origin/puppies 
+
+<-------FOLLOWING HAPPENS AFTER git switch puppies-------------------->
+
+ WORKSPACE                                                           REMOTE 
+ (master)----------------------------------------------------------->(Origin/master) 
+ (puppies)----------------------------------------------------------->(Origin/puppies) 
+ 
+ 
+ 
+ K) GENERAL BEHAVIOUR OF GIT SWITCH BETWEEN LOCAL REPO BRANCH AND REMOTE REPO BRANCH
+ 1) if branch is there in both local repo and remote  and if i try to switch :
+ -> It switches automatically: 
+ 
+ ########
+ gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (main)
+$ git switch food
+Switched to branch 'food'
+Your branch is up to date with 'origin/food'.
+ #######
+
+2) If a branch is not there in local repo and present only in remote  and if we try to switch 
+
+-> git creates local branch with same name of remote and local repo branch starts tracking remote repo branch
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (food)
+$ git branch
+* food
+  main
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (food)
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/fantasy
+  origin/food
+  origin/main
+  origin/more-fantasy
+  origin/morefood
+  origin/movies
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (food)
+$ git switch movies
+Switched to a new branch 'movies'
+branch 'movies' set up to track 'origin/movies'.
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (movies)
+$ git branch
+  food
+  main
+* movies
+
+#########
+
+3) If branch is not there in local repo and also not in remote, and if we try to switch - it throws invalid reference error:
+
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/gitlab-tutorials/remote-branches-demo (movies)
+$ git switch unkwedhddhdh
+fatal: invalid reference: unkwedhddhdh
+######
+
+
+l) Old way of linking local repo and remote repo branch before switch command :
+
+syntax:
+> git checkout --track origin/puppies 
+
+
+m) Thus as part of this video we learnt the following:
+1) git switch command makes it easier to link and track local repo and Remote repo 
+eg: git switch puppies 
+
+-> this puppies branch may not be present locally and present only in remote repo 
+
+2) If anyone wants you to work on new branch which was pushed remote, you can go to that branch using, git switch
+
+
+
+72) Git Fetch: 
+a) Consider we have a local repository and we have corresponding github repo 
+-> Currently we have just done the clone of the local repo 
+-> Thus local repo is entirely upto date with remote repo 
+-> Here thus in local repo: master pointer of the local repo and origin/master of remote - both refer to the latest commit 
+
+
+
+Github: ()-----------------()
+
+                        
+						master
+                         |
+                         |
+                         ↓
+Local: ()---------------( )
+                         ↑
+                         |
+                         |
+					origin/master 
+					
+					
+b) In case i do some work, master and origin/master gets diverged: Thus master repo points to a commit and origin/master points to a different commit 
+
+                                           LOCAL COMMIT
+Local: ()---------------( )---------------( )  
+                         ↑                 ↑
+                         |                 |
+                         |                 |
+					origin/master	     master
+					
+c) Meanwhile in remote, three more new commits have occured, which was done by someone else 
+
+eg:
+  Github: ()-----------------()--------(Remote commit 1)------(Remote commit 2)
+  
+  
+d) Now the question is: how do i get those changes from remote into local repo 
+
+
+e) This is where two commands: git fetch/ git pull comes into play 
+
+
+-> While git add, git commit, git push helps to move code from local workspace to Remote Directory 
+
+[Workspace]----gitAdd---->[staging(index)]---git commit--->[local repository]----git push---->[Remote Repository]
+                
+----> On the other hand , git fetch and git pull helps to move code in opposite direction 
+
+
+[Remote Repository] ---git fetch-------->[local repository]
+
+[Remote Repository] ------------git pull--------------------->[workspace]
+
+
+
+f) git fetch:
+
+-> git fetch is used to take remote changes from github repo to local repository and not into our working directory 
+-> git fetch <remote> command fetches branches and history from a specific remtoe directory 
+-> It only updates remote tracking branches 
+
+syntax: 
+> git fetch <remote>
+
+'git fetch origin" will fetch all changes from origin remote repository 
+
+-> if not specified , <remote> defaults to origin 
+
+syntax:
+> git fetch <remote> <branch> 
+
+g) git fetch: a specific branch
+-> We can also fetch a specific branch from a remote using: git fetch <remote> <branch> 
+
+-> for eg: 'git fetch origin master' would retrieve the latest information from the master branch on the origin remote repository 
+
+
+syntax:
+> git fetch <remote> <branch> 
+
+-> By this command, local master branch is untouched. 
+-> By doing: git fetch <remote> <branch> , we have those changes on our machine, but if i want to see them, we have to checkout origin/master. 
+----> And still the master branch is untouched 
+
+
+###############
+Github: ()-----------------()--------(Remote commit 1)------(Remote commit 2)------(Remote commit3)
+
+
+
+
+                          (Remote commit1)------(Remote commit 2)------(Remote commit3)
+						  /                                               [Origin/master]
+                         /  
+                        /
+                       /
+Local ()-----()------( )--------( local commit1)
+								  ↑
+								  |                 
+								  |				
+							  [master]			
+
+
+
+73) git fetch - demonstration 
+a) Suppose in a branch called origin/movies , if there is change in remote repo  and if you do in local repo: 'git fetch origin' 
+-> Then if we do: 'git status' 
+
+####
+On branch movies
+Your branch is behind 'origin/movies' by 1 commit and can be fast-forwarded. (use "git pull" to update your local branch) 
+
+nothing to commit, working tree clean 			
+########	
+
+b) THis means remote branch: origin/movies has been updated and as a result of 'git fetch origin', even tracking branch has been updated 
+but local workspace has not been updated 
+-> But our local branch movies is unchanged 	
+
+-> even in git log we will see, nothing has changed 
+
+
+c) Now to see that, if we do 'git checkout origin/movies'  
+				 
+-> it throws error message that you are in 'detached HEAD' state. 
+
+
+##############
+> git checkout origin/movies 
+Note: switching to 'origin/movies'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this 
+state without impacting any changes by switching back to a branch. 
+.......
+
+
+HEAD is now at d94a89e Create tinkerbell.txt 
+
+###########
+
+d) In order to integrate these changes into our working directory we need to use 'pull' command
+
+e) Thus looking at fetch:
+Fetch just gets those changes from github and brings them down to my machine, but does not integrate those changes into our working directory 
+
+f) In order to come out of detached state, lets switch branches 
+g) Now from origin/movies, if we switch to local repo movies using 'git switch movies' , it shows that i am still behind origin/movies by 1 commit 
+
+############
+remote-branch-demo> git switch movies 
+Previous HEAD position was d94a89e Create tinkerbell.txt
+Switched to branch 'movies'
+Your branch is behind 'origin/movies' by 1 commit, and can be fast-forwarded.
+(use "git pull" to update your local branch)
+remote-branch-demo>
+############
+
+h) Now if i switch to food, which i still dont have on my machine ,git will check remote repo and create a local repo food 
+
+##########
+remote-branch-demo> git switch food
+Branch 'food' set up to track remote branch 'food' from 'origin'.
+Switched to a new branch 'food' 
+##########
+
+i) Now if i make change in remote repo by creating new file tea.txt in 'origin/food' and check locally for git status, we get a message "On branch food
+Your branch is up to date with 'Origin/food'. 
+
+j) In order to fetch changes from 'origin/food'
+ if i try to fetch food 
+
+eg:
+remote-branch-demo> git fetch origin food 
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100%(4/4), done. 
+remote: Compressing objects: 100%(3/3), done. 
+remote: Total 3( delta 0), reused 0(delta 0), pack-reused 0
+unpacking objects: 100%(3/3), done. 
+From https://https://github.com/Colt/remote-branch-demo 
+* branch               food            -> FETCH_HEAD
+  ccda9ed..c4f3cb7     food            -> origin/food 
+  
+remote-branch-demo> git status 
+On branch food 
+Your branch is behind 'origin/food' by 1 commit, and can be fast-forwarded. 
+ (use "git pull" to update your local branch)
+ 
+nothing to commit, working tree clean 
+remote-branch-demo> 
+
+--> Thus before 'git fetch origin food' we got a message that our branch is upto date with 'origin/food'  and now after 'git fetch origin food' we get message that "your  branch is behind 'origin/food' by 1 commit, and can be fast-forwarded'
+
+-> Though we dont get the 'origin/food' changes in our local repo, we can get the changes to our local repo  by using : git checkout origin/food which results in detached state 
+
+k) Not only for updating a branch from remote repo to local repo, we also use git fetch:
+1) When a new branch was created in github and local repo will not be aware of this new branch 
+-> so if we give 'git fetch', we will get the new branch which we created into our local 
+-> Now if we give : git branch -r , now our local repo will be aware of the new branch origin/morefood 
+
+#######
+remote-branch-demo> git fetch 
+From https://github.com/Colt/remote-branch-demo
+From https://github.com/Colt/remote-branch-demo
+* [new branch]  morefood -> origin/morefood 
+> remote-branch-demo
+  
+  
+74) git pull:
+a) 'git pull' is another command which we can use to retrieve changes from a remote repository .
+-> Git fetch and pull similar in: both used to retrieve changes from remote repo  
+-> But the big difference is pull actually updates our HEAD branch or working directory with whatever changes retrieved from the remote 
+
+b) What does pull mean?
+"Go and download data from github and immediately update my local repo with those changes" 
+
+
+c) GIT PULLL = GIT FETCH + GIT MERGE 
+
+GIT FETCH: UPDATES REMOTE TRACKING BRANCH WITH LATEST CHANGES FROM REMOTE REPOSITORY 
+
+GIT MERGE: UPDATES MY CURRENT BRANCH WITH WHATEVER CHANGES PRESENT ON REMOTE TRACKING BRANCH 
+
+
+d) git pull
+-> Like git merge, 'git pull <remote> <branch>' also matters where we run this command from.
+-> Whatever branch we run it,is where the changes will be merged into 
+
+-> If i am on master branch and execute 'git pull origin master' would fetch the latest information from the origin's master branch and merge those changes into our current branch: master  
+
+syntax: 
+>git pull <remote> <branch> 
+
+
+e) just like any other merge, pull can result in merge conflicts : because of same line changes in same file between local repo and remote repo 
+
+#####
+remote-branch-demo> git pull origin food 
+From https://github.com/Colt/remote-branch-demo 
+ * branch      food     -> FETCH_HEAD
+CONFLICT (add/add): Merge conflict in coffee.txt 
+Auto-merging coffee.txt 
+Automatic merge failed: fix conflicts and then commit the result. 
+########
+
+
+f) let resolve merge conflicts manually 
+
+g) After resolving merge conflicts manually and then saving , if you do 'git status' 
+
+
+#####
+remote-branch-demo> git status 
+On branch food
+Your branch and 'origin/food' has diverged. 
+and have 1 and 1 different commits each, respectively. 
+ ( use "git pull" to merge the remote branch into yours) 
+ 
+
+You have unmerged paths.
+ ( fix conflicts and run "git commit")
+ ( use "git merge --abort" to abort the merge) 
+ 
+ Unmerged paths:
+ (use "git add <file>..." to mark resolution) 
+       both added: coffe.txt 
+	   
+no changes added to commit (use "git add" and/or "git commit -a") 
+####
+
+h) After resolving conflict manually, lets add the file 
+
+remote-branch-demo> git add coffee.txt 
+
+i) lets commit the file 
+
+remote-branch-demo> git commit -m "fixed merge conflicts" 
+
+j) Now if we check the status, we get a message which we havenot seeen before : "Your branch is ahead of 'origin/food' by 2 commits." 
+
+-> The reason it is ahead is : we have a commit for coffee.txt and a merge commit locally and those two commits dont exist on github 
+
+-> Hence we need to pull down first , merge anything if there are problems and now i can push up to github and there wont be conflicts 
+
+#######
+remote-branch-demo> git status 
+On branch food 
+Your branch is ahead of 'origin/food' by 2 commits.
+ ( use "git push" to publish your local commits) 
+ 
+nothing to commit, working tree clean 
+remote-branch-demo>
+#########
+
+k) So to overcome this issue, we need to push origin food to remote 
+
+
+
+#######
+remote-branch-demo> git push origin food 
+Enumerating objects: 9, done. 
+Counting objects: 100%(9/9), done. 
+Delta compression using up to 16 threads
+Compressing objects: 100%(6/6), done. 
+Writing objects: 100%(6/6), 689 bytes |689 KiB/s done 
+Total 6(delta 4), reused 0(delta 0)
+remote: Resolving deltas: 100%(4/4), completed with 2 local objects 
+########
+
+
+l) Now if we go to github site and refresh, we will be able to see the new commits 
+
+
+
+75) Shorter syntax for git pull:
+
+a) If we run 'git pull' without specifying a particular remote or branch to pull from, git assumes the following
+● remote will default to origin 
+● branch will default to whatever tracking connection is configured for your current branch 
+
+Note: This behaviour can be configured and tracking connections can be changed manually. Most people dont mess with that stuff 
+
+syntax:
+> git pull 
+
+####
+remote-branch-demo> git pull 
+Updating 8690895..ae2dh02f 
+Fast-forward 
+ tea.txt | 20 ++++++++++++++++++++++
+ 1 file changed, 20 insertions(+) 
+ create mode 100644 tea.txt 
+remote-branch-demo>
+######
+
+76)GIST ON GIT FETCH vs GIT PULL 
+
+GIT FETCH: 
+● Gets changes from remote branch(es) 
+● Updates the remote-tracking branches with the new changes
+● Does not merge changes onto your current HEAD branch
+● Safe to do at anytime
+
+GIT PULL: 
+● Gets changes from remote branch(es) 
+● Updates the current branch with the new changes, merging them in
+● Can result in merge conflicts
+● Not recommended if you have uncommitted changes!
+
+
+
+77) Public vs Private Repos in GIThub
+a) You can make the visibility of any github repository public or private , assuming that you have permission to make it public or private
+
+b) Public Repos 
+-> They are accessible to everyone on the internet 
+-> Anyone can see the repo on Github 
+-> Anyone can clone 
+-> But cant change contents of the repo 
+
+
+c) Private Repos:
+-> They are  only accessible to owner and people who who have been granted access. 
+
+d) Changing Visibility in github 
+
+GITHUB site -> Settings->Danger Zone(goto bottom of page) --> Change repository visibility(Change visibility) 
+
+78) Adding Github Collaborators 
+a) Working with collaborators means, allowing other users to push changes to the repository 
+
+b) In GitHub/Repo -> Settings -> Options -> Manage Access -> Who Has Access -> Direct Access Collaborators 
+
+-> Invite a Collaborator and this sends invitation to collaborator 
+-> Now collaborator has to go to his email, which he signed up with github and accept the invite 
+
+
+c) Collaborator does not have access to the settings 
+
+
+79) What are READMEs?
+a) When we make a repo on GITHUB, we have three options to initiailize a repo with:
+1) Add README file 
+2) Add .gitignore 
+3) Choose a license 
+
+b) A README file is used to communicate important information about a repository includin:
+1) What the repository does?
+b) how to run the project
+c) Why its noteworthy
+d) Who maintains the project 
+
+c) If you put a readme in the root of yor project, github will recognise it and automatically display it on the repo's home page 
+
+
+79) What are markdowns?
+a) READMEs are markdown files with the .md extension.
+-> Markdown is a convenient syntax  to generate formatted text.
+
+b) Markdown is a tool that generates markup 
+-> Markdown is a text-to-html conversion tool for web writers 
+
+https://daringfireball.net/projects/markdown/
+https://markdown-it.github.io/
+
+
+80) Adding  a README to a project repo: 
+a) We can make a repo in github and pull it down locally 
+
+b) In visual studio code-> COmmand paltte-> we have Markdown:Open Preview 
+
+
+81) Github Gists:
+a) Github Gists are a simple way to share code snippets and useful fragments with others 
+-> Gists are much easier to create, but offer far fewer features than a typical Github repository  
+b) In Github page, in right corner we can access github gists and that redirects to this link: https://gist.github.com/maheshneyveli22
+c) We can share it, delete it, comment it 
+
+
+82) Github Pages 
+
+a) Github pages are public webpages that are hosted and published via Github. 
+b) They allow you to create a website by simply pushing your code to github 
+c) Not a full fledged website hosting service
+-> can host only static web pages 
+d) It does not support serice side code like: Python , Ruby or Node. 
+-> Only html/css/js 
+
+
+e) https://pages.github.com/
+
+
+f) Two types of github pages:
+1) User Sites 
+-> You get one user site per github account 
+-> This is where you could host a portfolio site or some form of personal website 
+-> The default url is based on your github username following this pattern: username.github.io 
+
+
+2) Project Sites:
+-> You get unlimited project sites
+-> Each github repo can have a corresponding hosted webiste
+-> It is as simple as telling github which specific branch contains the webs content 
+-> The default urls follow this pattern: 
+    username.github.io/repo-name 
+	
+	
+83) Github pages demo: 
+a) First step is to create or have a repository which is added to remote hub, so that it can be deployed 
+b) Select some branch: where you tell github that repo contains a website, so github will look for file index.html
+c) If we have index.html we can go to github -> settings -> github pages 
+-> In github pages -> source ----> select a branch
+
+-> Now we are not going to select any branch because : currently there is no index.html file   on the main branch 
+-> Also want to demonstrate that you can projects on the main branch and have no website 
+---> Then on a separate branch, set up a website 
+
+d) So i will make a new branch here: gh-pages and make an index.html file , and commit the files 
+
+e) Now after including all changes for html file, go to github settings -> github pages -> choose the branch gh-pages 
+-> specify select folder as /(root) 
+
+-> it will say that : your site is ready to be publised at: https:/col/github.io/chickens/
+
+-> here chickens is name of repo 
+
+
+
+84) The pitfalls of working in Single Branch[Centralized work flow] 
+a) Centralized work flow means everyone working on single branch 
+
+-> centralized workflow means most of time spent on resolving conflicts as team size increases 
+
+b) Lots of time spent resolving conflicts and merging code, as team size scales up 
+c) No one can work on anything without disturbing the main code base.  Its hard to do something radically different or experimenting 
+d) Only way to collaborate on a feature together with another teammate is to push incomplete code to master. Other team mates now have broken code 
+
+
+85) Feature Branch Workflow:
+a) IF THE CENTRALIZED WORK FLOW SAYS: EVERYONE WORKS ON MASTER, FEATURE BRANCH WORKFLOW SAYS : NOBODY WORKS ON MASTER OR MAIN 
+-> Rather than working directly on master/main, all new development should be done on separate branches 
+b) Treat master/main branch as the official project history 
+c) Multiple team mates can collaborate on a single feature and share code back and forth without polluting master branch 
+d) Master/main branch wont allow broken code 
+
+86) Feature Branch workflow demo 
+
+a) Consider person A , creating branchA , then pushes the changes to remote using command: git push origin <nameofFeaturebranch>  
+
+eg: 'git push origin branchA'
+
+
+b) Meanwhile person B , creates branchB 
+1) Since he is going to create branch from main, he will pull from main: 'git pull origin main' 
+2) Create branch : 'git switch -c branchB'
+3) do so some changes and commit the code using commands :
+ '   git status   ' , 
+ '   git add index.html   ' , 
+ '  git commit -m "add changes in index"        ' 
+ '  git push origin branchB   ' 
+ 
+ 
+c) If personA , wants personB to check on this branch and solve the issue 
+1) Now personB, 'git fetch origin' to fetch everything from origin
+-> And we will get info that we have new branch:branchA 
+2) if we do: 'branch -r', it will list all the remote branches 
+
+###
+origin/Head -> origin/main 
+origin/main 
+origin/branchA
+origin/branchB 
+###
+
+3)  personB can checkout : 'git checkout origin/branchA'  
+
+-> this takes us to detached head 
+-> Thus we got branchA 
+----> and able to reproduce the issue of personA 
+
+
+4) To come out of detached head position -
+-- Now personB want to go to branchB: 'git switch - ' 
+--> Now personB will be back to branchB 
+
+5) To goto branchA again, 
+
+Now if i do 'git switch branchA'  
+
+
+-> now git will create local branchA,even though it is not present on local machine until now of personB and it will set it up in a way to connect to 
+origin/branchA 
+
+d) Now personB can work on branchA without being in detached head 
+-> personB can solve the issue 
+
+e) After solving the issue, personB can commit the change :
+'git add index.html' 
+'git commit -m "solved the issue" ' 
+'git push origin branchA' 
+
+f) Now after completing this, personB can go back to branchB and continue his work 
+
+g) Now personA can get the fix of personB by using ' git pull origin branchA' 
+
+h) Thus personA can see all the fix of personB in branchA now 
+
+
+86) Mergin feature branches:
+a) At some point, work on feature branches will need to be merged into the master banch 
+b) Three options to merge:
+► Merge at will, without any discussion with team mates, whenever you want - it will cause problems 
+► Send an email or chat message or something to your team to discuss if changes should be merged in . 
+► Pull requests 
+
+c) Consider personA is  in branchA and merges code to main 
+
+'git switch main'
+'git pull origin' - to see if we missed anything 
+'git merge branchA' -> merge branchA into branch main 
+'git push origin main' -> Push main back to origin/main 
+
+
+-> if it is  a fastforward merge, no issues will be there in merge 
+
+
+d) Now if we go to github and see in main branch, we can see that main branch contains changes of branchA 
+
+e) Now personB, should get the new version of main branch 
+
+'git switch main'
+'git pull origin main' -> by this personB will have new changes of branch main in local directory 
+
+f) Now personB can merge branchB changes into main and push that to github
+
+g) Later if branch is not needed, we can delete the branch 
+
+h) Next we will see the most common way of merging or requesting to merge them in - which is a pull request 
+
+87) Pull Requests(PRs) : 
+a) Pull requests are a feature built inot products like github and bitbucket. 
+-> They are not native to git 
+
+b) They allow developers to alert team members to new work that needs to be reviewed
+-> They provide a mechanism to approve or reject the work on a given branch. 
+-> They also help facilitate discussion and feedback on the specified commits 
+
+c) Pull Request workflow 
+1) Do some work locally on a feature branch 
+2) Push up the feature branch to github 
+3) Open a pull request using the feature branch just pushed to github 
+4) Wait for the PR to be approved and merged. Start a discussion on the PR. This part depends on the team structure 
+
+d) Creating pull request 
+1) Once you push changes to github from feature branch, you will see a message in green in github 
+
+########################
+'my-new-featurebranch" had recent pushes less than a minute agon                           Compare & pull request 
+########################
+
+2) Once we click 'pull request', it goes to a 'Open a pull request' screen 
+
+It tells: target branch and left and an arrow and feature branch on right 
+
+#######
+base:master <---- compare: my-new-featurebranch  
+#######
+
+-> We need to provide information about the file changes in this PR 
+
+3) Once the PR is approved, we get to screen which tells:
+
+-> 'This branch has no conflicts with the base branch ' 
+-> ANd there will be a button "Merge pul request" 
+
+4) At last, we can merge the pull request by clicking "Merge pul request"  button 
+
+
+
+
+88)  COMPARE IN PULL REQUEST WORKFLOW
+
+a) There is "Compare" button which helps to compare different branches 
+-> it will say" Able to merge. these branches can be automatically merged " if there are no issues 
+
+b) IN compare screen, we can see:
+1) Commits made 
+2) diff of the files  
+
+
+c) After compare, if we decide to make 'Pull request" we can click  "Create pull request" button
+
+
+
+
+89) Merging pull requests with Conflicts:
+a) Just like any other merge, sometimes there are conflicts that needs to be resolved when merging a pull reqeust 
+-> You can perform merge and fix conflicts on the command line or can use github's interactive editor
+
+b) When you try to create a pull request between two branches(Main<---Feature) , which has conflicts - we will get the following message
+
+#########
+base:main<-----compare:new-heading X Can't automatically merge . Dont worry, you can still create the pull request 
+
+
+c) Even though - there are conflicts,we will still be able to create "Pull Request" 
+
+d) Upon creating pull request, in pr page, it will show  the following information 
+
+"This branch has conflicts that must be resolved 
+ Conflicting files" 
+ 
+-> and there will be "Resolve Conflicts' button 
+
+e) For a pull request, we can resolve conflicts in browser or click "View commandline instructions"
+
+f) "View commandline instructions" has two steps 
+
+STEP 1: FROM YOUR PROJECT REPOSITORY, BRING IN THE CHANGES AND TEST 
+
+1) git fetch origin 
+-> Update the remote-tracking branches
+-> The above command copies all branches from the remote refs/heads/ namespace and stores them to the local refs/remotes/origin/ namespace
+2) git checkout -b new-heading origin/new-heading 
+-> By this we are saying: make me a new  local branch called new-heading  and make it track origin/new-heading 
+
+2_1) Another and best way of doing the above: 
+> git switch new-heading 
+
+#########
+git checkout -b new-heading origin/new-heading 
+
+syntax:
+>git checkout -b <new-branch> <start-point>
+Create a new branch named <new-branch>, start it at <start-point>, and check the resulting branch out
+#########
+
+3) git merge main 
+
+-> Merge main branch changes into to new-heading which is feature branch 
+-> As part of this we will resolve conflicts if any , test things and make sure everything works 
+
+----> AS PART OF THIS PROCESS WE BRING MAIN BRANCH CHANGES INTO FEATURE BRANCH AND ENSURE THAT FEATURE BRANCH CONTAINS LATEST MAIN BRANCH CHANGE AND FEATURE BRANCH CHANGES ARE PRESENT IN FEATURE BRANCH
+
+STEP 2: MERGE THE CHANGES AND UPDATE ON GITHUB 
+--> After testing, we need to merge feature branch changes into main branch 
+
+#######################
+1) 'git checkout main'   or 'git switch main'  -> go to main branch
+
+2) git merge --no-ff new-heading 
+-> Now we are going to merge the new-heading(feature branch) into  main branch 
+--> --no-ff means we are telling git merge, not to fastforward , even if it detects it. Because when we do a fastforward, instead of making a merge 
+commit   , git will just move the branch pointer to some new commit 
+-> Sometimes we want to prevent that from happening, especially when we want to preserve or maintain our specific branch 
+
+2_1) for fastword if needed: git merge new-heading 
+
+3) git push origin main 
+-> Now pushing the main changes to github repo 
+
+-> In github repo, we will get a message; " Pull request successfully merged and closed" 
+-> After this we can delete the new-heading(feature branch) if needed 
+
+#######################
+
+gist of merging pull requests with conflicts 
+
+##stage 1#
+> git fetch origin 
+> git switch my-new-featurebranch
+> git merge master 
+> fix conflicts 
+##
+
+##stage 2#
+> git switch master 
+> git merge my-new-featurebranch
+> git push origin master 
+###
+
+90) Configure branch protection rules 
+a) If you are working in a repository with collaborators we can add branch protection rules 
+b) Settings-> Branches -> Default branch 
+-> to configure default branch 
+
+b) Settings-> Branches -> Branch protection rules 
+-> We define branch protection rules to disable force pushing, prevent branches from being deleted and optionally require status checks before merging 
+
+c) If we add new "Branch protection rule" 
+
+Following Attributes can be defined 
+
+1) Branch Name pattern
+
+2) Protecting matching branches 
+-> Require pull request reviews before merging 
+-> Dismiss state pull request approvals when new commits are pushed 
+-> Require review from code owners 
+-> Require status checks to pass before merging 
+
+-> Require signed commits 
+-> Require linear history 
+
+-> Include administrators 
+
+Rules applied to everyone including administrators 
+-> Allow force pushes 
+-> Allow deletions 
+
+
+
+91) Forking: Introduction 
+-> 'fork' and 'clone' workflow is different from anything we have see so far 
+-> Instead of just one centralized github repository, every developer has their own github repository in addition to the "main" repo 
+-> Developers make changes and push to their own forks before making pull requests 
+
+-> Commonly used in large open-source projects where there may be thousands of contributors with only a couple of maintainers 
+
+a) Forking 
+-> Github allows us to create personal copies of other people's repositories 
+--> We call those copies a "fork" of the original 
+
+-> When we fork a repo, we are basically asking github "Make me own copy of this repo" 
+
+--> Like pull requests, forking is not a git feature. This ability to fork is implemented by Github 
+
+
+92) Forking Demonstration: 
+
+a) If i clone a public or open source repository we wont be able to push changes to the repository. 
+
+b) To fork a repository, we need to click on 'fork' button and it creates the repository in our github  
+-> originally the repo click to clone is: https://github.com/gabrielecirulli/2048.git
+
+
+c) To further clone the repository we forked: https://github.com/maheshneyveli22/2048.git
+
+
+93) The fork and Clone workflow:
+a) By forking we are making a copy of the repository that exists on the account i forked 
+-> After forking, made some changes locally, pushed them to github and then we are able to see the changes 
+b) After forking/making changes and committing, the branch says: This branch is 1 commit ahead of gabrielecirulli: master 
+-> So github tells that we are 1 commit ahead in compared to the repository to which we forked 
+
+-> Thus github tells automatically, that you have some work on your fork which is not on the original 
+
+-> Thus we dont do anything with original 
+
+b) Or we can actually share our work by making a pull request 
+-> We can make a pull request from my fork to the original repository 
+
+c) Thus by forking a repo, make my own changes and then by opening a pull request - We can make a good contribution to the original repo to which we forked 
+-> Thus fork and clone approach helps to make lot of people to work on a single repo, without having write permissions for modifying the repo 
+
+d) Brief Summary of fork/clone workflow 
+1) Fork the project 
+2) Clone the fork 
+3) Add Upstream remote 
+4) Do some work 
+5) Push to origin 
+6) Open Pull Request 
+
+e) Though the fork and clone workflow looks complicated, its extremely common for a good reason 
+
+-> It allows a project maintainer to accept contributions from developers all around the world, without having to add them as actual owners of the main project repository or worry about giving them all permissions to push to the repo 
+
+
+
+94) gitlab asking for password every time:
+
+a) 
+git@github.com:jcjohnson/neural-style.git
+
+
+--------------------------------
+The password is the gitlab password, look at the remote_url,
+
+git config --get remote.origin.url
+If it's of the type
+
+git@github.com:jcjohnson/neural-style.git
+Then you should check your local ssh key if it's in the right location : https://help.github.com/articles/checking-for-existing-ssh-keys/
+
+If the url is of the type
+
+https://github.com/jcjohnson/neural-style.git
+You should set your global user and password in git
+
+https://help.github.com/articles/why-is-git-always-asking-for-my-password/
+------------------------------
+
+b) In our case, the output is : 
+
+#########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ git config --get remote.origin.url
+git@gitlab.chq.ei:Visibility/query-service.git
+#########
+
+
+c) See if you have private/public ssh key in  .ssh folder 
+
+
+#######
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ ls -al ~/.ssh
+total 50
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 25 11:53 ./
+drwxr-xr-x 1 gs1-maheswarane 1049089    0 Mar 25 10:39 ../
+-rw-r--r-- 1 gs1-maheswarane 1049089 1680 Jul 14  2023 gitkraken_rsa
+-rw-r--r-- 1 gs1-maheswarane 1049089  382 Jul 14  2023 gitkraken_rsa.pub
+-rw-r--r-- 1 gs1-maheswarane 1049089  419 Mar 15 13:59 id_ed25519
+-rw-r--r-- 1 gs1-maheswarane 1049089  107 Mar 15 13:59 id_ed25519.pub
+-rw-r--r-- 1 gs1-maheswarane 1049089  658 Nov  8 00:07 known_hosts
+-rw-r--r-- 1 gs1-maheswarane 1049089  289 Oct 26 09:49 known_hosts.old
+
+##########
+
+d) Now we can use have two types of ssh keys one generated using gitkraken and one generated by us 
+
+e) Now we will use gitkraken generated keys 
+
+1) Step1 : run this command:
+##########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ eval $(ssh-agent -s)
+Agent pid 1663
+
+######
+2) Step2: Add the private key 
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ ssh-add /c/Users/gs1-maheswarane/.ssh/gitkraken_rsa
+Identity added: /c/Users/gs1-maheswarane/.ssh/gitkraken_rsa (/c/Users/gs1-maheswarane/.ssh/gitkraken_rsa)
+###########
+
+
+3) Thus ssh keys got added 
+
+f) Now if we try to do ssh pull, it gives below response 
+
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ git pull origin develop
+From gitlab.chq.ei:Visibility/query-service
+ * branch            develop    -> FETCH_HEAD
+Already up to date.
+########
+
+prior to adding keys we got this error:
+
+########
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/query-service (develop)
+$ git pull origin develop
+git@gitlab.chq.ei's password:
+Permission denied, please try again.
+git@gitlab.chq.ei's password:
+
+
+####
+
+g) Thus the issue got solved now 
+
+
+g) for more info: 
+https://docs.gitlab.com/ee/user/ssh.html

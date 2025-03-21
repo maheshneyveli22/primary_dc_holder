@@ -1,0 +1,276 @@
+  CONFIGSET_DIR: home/vizsolr/solr8test/solr-8.11.2/server/solr/configsets
+   DATA_DIR: /home/$TARGET_USER/data
+   TARGET_USER: vizsolr/solr8test
+   CI_PROJECT_DIR -- home/vizsolr/solr8test
+
+
+a) All these cmds in gitlab.yml happening in runner env 
+
+In Server
+1)  
+a) find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbUrl},${VISIBILITY_CDB_URL},g" {} \;
+###
+- find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbUrl},${VISIBILITY_CDB_URL},g" {} \;
+  - find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbUserName},${VISIBILITY_CDB_USERNAME},g" {} \;
+  - find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbPassword},${VISIBILITY_CDB_PASSWORD},g" {} \;
+###
+
+
+->  We do a find of the file: db-data-config.xml in CONFIGSET_DIR and execute sed command 
+where we replace expoCdbUrl with VISIBILITY_CDB_URL(obtained from gitlab variable)
+-> Thus expoCdbUrl,expoCdbUserName and expoCdbPassword of relevant dbs are replaced using the sed command
+-> Here linux puts the results of the find command in to {}, thus we serve the path for the file here
+
+
+
+2) In Variables section As part of injecting properties, updated path of branch_codes, country_codes, customs_port_codes, port_codes and ucns 
+in corresponding core.properties file of each core
+
+###
+- sed -i -e "s,#{expoSolrBranchCodeDataDir},${DATA_DIR}/branch_codes,g" "${CONFIGSET_DIR}/branch_codes/core.properties"
+  - sed -i -e "s,#{expoSolrCountryCodeDataDir},${DATA_DIR}/country_codes,g" "${CONFIGSET_DIR}/country_codes/core.properties"
+  - sed -i -e "s,#{expoSolrCustomsPortCodeDataDir},${DATA_DIR}/customs_port_codes,g" "${CONFIGSET_DIR}/customs_port_codes/core.properties"
+  - sed -i -e "s,#{expoSolrPortCodeDataDir},${DATA_DIR}/port_codes,g" "${CONFIGSET_DIR}/port_codes/core.properties"
+  - sed -i -e "s,#{expoSolrUcnDataDir},${DATA_DIR}/ucns,g" "${CONFIGSET_DIR}/ucns/core.properties"
+
+#####
+
+
+
+3)  Result of 2 and 3:
+a)Before deploy, using inject_properties we update path, db url/username/pwds etc and keep the folders for zipping updated
+b) After updating, we are ready for zipping the solr installable so that we can push it to server/solr/configsets
+
+4) deploy_app
+
+a) if there is expotr-solr.zip already -> remove it
+###
+ if [ -f ${CONFIGSET_DIR}/expotr-solr.zip ]; then rm ${CONFIGSET_DIR}/expotr-solr.zip ; fi
+####
+b) now the already prepared installable folder of point 3, is zipped
+
+####
+ zip -r ${CONFIGSET_DIR}/expotr-solr.zip expotr-solr
+####
+
+
+c) 
+-> for passing option we use -o and make StrictHostKeyChecking=no
+-> by passing -t, we declare it as non interactive terminal 
+-> mkdir -p means creating directories and its sub directories recursively
+
+
+###
+   - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST mkdir -p /home/$TARGET_USER/data/port_codes /home/$TARGET_USER/data/ucns /home/$TARGET_USER/data/branch_codes
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST mkdir -p /home/$TARGET_USER/data/country_codes /home/$TARGET_USER/data/customs_port_codes
+   
+####
+
+
+d) Now we will be removing existing expotr-solr directory and expotr-solr.zip in server in 
+this location: /home/vizsolr/solr8test/
+
+####
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST rm -fr /home/$TARGET_USER/expotr-solr
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST rm -fr /home/$TARGET_USER/expotr-solr.zip
+
+####
+
+e)
+ Now we will be copying updated expotr-solr.zip from runner to server in the given path: "/home/$TARGET_USER/" and the unzip it
+###
+    - scp -o StrictHostKeyChecking=no -r ${CONFIGSET_DIR}/expotr-solr.zip $TARGET_USER@$TARGET_HOST:/home/$TARGET_USER/
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST unzip -q /home/$TARGET_USER/expotr-solr.zip
+###
+
+f)
+ Providing the permission 0775(Read,write,execute)  to the folder: /home/$TARGET_USER/expotr-solr/bin/solr for the current user 
+ ###
+ - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST chmod 0775 /home/$TARGET_USER/expotr-solr/bin/solr
+ ###
+ 
+ g) Now restart the solr server using restart command in the path : /home/$TARGET_USER/expotr-solr/bin/solr
+ 
+ 
+  ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST /home/$TARGET_USER/expotr-solr/bin/solr restart
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #######gitlabyml file#######
+  # see this documentation for info on what this is for https://docs.gitlab.com/ee/ci/yaml/README.html#workflowrules-templates
+include:
+  - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
+  - project: 'enterprisetech/exponow-systems/exponow-orchestration'
+   # file: '/azure-templates/Azure-OWASP-Security-Scan.gitlab-ci.yml'
+
+stages:
+  - Security_Scan
+  - qa_deploy
+  - release
+  - prod_deploy
+
+
+################################################################################
+# Global variables available to all jobs
+################################################################################
+variables:
+  CONFIGSET_DIR: $CI_PROJECT_DIR/server/solr/configsets
+  VISIBILITY_CDB_URL: $VISIBILITY_CDB_URL
+  VISIBILITY_CDB_USERNAME: $VISIBILITY_CDB_USERNAME
+  VISIBILITY_CDB_PASSWORD: $VISIBILITY_CDB_PASSWORD
+
+# Injection of properties that are not secrets/passwords
+.inject_properties: &inject_properties
+  - echo 'injecting properties into configuration files'
+  - find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbUrl},${VISIBILITY_CDB_URL},g" {} \;
+  - find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbUserName},${VISIBILITY_CDB_USERNAME},g" {} \;
+  - find ${CONFIGSET_DIR}/ -name "db-data-config.xml" -exec sed -i -e "s,#{expoCdbPassword},${VISIBILITY_CDB_PASSWORD},g" {} \;
+  - sed -i -e "s,#{expoSolrBranchCodeDataDir},${DATA_DIR}/branch_codes,g" "${CONFIGSET_DIR}/branch_codes/core.properties"
+  - sed -i -e "s,#{expoSolrCountryCodeDataDir},${DATA_DIR}/country_codes,g" "${CONFIGSET_DIR}/country_codes/core.properties"
+  - sed -i -e "s,#{expoSolrCustomsPortCodeDataDir},${DATA_DIR}/customs_port_codes,g" "${CONFIGSET_DIR}/customs_port_codes/core.properties"
+  - sed -i -e "s,#{expoSolrPortCodeDataDir},${DATA_DIR}/port_codes,g" "${CONFIGSET_DIR}/port_codes/core.properties"
+  - sed -i -e "s,#{expoSolrUcnDataDir},${DATA_DIR}/ucns,g" "${CONFIGSET_DIR}/ucns/core.properties"
+  - echo 'injecting properties into configuration files completed'
+################################################################################
+
+.deploy_app: &deploy_app
+  script:
+    - *inject_properties
+    - if [ -f ${CONFIGSET_DIR}/expotr-solr.zip ]; then rm ${CONFIGSET_DIR}/expotr-solr.zip ; fi
+    - cd $CI_PROJECT_DIR/../
+    - zip -r ${CONFIGSET_DIR}/expotr-solr.zip expotr-solr
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST mkdir -p /home/$TARGET_USER/data/port_codes /home/$TARGET_USER/data/ucns /home/$TARGET_USER/data/branch_codes
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST mkdir -p /home/$TARGET_USER/data/country_codes /home/$TARGET_USER/data/customs_port_codes
+    - echo "Removing previous solr install..."
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST rm -fr /home/$TARGET_USER/expotr-solr
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST rm -fr /home/$TARGET_USER/expotr-solr.zip
+    - echo "Defaulting solr zip..."
+    - scp -o StrictHostKeyChecking=no -r ${CONFIGSET_DIR}/expotr-solr.zip $TARGET_USER@$TARGET_HOST:/home/$TARGET_USER/
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST unzip -q /home/$TARGET_USER/expotr-solr.zip
+    - echo "Making scripts executable..."
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST chmod 0775 /home/$TARGET_USER/expotr-solr/bin/solr
+    - echo "Restarting solr..."
+    - ssh -o StrictHostKeyChecking=no -t $TARGET_USER@$TARGET_HOST /home/$TARGET_USER/expotr-solr/bin/solr restart
+
+
+#  * Runs on the master branch automatically after the package phase is complete
+qa_rh7_deploy_1:
+  stage: qa_deploy
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    when: manual
+  variables:
+    ENV_NAME: qa
+    TARGET_USER: vizsolr
+    TARGET_HOST: vizsolr1qa.chq.ei
+    DATA_DIR: /home/$TARGET_USER/data
+  <<: *deploy_app
+
+qa_rh7_deploy_2:
+  stage: qa_deploy
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    when: manual
+  variables:
+    ENV_NAME: qa
+    TARGET_USER: vizsolr
+    TARGET_HOST: vizsolr2qa.chq.ei
+    DATA_DIR: /home/$TARGET_USER/data
+  <<: *deploy_app
+
+Prod_deploy_1:
+  stage: prod_deploy
+  needs: ["release"]
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    when: manual
+  variables:
+    ENV_NAME: prod
+    TARGET_USER: vizsolr
+    TARGET_HOST: viz-solr01.chq.ei
+    DATA_DIR: /home/$TARGET_USER/data
+  <<: *deploy_app
+
+Prod_deploy_2:
+  stage: prod_deploy
+  needs: ["release"]
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    when: manual
+  variables:
+    ENV_NAME: prod
+    TARGET_USER: vizsolr
+    TARGET_HOST: viz-solr02.chq.ei
+    DATA_DIR: /home/$TARGET_USER/data
+  <<: *deploy_app
+
+Prod_deploy_3:
+  stage: prod_deploy
+  needs: ["release"]
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    when: manual
+  variables:
+    ENV_NAME: prod
+    TARGET_USER: vizsolr
+    TARGET_HOST: viz-solr03.chq.ei
+    DATA_DIR: /home/$TARGET_USER/data
+  <<: *deploy_app
+
+
+release:
+  stage: release
+  rules:
+  - if: '$CI_COMMIT_BRANCH == "master"'
+    when: manual
+  script:
+  # Configure git to use the build user
+  - git config --global --replace-all user.name ${push_account}
+  - git config --global --replace-all user.email "${push_account}@expeditors.com"
+
+  # Check out the master branch
+  - git reset --hard
+  - git checkout master
+
+  # get the release version
+  #get highest tag number, and add 1.0.0 if doesn't exist
+  - git describe --tags
+  - VERSION=$(git describe --match "expotr-solr_*" --abbrev=0 --tags)
+  - echo "Version - $VERSION"
+  - VERSION_PARTS=(${VERSION//_/ })
+  - CURRENT_VERSION=${VERSION_PARTS[1]}
+  - if [[ -z "$CURRENT_VERSION" ]]; then CURRENT_VERSION='1.0.0'; fi
+  - echo "Current Version - $CURRENT_VERSION"
+  - CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
+
+  #get number parts
+  - VNUM1=${CURRENT_VERSION_PARTS[0]}
+  - VNUM2=${CURRENT_VERSION_PARTS[1]}
+  - VNUM3=${CURRENT_VERSION_PARTS[2]}
+  #increment version
+  - VNUM3=$((VNUM3+1))
+  #create new tag
+  - NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+  - echo "updating $CURRENT_VERSION to $NEW_TAG"
+
+  # Tags master
+  - export TAG_NAME="expotr-solr_$NEW_TAG"
+  - git tag -a "$TAG_NAME" -m "$RELEASE_PREFIX tag"
+  - git push auto "$TAG_NAME"
+
+
+################
+  
+  

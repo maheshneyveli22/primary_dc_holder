@@ -1,0 +1,98 @@
+1) Auth0 Dashboard: 
+
+a) Applications :
+Manage your applications, APIs, and single sign-on (SSO) integrations.
+-> Applications: For each of your apps for which you want to authenticate users with Auth0, register an application.
+-> APIs: For each of your APIs that you want to secure with Auth0, register an API. Create new APIs and manage existing ones.
+-> SSO Integrations: View and enable external services for SSO. Create new SSO integrations and configure, review, and manage integration settings.
+
+b) Authentication	
+-> Manage the identity providers through which you allow users to authenticate to your apps.
+-> Database: Securely store and manage username/password credentials either in an Auth0 datastore or in your own database. Connect to existing databases using template-based JavaScript scripts that run on Auth0's server during every authentication. Gradually migrate an existing database of legacy credentials to Auth0 as users authenticate (no password reset required).
+-> Social: Configure social identity providers (such as Facebook, X, and Github) through which your users can log in.
+-> Enterprise: Configure enterprise identity providers (such as Active Directory, SAML, and Office 365) through which your users can log in using their enterprise credentials.
+-> Passwordless: Allow your users to sign up and log in using one-time passcodes (delivered by email or SMS) or one-click links, instead of passwords.
+
+c) Organizations	
+-> Manage the organizations you do business with, and customize the experience their users have when accessing your applications.
+
+d) User Management	Manage your users' identities and permissions.
+-> Users: View and create user profiles, perform password resets, block and delete users, and more.
+-> Roles: Create and manage roles for your apps. Roles contain collections of permissions and can be assigned to users.
+
+e) Branding	
+-> Universal Login: Create and customize a login page to which you can direct users to authenticate.
+Custom Domains: Create a custom domain to maintain a consistent experience for your users.
+Email Templates: Use templates to create welcome, password reset, and account verification email-based workflows.
+Email Provider: Designate and configure your custom email provider information.
+
+f) Security:
+-> Security	Configure extra layers of security by enabling shields that protect your users against different types of attacks and user access anomalies.
+-> Attack Protection: Manage settings for bot, IP throttling, brute-force, and breached password attacks.
+-> Multi-factor Auth: Require additional factors during the login process to prevent unauthorized access.
+-> Monitoring: Monitor threat intelligence events with one of our data visualization and alerting integrations.
+
+g) Actions	Configure flows such as login, machine-to-machine, user registration, and password resets. Create and manage customized actions used in flows.
+
+h) Auth Pipeline	
+Rules: 
+-> Configure custom JavaScript snippets that are executed in Auth0 as part of each user authentication transaction. 
+-> You can call external APIs, filter which users can log in to your application, use an AllowList, configure geolocated access, and so on.
+Hooks: 
+-> Customize the behavior of Auth0 when you use Database Connections by configuring Node.js code that is executed against extensibility points (which are comparable to webhooks that come with a server).
+
+i) Monitoring	
+-> Logs: View log data of actions taken in the dashboard by administrators and user logins.
+-> Streams: Create and manage log event streaming to external data analysis services.
+
+
+j) Marketplace	Explore integrations that help your business do more with Auth0.
+
+k) Extensions	Extend the Auth0 platform with official and third-party add-ons.
+
+l) Settings	Configure your tenants, manage your Auth0 subscription and payment options, control your tenant administrators and other user roles. 
+-> Manage other tenant settings related to your custom domains, signing keys, and other advanced settings.
+Get
+m)  Support	Go to our Support Center. If your plan does not have access to support services, see the Auth0 Community.
+
+
+2) Activity Page:
+a) About the Activity Page
+The Activity page provides a summary of key data about your Auth0 tenant, including information on active users, failed logins, and more.
+
+b) Things to know
+Viewing a tenant's Activity page requires an account with an administrator role.
+
+c) The Support Access role has limited access to the tenant's Activity page.
+
+d) To ensure data is consistent, the current date cannot be selected in the date picker and data may take up to 12-24 hours to display.
+
+e) Metrics
+Here’s what you will see on your tenant's Activity page.
+
+-> Totals
+At the top of the page, you'll see your tenant's total number of users, applications, APIs, and connections.
+
+
+-> Daily Active Users
+The number of daily unique users with successful authentication or authorization activity. You can see the number of unique users for each day by hovering your mouse over a point in the graph.
+
+-> User Retention
+The percentage of users that were active during the given time frame, calculated from the number of active users out of the total number of users on the tenant.
+
+
+-> Signups
+The number of successful user signups.
+
+-> Failed Logins
+The number of failed user logins (the f log event type) over the given time period.
+
+
+-> Compare to last period
+When Compare to last period is enabled:
+-> The percentage difference is included in the graph. Positive changes are colored green while negative changes are colored red.
+
+-> View data by time frame
+You can view data for a given time frame by using the datepicker next to the Compare to last period checkbox. There are builtin date ranges for the last 7/14/30/60 days, or you can provide the From and To dates for a custom range.
+
+3) Create Tenants:

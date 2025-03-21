@@ -1,0 +1,37 @@
+1)  sudo apt install ssh
+2) sudo apt update
+
+
+3) sftp enable:
+
+ sudo nano /etc/ssh/sshd_config
+ 
+ Paste at end of file:
+
+Match group sftp
+ChrootDirectory /home
+X11Forwarding no
+AllowTcpForwarding no
+ForceCommand internal-sftp
+
+-> need more , it wont work only with this
+
+4) providing write access:
+
+
+mahesh@GS1-MAHESWAR-LX:/home$ chmod o+w py_programs/
+chmod: changing permissions of 'py_programs/': Operation not permitted
+mahesh@GS1-MAHESWAR-LX:/home$ sudo chmod o+w py_programs
+[sudo] password for mahesh:
+mahesh@GS1-MAHESWAR-LX:/home$ ls -ltr
+total 0
+drwxr-x--- 1 mahesh mahesh 4096 Aug 21 23:14 mahesh
+drwxr-xrwx 1 root   root   4096 Aug 21 23:27 py_programs
+
+
+5) running python script cmd line:
+mahesh@GS1-MAHESWAR-LX:/home/py_programs$ python3 hello.py
+Hello World
+Hello 1World
+Hello 1World
+Hello 2World

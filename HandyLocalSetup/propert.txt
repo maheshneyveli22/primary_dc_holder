@@ -1,0 +1,3 @@
+C:\ExpoNow\booking-parent\booking-service\configs\local  
+
+C:\ExpoNow\booking-parent\booking-submission\src\main\resources
