@@ -1,0 +1,48 @@
+1) RouterLink vs RouterNavigate 
+2) what is the use of IV in angular 8
+3) code lyser 
+4) lint checks 
+5) how to create component in angular?
+6) What are the places component should be registered? 
+7) lifecycle of component 
+8) Databinding, two types of databinding 
+one ,two way 
+9) @Component decorator uses 
+10) Communication between components 
+parent to child  and child to parent 
+11) Unrelated components communication. no parent to child 
+-> use dependency injection 
+12) AOT and jit compilation 
+13) application performance improvement in angular
+-> minimalize component 
+-> api calls instead of local 
+-> use common 
+14) common css 
+15) Disadvantages of global css file 
+16) ngtemplate uses 
+17) interceptors 
+18) Observable and promise 
+-> observable -> multiple event calls 
+Promise 
+19) Features introduced in angular8 
+20) Angular8 metadata 
+21) Microfront ends 
+-> 
+22) Eager loading in angular? 
+23) issue in generating webpack, how will you resolve the issue?
+update node modules and resolve 
+-> After changing versions, how will you create webpack again 
+24) OOPS concepts used in angular 
+25) Service --> what oops concept 
+26) service shared between three components 
+@Components we will define service in provider. How many instance of service is created? 
+27) arrays in javascript
+28) Custom pipes , pipes 
+29) ngModule library 
+-> organize our application 
+30) ngUpgrade 
+-> using angular and angularjs 
+31) EventBinding 
+32) How to implement Routing in Angular? 
+33) splice vs slice function 
+34) reduce function 

@@ -1,0 +1,4 @@
+To make eclipse marketplace work:In the eclipse.ini, I added the following two arguments after the -vmargs and restart eclipse
+
+-Djavax.net.ssl.trustStore=C:/ExpoNow/booking-parent/booking-service/src/main/resources/expd-ca-truststore.jks
+-Djavax.net.ssl.trustStorePassword=expeditors

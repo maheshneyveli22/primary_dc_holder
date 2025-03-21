@@ -1,0 +1,118 @@
+SCALING GRAPHQL AND OUR FEDERATION JOURNEY 
+1) Graphql federation: 
+-> Graphql Federation is an extension that enables composing data from multiple Graphql APIs into a single unified experience.
+-> It is an alternative to GRAPHQL stitching 
+-> Federation reduces development and maintenance overhead by combining data from multiple services into single schema. 
+
+2) Tradition challenges of REST API:
+a) Overfetching 
+b) Multiple round trips to slow data 
+
+
+3) Schema Definition Language(SDL) 
+-> Acts as blue print defining available datatypes, their fields and their relationships 
+
+4) Graphql Core operations:
+a) Query 
+b) Mutation 
+c) Subscription: Enables real time data updates for dynamic user experience 
+
+[
+Suppose you get live updates for the data you care about.
+Think about a web page where the score updates for a football game.
+You only care about the score, not anything else.
+]
+
+5) Structure:
+a) Tree based structure which is scalable 
+-> Tree based structure of grapqhl allow fields of one type which can link to other types forming a connected graph 
+-> We consider this tree as tree, where roots of all trees are connected 
+
+b) Single graph concept:
+a) Here schema acts as unified representation of all available data. 
+
+
+6) How do you address complexity when graph grows?
+a) Use observability tools showcasing breaking changes and handle deprecations through schema registry 
+
+
+
+
+
+7) From Monoliths to Federation:
+a) Federation breaks down monolith to smaller, independent graphql services(subgraphs) owned by specific teams 
+-> schema stiching is the original approach which team took - can be considered monolithic architecture 
+
+b) Monolithic graphql server is where, you manage all data in a single instance
+-> With schema stitching, There are scaling challenges associated with monolithic: 
+As Data Volume and complexity increases - Can have cascading failures which lead to gateway services being down 
+
+c) graphql federation helps to overcome these challenges 
+
+8) GRAPHQL FEDERATION:
+-> Federation breaks monolithic into smaller independent graphql services known as subgraphs owned by specific teams 
+
+Challenges with Federation:
+a) Increased complexity in managing subgraphs 
+b) dependencies
+c) Versioning complexities 
+
+
+
+FEDERATED ARCHITECTURE
+9) Gateway API in Federated Architecture: 
+a) Role of federated architecture includes routing requests that come in composing data from subgraphs presenting a unified response. 
+
+10) Decentralizing the API landscape: A domain driven approach 
+a) Federation allows breaking down APIs by domain
+eg for domain: Ocean, Accounting, Customs Brokerage etc 
+
+b) Domain Graph service(DGS) and subgraphs 
+-> Each domain becomes a grapqhql service with its own schema which is also known as subgraphs 
+-> This promotes ownership, maintainability and scalability 
+-> DGS are independent services representing specific domains each with a well defined subgraph schema 
+
+b.1) Building blocks of federation: 
+SERVICES, SUBGRAPHS, COMPOSITION 
+
+c) Schema registry and supergraph composition 
+-> Subgrapsh are composed together to form a supergraph
+-> Supergraphs is the unified representation of all data across domains 
+
+-> Schema registry's role in federation is to manage subgraph definitions, their versions  and ensuring consistency within the  supergraph 
+d) Gateway: query planning and execution 
+-> Graphql gateway or the API gateway is the orchestrator of data flow
+-> Core functionality of the api gateway includes: 
+1) Query planning -> where you analyze incoming requests, identify relevant subgraphs where requests need to go and determine optimal execution order 
+2) Execution: Where it sends those requests to the individual subgraphs, collects those responses and composes the data based on supergraph schema 
+
+
+10) Diving into Implementation of Graphql Federation :
+
+a) Introducing namespaces for clarity :
+-> namespaces acts as prefixes for types and fields within subgraphs 
+-> Helps prevent naming conflicts across services 
+b) Interface, shareable and Extendable types 
+-> Interfaces are abstractions or superclasses of datatypes that help define the base models of graphql types 
+-> Versioning for interfaces helps subgraphs that implement the same interface be able to evolve independently.
+
+c) The Federation implementation workflow:
+-> A typical workflow for implementing A Federated graphical architecture includes:
+1 requirements gathering, 
+2 clearly defining data access needs and 
+3 ownership boundaries for each domain, 
+4 subgraph design and development, 
+5 building independent subgraphs with their well defined schemas and their resolvers in composing the subgraphs together using a schema registry.
+6 There's also gateway configuration where you configure the gateway API for query planning, execution, scalability and security in mind.
+7 testing and deployment.
+
+
+10) Entities in Federation:
+a) 
+Entities are the fundamental building blocks within subgraphs of a federation, model.
+
+b) Entities are typically defined as either an object or an interface type, and entities use the @key directive as shown in the picture and designate a unique primary key for each entity.
+
+c) you have foreign key relationship with entities.
+d) Types within a subgraph can reference entities using the entity's key as a foreign key, and so when a type references an entity from another subgraph, A placeholder type is defined to allow for future resolution.
+e) Entities can also use the @requires directive, often used in conjunction with @key, as a way for subgraphs to communicate their data requirements.

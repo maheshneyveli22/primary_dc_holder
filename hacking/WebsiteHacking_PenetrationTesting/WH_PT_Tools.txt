@@ -1,0 +1,38 @@
+1) WSL - windows subsystem for linux
+2) portswigger tool 
+3) Burpsuite 
+a) Proxy - to intercept requests
+b) Repeater -  Repeater is used for sending the request and then getting the response back 
+
+4) LazySec - Chrome extension for displaying hidden elements in page 
+   Unhide -  Chrome extension for displaying hidden elements in page 
+   
+5) Automated tools for hacking:
+a) Zap 
+b) Burp Scanner 
+c) Acunetix
+
+
+6)  tools for web penetration testing 
+a) https://www.exploit-db.com/exploits/51966  : exploit db 
+b) https://whois.domaintools.com/hcl.in  -> Whois Lookup - Find info about the owner of the target.
+c) https://sitereport.netcraft.com/  -> Find out the infrastructure and technologies used by any site using results from our internet data mining
+d) knock or knockpy : Knockpy is a portable and modular python3 tool designed to quickly enumerate subdomains on a target domain through passive reconnaissance and dictionary scan.
+https://github.com/guelfoweb/knock/blob/master/README.md
+e) birb 
+To access the hidden files in webserver, we will use a tool called dirb
+f) weevely - a tool which is used to create a php payload 
+
+
+7) Beef - a mighty tool to take full control by hooking browser
+
+8)Weevely - Weevely is a web shell designed for post-exploitation purposes that can be extended over the network at runtime
+-> Upload weevely PHP agent to a target web server to get remote shell access to it.
+
+
+9) Bug bounty programs 
+https://www.hackerone.com/
+https://bugcrowd.com/
+https://www.intigriti.com/
+https://www.yeswehack.com/
+https://bug-bounty.com/

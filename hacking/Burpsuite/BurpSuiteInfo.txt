@@ -1,0 +1,9 @@
+1) CTRL+U -> will do url encoding 
+
+
+2) 
+a) Proxy - for intercepting the requests 
+b) Repeater - for sending/receiving request/response 
+c) Intruder - Send bulk request/response by using $$
+d) Collaborator - Burp Collaborator uses its own server to identify invisible vulnerabilities,
+				  as part of Out-of-band security testing (OAST

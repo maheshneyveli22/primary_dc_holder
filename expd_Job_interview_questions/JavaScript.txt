@@ -1,0 +1,48 @@
+Exercise : https://github.com/SuperSimpleDev/javascript-course/tree/main/1-exercise-solutions
+Copy of code: https://github.com/SuperSimpleDev/javascript-course/tree/main/2-copy-of-code
+
+
+1) What are the 3 technologies used to create 
+website:
+a) HTML
+-> Creates content of website 
+-> Creates all buttons, text and images 
+b) CSS
+-> Changes appearance of website 
+-> Can make our website look nice 
+c) Javascript 
+-> Makes website interactive 
+
+-> if we have only html and css, and click one of 
+these buttons,website does not do anything 
+-> We need javascript to make the page more interactive 
+
+
+
+
+2) What is Javascript?
+-> Giving instructions to a computer and then 
+-> Computer follows our instructions 
+
+3) Order of operations
+a) * / are done first
+b) + - are done after
+
+-> order of operations is also called Operator 
+precedence in javascript
+-> * / have same priority. if both are in single line
+then it is calculated from left to right
+-> Similarly for + - 
+
+
+c) When using brackets, javascript first 
+does calculations in brackets first and then outside the 
+brackets 
+
+eg: (1+1) *3 = 2*3= 6
+
+d) Brackets have highest priority in order of operations
+
+1. (..)
+2. * /
+3. + - 

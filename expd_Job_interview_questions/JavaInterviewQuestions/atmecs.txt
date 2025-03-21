@@ -1,0 +1,23 @@
+1) List of strings, sort strings based on length.
+    name starts with s and length greater than 6
+	
+2) EMPLOYEE: 
+ID,    NAME,         SALARY,    MANAGERID
+1     John          40000        2
+2     Sai           40000        Null;
+3     Siva          40000        Null; 	
+
+
+-> Write an sql query to get name as input and return the manager for the name given as input
+-> This is the table which contains data of all Employees.
+-> Managers have MANAGERID as null and subordinates will have not null Manager ID
+          		  
+
+select name from Employee where managerId not in (select managerId from Employee where managerId>0 ) and ManagedId==null
+
+
+3) 
+
+04-Jan-2022. 
+
+07-Jan-2023                                                                   	

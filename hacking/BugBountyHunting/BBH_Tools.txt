@@ -1,0 +1,13 @@
+1) WSL - windows subsystem for linux
+2) portswigger tool 
+3) Burpsuite 
+a) Proxy - to intercept requests
+b) Repeater -  Repeater is used for sending the request and then getting the response back 
+
+4) LazySec - Chrome extension for displaying hidden elements in page 
+   Unhide -  Chrome extension for displaying hidden elements in page 
+   
+5) Automated tools for hacking:
+a) Zap 
+b) Burp Scanner 
+c) Acunetix

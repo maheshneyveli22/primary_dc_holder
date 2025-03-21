@@ -1,0 +1,19 @@
+1. Java memory models
+2. One interface many implementation - Spring annotation
+3. @DependsOn for telling dependant objects
+4. @Lazy loads only when needed
+5. Static variables in memory
+6. Composite key in hibernate 
+7. FailSafe no concurrent modification exception. Eg:CopyOnWriteArrayList, ConcurrentHashMap
+8. Top 5 concurrent collections
+a) Concurrent Hashmap - alternative to Hashtable, SynchronisedMap
+
+b) CopyOnWriteArrayList,CopyOnWriteArraySet
+c) Blockingqueue - To solve producer consumer problem, put() , take()
+I) ArrayBlockingQueue
+II) LinkedBlockingQueue
+III) PriorityBlockingQueue to process elements on order other than FIFO
+d) Dequeue - Insertion and removal at both ends of the queue.
+It's concurrent implementation - ArrayDeque,LinkedBlockingDequeue
+
+e) ConcurrentSkipListMap and ConcurrentSkipListSet -concurrent alternative for Synchronised version of SortedMap and SortedSet

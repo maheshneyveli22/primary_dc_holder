@@ -1,0 +1,679 @@
+https://www.javatpoint.com/git-stash
+
+0) Cloning new project: git clone 
+
+...
+C:\ExpoNow\4All UI\booking-ui2>git clone https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui.git
+Cloning into 'booking-ui'...
+remote: Enumerating objects: 63432, done.
+remote: Counting objects: 100% (63432/63432), done.
+remote: Compressing objects: 100% (22852/22852), done.
+Receiving objects:  35% (22202/63432), 2.19 MiB | 735.00 KiB/s
+.... 
+
+
+1) Git status - gets current status of the branch 
+
+....
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git status
+Refresh index: 100% (898/898), done.
+On branch develop
+Your branch is behind 'origin/develop' by 20 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   angular.json
+        modified:   package-lock.json
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+        modified:   src/booking/framework/environments/environment.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+....
+
+
+2) git fetch - updates local repo from remote repo 
+
+....
+$ git fetch
+From https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui
+ * [new branch]        Feature/1130498_error_handling -> origin/Feature/1130498_error_handling
+
+.....
+
+
+3) git pull - pulls the latest changes for the specified branch from remote repo 
+
+....
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git pull origin develop
+From https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui
+ * branch              develop    -> FETCH_HEAD
+Updating 0e837f4e..711f5c7a
+error: Your local changes to the following files would be overwritten by merge:
+        package-lock.json
+Please commit your changes or stash them before you merge.
+Aborting
+....
+
+
+4) git stash save "<Stashing Message>"  
+
+....
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git status
+On branch develop
+Your branch is behind 'origin/develop' by 20 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   angular.json
+        modified:   package-lock.json
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+        modified:   src/booking/framework/environments/environment.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#############
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git stash save "freight fix Dec4_2024"
+Saved working directory and index state On develop: freight fix Dec4_2024
+
+#############
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git status
+On branch develop
+Your branch is behind 'origin/develop' by 20 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$
+
+......
+
+4.1) $git stash list : to see the list of stashes 
+
+...
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git stash list
+stash@{0}: On develop: freight fix Dec4_2024
+stash@{1}: WIP on develop: a399aa31 ----Publish process 0.837.0 ----
+stash@{2}: On (no branch): BeforeUpgradeAug12_2024
+stash@{3}: On booking_api: WIP on booking_api
+stash@{4}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{5}: On 1019675-fix-vulnerable-jars: Auto stash before merge of "1019675-fix-vulnerable-jars" and "develop"
+stash@{6}: WIP on fix_thirdparty_jars: 5652d636d5 i18n Extraction Commits
+stash@{7}: On fix_thirdparty_jars: Auto stash before merge of "fix_thirdparty_jars" and "origin/fix_thirdparty_jars"
+stash@{8}: On fix_thirdparty_jars: Auto stash before merge of "fix_thirdparty_jars" and "origin/fix_thirdparty_jars"
+stash@{9}: On Spike_Angular_PrimeNG_15: Spike_Angular_PrimeNG_15_Feb14
+stash@{10}: On develop: Post Angular15 upgrade
+stash@{11}: On develop:
+stash@{12}: On develop:
+stash@{13}: On Spike_Angular_PrimeNG_15:
+stash@{14}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{15}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{16}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{17}: On 896023_PartiesTabIssue:
+stash@{18}: On develop: Merge branch '896023_PartiesTabIssue' into develop
+stash@{19}: On develop: Auto stash before merge of "develop" and "896023_PartiesTabIssue"
+stash@{20}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{21}: On develop: Auto stash before merge of "develop" and "origin/develop"
+stash@{22}: On develop:
+stash@{23}: On updatepartybug: InitialSetupForUI
+
+...
+
+
+4.2) git stash apply -> reapply the changes just committed
+
+...
+$ git stash apply 
+
+...
+
+4.3) In case of more than one stash: use the stash id : git stash apply <stash id>
+
+...
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git stash apply stash@{0}
+Auto-merging package-lock.json
+CONFLICT (content): Merge conflict in package-lock.json
+On branch develop
+Your branch is up to date with 'origin/develop'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   angular.json
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+        modified:   src/booking/framework/environments/environment.ts
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+        both modified:   package-lock.json
+
+...
+
+
+4.4) $ git stash show : We can track the stashes and their changes. To see the changes in the file before stash and after stash operation, run the "git stash show" command
+
+...
+We can track the stashes and their changes. To see the changes in the file before stash and after stash operation, run the below command
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git stash show
+ angular.json                                       |   3 +-
+ package-lock.json                                  | 511 +++++++++++++++------
+ .../freight-graphql-adapter.ts                     |   2 +-
+ src/booking/framework/environments/environment.ts  |   4 +-
+ 4 files changed, 366 insertions(+), 154 deletions(-)
+
+...
+
+
+
+
+5)  git pull Pull after stash 
+
+
+....
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git pull origin develop
+From https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui
+ * branch              develop    -> FETCH_HEAD
+Updating 0e837f4e..711f5c7a
+Fast-forward
+ .gitlab-ci.yml                                     |  42 +-
+ .../objects/parties-form.po.ts                     |  11 +-
+ .../objects/booking-search-template.po.ts          |   2 +-
+ .../objects/create-template-flyout.po.ts           |   3 +
+ .../booking-air-route-form-page.e2e-spec.ts        |   5 +-
+ .../booking-air-shipment-pickup-page.e2e-spec.ts   |  40 +-
+ .../booking-air-parties-form-page.e2e-spec.ts      | 232 +++++-----
+ .../parties-tab-dropdown-page-migrated-linux.png   | Bin 108010 -> 0 bytes
+ .../parties-tab-dropdown-page-migrated-win32.png   | Bin 110915 -> 0 bytes
+ .../booking-landing-page-filter.e2e-spec.ts        |   1 +
+ .../template-terms-charges-form-page.e2e-spec.ts   |   1 +
+ .../template-parties-form-page.e2e-spec.ts         | 419 ++++++++---------
+ .../booking-ocean-save-submit-page.e2e-spec.ts     |   2 +-
+ .../booking-ocean-shipment-pickup-page.e2e-spec.ts |  26 +-
+ .../booking-ocean-parties-form-page.e2e-spec.ts    | 513 ++++++++++-----------
+ ...arties-tab-dropdown-FCL-page-migrated-linux.png | Bin 102753 -> 0 bytes
+ ...arties-tab-dropdown-FCL-page-migrated-win32.png | Bin 114226 -> 0 bytes
+ ...arties-tab-dropdown-LCL-page-migrated-linux.png | Bin 102697 -> 0 bytes
+ ...arties-tab-dropdown-LCL-page-migrated-win32.png | Bin 114183 -> 0 bytes
+ ...booking-template-shipment-form-page.e2e-spec.ts |  19 +-
+ .../regression-booking-template.e2e-spec.ts        |   1 +
+ ...sion-booking-terms&charges-template.e2e-spec.ts |   8 +
+ .../regression-marketing-page.e2e-spec.ts          |   1 +
+ .../air-insurance-page.e2e-spec.ts                 |   5 +
+ .../regression-booking-air-freight-tab.e2e-spec.ts |   8 +
+ ...regression-booking-air-parties-page.e2e-spec.ts |   1 +
+ ...gression-booking-air-reference-page.e2e-spec.ts |   1 +
+ ...ression-booking-air-route-form-page.e2e-spec.ts |   1 +
+ ...sion-booking-air-shipment-form-page.e2e-spec.ts |  10 +
+ .../regression-booking-air-submit-page.e2e-spec.ts |   1 +
+ ...regression-booking-save-submit-page.e2e-spec.ts |  20 +
+ .../booking-air-terms&charges.e2e-spec.ts          |   8 +
+ .../regression-booking-documents.e2e-spec.ts       |   6 +
+ .../regression-booking-impersonation.e2e-spec.ts   |   2 +
+ ...regression-booking-parallel-session.e2e-spec.ts |   2 +
+ .../pageData/createbooking.page.test.data.ts       |   2 +-
+ .../booking/pageData/partiesform.page.test.data.ts |  53 +--
+ .../pageData/shipmentpickup.page.test.data.ts      |   8 +-
+ package-lock.json                                  | 172 +++----
+ package.json                                       |   2 +-
+ playwright.config.ts                               |   2 +-
+ 41 files changed, 849 insertions(+), 781 deletions(-)
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/air/booking-air-4/booking-air-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-page-migrated-linux.png
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/air/booking-air-4/booking-air-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-page-migrated-win32.png
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/ocean/booking-ocean-4/booking-ocean-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-FCL-page-migrated-linux.png
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/ocean/booking-ocean-4/booking-ocean-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-FCL-page-migrated-win32.png
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/ocean/booking-ocean-4/booking-ocean-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-LCL-page-migrated-linux.png
+ delete mode 100644 e2e-playwright/booking-ui/specs/integration/ocean/booking-ocean-4/booking-ocean-parties-form-page.e2e-spec.ts-snapshots/parties-tab-dropdown-LCL-page-migrated-win32.png
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$
+
+....
+
+
+
+6) git log to see latest history of the current branch
+
+....
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/booking-ui (develop)
+$ git log
+commit 711f5c7a6b6b497b62a700731d1ade21dbcdd1cf (HEAD -> develop, tag: v0.859.0, origin/develop, origin/HEAD)
+Author: ci-custapp <ci-custapp@expeditors.com>
+Date:   Tue Dec 3 12:08:15 2024 +0000
+
+    ----Publish process 0.859.0 ----
+
+commit fbe510a09e479631383b90bc2d14e04a885b9c4b
+Merge: a1191938 91a6c803
+Author: Athish M <athish.m@expeditors.com>
+Date:   Tue Dec 3 04:05:17 2024 -0800
+
+    Merge branch 'partiesTabFix' into 'develop'
+
+    parties tab - all party validation
+
+    See merge request EnterpriseTechnology/booking-ui!1023
+
+commit 91a6c803497dfb1e93c800065ac165cb9a52a71f
+Author: Athish M <athish.m@expeditors.com>
+Date:   Tue Dec 3 04:05:17 2024 -0800
+
+    parties tab - all party validation
+
+commit a11919380620191a57d02e5e52ca4c592e7f1178 (tag: v0.858.0)
+Author: ci-custapp <ci-custapp@expeditors.com>
+Date:   Thu Nov 28 07:34:32 2024 +0000
+
+    ----Publish process 0.858.0 ----
+
+commit 1a8128bdee99e6c9d1d47f8ac18f3f023fe02151
+Merge: dc8fd783 a9d14997
+Author: Varalakshmi R S <varalakshmi.rs@expeditors.com>
+Date:   Wed Nov 27 23:31:37 2024 -0800
+
+    Merge branch '1184491-RouteTabDate-Fix' into 'develop'
+
+    Fixed route tab date issues
+
+    See merge request EnterpriseTechnology/booking-ui!1022
+
+commit a9d14997147b82ce7e7a71301a6bfaa27561a065 (origin/1184491-RouteTabDate-Fix)
+Author: gs1-varalakshmir <Varalakshmi.RS@expeditors.com>
+Date:   Wed Nov 27 16:08:28 2024 +0530
+
+    filter issue fix
+
+commit dcef980390d9edb4c7b0e11d10306fea0b5e27ef
+Author: gs1-varalakshmir <Varalakshmi.RS@expeditors.com>
+Date:   Tue Nov 26 22:01:30 2024 +0530
+
+
+....
+
+
+7) git stash apply -> reapply the changes just committed
+
+...
+$ git stash apply 
+
+...
+
+8) In case of more than one stash: use the stash id : git stash apply <stash id>
+
+...
+$ git stash apply <stash id>
+...
+
+
+9)  Instead of creating a branch and switching a branch in 2 different steps, we can use git switch with -c flag to create new branch and switch to it all in one go 
+
+-> -c is short for create 
+
+syntax:
+> git switch -c <branch-name> 
+
+
+#####create and switch branch######
+C:\ExpoNow\gitlab-tutorials\gitlab-1>git switch -c testbranch_4_fromMaster
+Switched to a new branch 'testbranch_4_fromMaster'
+###########
+
+
+
+10) To push file 
+
+
+10.1) Ensure you are in new branch 
+
+...
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (develop)
+$ git switch -c 1205782-freightmultilineissue-fix
+Switched to a new branch '1205782-freightmultilineissue-fix'
+
+...
+
+10.2) Once the files are modified,  check the git status
+
+...
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git status
+On branch 1205782-freightmultilineissue-fix
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   package-lock.json
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+...
+
+
+10.3) Add the file : git add
+
+....
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git add  src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+...
+
+10.4) check git status: 
+
+..
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git status
+On branch 1205782-freightmultilineissue-fix
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   package-lock.json
+...
+
+10.5) commit the file : git commit -m "freight multiline issue fix"
+
+...
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git commit -m "freight multiline issue fix"
+[1205782-freightmultilineissue-fix ca2831ca] freight multiline issue fix
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+...
+
+
+10.6) check git status 
+
+..
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git status
+On branch 1205782-freightmultilineissue-fix
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   package-lock.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+...
+
+
+10.7) Now if we try git push it will throw error 
+
+....
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git push
+fatal: The current branch 1205782-freightmultilineissue-fix has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin 1205782-freightmultilineissue-fix
+	git push --set-upstream origin 1240506_increase_codecoverage
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+...
+
+
+
+10.8) now push the file to remote or upstream: so set upstream for this branch :git push --set-upstream origin 1205782-freightmultilineissue-fix
+
+....
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$  git push --set-upstream origin 1205782-freightmultilineissue-fix
+Enumerating objects: 19, done.
+Counting objects: 100% (19/19), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 784 bytes | 156.00 KiB/s, done.
+Total 10 (delta 6), reused 0 (delta 0), pack-reused 0 (from 0)
+remote:
+remote: To create a merge request for 1205782-freightmultilineissue-fix, visit:
+remote:   https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui/-/merge_requests/new?merge_request%5Bsource_branch%5D=1205782-freightmultilineissue-fix
+remote:
+To https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui.git
+ * [new branch]        1205782-freightmultilineissue-fix -> 1205782-freightmultilineissue-fix
+branch '1205782-freightmultilineissue-fix' set up to track 'origin/1205782-freightmultilineissue-fix'.
+
+
+...
+
+
+10.9) Now if we do git status we will see this message: "Your branch is up to date with 'origin/1205782-freightmultilineissue-fix"
+
+
+....gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git status
+On branch 1205782-freightmultilineissue-fix
+Your branch is up to date with 'origin/1205782-freightmultilineissue-fix'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   package-lock.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+.....
+
+10.10) now do a git push: You will get a message that everything is upto date 
+
+
+...
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/4All UI/booking-ui2/booking-ui (1205782-freightmultilineissue-fix)
+$ git push
+Everything up-to-date
+
+
+...
+
+
+
+
+11) If branch is behind commits
+
+a) Switch to develop from branch 
+..
+
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git switch develop
+Switched to branch 'develop'
+Your branch is behind 'origin/develop' by 6 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+  
+  
+  
+...
+
+
+b) perform git fetch and git pull 
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git fetch
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git pull 
+Updating 17392060..9da19ff6
+Fast-forward
+ .../objects/create-booking-flyout.po.ts            |  2 +-
+ ...g-air-insurance-declared-value-page.e2e-spec.ts |  4 +++-
+ .../template-share-template-form-page.e2e-spec.ts  |  2 ++
+ .../template-create-template-page.e2e-spec.ts      |  5 ++++-
+ package-lock.json                                  |  4 ++--
+ package.json                                       |  2 +-
+ .../code/core/pages/booking/booking.component.ts   | 24 ++++++++++++----------
+ .../freight-details-form.component.ts              |  2 ++
+ 8 files changed, 28 insertions(+), 17 deletions(-)
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> 
+
+
+c) go to branch :
+
+...
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git switch freight-multiline-issue
+Switched to branch 'freight-multiline-issue'
+Your branch is up to date with 'origin/freight-multiline-issue'.
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> 
+...
+
+d) merge develop into branch
+
+
+...
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git merge develop
+Updating 5da21350..9da19ff6
+Fast-forward
+ .../objects/create-booking-flyout.po.ts            |  2 +-
+ .../template-share-template-form-page.e2e-spec.ts  |  2 ++
+ .../template-create-template-page.e2e-spec.ts      |  5 ++++-
+ package-lock.json                                  |  4 ++--
+ package.json                                       |  2 +-
+ .../code/core/pages/booking/booking.component.ts   | 24 ++++++++++++----------
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git status
+On branch freight-multiline-issue
+Your branch is ahead of 'origin/freight-multiline-issue' by 5 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+....
+
+
+
+e) push the local branch to origin/branch 
+
+
+...
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git push --set-upstream origin freight-multiline-issue
+branch 'freight-multiline-issue' set up to track 'origin/freight-multiline-issue'.
+Everything up-to-date
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git status
+On branch freight-multiline-issue
+Your branch is up to date with 'origin/freight-multiline-issue'.
+
+nothing to commit, working tree clean
+...
+
+
+f) No take the latest changes via git stash apply
+
+
+...
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git stash apply
+Auto-merging package-lock.json
+On branch freight-multiline-issue
+Your branch is up to date with 'origin/freight-multiline-issue'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   package-lock.json
+        modified:   src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+        modified:   src/booking/framework/environments/environment.ts
+        modified:   src/host/index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> 
+...
+
+
+
+
+g) Now add the file and commit the file 
+
+...
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git add  src/booking/code/core/pages/booking/freight-details-form/freight-graphql-adapter.ts
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git commit -m "piece per volume fix"
+[freight-multiline-issue 5ec7edf9] piece per volume fix
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui>
+...
+
+
+h) now push the file 
+
+....
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui> git push --set-upstream origin freight-multiline-issue
+Enumerating objects: 19, done.
+Counting objects: 100% (19/19), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 777 bytes | 45.00 KiB/s, done.
+Total 10 (delta 6), reused 0 (delta 0), pack-reused 0 (from 0)
+remote:
+remote: To create a merge request for freight-multiline-issue, visit:
+remote:   https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui/-/merge_requests/new?merge_request%5Bsource_branch%5D=freight-multiline-issue
+remote:
+To https://gitlab.expeditors.com/EnterpriseTechnology/booking-ui.git
+   9da19ff6..5ec7edf9  freight-multiline-issue -> freight-multiline-issue
+branch 'freight-multiline-issue' set up to track 'origin/freight-multiline-issue'.
+PS C:\ExpoNow\4All UI\booking-ui2\booking-ui>
+...
+
+
+i) Now raise MR 
+
+
+
+12) create a new branch locally and push it to remote
+a) Create branch 
+
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (main)
+$ git switch -c "arp-spoofer-branch"
+Switched to a new branch 'arp-spoofer-branch'
+
+
+
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (arp-spoofer-branch)
+$ git status
+On branch arp-spoofer-branch
+nothing to commit, working tree clean
+
+
+b) Push to remote using command: git push origin -u arp-spoofer-branch
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (arp-spoofer-branch)
+$ git push origin -u arp-spoofer-branch
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+remote:
+remote: Create a pull request for 'arp-spoofer-branch' on GitHub by visiting:
+remote:      https://github.com/maheshneyveli22/zaid_repo/pull/new/arp-spoofer-b
+ranch
+remote:
+To https://github.com/maheshneyveli22/zaid_repo.git
+ * [new branch]      arp-spoofer-branch -> arp-spoofer-branch
+branch 'arp-spoofer-branch' set up to track 'origin/arp-spoofer-branch'.
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (arp-spoofer-branch)
+$ git status
+On branch arp-spoofer-branch
+Your branch is up to date with 'origin/arp-spoofer-branch'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (arp-spoofer-branch)
+$
+
+...

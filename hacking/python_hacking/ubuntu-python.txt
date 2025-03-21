@@ -1,0 +1,4 @@
+1) sudo apt install python3-pip
+2)  pip3 install scapy
+3) sudo apt install openjdk-17-jdk-headless
+4) sudo apt install nmap

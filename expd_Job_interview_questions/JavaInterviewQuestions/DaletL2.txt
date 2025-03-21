@@ -1,0 +1,46 @@
+Employee:
+---------------
+emp_id - pk
+emp_name
+emp_dept_id - fk_dept_id
+emp_salary
+emp_city_id - fk_city_id
+
+ 
+
+Dept:
+--------
+dept_id - pk_dept_id
+dept_name
+
+ 
+
+Master_City:
+------------------
+city_id - pk_city_id
+city_name
+state_id - fk_state_id
+
+ 
+
+Master_States:
+----------------------
+state_id - pk_state_id
+state_name  
+
+
+Write a query to fetch a list of state-wise strength of employees:
+
+
+select state_name,(Select count(*)  from Employee as emp outer join Master_City as city where emp.emp_city_id=city.city_id groupby  city.state_id) as strength from master_states where master_city.state_id=Master_States.state_id;;
+
+
+select count(*), states.state_name   from  Employee emp inner join  Master_City city, master_states where emp.emp_city_id=city.city_id groupby  city.state_id
+
+
+
+2) File list length and recursive finding files in directory
+
+
+
+

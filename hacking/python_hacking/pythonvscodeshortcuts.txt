@@ -1,0 +1,7 @@
+1) 
+a) If you want to indent multiple lines at once, select them and press Ctrl+] to add the indent or 
+b) Ctrl+[ to remove it. Pressing the same keys again will add (or move back) indent again.
+
+
+2) to do multiple lines or single line comment:
+CTRL+/

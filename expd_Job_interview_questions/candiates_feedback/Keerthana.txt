@@ -1,0 +1,9 @@
+1) Core Java - Below average
+2) Spring - below average
+3) Spring boot - below average
+4) SQL - Not able to answer
+5) Hibernate - below average
+6) Communication - good
+7) Attitude - good
+
+Overall Feedback - Does not fit into the Role

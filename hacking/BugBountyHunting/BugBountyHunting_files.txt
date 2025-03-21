@@ -1,0 +1,21 @@
+1) robots.txt:
+
+
+
+A robots.txt file tells search engine crawlers which URLs the crawler can access on your site. 
+This is used mainly to avoid overloading your site with requests; 
+it is not a mechanism for keeping a web page out of Google. To keep a web page out of Google, block indexing with noindex or password-protect the page.
+
+
+Is a robots.txt file necessary?
+txt file is not required for a website. 
+If a bot comes to your website and it doesn't have one, 
+it will just crawl your website and index pages as it normally would. 
+A robot. txt file is only needed if you want to have more control over what is being crawled
+
+2) https://github.com/danielmiessler/SecLists/blob/89e486bd4e1bcd1bd3fc565216097a8d389f3983/Discovery/Web-Content/common.txt  
+-> Here secLists contains full list of common words 
+
+
+3) directory-traversal-cheatsheet.txt
+-> 

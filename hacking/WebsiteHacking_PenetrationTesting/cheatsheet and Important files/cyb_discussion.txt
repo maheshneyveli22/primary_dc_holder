@@ -1,0 +1,36 @@
+Today
+
+Mahadevan K 2:17 PM
+Hello Mahesh
+
+You 2:17 PM
+Hi Mahadevan
+
+Mahadevan K 2:17 PM
+C:\Users\gs1-maheswarane\Downloads\code-execution-reverse-shell-commands.txt
+May I know the reason why u downloaded the txt file?
+
+You 2:18 PM
+was doing a udemy course. in that resources that file was there. I clicked it , then it tried to download
+
+Mahadevan K 2:18 PM
+What was the course name btw?
+
+You 2:19 PM
+It was on Penetration testing
+
+Mahadevan K 2:19 PM
+ok.
+I'd suggest not to practice pentesting with our office laptop
+tools that the course suggest cant be used in our environment and it raises unnecessary concern
+
+You 2:21 PM
+oh ok sure.  actually I was not doing pentesting..  I was just going through the course
+in that resource material this file was there.
+
+Mahadevan K 2:21 PM
+feel free to learn the course but not advisable to download any contents
+Ok no problem, thanks for the support.
+
+You 2:21 PM
+oh ok sure.  got it . thanks

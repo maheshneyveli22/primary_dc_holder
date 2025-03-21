@@ -1,0 +1,209 @@
+1) 
+
+intercept:36, GraphQLResponseInterceptor (com.expd.expo.booking.filters)
+lambda$apply$2:77, WebGraphQlInterceptor (org.springframework.graphql.server)
+next:-1, WebGraphQlInterceptor$$Lambda$2058/0x0000000801a38248 (org.springframework.graphql.server)
+handleRequest:118, DefaultWebGraphQlHandlerBuilder$1 (org.springframework.graphql.server)
+handleRequest:91, GraphQlHttpHandler (org.springframework.graphql.server.webmvc)
+handle:-1, GraphQlWebMvcAutoConfiguration$$Lambda$2063/0x0000000801a3b9d0 (org.springframework.boot.autoconfigure.graphql.servlet)
+handle:106, HandlerFunctionAdapter (org.springframework.web.servlet.function.support)
+doDispatch:1072, DispatcherServlet (org.springframework.web.servlet)
+doService:965, DispatcherServlet (org.springframework.web.servlet)
+
+
+2) Here in intercept() request goes:
+
+  return chain.next ( request ).map ( response -> {
+            if ( response.isValid ( ) ) {
+                logGraphQLResponse(response);
+                return response;
+            }
+			
+3) 
+map:3442, Mono (reactor.core.publisher)
+lambda$build$1:92, DefaultWebGraphQlHandlerBuilder (org.springframework.graphql.server)
+next:-1, DefaultWebGraphQlHandlerBuilder$$Lambda$2055/0x0000000801a37b38 (org.springframework.graphql.server)
+intercept:36, GraphQLResponseInterceptor (com.expd.expo.booking.filters)
+lambda$apply$2:77, WebGraphQlInterceptor (org.springframework.graphql.server)
+
+
+-> Here in DefaultWebGraphQlHandlerBuilder-> build() , call to service execute method is done which executes the graphql request and upon executing the request, response is storedd in WebGraphQlResponse
+
+  WebGraphQlInterceptor.Chain endOfChain = (request) -> {
+            return this.service.execute(request).map(WebGraphQlResponse::new);
+        };
+		
+-> Here the service is: 
+C:\Users\gs1-pranays\.m2\repository\org\springframework\graphql\spring-graphql\1.0.4\spring-graphql-1.0.4.jar!\org\springframework\graphql\execution\DefaultExecutionGraphQlService.class
+
+
+4) 
+stack:
+contextWrite:2340, Mono (reactor.core.publisher)
+handleRequest:119, DefaultWebGraphQlHandlerBuilder$1 (org.springframework.graphql.server)
+handleRequest:91, GraphQlHttpHandler (org.springframework.graphql.server.webmvc)
+handle:-1, GraphQlWebMvcAutoConfiguration$$Lambda$2063/0x0000000801a3b9d0 (org.springframework.boot.autoconfigure.graphql.servlet)
+handle:106, HandlerFunctionAdapter (org.springframework.web.servlet.function.support)
+doDispatch:1072, DispatcherServlet (org.springframework.web.servlet)
+doService:965, DispatcherServlet (org.springframework.web.servlet)
+processRequest:1006, FrameworkServlet (org.springframework.web.servlet)
+
+
+source->MonoDeferContextual
+->arg$1 ->DefaultExecutionGraphQlService
+graphQLSource -> graphql and graphqlSchema Objects 
+
+->arg$2 ->WebGraphQLRequest 
+-> contains document which has the query , operation and variables which contains the input name 
+->
+
+5) In :
+C:\Users\gs1-pranays\.m2\repository\io\projectreactor\reactor-core\3.4.28\reactor-core-3.4.28.jar!\reactor\core\publisher\Mono.class-> execute() 
+
+->   Here actual call happens 
+
+return Mono.fromFuture(this.graphQlSource.graphQl().executeAsync(updatedExecutionInput)).map((result) -> {
+                return new DefaultExecutionGraphQlResponse(updatedExecutionInput, result);
+            });
+			
+			
+6) In C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\GraphQL.class -> executeAsync()
+---> using schema:     GraphQLSchema graphQLSchema = this.instrumentation.instrumentSchema(this.graphQLSchema, instrumentationParameters);
+----> Call happens in line 210 :
+  CompletableFuture<ExecutionResult> executionResult = this.parseValidateAndExecute(executionInput, graphQLSchema, instrumentationState);
+
+
+
+7) In C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\GraphQL.class
+-> parseValidateAndExecute
+
+
+##########################
+  CompletableFuture<PreparsedDocumentEntry> preparsedDoc = this.preparsedDocumentProvider.getDocumentAsync(executionInput, computeFunction);
+        return preparsedDoc.thenCompose((preparsedDocumentEntry) -> {
+            if (preparsedDocumentEntry.hasErrors()) {
+                return CompletableFuture.completedFuture(new ExecutionResultImpl(preparsedDocumentEntry.getErrors()));
+            } else {
+                try {
+                    return this.execute((ExecutionInput)executionInputRef.get(), preparsedDocumentEntry.getDocument(), graphQLSchema, instrumentationState);
+                } catch (AbortExecutionException var6) {
+                    return CompletableFuture.completedFuture(var6.toExecutionResult());
+                }
+            }
+        });
+##########################
+
+
+
+8) 
+<init>:33, ExecutionResultImpl (graphql)
+lambda$completeValueForNull$10:476, ExecutionStrategy (graphql.execution)
+get:-1, ExecutionStrategy$$Lambda$2423/0x0000000801b6eba0 (graphql.execution)
+tryCatch:115, Async (graphql.execution)
+completeValueForNull:474, ExecutionStrategy (graphql.execution)
+completeValue:436, ExecutionStrategy (graphql.execution)
+completeField:404, ExecutionStrategy (graphql.execution)
+lambda$resolveFieldWithInfo$1:212, ExecutionStrategy (graphql.execution)
+apply:-1, ExecutionStrategy$$Lambda$2419/0x0000000801b6e2b0 (graphql.execution)
+uniApplyNow:684, CompletableFuture (java.util.concurrent)
+uniApplyStage:662, CompletableFuture (java.util.concurrent)
+thenApply:2168, CompletableFuture (java.util.concurrent)
+resolveFieldWithInfo:211, ExecutionStrategy (graphql.execution)
+execute:60, AsyncExecutionStrategy (graphql.execution)
+executeOperation:159, Execution (graphql.execution)
+execute:105, Execution (graphql.execution)
+execute:641, GraphQL (graphql)
+lambda$parseValidateAndExecute$11:561, GraphQL (graphql)
+apply:-1, GraphQL$$Lambda$2389/0x0000000801b648c0 (graphql)
+uniComposeStage:1187, CompletableFuture (java.util.concurrent)
+thenCompose:2309, CompletableFuture (java.util.concurrent)
+parseValidateAndExecute:556, GraphQL (graphql)
+executeAsync:524, GraphQL (graphql)
+lambda$execute$2:81, DefaultExecutionGraphQlService (org.springframework.graphql.execution)
+
+
+9) C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\execution\ExecutionStrategy.class
+->   Object result = executionContext.getValueUnboxer().unbox(parameters.getSource());
+----> above line returns null .
+
+
+
+###########
+  ExecutionStepInfo executionStepInfo = parameters.getExecutionStepInfo();
+        Object result = executionContext.getValueUnboxer().unbox(parameters.getSource());
+        GraphQLType fieldType = executionStepInfo.getUnwrappedNonNullType();
+        CompletableFuture fieldValue;
+        if (result == null) {
+            fieldValue = this.completeValueForNull(executionContext, parameters);
+            return FieldValueInfo.newFieldValueInfo(CompleteValueType.NULL).fieldValue(fieldValue).build();
+        } else if (GraphQLTypeUtil.isList(fieldType)) {
+###########
+
+
+10) This parameters.getSource() is null, which cause result to be null 
+-> Now we need to check why ExecutionStrategyParameters parameters.getSource is null 
+
+
+11) In C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\execution\ExecutionStrategy.class-> 
+completeField() -> newParameters is set from parameters
+-> Here parameters itself have source as null 
+
+###
+ExecutionStrategyParameters newParameters = parameters.transform((builder) -> {
+            builder.executionStepInfo(executionStepInfo).source(fetchedValue.getFetchedValue()).localContext(fetchedValue.getLocalContext()).nonNullFieldValidator(nonNullableFieldValidator);
+        });
+###
+
+---> Here two chances: source can be set above and it fails and sets as null
+-> ANother chance parameter does not have null 
+
+---> SO finally it can be null for two reasons: fetchedValue being null or parameters.getSource() being null 
+
+
+12) C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\execution\Execution.class -> executeOperation() --->  
+
+Line 102 
+ExecutionStrategyParameters parameters = ExecutionStrategyParameters.newParameters().executionStepInfo(executionStepInfo).source(root).localContext(executionContext.getLocalContext()).fields(fields).nonNullFieldValidator(nonNullableFieldValidator).path(path).build();
+
+
+13)      private CompletableFuture<ExecutionResult> executeOperation(ExecutionContext executionContext, Object root, OperationDefinition operationDefinition) {
+
+---> Here root is null in C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\execution\Execution.class -> executeOperation
+
+
+14) In C:\Users\gs1-pranays\.m2\repository\com\graphql-java\graphql-java\18.4\graphql-java-18.4.jar!\graphql\execution\Execution.class
+->CompletableFuture<ExecutionResult> execute(Document document, GraphQLSchema graphQLSchema, ExecutionId executionId, ExecutionInput executionInput, InstrumentationState instrumentationState) {
+
+    return this.executeOperation(executionContext, executionInput.getRoot(), executionContext.getOperationDefinition());
+->   executionInput.getRoot() is null
+
+15) Need to check why ExecutionInput executionInput's getRoot is null 
+
+
+16) In private CompletableFuture<ExecutionResult> parseValidateAndExecute(ExecutionInput executionInput, GraphQLSchema graphQLSchema, InstrumentationState instrumentationState) { 
+-> executionInput has getRoot as null
+
+17) In C:\Users\gs1-pranays\.m2\repository\org\springframework\graphql\spring-graphql\1.0.4\spring-graphql-1.0.4.jar!\org\springframework\graphql\execution\DefaultExecutionGraphQlService.class--->  execute() 
+
+ExecutionInput is set twice:
+      ExecutionInput executionInput = request.toExecutionInput();
+            ReactorContextManager.setReactorContext(contextView, executionInput.getGraphQLContext());
+            ExecutionInput updatedExecutionInput = this.registerDataLoaders(executionInput);
+         
+
+18) 
+C:\Users\gs1-pranays\.m2\repository\org\springframework\graphql\spring-graphql\1.0.4\spring-graphql-1.0.4.jar!\org\springframework\graphql\execution\DefaultExecutionGraphQlService.class ---> execute() calls below line at line 45 
+
+ExecutionInput executionInput = request.toExecutionInput();
+
+
+19) 
+C:\Users\gs1-pranays\.m2\repository\org\springframework\graphql\spring-graphql\1.0.4\spring-graphql-1.0.4.jar!\org\springframework\graphql\support\DefaultExecutionGraphQlRequest.class
+
+---> toExecutionInput()
+
+
+
+
+
+ExecutionResultImpl{errors=[], data={bookingUserStatus=null}, dataPresent=true, extensions=null}

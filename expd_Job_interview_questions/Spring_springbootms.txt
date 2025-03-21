@@ -1,0 +1,16 @@
+1) What is microservices and its advantages
+2) Communication between microservices
+3) what is circuit breaker
+4) What is spring cloud
+5) How to add security microservices
+6) what is spring cloud api 
+
+
+
+Spring:
+1) What is a real-time use case for @Bean?
+2) what is the use of @Qualifier annotation 
+3) how will you implement internationalization in spring 
+4) What is the use of pointcuts
+5) What are join points 
+6) What are different advice types 

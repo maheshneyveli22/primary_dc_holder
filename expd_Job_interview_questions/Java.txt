@@ -1,0 +1,28 @@
+1) What is completeable future
+2) What is metaspace
+3) When will you use functional interface
+4) Ways of creating string
+5) SOLID principles 
+6) Singleton design pattern how to implement
+7) performance of db. how will you improve, if no scope from a)query and also from java side and also from hardware side
+8) How to create custom java annotation? 
+9) What is string constant pool ? 
+10) 
+Class A
+{
+main(String args[])
+{
+SingletonApi obj1=SingletonApi.getInstance();
+SingletonApi obj2=SingletonApi.getInstance();
+SingletonApi obj3=  obj2.clone();
+if(obj2.hashCode==obj3.hashCode()
+}
+}
+
+11) what is string intern
+12) What is callable interface
+13) 
+
+
+
+

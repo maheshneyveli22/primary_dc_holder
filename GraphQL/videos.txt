@@ -1,0 +1,11 @@
+https://www.youtube.com/watch?v=4bheCHi5zKs&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=5
+
+
+https://www.youtube.com/watch?v=NR0HwkLhWAk&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=12
+
+
+2) good resource on graphql query mapping:
+https://pankaj02.medium.com/spring-for-graphql-schemamapping-and-querymapping-3db89bae696a
+
+
+https://www.baeldung.com/spring-graphql

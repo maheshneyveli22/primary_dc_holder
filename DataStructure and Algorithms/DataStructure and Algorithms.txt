@@ -1,0 +1,742 @@
+1) Rules for O(n) 
+a) Any assignment statements and if statements that are executed once regardless of the size of problem : O(1) 
+b) A simple "for" loop from 0 to n(with no internal loops) : O(n) 
+c) A nested loop of the same type takes quadratic time complexity: O(n^2) 
+d) A loop in which the controlling parameter is divided by two at each step : O(log n) 
+e) When dealing with multiple statements, just add them up 
+
+
+2) Arrays: Types 
+a) One dimensional array: 
+-> Array with a bunch of values declared with a single index 
+-> a[i] ---> i between 0 and n 
+-> element can be accessed via index value eg: a[1] 
+
+1 row many columns i.e 1R x n C
+
+b) Two dimensional array: Array with a bunch of values that has been declared with double index 
+-> We can image two dimensional array as multiple one dimensional arrays
+
+a[i][j]  ----> i and j between 0 and n 
+
+-> Element can be accessed via row index and column index. eg: a[0][4]
+
+Usage:
+
+
+c) Three dimensional array: An array with a bunch of values that has been declared with triple index 
+-> -> We can image two dimensional array as multiple one dimensional arrays
+-> Reminds us of a cube. 
+-> additionally we have depth index
+-> we access elements using a[depthIndex][rowIndex][columnIndex] 
+ -> eg: a[0][0][1] 
+
+a[i][j][k] -> i,j,k between 0 and n 
+
+d) In real world, one and two dimensional arrays used broadly. 3 dimensional arrays are used rarely 
+
+
+3) Arrays in memory: 
+a) When declaring and assigning values in array: compiler allocates n contiguous cells 
+-> To increase performance while accessing elements of array 
+b) One dimenional array will be allocated as a single row 
+c) But two dimenional array will be allocated in a single line 
+-> it is represented as multiple one dimenional arrays in single line 
+
+eg: 
+[row 1 elements][row2 elements][row3 elements ] 
+
+d) Three dimenional array is represented as 
+-> this will also be represented as single dimensional array 
+
+
+
+3) Creating Array:
+a) Involves 3 steps: 
+Declaration
+Instantiation 
+Initialization 
+
+datatype arr = new datatype[] 
+arr[0]=1 
+b) Reference variable holds the address of the first element of the array 
+c) To print array to console, we can use Arrays libary 
+
+
+System.out.println(Arrays.toString(intArray));
+
+4) Time and space complexity of 1D arrays : 
+a) Creating an empty array 
+
+Time complexity: O(1) 
+Space Complexity: O(n) 
+
+b) Inserting a value in an arry 
+
+Time complexity: O(1) 
+Space Complexity: O(1) 
+
+c) Traversing a given array 
+
+Time complexity: O(n) 
+Space Complexity: O(1) 
+
+d) Accessing a given cell 
+
+Time complexity: O(1) 
+Space Complexity: O(1) 
+
+e) Searching a given value 
+
+Time complexity: O(n) 
+Space Complexity: O(1) 
+
+
+f) Deleting a given value 
+
+Time complexity: O(1) 
+Space Complexity: O(1) 
+
+
+
+5) Create two dimensional array : 
+
+a) Usage:
+-> In matrices 
+-> In games for a particular position in screen 
+-> Recording temperature 4 times in a day 
+
+b) Declare : int [][] int2DArray;
+   Instantiate : int2DArray = new int[2][2]; 
+   Initializer: int2DArray[0][0]=1; etc 
+   
+c) To print contents of multi dimensional arrays: Use Arrays.deepToString method 
+			System.out.println(Arrays.deepToString(int2DArray)); 
+			
+d) Time complexity of creation: O(mn) 
+   Space complexity of creation: O(mn) 
+   
+
+
+6) Insertion - Two Dimensional array 
+Time complexity of insertion: O(1) 
+Space complexity of insertion: O(1) 
+
+
+
+7) Accessing Two dimensional array 
+a) It can be accessed via index: a[i][j]  ---> i is row index and j is column index 
+
+Time complexity of accessing: O(1) 
+Space complexity of accessing: O(1) 
+
+8) Traversing Two dimensional array: 
+a) Different than one dimensional array 
+b) Visit each element of two dimensional array, row by row 
+c) Steps :
+-> First create a for loop which goes through all the rows of the array
+-> Second create another for loop which goes through all columns of that particular array 
+
+
+public void traverse2DArray()
+{
+for(int row=0; row<arr.length; row++)
+{
+
+for(int col=0; col <arr[0].length; col++
+{
+System.out.println(arr[row[col]+ " ");
+}
+System.out.println(); 
+
+}
+}
+
+d) 
+Time complexity of Traversing: O(mn) 
+Space complexity of Traversing: O(1) 
+
+
+9) Searching Two Dimensional Array: 
+a) Linear search:
+   -> Use two for loops which we used for traversal 
+   
+   
+Time complexity of Searching: O(mn) 
+Space complexity of Searching: O(1)
+
+10) Deleting two Dimensional array element: 
+
+Time complexity of Deleting: O(1) 
+Space complexity of Deleting: O(1)
+
+
+11) When to use/Avoid arrays 
+a) When to Use arrays:
+-> When there is need to store multiple variables of same data type 
+-> To access random numbers from the array because it takes only O(1) time complexity 
+
+b) When to avoid: 
+-> We can store only Same data type elements 
+ Because different data type elements to be stored in array 
+-> Reserves memory based on declaration even though if it is not used. 
+ 
+
+12) Arraylist 
+a) Internally uses an array to store its elements, but it automatically handles resizing and provides useful methods for manipulation 
+b) Real time example: Music play list in our computer 
+-> We can easily add or remove songs as per preference 
+-> We can shuffle the order of songs like reordering elements in array list 
+c) No fixed size in arraylist like an array 
+d) This is the main difference between array and arraylist : Size 
+-> Arrays are fixed size determined at the time of creation , while array list size is dynamic which can grow or shrink automatically 
+e) Arraylist slower than arrays due to overhead of resizing and additional methods. 
+
+
+13) ArrayList in memory:
+a) Arraylist internally uses array to stores its elements 
+b) Arraylist creates and internal array of a default intial capacity of ten elements to store its elements . Ten elements are created with null values 
+c) But in java8 implementation is different. Effect size of array list initially is zero, but as the first element gets populated, the size gets increased to 10 
+d) Resizing operation increases the size by factor of 1.5 or 2 depending on the implementation
+e) When we remove an element from the arraylist, the elements will be shifted to the left side and the capacity of the array remains the same. 
+-> Thus arraylist does not automatically shrink its internal array when elements are removed. 
+-> To reduce the size of internal array we need to call trimeToSize() method to reduce the capacity to match the size of actual number of elements 
+
+
+14) Creating Arraylist: 
+
+a) Creating arraylist : 
+ArrayList<Type> arrayListName = new ArrayList<Type>()
+
+ArrayList arrayListName= new ArrayList() 
+
+b) Initial size of this array list is 10
+
+it can be changed by passing the number like this in argument constructor 
+
+ArrayList<Type> arrayListName = new ArrayList<Type>(13)
+
+c) For creating array:
+
+Time complexity: O(1) 
+Space Complexity: O(1) 
+
+d) For initializing elements in array:
+
+Time complexity: O(1) 
+Space Complexity: O(n)
+
+15) Insertion in arraylist 
+a) Use add method to insert elements in Arraylist
+b) Adding new elements will add elements to the end of the list 
+c) 
+add(element) 
+add(index,element) 
+
+d) if there are 4 elements in array if you are trying to insert elements in 5th index instead of 4th index, it will throw array Index out of bounds exception 
+
+eg: add(5,6) 
+
+-> This is because the size of arraylist is different than the capacity that is allocated in memory 
+-> Size is calculated based on the elements that we have in our arraylist 
+-> Hence if you try to insert elements which is greater than size of arrayList we will get: array Index out of bounds exception 
+
+
+e) Inserting at end of arraylist eg: add(10) 
+
+
+Time complexity: O(1) 
+Space Complexity: O(1)
+
+f) Inserting at specific position in array list 
+eg: add(2,25) 
+
+Time complexity: O(N) 
+-> Because all elements will be shifted one position to the right upon insertion 
+Space Complexity: Amortized O(1)
+
+-> Amortized because of array resizing 
+
+
+
+15) Accessing elements in ArrayList 
+a) We can use: get(index) 
+
+b) 
+
+Time complexity: O(1) 
+Space Complexity: O(1)
+
+
+16) Traversal of ArrayList
+a) Traversal means starting from first element, reach each element one by one 
+b) Traversal in java can be done via: 
+1) for loop 
+for(int i=0;i<arrayList.size(); i++)
+{
+System.out.println("arrayList.get(i);
+}
+
+Time complexity: O(N) 
+Space Complexity: O(1)
+
+2) for each loop
+
+for(String letter:stringList)
+{
+System.out.println(letter); 
+}
+
+Time complexity: O(N) 
+Space Complexity: O(1)
+
+3) Iterator 
+
+Iterator<String> iterator = stringList.iterator();
+while(iterator.hasNext())
+{
+String letter = iterator.next();
+System.out.println(letter);
+}
+
+Time complexity: O(N) 
+Space Complexity: O(1)
+
+16) Search for an Element in ArrayList 
+a) Several ways to search an element in ArrayList, but all of them are based on concept of visiting each element and checking if the element exists or not. 
+b) Method1: Search if particular element is there using equals and for loop and break 
+
+eg: 
+for(String letter: stringList)
+{
+if(letter.equals("F"))
+{
+System.out.println("The element is found");
+break; 
+}
+}
+
+c) Method2: use "indexOf" 
+-> indexOf searches for the first occurence of the element and returns its index . If element is not found, returned value will be -1 
+
+
+int index = stringList.indexOf("C");
+System.out.println("The element is present at index:"+index); 
+
+Time Complexity: O(N) 
+Space Complexity:O(1) 
+
+
+17) Delete an Element for ArrayList 
+a) Two common methods :
+-> remove method with parameter of index
+-> remove method with parameter of object 
+    -> removes first occurence of that object 
+	
+Time Complexity: O(N) 
+Space Complexity:O(1) 	
+
+
+18) Linked List: 
+-> Linked list is a form of sequential collection and it does not have to be in order. 
+-> A Linked list is made up of independent nodes that may contain any type of data and each node has a reference to the next node in the link. 
+
+a) Linked list resembles a train 
+-> Like a linked list, train is composed of nodes which are cars and there is a link between the cars 
+-> Linked List(Nodes) Vs Train(Cars)
+-> Like Train contains Head and Tail/ Linked list also contains Head and tail 
+-> In train Engine is head and last car is the tail of this train 
+-> All cars in train are INDEPENDENT - it means that if we dont need a compartment, we can always remove it and add new one and the train is still going to work 
+-> We can enter any of these cars in a sequential manner which means that while train is going, we cannot jump from first car to the last car. 
+
+-> Each element consists of TWO PARTS: DATA AND LINK to the next node. Similarly in train we can see that each car has passengers and link to the next car. 
+
+b) Thus train satisfies all properties of linked list 
+
+c) Properties where train and linked list are not similar 
+-> While in train, cars are contiguous i.e they are next to each other. But the linked list in memory is not contiguous. 
+
+-> THe last node of linked list is called tail, because the pointer is null.  There is no link to other nodes from this node. 
+
+d) Summary:
+-> Linked lists contains three parts a) Head b) Nodes c) Tail 
+-> First component of the linked list is head, which has reference to the first node in the linked list 
+
+Components of Linked List: 
+
+HEAD: 
+e) Why do we need HEAD in linked list:
+-> If head is not there, we will not know where the linked list starts.  Thus if we dont know where the linked list starts, how can we access the linked list's elements. 
+-> Thus head is mandatory for locating a  linked list. 
+
+NODES
+f) Nodes:
+-> Nodes consists of two parts. In first part, we have value of node. and in Second part, we have reference to the next node. 
+---> Reference is nothing but the physical location. First node contains physical location of second node in it. 
+-> Data in nodes can be of any data type. It can be Integers, String or anything 
+-> Data type of reference is basically physical location of the nodes in the RAM 
+
+
+TAIL:
+g) Tail is the last component of linked list 
+-> Here we store the value in last node and physical location of last node is null 
+
+Why do we need tail:
+-> When we want to store element to the end of linked list: without tail we need to traverse all these nodes, come to the last node and insert a node over there. This operation will take O(n) complexity 
+-> If we know the last element's address, we can increase the efficiency of inserting an element at the end of linked list. 
+-> But tail in linked list is not mandatory. It is just for increasing the efficiency of linked list. 
+
+19) Linked List Vs Array
+a) Arrays technically allows you to do all the things linked list do such as Addition, insertion and removal 
+
+In that case why do we need linked list if there are arrays:
+b) 
+Independent Object
+1) Each element of linked list is an independent object. So we can delete an object or node from the linked list 
+-> But in case of Array, the cells are not separate objects. So we cannot delete the  from the array. We can delete the value of cell, but the cell itself still exists in memory
+
+Variable Size 
+2) In linked list, the size is not predefined.  We can decrease and increase the number of nodes in linked list. 
+-> In case array, we need to declare the size of array in memory. Once array size is defined, we cannot increase or decrease the size of array, which is a limitation 
+
+Random Access
+3) In linked list, to access the element, we need to iterate through the elements that are located before this element. We need to start from head and iterate elements one by one.  This is a limitation and has O(n) complexity 
+-> Accessing an element in case of Array is very efficient. Accessing an element has O(1) time complexity 
+
+
+c) Hence Arrays are preferred for small data sets and data sets which are not shifted so often 
+
+
+
+20) Types of Linked List:
+a) There are 4 types of linked list 
+-> Singly linked list 
+-> Circular singly linked list 
+-> Doubly linked list 
+-> Circular Doubly linked list 
+
+
+a.1 ) Singly Linked List:
+-> Simplest form of linked list. 
+-> Each node in the list stores the value and reference to the next node in the list 
+-> It does not have any reference to the previous node. 
+
+-> This means that from the current node we cant go to the previous node. We can only go to the next node in the list 
+
+-> Last node's reference is always null in case of Singly Linked List 
+
+a.2) Circular Singly linked list: 
+-> Circular linked list is same as Singly linked list, Except that Last node in circular linked list has reference to the first node. 
+--> While in case of singly linked list, last node references to null. 
+
+-> Thus in Circular singly linked list, when we reach the last node, there is an option of going back to First node, which is not possibly in singly linked list. 
+-> The name circular comes from the point that, last node points to the first node 
+
+When do we need Circular Singly linked list:
+-> Consider we have a 4 player chess  game and each player plays its turns one by one. When we reach last player, it needs to come to the first player 
+-> This problem can be solved by Circular singly linked list. 
+
+
+a.3) Doubly Linked list:
+-> Doubly linked list also resembles a singly linked list, but the difference is that, we have references from each node to both previous node and to the next node. 
+
+-> In this case there are 45 types of nodes:
+
+---> Head will contain reference to only the next node and no data
+---> while First node will have 3 things: i) Reference to previous node which is null ii) Data iii) Reference to data of next node 
+---> While second node will have also have 3 things: i) Reference to previous node ii) Data iii) Reference to data of Next node 
+---> Last node will have 3 things : i) Reference to previous node ii) Data iii) Reference to data of next node which is null. 
+---> Tail will contain reference to the previous node and no data 
+
+Singly Linked List Vs Doubly Linked List:
+-> In case of Doubly linked list, we have references in both directions : Previous node/Next node 
+-> In case of Singly linked list, we have reference in only one direction: Next node 
+
+
+
+Why do we need reference to the previous node:
+-> Lets assume we are in 3rd node. In case of singly linked list, we can only traverse to the next node i.e only in one direction . But in case of double linked list we can travel in both directions  
+
+
+When do we need Doubly linked list:
+-> Suppose we want to implement a music player in which we want to go to previous song  from current song and also to the next song from the current song, we can use Doubly linked list 
+
+a.4) Circular Doubly Linked List:
+-> Doubly Linked list and Circular linked list are similar. Only difference is that in the first node we have previous node's reference as last node's reference and in the last node we have  next node reference as first node's reference. 
+
+-> While in double linked list, first node's previous reference was null and last nodes's next reference is null 
+
+When do we need Circular Doubly linked list: 
+-> This gives us flexibility of traversing from first node to the last node and from last node to the first node , which cannot be achieved via Doubly linked list 
+
+Where do we use Circular Doubly linked list:
+-> We need this list, when we want to loop through the list indefinitely backward and forward. 
+--> In windows we have Alt+Tab and Alt+Shift+Tab through which we can traverse both in forward and backward directions 
+
+
+21) Linked List in the Memory 
+We know that In case of Arrays, array elements are stored in memory in a contiguous manner i.e next to each other. This makes accessibility of arrays easier and efficient. 
+
+a) How is linked List represented in memory:
+-> In linked list nodes are not located contiguously 
+--> Thus location of nodes in Linked list is random in memory 
+
+a.1) Random allocation of node elements allow us to insert as many nodes required because the size of linked list, need not be specified at the time of declaration 
+-> Thus it allows dynamic sizing during runtime 
+
+a.2) Because of random allocation of node elements in memory, we cannot access any element directly. Hence we need to traverse from the first element to find the required element. 
+
+
+
+22) Creation of Singly linked list :
+a) 
+i)		Create Head reference, Tail reference,Initialize both of them with null 
+-> We know in linked list, Head always points to first node and tail always points to the last node. 
+-> Right now, we dont have any node to be pointed, hence reference of head and tail are null here. 
+
+Head:     Head | 111
+ 
+          Tail | Empty 
+
+ii) 	Create a blank data node and assign a value to it and reference part to null 
+-> By making reference part to null, we are indicating that there is no other node in the list 
+iii) 	Initialize data part of the node 
+-> Consider a node whose value is 1 and physical location of node is 111 and we have et next reference of this node to null 
+
+eg node:     1 | null 
+              111 
+			  
+iii) 	Link Head and Tail with these nodes
+-> Update Head with its next reference pointing to the data node: 111 
+-> Since tail has to point to Last node, Hence tail also will reference to  
+
+
+
+Head | 111  ----------------
+							|
+							|
+							|
+						 1 | null 
+                            111 	
+							|
+							|
+							|
+Tail | 111 ------------------
+
+
+b) Thus there are three steps to create a singly linked list 
+c) Singly linked list in java 
+-> We will have 3 classes. Main.java, Node.java and SinglyLinkedList.java 
+-> In SinglyLinkedList class, we will be implementing all operations of SinglyLinkedList class 
+d) First step in creating SinglyLinkedList is to create Head and Tail reference, but before creating head and tail references, we need to hava a class which will have all node properties 
+e) Hence before going to first step of creating head and tail reference, we will create a node class which will have value and next reference 
+
+e.1) 
+-> Here we are going to store integer value, hence int 
+-> nextReference  will be of type Node, because this reference will be pointing to next node. 
+
+public class Node{
+public int value;
+public Node next; 
+}
+
+f) So after creating Node class, we will implementing SinglyLinkedList class 
+-> Inside SinglyLinkedList class, we will implement all operations related to SinglyLinkedList 
+
+f.1) Create Head and Tail properties which will be of type Node. 
+f.2) We will create another property:size which helps to implement some features in future. 
+-> Whenever we add a node to SinglyLinkedList we will increase the size. THus by using size we will know, how many nodes we will have in our singly linked list. 
+
+public class SinglyLinkedList
+{
+public Node head;
+public Node tail; 
+public int size; 
+}
+
+f.3) We will create a method which will create SinglyLinkedList , its return type will be Node  since we will always return head reference after creating SinglyLinkedList
+-> As a parameter, it will take integer because our node data value will be of type integer 
+-> We will create one node for head 
+-> Then we will create another Node for Data node and set its nextReference to null , because we have only one node in this SinglyLinkedList . The value of this node will be set to Value, that we are getting from this parameter passed for this method. 
+f.4) Then we will reference head and tail to this data node 
+f.5) At the end we will set the size to 1, because we have only one in our SinglyLinkedList  
+f.6) At the end will return the head reference 
+f.7) Thus by using this method, we can create linked list 
+
+
+public class SinglyLinkedList
+{
+public Node head;
+public Node tail; 
+public int size; 
+
+..
+public Node createSinglyLinkedList(int nodeValue)
+{
+head = new Node();
+Node node= new Node(); 
+node.next=null; 
+node.value =nodeValue;
+head= node;
+tail = node;
+size=1;
+return head; 
+
+}
+
+..
+}
+
+g) Now we will go to Main class and create SinglyLinkedList  
+g.1) Create an instance of SinglyLinkedList  
+
+
+Class Main{
+
+public static void main(String[] args)
+{
+SinglyLinkedList sLL= new SinglyLinkedList();
+sLL.createSinglyLinkedList(5);
+System.out.println(sLL.head.value); 
+}
+
+}
+
+g.2) To check if SinglyLinkedList is created or not , we will print to console, the value of head. 
+
+h) Time complexity of SinglyLinkedList is O(1) 
+Space complexity of SinglyLinkedList is O(1) 
+
+23) Insertion in Singly Linked List in memory:
+-> In this lesson, we will learn how to insert a node to Singly linked list and how it reflects in memory 
+
+a) There are three ways to insert a new node in an existing singly linked list. 
+
+1) At beginning of linked list 
+2) After a node in middle of linked list 
+3) At the end of linked list 
+
+
+b) Inserting a node at the beginning of Linked list:
+
+[Head|1]-->[1|111]--->[2|222]-->[4|333]-->[5|null]
+
+
+Memory: 
+-------------------------------------------------|
+												 |
+                                                 |
+5<-----4<-----2<-------------1----Head           |
+                                                 |
+                                                 |
+-------------------------------------------------
+
+b.1) If we want to insert a new node of zero at the begiining of a singly linked list 
+
+
+	     |-----------[0|]
+		 |
+         |
+[Head|1]-->[1|111]--->[2|222]-->[4|333]-->[5|null]
+
+
+Memory: 
+----------------------------------------------------|
+							 	                    |
+                                                    |
+							                        |
+5<-----4<-----2<------------- 1-----[0]<----Head    |
+                                                    |
+                                                    |
+-----------------------------------------------------
+b.2) First thing we are going to do is allocating a random memory in the heap for new mode. 
+b.3) Then the address of first node of linked list is assigned as next pointer of newly created node  
+-> Thus the next pointer of zero will be first node of linked list 
+b.4) Then we assign address of this newly created node to head  and thus connection between head and first node will be broken. 
+-> Thus reference of head will be of the newly created 0 node. 
+
+
+c) Inserting an element in the middle of Linked list:
+c.1) In the below linked list, we want to add new node of 3 to this linked list after two . 
+-> As the data in linked list is not stored in contiguous format,we need to traverse from head to find the given noder here.  
+
+
+
+
+
+Memory: 
+----------------------------------------------------|
+							 	                    |
+                                                    |
+							                        |
+5<-----4<-----2<------------- 1<-----Head           |
+                                                    |
+                                                    |
+-----------------------------------------------------
+
+
+                              ---------[3|Empty]
+                              |
+                              |
+[Head|1]-->[1|111]--->[2|222]-->[4|333]-->[5|null]
+
+
+
+c.2) Hence to insert the element between 2 and 4, we need to start from the head,traverse to the element and then insert the element 3 at this position 
+c.3) After traversing and reaching the node, we need to allocate a random location for this new node and make the next node of the current node as new node. 
+-> Thus in our case, next node of 2 will be newly created node. 
+c.4) Thus next node of newly created node will be next node i.e 4 
+With this insertion of element in middle of linked list is completed. 
+
+
+d) Inserting an element at the end of the linked list 
+d.1) To insert an element at the end of linked list i.e at position 5, we need to traverse from first element, till the end of this list. 
+
+
+
+Memory: 
+----------------------------------------------------|
+							 	                    |
+                                                    |
+							                        |
+5<-----4<-----2<------------- 1<-----Head           |
+                                                    |
+                                                    |
+-----------------------------------------------------
+
+d.2) After we reach the last element, we allocate a location in memory for this new element 
+d.3) Then update the next reference of last node to this new node and then tail reference is updated to the newly created node. 
+d.4) With this we are adding a new node at the end of linked list. 
+
+e) Of the three ways, add element to beginning of linked list, is the most efficient way   to insert element in linked list , because relinking and traversing is not needed in this case. 
+-> Adding an element at the end of linked list is time consuming, because we have to traverse through all elements of linked list and then update reference of last element. 
+
+
+
+
+
+
+24) Insertion Algorithm in Singly Linked List: 
+-> In previous video, we learnt that there are three ways of inserting a node in Linked list. :
+
+  Inserting node in the beginning 
+  Inserting node at the beginning of linked list 
+  Inserting node after a particular node 
+  
+a) In this lesson we will combine all these three types of insertion in one algorithm to make it easier 
+
+
+b) Algorithm for insertion in linked list 
+
+b.1) Algorithm starts here: We start creating a method which takes two parameters: Node value and Location 
+-> Node value is the value of node that we want to insert into this singly linked list. 
+-> Location is where we want to insert this newly created node in our singly linked list
+
+-> Thus the first step is creating a new node and assigning value whose values comes from the method's parameter
+b.2) In the next step, we are checking if head is equal to null or not. 
+If head is null - it means that we dont have any node in our linked list. So we are adding our first node to this singly linked list by referencing head and tail to this node. 
+
+b.3) If head is not null, we will go the next step, in which we will check location . THe location parameter comes from the parameter we passed to method in step b.1 
+b.4) Thus if we are inserting a node at the beginning of linked list, we will continue : where we update the next reference of newly created node to head and head to node. 
+-> What it means: we know that the next reference of the node that we created is empty now. So we assign the value of head to it, which is physical location of node1 in our singly linked list. 
+

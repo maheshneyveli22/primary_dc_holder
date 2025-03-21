@@ -1,0 +1,13 @@
+To see how a table is related to other tables through Foreign Keys:
+
+Locate the table in the Databases tab tree,
+Double-click the node to open its Object View tab,
+Select the References sub tab,
+Select Imported Keys from the drop-down list in the toolbar to see tables referenced by foreign keys in this table,
+Select Exported Keys from the drop-down list to see tables referencing this table by foreign keys.
+
+1) Shortcuts
+CTRL+SHIFT+B for comment uncomment of blocks
+CTRL+SHIFT+R for comment uncomment of particular line
+
+

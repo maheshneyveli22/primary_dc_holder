@@ -1,0 +1,260 @@
+public class SingletonApi
+{  
+private static SingletonApi singletonInstance;
+
+private SingletonApi()
+{
+
+}
+
+public static SingletonApi getInstance()
+{
+
+if(singletonInstance==null)
+singletonInstance= new SingletonApi()
+
+return singletonInstance;
+}
+
+}
+
+Class A
+{
+main(String args[])
+{
+SingletonApi obj1=SingletonApi.getInstance();
+SingletonApi obj2=SingletonApi.getInstance();
+SingletonApi obj3=  obj2.clone();
+if(obj2.hashCode==obj3.hashCode()
+}
+}
+
+
+int[] intArray = {1,2,3,4,5,6,7,8,9,11}
+
+int n=8;
+
+int getIndex(int[] intArray,int n)
+{ 
+int indexValue=-1
+for(int i=0;i<intArray.length():i++)
+{
+if(intarr[i]==n)
+{
+indexValue=i;
+break;
+}
+}
+return indexValue;
+}
+
+}
+
+
+
+######Questions###########
+
+1) solid principles:
+https://www.javatpoint.com/solid-principles-java
+
+a) Single Responsibility Principle - Every Java class must perform a single functionality.
+b) Open-Closed Principle  -  the module should be open for extension but closed for modification. 
+c) Liskov Substitution Principle -  derived classes must be completely substitutable for their base classes 
+d) Interface Segregation Principle - The principle states that the larger interfaces split into smaller ones. 
+e) Dependency Inversion Principle - The principle states that we must use abstraction (abstract classes and interfaces) instead of concrete implementations.
+
+
+2) performance of db. how will you improve, if no scope from a)query and also from java side and also from hardware side
+Not sure of answer, but below are ways to improve performance:
+i) Optimize Queries
+ii) Improve Indexes
+iii)  Defragment Data
+iv) Increase Memory on host system where db runs
+vi) Strengthen CPU
+Vii) Review Access of applications accessing the DB
+
+3) Array : finding an element in optimized way.
+##################
+public class CheckForElement {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+int arr[]= {2,5,6,10,3,31,400,20};
+int elemenToSearch=31;
+System.out.println(Arrays.toString(arr));
+checkElement(arr,elemenToSearch);
+
+	}
+
+	private static void checkElement(int[] arr, int elemenToSearch) {
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        boolean result=Arrays.binarySearch(arr, elemenToSearch)>=0? true:false;
+        System.out.println(result);
+		
+	}
+
+}
+##################
+4) What is there in jwt token method? 
+#For creating token
+a) After successfulAuthentication of username/pwd below method will be called and  jwt token will be created based on userdetails
+
+@Override
+protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException{
+
+String userName=((user)auth.getPrincipal()).getUserName();
+
+UserDto userDetails=userService.getUserDetailsByEmail(userName);
+
+//user userdetails data to generate json web token
+//Here subject is used to generate jwt token
+
+String token =
+Jwts.builder()
+.setSubject(userDetails.getUserId())
+.setExpiration(new Date(System.currentTimeMillis()+ Long.parseLong(environment("token.expirationtime")
+.signWith(algorithm, secretTokenString)
+.compact());
+
+//adding token to response header
+res.addHeader("token",token);
+res.addHeader("userId", userDetails.getUserId());
+
+}
+
+
+
+
+#For validation
+String subject=Jwts.parser().setSigningKey(env.getProperty("token.secret").parseClaimJws(jwtTokenString).getBody().getSubject();
+if(subject==null }} subject.isEmpty())
+{
+return false;
+}
+else return true; 
+
+
+5) Security implementation in microservices
+6) clone method program
+7) Out of Memory error - how to avoid
+a) Stack:
+-> order of method execution is stored
+-> Local variables are stored
+-> While object is stored in java, The reference of the object is created in the stack. 
+
+b) Heap:
+-> Objects are stored in heap  
+-> The stack memory is a physical space (in RAM) allocated to each thread at run time. 
+-> It is created when a thread creates. Memory management in the stack follows LIFO (Last-In-First-Out) order because it is accessible globally. 
+-> It stores the variables, references to objects, and partial results. 
+-> Memory allocated to stack lives until the function returns. 
+-> If there is no space for creating the new objects, it throws the java.lang.StackOverFlowError. 
+-> The scope of the elements is limited to their threads. The JVM creates a separate stack for each thread.
+
+
+8) Scopes of bean
+9) life cycle of bean
+10) Prototype when will you use?
+11) Concurrent hashmap
+12) permgen memory space in java 8 and metaspace in java8:
+https://www.geeksforgeeks.org/metaspace-in-java-8-with-examples/
+13) ConcurrentHashMap compute(), forEach(), forEachEntry(), forEachKey(), forEachValue(), merge(), reduce() and search() methods.
+a) ConcurrentHashMap implements ConcurrentMap as well as to Serializable interface  
+b) ConcurrentHashMap is an enhancement of HashMap as we know that while dealing with Threads in our application HashMap is not a good choice because performance-wise HashMap is not up to the mark.
+c) The underlined data structure for ConcurrentHashMap is Hashtable.
+ConcurrentHashMap class is thread-safe i.e. multiple threads can operate on a single object without any complications.
+d) At a time any number of threads are applicable for a read operation without locking the ConcurrentHashMap object which is not there in HashMap.
+e) In ConcurrentHashMap, the Object is divided into a number of segments according to the concurrency level.
+f) The default concurrency-level of ConcurrentHashMap is 16.
+g) In ConcurrentHashMap, at a time any number of threads can perform retrieval operation but for updated in the object, the thread must lock the particular segment in which the thread wants to operate. This type of locking mechanism is known as Segment locking or bucket locking. h) h) Hence at a time, 16 update operations can be performed by threads.
+i) Inserting null objects is not possible in ConcurrentHashMap as a key or value.
+j) Default constructor
+ConcurrentHashMap(): Creates a new, empty map with a default initial capacity (16), load factor (0.75) and concurrencyLevel (16).
+k) To insert objects into a ConcurrentHashMap, we can use put() or putAll() methods.
+l) To remove a mapping, we can use remove(Object key) method of class ConcurrentHashmap. If the key does not exist in the map, then this function does nothing. To clear the entire map, we can use the clear() method. 
+m) We can access the elements of a ConcurrentHashMap using the get() method
+n) We can use the Iterator interface to traverse over any structure of the Collection Framework.
+#############
+/ Create an Iterator over the
+        // ConcurrentHashMap
+        Iterator<ConcurrentHashMap.Entry<Integer, String> >
+            itr = chmap.entrySet().iterator();
+ 
+        // The hasNext() method is used to check if there is
+        // a next element The next() method is used to
+        // retrieve the next element
+        while (itr.hasNext()) {
+            ConcurrentHashMap.Entry<Integer, String> entry
+                = itr.next();
+            System.out.println("Key = " + entry.getKey()
+                               + ", Value = "
+                               + entry.getValue());
+########							   
+
+ConcurrentHashMap<K, V> chm = new ConcurrentHashMap<>();
+14) Java time in java 8
+
+15 Micorservices:
+a) Security in microservices?
+b) Micorservices communication
+c) What is there in jwt token. how to create it?
+d) How to parse jwt token
+e) Where is access key and private key of aws used?
+f) Advantages of microservices?
+g) Kubernetes?
+h) Disadvantages
+
+16) How to create custom java annotation
+i) 
+a) The first step toward creating a custom annotation is to declare it using the @interface keyword:
+public @interface JsonSerializable {
+}
+b) The next step is to add meta-annotations to specify the scope and the target of our custom annotation:
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.Type)
+public @interface JsonSerializable {
+}
+
+ii) Field level annotation:
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface JsonElement {
+    public String key() default "";
+}
+
+iii) Method level annotation:
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Init {
+}
+
+iv) Applying annotations:
+@JsonSerializable
+public class Person {
+
+    @JsonElement
+    private String firstName;
+
+    @JsonElement
+    private String lastName;
+
+    @JsonElement(key = "personAge")
+    private String age;
+
+    private String address;
+
+    @Init
+    private void initNames() {
+        this.firstName = this.firstName.substring(0, 1).toUpperCase() 
+          + this.firstName.substring(1);
+        this.lastName = this.lastName.substring(0, 1).toUpperCase() 
+          + this.lastName.substring(1);
+    }
+
+    // Standard getters and setters
+} 
+#####################################
+
