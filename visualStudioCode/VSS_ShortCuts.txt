@@ -1,0 +1,4 @@
+1) CTRL+P -> Open particular file
+2) CTRL+SHIFT+F -> search all files
+3) CTRL+F ->Search in a file 
+4) CTRL+SHIFT+ O -> List all methods in a file 

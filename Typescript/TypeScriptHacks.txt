@@ -1,0 +1,89 @@
+1) To allowJS and to enable checkJs that is compilation error
+
+{
+"compilerOptions":
+{
+"allowJs":true,
+"checkJs":true,
+"outDir":"build",
+"target":"esnext",
+"noEmit":true
+
+},
+"include":["src/**/*"]
+}
+
+
+2) To make JS recognise type, add comments
+-> this is a jdoc technique to tell typescript about javascript code, without converting js to ts file 
+
+
+
+/**
+*
+* @param {number} contactId
+* @returns
+*/
+
+
+3) To view the npm global packages list and their dependencies, you can run the following npm list command followed by the “-g” flag where g stands for global.
+
+##
+PS C:\ExpoNow\booking-ui> npm list -g
+C:\Users\gs1-maheswarane\AppData\Roaming\npm
+└── @angular/cli@15.1.5
+##
+
+4) 
+To see the list of npm global packages without displaying their dependencies, you can simply hit the below command from the command line terminal.
+
+npm list -g --depth=0
+
+###
+
+PS C:\ExpoNow\booking-ui> npm list -g --depth=0
+C:\Users\gs1-maheswarane\AppData\Roaming\npm
+└── @angular/cli@15.1.5
+###
+
+5)  To check if the particular package is installed globally or not, you can hit the below-mentioned “npm list -g” command followed by the package name that you want to check.
+
+npm list -g express
+
+####
+PS C:\ExpoNow\booking-ui> npm list -g express
+C:\Users\gs1-maheswarane\AppData\Roaming\npm
+└── (empty)
+###
+
+
+6) type can be checked using the typeof keyword:
+
+eg: 
+#####
+if(typeof contact.birthDate =="number")
+{
+return new Date(contact.birthDate);
+}
+else if(typeof contact.birthDate =="string")
+{
+return new Date.parse(contact.birthDate);
+}
+#####
+
+7) In generics if we use extends in constraints
+-> then ts just checks if fields match and not checks the type 
+
+8) In interface if use extends, whatever fields extended will come to the subinterface
+-> Here Contact will have all fields of Address
+
+eg: 
+
+interace Contact extends Address
+{
+id:number;
+name: contactName;
+birthDate?:contactBirthDate;
+status?:contactStatus;
+}
+
