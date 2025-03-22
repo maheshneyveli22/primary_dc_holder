@@ -1,0 +1,24 @@
+/booking/61524651/documents:1 Access to XMLHttpRequest at 'https://go2expo-api.expeditors.com/api/booking/booking/document-upload' 
+from origin 'https://go2expo.expeditors.com' has been blocked by CORS policy:
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+{
+    "headers": {
+        "normalizedNames": {},
+        "lazyUpdate": null
+    },
+    "status": 500,
+    "statusText": "OK",
+    "url": "https://go2expo-api.expeditors.com/api/platform/uiErrors",
+    "ok": false,
+    "name": "HttpErrorResponse",
+    "message": "Http failure response for https://go2expo-api.expeditors.com/api/platform/uiErrors: 500 OK",
+    "error": {
+        "details": "",
+        "code": "EXP000",
+        "message": "The request failed because the server state was inoperable and may require intervention."
+    }
+}
+
+
+
+https://expeditorsintl.sharepoint.com/:w:/r/sites/EXPONOWbooking/_layouts/15/Doc.aspx?sourcedoc=%7BE60C92E8-8374-41A3-BB67-E55B5E7F292D%7D&file=975749%20Token%20Refresh%20Analysis.docx&action=default&mobileredirect=true

@@ -1,0 +1,62 @@
+https://expd-is.visualstudio.com/IS/_workitems/edit/933801
+
+
+1) https://stackoverflow.com/questions/75864716/opening-circuit-breaker-based-on-the-response-status-with-nodejs-opossum
+
+2) https://betterprogramming.pub/monitor-node-js-circuit-breakers-using-opossum-and-prometheus-5c66d516de3d
+
+3) https://nodeshift.dev/opossum/
+
+4) https://www.munonye.com/microservices/hystrix-circuit-breaker-step-by-step-configuration-with-feign-client-part-3-angular-ui-app/
+-> Angular UI 
+
+5) https://www.munonye.com/microservices/hystrix-circuit-breaker-step-by-step-configuration-with-feign-client-part-1/
+
+
+6) https://blog.bitsrc.io/circuit-breaker-pattern-in-microservices-26bf6e5b21ff
+
+
+
+7) Circuit Breakers based on UI: 
+opossum -> node js
+https://nodeshift.dev/opossum/
+
+https://medium.com/@sagargupta138/opossum-for-circuit-breakers-for-your-nodejs-systems-5a0893c83e2a
+
+Looks good
+https://developers.redhat.com/blog/2021/04/15/fail-fast-with-opossum-circuit-breaker-in-node-js
+
+
+Others:
+https://blog.logrocket.com/use-circuit-breaker-node-js/#:~:text=Let's%20take%20a%20look%3A,fire()%20.
+
+Typescript:
+https://www.npmjs.com/package/circuit-breaker-js
+https://www.npmjs.com/package/@fastify/circuit-breaker
+
+https://github.com/delvedor/easy-breaker
+
+8) wrapping soap with hysterix:
+https://stackoverflow.com/questions/60007851/wrap-a-soap-call-webservicegatewaysupport-with-hystrix
+
+9) Guide:
+https://www.baeldung.com/spring-cloud-circuit-breaker
+https://github.com/eugenp/tutorials/tree/master/spring-cloud-modules/spring-cloud-circuit-breaker
+
+10) https://www.youtube.com/watch?v=3-ChrD3Zosg circuit breaker 
+https://github.com/TechPrimers/resilience4j-circuitbreaker
+
+
+
+11) Spring Cloud circuit breaker:
+
+https://spring.io/projects/spring-cloud-circuitbreaker
+
+12) 
+https://www.java67.com/2023/04/what-is-circuit-breaker-design-pattern.html
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+1) Projects :
+a) Basic springboot 3 + crud -> https://www.javainuse.com/boot3/db/1
+
+https://www.youtube.com/watch?v=yiLIrGtH4Yg&ab_channel=JavaInUse
+
+b) Spring boot3+ jwt 
+
+https://www.javainuse.com/boot3/sec/7
+
+https://www.youtube.com/watch?v=n6AGlSLTXLA&t=309s&ab_channel=JavaInUse

@@ -1,0 +1,174 @@
+he Spring security filter chain is a very complex and flexible engine.
+
+Key filters in the chain are (in the order)
+
+SecurityContextPersistenceFilter (restores Authentication from JSESSIONID)
+UsernamePasswordAuthenticationFilter (performs authentication)
+ExceptionTranslationFilter (catch security exceptions from FilterSecurityInterceptor)
+FilterSecurityInterceptor (may throw authentication and authorization exceptions)
+Looking at the current stable release 4.2.1 documentation, section 13.3 Filter Ordering you could see the whole filter chain's filter organization:
+
+13.3 Filter Ordering
+
+The order that filters are defined in the chain is very important. Irrespective of which filters you are actually using, the order should be as follows:
+
+ChannelProcessingFilter, because it might need to redirect to a different protocol
+
+SecurityContextPersistenceFilter, so a SecurityContext can be set up in the SecurityContextHolder at the beginning of a web request, and any changes to the SecurityContext can be copied to the HttpSession when the web request ends (ready for use with the next web request)
+
+ConcurrentSessionFilter, because it uses the SecurityContextHolder functionality and needs to update the SessionRegistry to reflect ongoing requests from the principal
+
+Authentication processing mechanisms - UsernamePasswordAuthenticationFilter, CasAuthenticationFilter, BasicAuthenticationFilter etc - so that the SecurityContextHolder can be modified to contain a valid Authentication request token
+
+The SecurityContextHolderAwareRequestFilter, if you are using it to install a Spring Security aware HttpServletRequestWrapper into your servlet container
+
+The JaasApiIntegrationFilter, if a JaasAuthenticationToken is in the SecurityContextHolder this will process the FilterChain as the Subject in the JaasAuthenticationToken
+
+RememberMeAuthenticationFilter, so that if no earlier authentication processing mechanism updated the SecurityContextHolder, and the request presents a cookie that enables remember-me services to take place, a suitable remembered Authentication object will be put there
+
+AnonymousAuthenticationFilter, so that if no earlier authentication processing mechanism updated the SecurityContextHolder, an anonymous Authentication object will be put there
+
+ExceptionTranslationFilter, to catch any Spring Security exceptions so that either an HTTP error response can be returned or an appropriate AuthenticationEntryPoint can be launched
+
+FilterSecurityInterceptor, to protect web URIs and raise exceptions when access is denied
+
+Now, I'll try to go on by your questions one by one:
+
+I'm confused how these filters are used. Is it that for the spring provided form-login, UsernamePasswordAuthenticationFilter is only used for /login, and latter filters are not? Does the form-login namespace element auto-configure these filters? Does every request (authenticated or not) reach FilterSecurityInterceptor for non-login url?
+
+Once you are configuring a <security-http> section, for each one you must at least provide one authentication mechanism. This must be one of the filters which match group 4 in the 13.3 Filter Ordering section from the Spring Security documentation I've just referenced.
+
+This is the minimum valid security:http element which can be configured:
+
+<security:http authentication-manager-ref="mainAuthenticationManager" 
+               entry-point-ref="serviceAccessDeniedHandler">
+    <security:intercept-url pattern="/sectest/zone1/**" access="hasRole('ROLE_ADMIN')"/>
+</security:http>
+Just doing it, these filters are configured in the filter chain proxy:
+
+{
+        "1": "org.springframework.security.web.context.SecurityContextPersistenceFilter",
+        "2": "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter",
+        "3": "org.springframework.security.web.header.HeaderWriterFilter",
+        "4": "org.springframework.security.web.csrf.CsrfFilter",
+        "5": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter",
+        "6": "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+        "7": "org.springframework.security.web.authentication.AnonymousAuthenticationFilter",
+        "8": "org.springframework.security.web.session.SessionManagementFilter",
+        "9": "org.springframework.security.web.access.ExceptionTranslationFilter",
+        "10": "org.springframework.security.web.access.intercept.FilterSecurityInterceptor"
+    }
+Note: I get them by creating a simple RestController which @Autowires the FilterChainProxy and returns it's contents:
+
+    @Autowired
+    private FilterChainProxy filterChainProxy;
+
+    @Override
+    @RequestMapping("/filterChain")
+    public @ResponseBody Map<Integer, Map<Integer, String>> getSecurityFilterChainProxy(){
+        return this.getSecurityFilterChainProxy();
+    }
+
+    public Map<Integer, Map<Integer, String>> getSecurityFilterChainProxy(){
+        Map<Integer, Map<Integer, String>> filterChains= new HashMap<Integer, Map<Integer, String>>();
+        int i = 1;
+        for(SecurityFilterChain secfc :  this.filterChainProxy.getFilterChains()){
+            //filters.put(i++, secfc.getClass().getName());
+            Map<Integer, String> filters = new HashMap<Integer, String>();
+            int j = 1;
+            for(Filter filter : secfc.getFilters()){
+                filters.put(j++, filter.getClass().getName());
+            }
+            filterChains.put(i++, filters);
+        }
+        return filterChains;
+    }
+Here we could see that just by declaring the <security:http> element with one minimum configuration, all the default filters are included, but none of them is of a Authentication type (4th group in 13.3 Filter Ordering section). So it actually means that just by declaring the security:http element, the SecurityContextPersistenceFilter, the ExceptionTranslationFilter and the FilterSecurityInterceptor are auto-configured.
+
+In fact, one authentication processing mechanism should be configured, and even security namespace beans processing claims for that, throwing an error during startup, but it can be bypassed adding an entry-point-ref attribute in <http:security>
+
+If I add a basic <form-login> to the configuration, this way:
+
+<security:http authentication-manager-ref="mainAuthenticationManager">
+    <security:intercept-url pattern="/sectest/zone1/**" access="hasRole('ROLE_ADMIN')"/>
+    <security:form-login />
+</security:http>
+Now, the filterChain will be like this:
+
+{
+        "1": "org.springframework.security.web.context.SecurityContextPersistenceFilter",
+        "2": "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter",
+        "3": "org.springframework.security.web.header.HeaderWriterFilter",
+        "4": "org.springframework.security.web.csrf.CsrfFilter",
+        "5": "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter",
+        "6": "org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter",
+        "7": "org.springframework.security.web.savedrequest.RequestCacheAwareFilter",
+        "8": "org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter",
+        "9": "org.springframework.security.web.authentication.AnonymousAuthenticationFilter",
+        "10": "org.springframework.security.web.session.SessionManagementFilter",
+        "11": "org.springframework.security.web.access.ExceptionTranslationFilter",
+        "12": "org.springframework.security.web.access.intercept.FilterSecurityInterceptor"
+    }
+Now, this two filters org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter and org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter are created and configured in the FilterChainProxy.
+
+So, now, the questions:
+
+Is it that for the spring provided form-login, UsernamePasswordAuthenticationFilter is only used for /login, and latter filters are not?
+
+Yes, it is used to try to complete a login processing mechanism in case the request matches the UsernamePasswordAuthenticationFilter url. This url can be configured or even changed it's behaviour to match every request.
+
+You could too have more than one Authentication processing mechanisms configured in the same FilterchainProxy (such as HttpBasic, CAS, etc).
+
+Does the form-login namespace element auto-configure these filters?
+
+No, the form-login element configures the UsernamePasswordAUthenticationFilter, and in case you don't provide a login-page url, it also configures the org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter, which ends in a simple autogenerated login page.
+
+The other filters are auto-configured by default just by creating a <security:http> element with no security:"none" attribute.
+
+Does every request (authenticated or not) reach FilterSecurityInterceptor for non-login url?
+
+Every request should reach it, as it is the element which takes care of whether the request has the rights to reach the requested url. But some of the filters processed before might stop the filter chain processing just not calling FilterChain.doFilter(request, response);. For example, a CSRF filter might stop the filter chain processing if the request has not the csrf parameter.
+
+What if I want to secure my REST API with JWT-token, which is retrieved from login? I must configure two namespace configuration http tags, rights? Other one for /login with UsernamePasswordAuthenticationFilter, and another one for REST url's, with custom JwtAuthenticationFilter.
+
+No, you are not forced to do this way. You could declare both UsernamePasswordAuthenticationFilter and the JwtAuthenticationFilter in the same http element, but it depends on the concrete behaviour of each of this filters. Both approaches are possible, and which one to choose finnally depends on own preferences.
+
+Does configuring two http elements create two springSecurityFitlerChains?
+
+Yes, that's true
+
+Is UsernamePasswordAuthenticationFilter turned off by default, until I declare form-login?
+
+Yes, you could see it in the filters raised in each one of the configs I posted
+
+How do I replace SecurityContextPersistenceFilter with one, which will obtain Authentication from existing JWT-token rather than JSESSIONID?
+
+You could avoid SecurityContextPersistenceFilter, just configuring session strategy in <http:element>. Just configure like this:
+
+<security:http create-session="stateless" >
+
+Or, In this case you could overwrite it with another filter, this way inside the <security:http> element:
+
+<security:http ...>  
+   <security:custom-filter ref="myCustomFilter" position="SECURITY_CONTEXT_FILTER"/>    
+</security:http>
+<beans:bean id="myCustomFilter" class="com.xyz.myFilter" />
+EDIT:
+
+One question about "You could too have more than one Authentication processing mechanisms configured in the same FilterchainProxy". Will the latter overwrite the authentication performed by first one, if declaring multiple (Spring implementation) authentication filters? How this relates to having multiple authentication providers?
+
+This finally depends on the implementation of each filter itself, but it's true the fact that the latter authentication filters at least are able to overwrite any prior authentication eventually made by preceding filters.
+
+But this won't necesarily happen. I have some production cases in secured REST services where I use a kind of authorization token which can be provided both as a Http header or inside the request body. So I configure two filters which recover that token, in one case from the Http Header and the other from the request body of the own rest request. It's true the fact that if one http request provides that authentication token both as Http header and inside the request body, both filters will try to execute the authentication mechanism delegating it to the manager, but it could be easily avoided simply checking if the request is already authenticated just at the begining of the doFilter() method of each filter.
+
+Having more than one authentication filter is related to having more than one authentication providers, but don't force it. In the case I exposed before, I have two authentication filter but I only have one authentication provider, as both of the filters create the same type of Authentication object so in both cases the authentication manager delegates it to the same provider.
+
+And opposite to this, I too have a scenario where I publish just one UsernamePasswordAuthenticationFilter but the user credentials both can be contained in DB or LDAP, so I have two UsernamePasswordAuthenticationToken supporting providers, and the AuthenticationManager delegates any authentication attempt from the filter to the providers secuentially to validate the credentials.
+
+So, I think it's clear that neither the amount of authentication filters determine the amount of authentication providers nor the amount of provider determine the amount of filters.
+
+Also, documentation states SecurityContextPersistenceFilter is responsible of cleaning the SecurityContext, which is important due thread pooling. If I omit it or provide custom implementation, I have to implement the cleaning manually, right? Are there more similar gotcha's when customizing the chain?
+
+I did not look carefully into this filter before, but after your last question I've been checking it's implementation, and as usually in Spring, nearly everything could be configured, extended or overwrited.
+
+The SecurityContextPersistenceFilter delegates in a SecurityContextRepository implementation the search for the SecurityContext. By default, a HttpSessionSecurityContextRepository is used, but this could be changed using one of the constructors of the filter. So it may be better to write an SecurityContextRepository which fits your needs and just configure it in the SecurityContextPersistenceFilter, trusting in it's proved behaviour rather than start making all from scratch.

@@ -1,0 +1,11 @@
+https://howtodoinjava.com/spring-cloud/spring-hystrix-circuit-breaker-tutorial/
+
+
+http://localhost:9098/hystrix.stream
+
+http://localhost:8443/hystrix.stream
+http://localhost:8443/hystrix
+
+http://localhost:8443/actuator/hystrix.stream
+
+public GetOrganizationSummaryResponse getOrganizationSummary(GetOrganizationSummaryRequest in)

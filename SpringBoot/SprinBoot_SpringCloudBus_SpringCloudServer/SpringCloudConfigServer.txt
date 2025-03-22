@@ -1,0 +1,57 @@
+SPRING CLOUD CONFIG SERVER
+1) We need a spring cloud config server, a central place to manage application properties across all environments
+2) Options to store: a) Secure File storage b) Secure vault 3) Private Git repository
+3) External object will be available to application via environment object 
+4) Spring cloud config server is also a spring boot application and it lets our microservices connect via http and retrieve the configuration details 
+5) if you need we can still have configuration kept in application.properties file. 
+-> But if you use spring cloud config server - the configuration that comes from spring cloud config server will have a higher priority
+
+6) Setting our own spring cloud config server 
+a) Create a spring boot application
+b) dependencies: spring-cloud-config-server
+c) configure the application file and enable the application to work as a config server
+d) in Application class, in addition to @SpringBootApplication, add the @EnableConfigServer
+e) Next step is to configure application.properties with application name and server port 
+f) Now the springcloudconfigserver application configuration is done 
+g) Now we need to configure it to work with a git repository 
+h) Spring cloud config server will keep configuration in git repository 
+i) so to do the same we will create a new git repository, clone the repository to your local desktop.
+j) This repository will be used to store application properties. This application properties stored in github repository will be used by springcloudconfigserver to fetch application properties 
+k) Naming Property files: 
+If there is properties file defined in both springcloudconfigserver and in the correspondig microservices and if they have same name - properties file defined in the config server will be 
+having higher priority
+-> In springcloudconfigserver we can have properties file specific to MS. Then in that case properties file specific to MS will have higher priority over general application.properties file 
+-> And if we have profile name in properties along with MS eg: A-<profile>.properties . Then this file will have higher priority over the other properties file in the springcloudconfigserver 
+l) CONFIGURE springcloudconfigserver TO ACCESS PRIVATE GITHUB REPOSITORY
+-> We need to add few properties in application.properties of springcloudconfigserver
+-> here we specify the uri of the github repository where we store the application.properties file 
+-> This configuration will tell if the repository should be cloned on startup 
+spring.cloud.config.server.git.uri=https://github.com/simplyi/PhotoAppConfiguration
+spring.cloud.config.server.git.username=xxxxxx
+spring.cloud.config.server.git.password=xxxxxxx
+spring.cloud.config.server.git.clone-on-start=true
+m) Adding properties file to git repository
+-> we will create new properties file and we will add some of the properties from usersmicroservice , and push the properties file to github repository
+-> So that springcloudconfigserver can read it from the github repository and other microservices can consume that property 
+n) Next step is to configure Usersmicroservice to act as a client of springcloudconfigserver 
+i) We will start by adding one dependency to pom.xml of usersmicroservice
+-> groupid:org.springframework.cloud and artifactid: spring-cloud-starter-config
+ii) create new bootstrap properties file. This bootstrap properties file will be loaded, before the application.properties file will be loaded and it will be loaded before the 
+javabeans are created during the application startup 
+iii) In the src/main/resources of usersmicroservice, create a new file : bootstrap.properties  and we need to add two new properties
+spring.cloud.config.uri=http://localhost:8012
+spring.cloud.config.name=springcloudconfigserver
+
+-> Now when i run my usersmicroservice, bootstrap properties will be loaded, before all the javabeans are created, so that the usersmicroservice application can connect to springcloudconfigserver and 
+fetch the properties, so that when javabeans are created, they can use these properties for their needs 
+
+iv) 
+-> one point to note is:: In newer versions , we can skip creating bootstrap.properties file and simply add the follwing property to the application.properties file 
+
+spring.config.import=optional:configserver:http://localhost:8012 
+-> Here 8012 i a domin and port on which springcloudconfigserver is running 
+
+v) Now start the microservices in the following order:
+discoverymicroservice -> apigatewaymicroservice -> springcloudconfigserver microservice -> usersmicroservice
+o) Now we will be able to see that usersmicroservice fetches data from springcloudconfigserver
+p) 

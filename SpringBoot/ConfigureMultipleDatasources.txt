@@ -1,0 +1,282 @@
+1) https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto.data-access.configure-two-datasources
+2) https://github.com/tonym2105/samples/tree/master/boot-multidb-sample
+
+3) https://www.baeldung.com/spring-boot-configure-multiple-datasources
+
+4) https://www.javadevjournal.com/spring-boot/multiple-data-sources-with-spring-boot/ - Perfect match
+
+
+
+5) How two database configuration done in Expo now booking:
+
+1)  For legacy expo-db: db2 
+
+a) In application.properties:
+
+expo-bookingnumber.datasource.platform=db2
+expo-bookingnumber.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver
+expo-bookingnumber.datasource.jdbc-url=jdbc:db2://expobookdb2qa.chq.ei:50001/expobook:sslConnection=true;
+expo-bookingnumber.sql-dialect=org.hibernate.dialect.DB2Dialect
+expo-bookingnumber.datasource.hbm2ddl.auto=
+expo-bookingnumber.datasource.username=expobook
+expo-bookingnumber.datasource.password=startup1
+
+
+b) C:\ExpoNow\booking-parent\booking-service\src\main\java\com\expd\expo\booking\config\ExpoBookingNumberConfig.java
+
+
+b.1) Corresponding to this name we have defined ExpoBookingNumberConfig.java, the datasource 
+
+-> First expoBookingDataSource is defined. 
+
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean expoBookingNumberEntityManager(
+            EntityManagerFactoryBuilder builder,
+            @Qualifier("expoBookingNumberDataSource") DataSource dataSource) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.hbm2ddl.auto", ddlAuto);
+        properties.put("hibernate.max_fetch_depth", "25");
+
+        return builder
+                .dataSource(dataSource)
+                .persistenceUnit("expoBookingNumber")
+                .properties(properties)
+                .packages("com.expd.expo.booking.core.dao.jpa", "com.expd.expo.booking.core.domain")
+                .build();
+    }
+
+b.2) Then for this expoBookingDataSource, we will defined another bean , which corresponds 
+
+ @Bean
+    @ConfigurationProperties(prefix = "expo-bookingnumber.datasource")
+    public DataSource expoBookingNumberDataSource() {
+        DataSource ds = DataSourceBuilder.create().build();
+        return ds;
+    }
+	
+	
+b.3) We can see in application.properties that the same name(expo-bookingnumber.datasource) is used for defining database properties for expo db :
+
+expo-bookingnumber.datasource.platform=db2
+expo-bookingnumber.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver
+expo-bookingnumber.datasource.jdbc-url=jdbc:db2://expobookdb2qa.chq.ei:50001/expobook:sslConnection=true;
+expo-bookingnumber.sql-dialect=org.hibernate.dialect.DB2Dialect
+expo-bookingnumber.datasource.hbm2ddl.auto=
+expo-bookingnumber.datasource.username=expobook
+expo-bookingnumber.datasource.password=startup1
+
+
+c) How does the Application pickup this datasource:
+
+c.1) This is done by defining setEntityManager which we defined in ExpoBookingNumberConfig
+
+c.1.1) BookingNumberDaoJpa
+
+...
+@Repository("bookingNumberDao")
+public class BookingNumberDaoJpa  extends GenericDaoJpa<BookingSequenceEntity, Long>
+        implements BookingNumberDao {
+
+
+    public BookingNumberDaoJpa() {
+        super(BookingSequenceEntity.class);
+    }
+
+    @Override
+    @PersistenceContext(unitName = "expoBookingNumber")
+    public void setEntityManager(@Qualifier("expoBookingNumberEntityManager") EntityManager entityMgr) {
+        super.setEntityManager(entityMgr);
+    }
+
+    public Integer getNextBookingNumber() {
+        String statement = String.format("VALUES next value for %s", BusinessKeyPrefix.BK.getSequenceName());
+        Query query = (Query) getEntityManager().createNativeQuery(statement);
+        return (Integer)query.uniqueResult();
+
+    }
+}
+
+....
+
+c.1.2) ExpoCustomerProfileGciDaoJpa
+
+
+...
+@Repository("expoCustomerProfileGciDaoJpa")
+public class ExpoCustomerProfileGciDaoJpa extends GenericDaoJpa<CustomerGCIOrganization, Long>
+        implements ExpoCustomerProfileGCIDao {
+
+    public ExpoCustomerProfileGciDaoJpa() {
+        super(CustomerGCIOrganization.class);
+    }
+
+
+    @Override
+    @PersistenceContext(unitName = "expoBookingNumber")
+    public void setEntityManager(@Qualifier("expoBookingNumberEntityManager") EntityManager entityMgr) {
+        super.setEntityManager(entityMgr);
+    }
+
+    @Override
+    public List<CustomerGCIOrganization> findUserByGCICode(String gciCode) {
+        List<CustomerGCIOrganization> customerGCIOrganizationList = (List<CustomerGCIOrganization>) find(
+                "select u from CustomerGCIOrganization u where lower(u.gciCode) = ?1", gciCode.toLowerCase());
+        return customerGCIOrganizationList;
+    }
+}
+...
+
+
+c.1.3) ExpoUserProfileDaoJpa
+
+....
+
+@Repository("ExpoUserProfileDao")
+public class ExpoUserProfileDaoJpa extends GenericDaoJpa<ExternalUserProfile, Long>
+        implements ExpoUserProfileDao {
+
+    public ExpoUserProfileDaoJpa() {
+        super(ExternalUserProfile.class);
+    }
+
+    @Override
+    @PersistenceContext(unitName = "expoBookingNumber")
+    public void setEntityManager(@Qualifier("expoBookingNumberEntityManager") EntityManager entityMgr) {
+        super.setEntityManager(entityMgr);
+    }
+
+    public List<ExternalUserProfile> findUserByEmail(String email) {
+        Validate.notNull(email);
+        List<ExternalUserProfile> profiles = (List<ExternalUserProfile>) find(
+                "select u from USER_PROFILE u where lower(u.email) = ?1", email.toLowerCase());
+        for (ExternalUserProfile profile : profiles) {
+            checkPermissions(profile);
+        }
+        return profiles;
+    }
+
+    /*
+     * this logic is needed to get the permissions populated - Lazy fetch is
+     * required on model but does not work in home controller
+     */
+    private void checkPermissions(ExternalUserProfile profile) {
+        for (ExternalPermission permission : profile.getPermissions().values()) {
+            permission.isAllowed();
+        }
+    }
+
+}
+
+.....
+
+2) for expo-now db:
+
+a) In application.properties the following is defined for booking-service:
+
+
+expo-bookingnumber.datasource.platform=db2
+expo-bookingnumber.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver
+expo-bookingnumber.datasource.jdbc-url=jdbc:db2://expobookdb2qa.chq.ei:50001/expobook:sslConnection=true;
+expo-bookingnumber.sql-dialect=org.hibernate.dialect.DB2Dialect
+expo-bookingnumber.datasource.hbm2ddl.auto=
+expo-bookingnumber.datasource.username=expobook
+expo-bookingnumber.datasource.password=startup1
+
+
+b) In C:\ExpoNow\booking-parent\booking-service\src\main\java\com\expd\expo\booking\config\UserDatabaseConfiguration.java
+
+
+b.1)userDataSource is defined :
+
+--> Here if we have two datasources, we have defined all the beans in UserDatabaseConfiguration as @Primary , hence it will by default pick the configuration defined in this file 
+-> if instance of expodb is needed, qualifier is used to fetch those beans 
+
+
+  @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            EntityManagerFactoryBuilder builder,
+            @Qualifier("userDataSource") DataSource dataSource) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.hbm2ddl.auto", ddlAuto);
+        properties.put("hibernate.max_fetch_depth", 25);
+
+
+        return builder
+                .dataSource(dataSource)
+                .persistenceUnit("expoBooking")
+                .properties(properties)
+                .packages("com.expd.expo.booking.expo.repositories", "com.expd.expo.booking.entities",
+                        "com.expd.expo.booking.core.dao",
+                        "com.expd.expo.booking.core.domain", "com.expd.expo.booking.repository")
+
+                .build();
+    }
+
+
+b.2) Full file:
+
+..
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+        basePackages = {"com.expd.expo.booking.repositories", "com.expd.expo.booking.core.dao",
+                "com.expd.expo.booking.core.domain",
+                "com.expd.expo.booking.core.repository"}
+)
+public class UserDatabaseConfiguration {
+
+    @Value("${spring.datasource.hbm2ddl.auto:}")
+    private String ddlAuto;
+    @Value("${spring.sql-dialect:org.hibernate.dialect.PostgreSQLDialect}")
+    private String dialect;
+
+
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource userDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @Primary
+    public EntityManagerFactoryBuilder entityManagerFactoryBuilder() {
+        return new EntityManagerFactoryBuilder(new HibernateJpaVendorAdapter(), new HashMap<>(), null);
+    }
+
+    @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            EntityManagerFactoryBuilder builder,
+            @Qualifier("userDataSource") DataSource dataSource) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.hbm2ddl.auto", ddlAuto);
+        properties.put("hibernate.max_fetch_depth", 25);
+
+
+        return builder
+                .dataSource(dataSource)
+                .persistenceUnit("expoBooking")
+                .properties(properties)
+                .packages("com.expd.expo.booking.expo.repositories", "com.expd.expo.booking.entities",
+                        "com.expd.expo.booking.core.dao",
+                        "com.expd.expo.booking.core.domain", "com.expd.expo.booking.repository")
+
+                .build();
+    }
+
+    @Bean
+    @Primary
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
+    }
+
+
+}
+...

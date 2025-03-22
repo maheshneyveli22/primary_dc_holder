@@ -1,0 +1,471 @@
+https://www.youtube.com/watch?v=FQrlp8YB7DA - Javatechie
+
+https://www.youtube.com/watch?v=HRwlT_etr60
+
+https://www.baeldung.com/spring-cors
+
+https://www.baeldung.com/spring-security-cors-preflight
+
+https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/cors.html
+
+https://stackoverflow.com/questions/53106325/cors-errors-but-only-with-special-characters-in-url
+
+https://stackoverflow.com/questions/55790117/how-to-convert-special-character-in-url-format
+
+C:\Users\gs1-maheswarane\.m2\repository\org\springframework\spring-web\6.0.8\spring-web-6.0.8.jar!\org\springframework\web\filter\CorsFilter.class
+
+
+1) CORS:
+-> Mechanism which allows additional http methods to tell the browser whether the specific webapp can share resource 
+with another webapp 
+-> Basically used for security purpose where We can add restriction in API on who can access and who cannot access the API 
+-> Lets understand how we can add restriction and on what basis we can add restrictions for our api 
+
+
+2) Example to understand CORS
+a) Consider we have application MyPortal which is hosted on port:8080 
+-> THis application can be accessed by multiple clients with different url: 
+http://localhost:9090
+http://localhost:9091
+
+b) In MyPortal application i can add restrictions on which client can access the application and we can also 
+add restrictions on which URL , the client can access my application 
+
+c) Adding restrictions on URL depends on three factors : 
+a) Protocol : http 
+-> Here protocol can be http or https 
+b) Host : localhost
+-> Host can be anything 
+c) Port: 9090 
+-> Port can be any number 
+
+d) We need to specify in MyPortal application which URL it will allow 
+
+
+3) Project plan
+a) Lets create MyPortal_CORS application with only spring web as dependancy  and expose rest API 
+b) Create a client and lets try to access MyPortalClient_CORS 
+-> We will have spring web and thymeleaf as dependancy here 
+-> From client we are going to consume: MyPortal_CORS using AJAX call - Hence we need Thymeleaf dependancy 
+
+4) Creating MyPortal_CORS server application 
+a) In MyPortalCorsApplication create a method greeting()
+-> specify the url  for the GetMapping 
+
+eg: 
+@GetMapping("access")
+    public String greeting() {
+        return "Welcome to Java-techie portal";
+    }
+	
+b) To make this class a rest controller add @RestController annotation 
+
+eg:
+@SpringBootApplication
+@RestController
+public class MyPortalCorsApplication {
+
+
+c) Thus we have exposed a rest endpoint which returns a dummy string 
+
+5) Creating MyPortalClient_CORS client application 
+a) In MyPortalClientCorsApplication, we will annotate @Controller 
+-> This is because from MyPortalClient_CORS we are going to use HTML ajax call
+
+eg:
+@SpringBootApplication
+@Controller
+public class MyPortalClientCorsApplication {
+
+b) return a view , where specify the html page name  and add the @GetMapping annotation 
+
+    @GetMapping("/")
+    public String home()
+    {
+        return "home";
+    }
+
+c) 	Lets create a html page : home.html in: C:\ExpoNow\2All Sample Spring Boot\MyPortalClient_CORS\src\main\resources\templates\home.html
+d)  Create javascript file for ajax call in: C:\ExpoNow\2All Sample Spring Boot\MyPortalClient_CORS\src\main\resources\static\portal.js
+-> In portal.js, we will be invoking ajax call 
+
+
+eg:
+GET: $(document).ready(
+    function () {
+        //GET REQUEST
+        $("#accessportal").click(
+            function (event) {
+                event.preventDefault();
+                ajaxGet();
+            });
+
+        //DO GET
+        function ajaxGet() {
+            $.ajax({
+                url: "http://localhost:8080/access",
+                success: function (result) {
+                    $("#apiresponse").html(result);
+                }
+            });
+        }
+    }
+        )
+		
+e) Actual ajax call happens in this method: ajaxGet()
+-> Here we invoke MyPortal_CORS service using the url which we mapped in MyPortalCorsApplication: http://localhost:8080/access
+
+
+eg:
+     function ajaxGet() {
+            $.ajax({
+                url: "http://localhost:8080/access",
+                success: function (result) {
+                    $("#apiresponse").html(result);
+                }
+            });
+        }
+
+
+
+f) Here #accessportal is request id and #apiresponse is response id 
+
+g) In home.html file, we will add a button , upon clicking the button we will get the response by invoking 
+portal.js which makes an ajax call to MyPortal_CORS service 
+
+i) Here we can see that we are loading portal.js via below code 
+eg:
+ <script src="/portal.js"></script>
+ 
+ii) We need to specify the id:#accessportal, which we gave in our Ajax getRequest in portal.js 
+   <button id="accessportal" type="button" class="btn btn-primary">Access
+        My portal</button>
+
+
+iii) Similarly we specify the id:apiResponse for the response message which we specified in portal.js 
+<h1 id="apiResponse"></h1>
+
+
+eg:
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1" />
+    <title>MyPortalService Application</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="/portal.js"></script>
+</head>
+<body>
+<br />
+<br />
+<div class="container" align="center">
+    <button id="accessportal" type="button" class="btn btn-primary">Access
+        My portal</button>
+</div>
+<h1 id="apiResponse"></h1>
+</body>
+</html>
+
+
+6) Thus until now:
+a) we created MyPortal_CORS service application where we exposed a rest API : /access
+b) We created Client Application : MyPortalClient_CORS
+
+-> Next we need to change port of MyPortalClient_CORS, 
+
+eg: C:\ExpoNow\2All Sample Spring Boot\MyPortalClient_CORS\src\main\resources\application.properties
+server.port=9090
+
+7) Now run MyPortal_CORS service as Java Application 
+
+eg:
+2024-02-26T10:18:59.108+05:30  INFO 23636 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-02-26T10:18:59.115+05:30  INFO 23636 --- [           main] c.j.m.MyPortalCorsApplication            : Started MyPortalCorsApplication in 1.023 seconds (process running for 1.433)
+
+
+8) Now run MyPortalClient_CORS as Java Application 
+
+eg:
+2024-02-26T10:23:45.591+05:30  INFO 19576 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path ''
+2024-02-26T10:23:45.602+05:30  INFO 19576 --- [           main] c.j.m.MyPortalClientCorsApplication      : Started MyPortalClientCorsApplication in 3.652 seconds (process running for 5.755)
+
+
+9) Test our api in browser : 
+
+a) MyPortal_CORS service: 
+http://localhost:8080/access
+-> Able to get response as: Welcome to Java-techie portal
+
+b) MyPortalClient_CORS: http://localhost:9090/
+
+-> Able to see "Access My Portal" button in UI
+
+c) On clicking "Access My Portal" button, we will get the below error in browser console:
+
+Access to XMLHttpRequest at 'http://localhost:8080/access' from origin 'http://localhost:9090' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+Access to XMLHttpRequest at 'https://go2expo-api.expeditors.com/api/booking/booking/document-upload' from origin 'https://go2expo.expeditors.com' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+10) 
+
+
+Error Message:
+Access to XMLHttpRequest at 'http://localhost:8080/access' from origin 'http://localhost:9090' has been blocked by CORS policy: 
+No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+a) This error message means that : From resource(localhost:9090) it is not allowing to access MyPortal_CORS(localhost:8080/access)
+b) This is the default behaviour of browser - as we are doing ajax call 
+c) In order to enable Cross Origin policy - we need to give access in our MyPortal_CORS application 
+
+
+11) Enable Cross Origin Policy in SpringBootApplication(MyPortal_CORS)
+
+a) To enabled Cross Origin Policy we need to add annotation and provide the origin
+-> origin is nothing but from which origin the client is trying to access 
+
+eg:
+
+@SpringBootApplication
+@RestController
+public class MyPortalCorsApplication {
+
+    @CrossOrigin(origins = "http://localhost:9090")
+    @GetMapping("access")
+    public String greeting() {
+        return "Welcome to Java-techie portal";
+    }
+	
+b) After changing this and rerunning the application 
+-> We can see that spring boot application is returning proper response without cors issue 
+
+12) For multiple controller methods:
+a) It is not recommended to add @CrossOrigin annotation at method level, we can keep it at Global level
+
+eg:
+@SpringBootApplication
+@RestController
+@CrossOrigin(origins = "http://localhost:9090")
+public class MyPortalCorsApplication {
+
+/*    @CrossOrigin(origins = "http://localhost:9090")*/
+    @GetMapping("access")
+    public String greeting() {
+        return "Welcome to Java-techie portal";
+    }
+	
+	
+b) To specify as any origin, we can specify *
+
+eg:
+@SpringBootApplication
+@RestController
+@CrossOrigin(origins = "*")
+public class MyPortalCorsApplication {
+
+/*    @CrossOrigin(origins = "http://localhost:9090")*/
+    @GetMapping("access")
+    public String greeting() {
+        return "Welcome to Java-techie portal";
+    }
+
+ 
+
+
+c) If we have multiple controllers and if we want to enable Cross Origins at global level, then we need to use : WebMvcConfigurer and override addCorMappings(CorsRegistry registry) 
+and specify the mappings: and specify with @Bean annotation 
+
+
+    @Bean
+    public WebMvcConfigurer configure() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/*").allowedOrigins("http://localhost:9090");
+            }
+
+        };
+    }
+
+eg:
+
+@SpringBootApplication
+@RestController
+/*@CrossOrigin(origins="*")*/
+public class MyPortalCorsApplication {
+
+/*    @CrossOrigin(origins = "http://localhost:9090")*/
+    @GetMapping("access")
+    public String greeting() {
+        return "Welcome to Java-techie portal";
+    }
+
+    @Bean
+    public WebMvcConfigurer configure() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/*").allowedOrigins("http://localhost:9090");
+            }
+
+        };
+    }
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(MyPortalCorsApplication.class, args);
+    }
+
+}
+
+
+
+
+13) How corrs is configured in Expo now booking application:
+
+eg:
+@Configuration
+public class ExpoCorsConfiguration {
+    private List<String> allowedOrigins;
+
+    @Autowired
+    public ExpoCorsConfiguration(AppConfiguration config) {
+        allowedOrigins = config.getCorsOrigins();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
+        config.addAllowedHeader("*");
+        config.addExposedHeader("User-Token");
+        config.addExposedHeader("Access-Control-Allow-Origin");
+        config.addExposedHeader("expo-session");
+        config.addExposedHeader("expo-correlation");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        allowedOrigins.forEach(config::addAllowedOrigin);
+
+        source.registerCorsConfiguration("/**", config);
+        source.setAlwaysUseFullPath(true);
+        config.setAllowCredentials(true);
+
+        return source;
+    }
+}
+
+
+14) 
+CORS With Spring Security
+If we use Spring Security in our project, we must take an extra step to make sure it plays well with CORS. That’s because CORS needs to be processed first. Otherwise, Spring Security will reject the request before it reaches Spring MVC.
+
+Luckily, Spring Security provides an out-of-the-box solution:
+
+@EnableWebSecurity
+public class WebSecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().and()...
+    }
+}
+Copy
+This article explains it in more detail.
+
+We can configure CORS to override the default Spring Security CORS handling. For that, we need to add a CorsConfigurationSource bean that takes care of the CORS configuration using a CorsConfiguration instance. The http.cors() method uses CorsFilter if a corsFilter bean is added, else it uses CorsConfigurationSource. If neither is configured, then it uses the Spring MVC pattern inspector handler.
+
+Let’s add the CorsConfigurationSource bean to the WebSecurityConfig class:
+
+@Bean
+CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList("*"));
+    configuration.setAllowedMethods(Arrays.asList("*"));
+    configuration.setAllowedHeaders(Arrays.asList("*"));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+}
+Copy
+Here, we create a CorsConfiguration instance using the default constructor and then set the allowed origins, allowed methods, and response headers. The above configuration enables CORS requests from any origin, any method, and any header to any endpoint in the application. Finally, we pass it as an argument while registering it to the UrlBasedCorsConfigurationSource instance and returning it.
+
+
+15) How It Works
+CORS requests are automatically dispatched to the various registered HandlerMappings. They handle CORS preflight requests and intercept CORS simple and actual requests using a CorsProcessor implementation (DefaultCorsProcessor by default) to add the relevant CORS response headers (such as Access-Control-Allow-Origin).
+
+CorsConfiguration allows us to specify how the CORS requests should be processed, including allowed origins, headers, and methods, among others. We can provide it in various ways:
+
+AbstractHandlerMapping#setCorsConfiguration() allows us to specify a Map with several CorsConfigurations mapped onto path patterns such as /api/**.
+Subclasses can provide their own CorsConfiguration by overriding the AbstractHandlerMapping#getCorsConfiguration(Object, HttpServletRequest) method.
+Handlers can implement the CorsConfigurationSource interface (like ResourceHttpRequestHandler does now) to provide a CorsConfiguration for each request.
+
+
+
+16) Sample Pre-flight request sample 
+
+
+a) Making a Pre-flight Request
+Now that we’ve created our REST API, let’s try a pre-flight request using curl:
+
+Request: 
+
+curl -v -H "Access-Control-Request-Method: GET" -H "Origin: http://localhost:4200" 
+  -X OPTIONS http://localhost:8080/user
+  
+  
+Response:
+  
+  
+...
+< HTTP/1.1 401
+...
+< WWW-Authenticate: Basic realm="Realm"
+...
+< Vary: Origin
+< Vary: Access-Control-Request-Method
+< Vary: Access-Control-Request-Headers
+< Access-Control-Allow-Origin: http://localhost:4200
+< Access-Control-Allow-Methods: POST
+< Access-Control-Allow-Credentials: true
+< Allow: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH
+...
+Copy
+From the output of this command, we can see that the request was denied with a 401.
+
+Since this is a curl command, we won’t see the error “Response for preflight has invalid HTTP status code 401” in the output.
+
+
+From different website: Akshay Saini youtube channel 
+17) CORS 
+a) Assume that there are two websites A and B. both of which are in different origins 
+b) Consider that Website A requests a resource from Website B 
+c) In that case; CORS preflight mechanism is followed 
+-> A Pre-flight OPTIONS call is made, before the actual API call is made 
+d) Suppose A wants to make a POST call to B , in that case preflight call is made by the browser
+-> Browser uses additional HTTP headers to verify this preflight request 
+e) Server B takes the responsibility of verifying whether the call is valid or not 
+-> If the call is valid, B will set some additional HTTP headers, which lets browser know  that it is safe and then actual post call is made 
+f) Headers include: 
+Access-Control-Allow-Origin, 
+Access-Control-Request-Method: specifies methods that are allowed 
+
+18) IS preflight requests sent for all requests from A to B: No
+a) Two types of access control mechanisms : 
+Simple Request and Preflight Request  
+b) Browser tags some request as Simple request - where browser does not add preflight call  , but instead makes api call directly 
+
+
+
+
+

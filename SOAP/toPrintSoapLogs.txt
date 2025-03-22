@@ -1,0 +1,40 @@
+1) Print soap request or response: 
+
+
+org.springframework.ws.soap.saaj.SaajSoapMessage msg= (org.springframework.ws.soap.saaj.SaajSoapMessage)messageContext.getRequest();
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+msg.writeTo(out);
+String strMsg = new String(out.toByteArray());
+System.out.println(strMsg);
+
+org.springframework.ws.soap.saaj.SaajSoapMessage msg= (org.springframework.ws.soap.saaj.SaajSoapMessage)messageContext.getResponse();
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+msg.writeTo(out);
+String strMsg = new String(out.toByteArray());
+System.out.println(strMsg);
+
+2)  Convert dom object to be printed in sys out  DOM object node to xml 
+-> Here result.getNode() gives the DOM object 
+a) for DOMResult object to str
+javax.xml.transform.Transformer transformer = javax.xml.transform.TransformerFactory.newInstance().newTransformer();
+transformer.transform(new javax.xml.transform.dom.DOMSource( ((DOMResult) result).getNode()), new javax.xml.transform.stream.StreamResult(System.out));
+
+b) FOr SAXOutPut to string 
+javax.xml.transform.Transformer transformer = javax.xml.transform.TransformerFactory.newInstance().newTransformer();
+transformer.transform(new javax.xml.transform.dom.DOMSource(  ((com.sun.xml.bind.marshaller.SAX2DOMEx) ((com.sun.xml.bind.v2.runtime.output.SAXOutput) out).out).getDOM()), new javax.xml.transform.stream.StreamResult(System.out));
+
+
+c) 
+javax.xml.transform.Transformer transformer = javax.xml.transform.TransformerFactory.newInstance().newTransformer();
+transformer.transform(new javax.xml.transform.dom.DOMSource( ((DOMResult) result).getNode()), new javax.xml.transform.stream.StreamResult(System.out));
+
+
+3) 
+javax.xml.soap.SOAPMessage  
+
+
+
+java.io.ByteArrayOutputStream baosOut = new java.io.ByteArrayOutputStream();
+soapMessage.writeTo(baosOut);
+String msg = baosOut.toString("UTF-8");
+soapMessage.writeTo(System.out);

@@ -1,0 +1,211 @@
+1) Same origin Policy(SOP)
+a) Same Origin policy is a rule that is enforced by browsers to control access to data between applications 
+
+eg:
+If you have banking application and shopping application - by default interaction between these two applications is not allowed  
+
+b) The banking application is able to request Shopping Application 
+-> Eg Banking application can submit the form, but it cannot read the response from the Shopping application 
+
+c) SOP is not configured in web server, Instead it is by default implemented in all  Browsers 
+-> If you try to read data from some application eg: from banking to youtube application , it will also be denied by default - by the browser 
+
+
+2) Why is SoP built in browsers 
+a) For security purposes 
+-> Imagine that you are the user who is visiting the shopping application for the first time and we are not sure if it is malicious .
+-> Malicious means shopping application contains a script that automatically makes a request to the banking application which we have logged in from the same browser and 
+asks for your Banking info.
+-> Here if we dont have same origin policy implemented in browsers , banking application will be sending all the banking information to the malicious shopping application
+-> Hence a control is implemented via SOP to prevent applications from accessing each other's data 
+
+
+
+3) TWO IMPORTANT THINGS ABOUT SOP: 
+a) SOP does not prevent writing between web applications, but it prevents reading between web applications 
+-> So in our eg where malicious shopping application is interacting with banking application - shopping application is still able to make
+request to the banking application asking for banking info 
+b) ACCESS IS DETERMINED BASED ON THE ORIGIN 
+-> When the browser sees that request, it will check the origin of the request .
+-> Here in this case it originated from shoppingapplication.com , this domain is different from the banking application's website(bank.com) - Hence the browser will be 
+rejecting that request 
+
+
+
+4) What is an Origin:
+
+a) Origin is defined by the scheme(protocol), hostname(domain) and port of the url used to access it 
+
+eg: https://ranakhalil.com:443 
+
+scheme: https
+host: ranakhalil.com
+port: 443 
+
+-> if port is not specified, it will default on the port that the scheme is using . 
+eg: if scheme is https then port will be 443  and if it is http then the port will be 80 
+
+b) Here the combination of Scheme, host and port make the origin 
+i.e Origin = Scheme + host + post 
+
+
+5) Same origin Evaluation with examples 
+
+Consider ther URL - http://ranakhalil.com/courses is making request to the following websites 
+
+a) http://ranakhalil.com/courses   to  http://ranakhalil.com/  
+-> Scheme: http  is same for both 
+-> domain: ranakhalil.com 
+-> port: not specified, but scheme is same, port also will be the same 
+
+Permited/Not Permitted : Permitted
+Reason:  Same Scheme, domain and port 
+
+
+b) http://ranakhalil.com/courses   to  http://ranakhalil.com/sign_in/  
+-> Scheme: http  is same for both 
+-> domain: ranakhalil.com 
+-> port: not specified, but scheme is same, port also will be the same 
+
+Permited/Not Permitted : Permitted
+Reason:  Same Scheme, domain and port 
+
+c) http://ranakhalil.com/courses   to  https://ranakhalil.com/
+-> Scheme: http vs https 
+-> domain: same domain ranakhalil.com 
+-> port: not specified, but scheme is different,80 vs 443 
+
+Permited/Not Permitted : Not Permitted
+Reason:  Different scheme and port 
+
+d) http://ranakhalil.com/courses   to  http://academy.ranakhalil.com/
+-> Scheme: http  is same for both 
+-> domain: different domains: ranakhalil.com vs academy.ranakhalil.com 
+-> port: not specified, but scheme is same, port also will be the same 
+
+
+Permited/Not Permitted : Not Permitted
+Reason:  Different domain 
+
+
+e) http://ranakhalil.com/courses   to  http://ranakhalil.com:8080/
+-> Scheme: http  is same for both 
+-> domain: same domain ranakhalil.com 
+-> port: different ports : 80 vs 8080 
+
+
+Permited/Not Permitted : Not Permitted
+Reason:  Different Port 
+
+
+6) What happens when an origin makes a read request to a different origin 
+-> i.e What happens when Same Origin Policy is violated and the browser prevents a request from going through 
+
+7) CORS - Cross Origin Resource Sharing
+-> CORS is a mechanism that uses HTTP headers to define origins that the browser permit loading resources 
+-> In other words it is a mechanism that allows resources on a server to be requested from another domain 
+-> In some cases we wanted to loosen the grip of Same Origin Policy(SOP)  and allow Cross Origin Interaction 
+-> In modern webapplications, many websites want to interact with their subdomains or third party sites. In that case we dont want the same 
+origin policy to stop  that interaction 
+
+a) In order to enable interaction , these websites make use of the Cross Origin Resource Sharing protocol 
+-> Eg: Imagine you have two domains: domain-a.com and domain-b.com
+-> domain-a is a shopping application and domain-b is an analytics application. If domain-a has a legitimate use 
+case to access domain-b, domain-b should have cors rules configured in its web application 
+
+b) If you are using spring boot in domain-b side, you just need to specify annotations in order to enable CORS 
+-> This enabling is different for each of the languages like php or python etc 
+
+
+8) How SERVER and browser behaves after CORS rules is configured
+a) Once CORS rules is configured in backend,  the way its able to communicate that to the browser - is through the use of HTTP headers 
+b) CORS makes use of 2 HTTP headers:
+	Access-Control-Allow-Origin
+	Access-Control-Allow-Credentials 
+	
+c) Access-Control-Allow-Origin Header:
+-> Access-Control-Allow-Origin response header identifies to the browser if an origin is permitted to access the resources of a specific 
+website 
+
+eg: 
+i) Consider two applications: domain-a.com(shopping app) and domain-b.com(analytics app) . shopping app needs to read data from analytics app 
+ii) Hence shopping app(domain-a.com) sends a request to the home page of analytics app(domain-b.com) 
+
+Sample Request from domain-a.com(shopping) ;
+GET /home.aspx  HTTP/1.1
+Host: domain-b.com
+Origin: domain-a.com 
+.... 
+
+
+iii) If domain-b(analytics app) has cors rules configured - where the rule says if you get a request from domain-a.com, then allow domain-a to read the 
+response of the request
+
+Sample Response from domain-b.com(analytics):
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: domain-a.com 
+
+-> It makes use of the Access-Control-Allow-Origin header to indicate to the browser that the application is able to read that request 
+-> Here Access-Control-Allow-Origin header will have origin of domain-a.com  in our case, if browser sees that it will allow the response to go 
+through and be presented to domain-a.com 
+
+
+iv) If there are no cors rules configured  at domain-b.com , then this header: Access-Control-Allow-Origin header will not be present 
+or this header will have a different domain in it - and when the browser sees that  , it will identify that the origins are different and it will 
+prevent response from reaching domain-a.com 
+
+
+9) Access-Control-Allow-Origin header syntax:
+a) There are three options to configure Access-Control-Allow-Origin header 
+
+i) Access-Control-Allow-Origin: *
+-> This means that any site on the internet is allowed to access my resources 
+ii) Access-Control-Allow-Origin: <origin>
+-> This means specifying a single origin to access your site 
+-> In our earlier example we specified domain-a to access resources of domain-b.com  
+-> IMPORTANT : only single origin can be specified here and no multiple origins 
+iii) Access-Control-Allow-Origin: null
+-> Some applications may want to whitelist the null origin for several reasons like Cross-origin redirects, sandboxed cross-origin  requests 
+
+
+10) Access-Control-Allow-Credentials Header:
+a) Access-Control-Allow-Origin header only allows to access public pages in the application 
+b) In order to use Authenticated pages, you need to user another header: Access-Control-Allow-Credentials
+c)  Access-Control-Allow-Credentials allows credentials such as cookies or authorization headers or tls client certificates to be 
+included in cross origin requests 
+d) eg:
+If domain-a(shopping) wants to access authenticated page in domain-b(analytics), both headers : Access-Control-Allow-Origin and Access-Control-Allow-Credentials needs to be 
+configured in the domain-b application  
+
+Request from domain-a(shopping) :
+
+GET /accountDetails HTTP/1.1
+HOST: domain-b.com
+Cookie: session=38rruhfhy3333ujeej
+Origin: domain-a.com 
+
+
+Response from domina-b(analytics): 
+HTTP/1.1 200 OK 
+Access-Control-Allow-Origin: domain-a.com
+Access-Control-Allow-Credentials: true 
+
+e) In response we can see:
+ Access-Control-Allow-Origin configured which says domain-a is allowed to access my resources 
+ Access-Control-Allow-Credentials says that you are allowed to pass credentials in the request - Hence domain-a is able to access 
+ authenticated resources from domain-b 
+
+f) Hence Access-Control-Allow-Credentials can either be true or false or not set at all
+true means - you are allowed to pass credentials in the request
+false or not set at all means - You are not allowed to pass credentials in the request 
+
+g) Restrictions:
+-> If Access-Control-Allow-Origin header is set to wildcard character(*) , then Access-Control-Allow-Credentials can not be used - Reason : for security purposes
+-> This means that if you set wildcard character, then anyone will be able to access authenticated resources, hence this restriction is present 
+
+
+11) How/Scenarios where CORS vulnerabilities are introduced: 
+
+
+
+

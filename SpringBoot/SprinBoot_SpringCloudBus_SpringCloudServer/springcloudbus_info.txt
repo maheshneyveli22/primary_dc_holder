@@ -1,0 +1,76 @@
+https://www.baeldung.com/spring-cloud-bus
+
+
+SPRING CLOUD BUS:
+1) Springcloudbus is used to apply configuration updates to our microservices, even while they are up and running without any reboot 
+2) With springcloudconfigserver in place, they fetch application.properties from springcloudconfigserver
+3) But the problem here is microservices fetch configuration: application.properties from springcloudconfigserver only once and during startup time alone 
+4) Then once our microservices have started, they will use this application.properties configuration  which was loaded at the startup time 
+5) if any change is made to one of the configuration in application.properties file which is stored in git repository and fetched from springcloudconfigserver. while our 
+microservices are running - Our microservices will not get those updates. - unless we restart them 
+6) Restarting all microservices every time is not convenient 
+7) The solution for this problem is the SPRING CLOUD BUS 
+8) SPRING CLOUD BUS will help to push configuration to all the microservices while they are running and thus the microservices need not be restarted to get the updated application.properties file 
+9) To configure spring-cloud-bus, we need not create a standalone microservice
+10) To make it work:
+a) we need to add spring-cloud-bus,springboot-actuator dependencies and also some other minor configuration details to springcloudconfigserver 
+b) and also to all the microservices that needs the dynamic application.properties as and when updated 
+11) This makes our microservices act as listeners/subscribers to receive updates from springcloudconfigserver
+-> The configuration updates will be broadcasted to all the microservices using the messaging technology 
+-> The protocol used is AMQP - Advanced message queuing protocol 
+-> This protocol enables applications that use it to connect and scale
+-> This protocol/ is asynchronous and it decouples application by separting sending and receiving data 
+-> As part of this we also need to configure a messagebroker like rabbitmq
+12) RabbitMQ:
+-> It is a messaging broker
+-> Intermediary for messaging
+-> gives applications a common platform to send and receive messages, and for messages a safe place to live until they are received 
+13) Thus all microservices will be subscribing to configuration updates and spring-cloud-bus will be able to broadcast configuration changes to all other microservices 
+14) STEPS:
+i) Add Spring cloud bus and actuator dependencies 
+-> In springcloudconfigserver-> pom.xml 
+groupid/artifactid: org.springframework.cloud/spring-cloud-starter-bus-amqp
+groupid/artifactid: org.springframework.boot/spring-boot-starter-actuator 
+ii) Add spring cloud bus dependency to all the microservices that need the dynamic configuration updates
+iii) Enable the /bus-refresh URL endpoint 
+-> Now after adding the spring-cloud-bus dependency, we need to tell the spring-cloud-bus, that its time to broadcast dynamic configuration changes to all the microservices that have 
+subscribed to these updates
+-> The way we do it is by sending http post requests to an actuator endpoint called bus-refresh. This is the reason why we added springboot-actuator dependency to the 
+springcloudconfigserver project  
+-> This Http post request will make springcloudconfigserver to load up new configuration to load up new configuration properties from remote git repository and it will also make spring-cloud-bus to broadcast
+these updates to all the subscribed microservices
+-> /bus-refresh endpoint will help to refresh code cache and rebind the configuration properties in our microservices 
+-> thus the next step is to enable the bus-refresh acutator endpoint, which we will use to refresh the configuration  properties 
+####To enable bus-refresh end point to springcloudconfigserver, springcloudconfigserver->src/main/resources/application.properties, we need to add this property
+
+management.endpoints.web.exposure.include=busrefresh
+iv) Download and run RabbitMQ
+v) Rabbit MQ Default connection details
+-> For our applications/microservices to be able to communicate with spring-cloud-bus and for spring-cloud-bus to be able to communicate with our applications/microservices, both needs to be
+connected with rabbitmq
+-> for that we need to update our projects by adding RabbitMQ connection credentials 
+a) In springcloudconfigserver->src/main/resources/application.properties add the connection credentials
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.passoword=guest 
+b) In usersmicroservice -> application.properties
+
+15) After configuring Springcloud config server, lets see how the spring cloud bus works?
+-> Run all microservices 
+-> Create a user and login with that user 
+-> Check what is the value of secret token being used 
+-> go to remote repository and change the value of secret token 
+-> Then use springcloud bus to broadcast the changes to all the running microservices
+-> Now we will be able to see the updated value for secret token without restarting the microservices
+
+
+
+
+
+
+
+
+
+
+

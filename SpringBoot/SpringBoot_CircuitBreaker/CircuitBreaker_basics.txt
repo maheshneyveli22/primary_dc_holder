@@ -1,0 +1,54 @@
+1) Consider i have two services : activitytracker  and boredapi
+
+a) activity request call in activitytracker service depends on boredapi service to get tasks when bored
+b) Suppose if boredapi goes down, activity call fails and our application will return errors and we keep getting exceptions, until the boredapi is up 
+c) By using circuitbreaker, Either we can stop/reduce the frequent calls to the boredapi or we can have a fallback method(), which says if the bored api is down, you can suggest alternative thing 
+in your fallback() method 
+d)  HOW THE CIRCUIT BREAKER WORKS?
+
+activity---->resilience4J-service----->boredapi 
+               fallbackMethod()
+
+i) By default, when things are successful - when resilience4J  connects to the bored api, the circuit is in CLOSED(this is a happy path) state
+ii) Whenever there is failure between resilience4J to external service(in our case it is boredapi), then the circuit goes into an OPEN state, After a 
+particular period of time. let's assume it to be after 3 or 4 failures.
+               
+			   CLOSED---------------->OPEN
+			   
+iii) Once the circuit is OPEN, every new request that comes to the resilience4J gets rejected by default 
+
+-> so what it basically means is, we failfast - instead of calling the boredapi
+-> After this what could happen behind the scenes is - boredapi could be coming up and we dont want to bombard the boredapi unnecessarily with our service calls 
+iv) Once a particular threshold time has been breached, then circuitbreaker goes to a state called HALF-OPEN from OPEN  
+-> let's assume afterr 3 or 4 failures or after time out , circuitbreaker moves from OPEN to HALF-OPEN state 
+
+                CLOSED----------------------->OPEN---------> HALF OPEN-------->CLOSED
+				           
+						  
+						   
+v) HALF-OPEN is a state, where we try to send a request to the failed api again: to see if it is successful.
+-> if the api call is successful and lets assume we configured 3 calls should be there to move from HALF-OPEN to CLOSED state: then after the 3rd api call, the 
+state would move from  HALF-OPEN to CLOSED state. 
+
+   CLOSED----------------------->OPEN---------> HALF OPEN-------->CLOSED
+   
+vi) Every request comes to resilience4J-service and then it goes to the boredapi   
+
+
+
+2) Implementation using spring boot version3 
+
+3) Actuator links:
+http://localhost:8080/actuator/circuitbreakers
+http://localhost:8080/actuator/health
+
+
+2) Advantages of circuit breakers:
+a) Reduces number of calls to api by opening the circuit
+
+
+
+
+
+
+Closed -> 

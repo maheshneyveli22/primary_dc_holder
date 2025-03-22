@@ -1,0 +1,7 @@
+resilience4j.circuitbreaker.configs.default.registerHealthIndicator=true
+management.endpoints.web.expose=health,metrics
+management.endpoints.web.exposure.include=health,metrics
+management.endpoint.health.enabled=true
+management.endpoint.metrics.enabled=true
+management.metrics.enable.resilience4j.circuitbreaker.calls=true
+management.health.circuitbreakers.enabled=true

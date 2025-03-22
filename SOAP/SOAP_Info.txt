@@ -1,0 +1,149 @@
+1) 
+https://stackoverflow.com/questions/56147602/getting-not-supported-http-javax-xml-xmlconstants-property-accessexternaldtd
+
+
+2) 
+
+tried in bookin-parent/pom.xml 
+
+
+          <dependency>
+                <!-- boost to last patch version in this release -->
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>3.0.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xerces</groupId>
+                        <artifactId>xercesImpl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xalan</groupId>
+                        <artifactId>xalan</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+			
+			
+
+3) Security Header issue:
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header/>
+	<SOAP-ENV:Body>
+		<ns6:getOrganizationSummary xmlns:ns3="urn:com:expd:service:global_company_identifier:dto:v1" xmlns:ns4="urn:com:expd:datatypes" xmlns:ns5="urn:com:expd:service:global_company_identifier:contract:v1" xmlns:ns6="urn:com:expd:service:global_company_identifier:v1" xmlns:ns7="urn:com:expd:freight_transportation_shared_service_types:v1">
+			<ns6:in>
+				<ns5:gciNumbers>G2890701</ns5:gciNumbers>
+			</ns6:in>
+		</ns6:getOrganizationSummary>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+
+With security Header 
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header>
+      <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsse:UsernameToken>
+            <wsse:Username>chq-migration</wsse:Username>
+            <wsse:Password>ekeymory</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+      <ns5:getOrganizationSummary xmlns:ns3="urn:com:expd:service:global_company_identifier:dto:v1" xmlns:ns4="urn:com:expd:service:global_company_identifier:contract:v1" xmlns:ns5="urn:com:expd:service:global_company_identifier:v1" xmlns:ns6="urn:com:expd:datatypes" xmlns:ns7="urn:com:expd:freight_transportation_shared_service_types:v1">
+         <ns5:in>
+            <ns4:gciNumbers>G2890701</ns4:gciNumbers>
+         </ns5:in>
+      </ns5:getOrganizationSummary>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+before adding security header:
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header/>
+	<SOAP-ENV:Body>
+		<ns5:getOrganizationSummary xmlns:ns3="urn:com:expd:service:global_company_identifier:dto:v1" xmlns:ns4="urn:com:expd:service:global_company_identifier:contract:v1" xmlns:ns5="urn:com:expd:service:global_company_identifier:v1" xmlns:ns6="urn:com:expd:datatypes" xmlns:ns7="urn:com:expd:freight_transportation_shared_service_types:v1">
+			<ns5:in>
+				<ns4:gciNumbers>G2890701</ns4:gciNumbers>
+			</ns5:in>
+		</ns5:getOrganizationSummary>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+WIth security header: but buggy
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header>
+		<Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+	</SOAP-ENV:Header>
+	<SOAP-ENV:Body>
+		<ns6:getOrganizationSummary xmlns:ns3="urn:com:expd:service:global_company_identifier:contract:v1" xmlns:ns4="urn:com:expd:service:global_company_identifier:dto:v1" xmlns:ns5="urn:com:expd:datatypes" xmlns:ns6="urn:com:expd:service:global_company_identifier:v1" xmlns:ns7="urn:com:expd:freight_transportation_shared_service_types:v1">
+			<ns6:in>
+				<ns3:gciNumbers>G2890701</ns3:gciNumbers>
+			</ns6:in>
+		</ns6:getOrganizationSummary>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+before 
+
+
+4) 
+
+StringWriter sw = new StringWriter();
+jaxbMarshaller.marshal(customer, sw);
+String xmlString = sw.toString();
+
+#############
+private static String jaxbObjectToXML(Customer customer) {
+    String xmlString = "";
+    try {
+        JAXBContext context = JAXBContext.newInstance(Customer.class);
+        Marshaller m = context.createMarshaller();
+
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
+
+        StringWriter sw = new StringWriter();
+        m.marshal(customer, sw);
+        xmlString = sw.toString();
+
+    } catch (JAXBException e) {
+        e.printStackTrace();
+    }
+
+    return xmlString;
+}
+#############
+
+Sample:
+
+###################
+StringWriter sw = new StringWriter();
+JAXBContext.newInstance(SecurityHeaderType.class);
+this.marshal(target,sw);
+System.out.println(sw.toString());
+####################
+
+
+
+5) Print soap request or response: 
+
+
+
+SaajSoapMessage msg= (SaajSoapMessage)messageContext.getRequest();
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+msg.writeTo(out);
+String strMsg = new String(out.toByteArray());
+System.out.println(strMsg);
+
+
+SaajSoapMessage msg= (SaajSoapMessage)messageContext.getResponse();
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+msg.writeTo(out);
+String strMsg = new String(out.toByteArray());
+System.out.println(strMsg);

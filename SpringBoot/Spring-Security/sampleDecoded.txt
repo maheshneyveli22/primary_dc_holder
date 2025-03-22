@@ -1,0 +1,50 @@
+https://jwt.io/
+
+IP token: jwt token taken from session storage under section: access_token 
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilh2TzJxenM4T01HdHA3U0tlcjYyXyJ9.eyJodHRwczovL2dvMmV4cG8uZXhwZWRpdG9ycy5jb20vbGFzdExvZ2luIjoiMjAyMy0xMC0wOVQwNDozNDoxMy4yMTlaIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL2lzRW1wbG95ZWUiOnRydWUsImh0dHBzOi8vZ28yZXhwby5leHBlZGl0b3JzLmNvbS9lbWFpbCI6Ik1haGVzd2FyYW4uRWx1bWFsYWlAZXhwZWRpdG9ycy5jb20iLCJodHRwczovL2dvMmV4cG8uZXhwZWRpdG9ycy5jb20vYnJhbmNoIjoiR1MxIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL2ZhbWlseU5hbWUiOiJFbHVtYWxhaSIsImh0dHBzOi8vZ28yZXhwby5leHBlZGl0b3JzLmNvbS9naXZlbk5hbWUiOiJNYWhlc3dhcmFuIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL3Nlc3Npb25FeHBpcnlUaW1lIjoiMjAyMy0xMC0wOVQxNjozMToyNi40OTVaIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL3Nlc3Npb25UcmFjZUlkIjoiVFdGb1pYTjNZWEpoYmk1RmJIVnRZV3hoYVE9PUBleHBlZGl0b3JzLmNvbXxnZDZ5N3k0c2N4IiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5kZXYudGVzdC1leHBlZGl0b3JzLmNvbS8iLCJzdWIiOiJzYW1scHxFeHBlZGl0b3JzfE1haGVzd2FyYW4uRWx1bWFsYWlAZXhwZWRpdG9ycy5jb20iLCJhdWQiOlsiaHR0cHM6Ly9leHBvLWFwaS1kZXYtZXhwZWRpdG9ycy5jb20iLCJodHRwczovL2Rldi10ZXN0LWV4cGVkaXRvcnMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5NjgyNjA1MywiZXhwIjoxNjk2ODI2OTUzLCJhenAiOiJUS2lBb2k4c2FLajFvQ2czMWl5VEVjYmRVRWhUWDdkMSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.vqUFZlZJ32JCGpEomRdDGag4oWJeYRxKn-av4j8cKx-CR2HqQCZBmvPr6LzmeyHpLuv-fHBQsOB9MLiW-ClqrWKvRHmXA_5D_MkNb2b2-MVczS7iXvpP3lkeKItTX_zlTJZ8rtn4nR__M3yX6GXCsQQiN9ELAu8v9Fc8J98ngigvAUGvEp3HrKuwWKNppMGslwNw4_huwFUB4ZomXMbuulfl9dgUh4xQ6lNdDEXvwlbLfYaW8uMqU-hMaIg59rndWKrBIdIyN3qc-OcqXkfLBlZ7-QiEakbhV1UYw8PxTKV1zEwS1r5Jvq4cGYrt2LOiRGkUwYb4tze06i2HKgDjSw
+
+
+DECODED:
+Header:
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "kid": "XvO2qzs8OMGtp7SKer62_"
+}
+
+Payload:
+{
+  "https://go2expo.expeditors.com/lastLogin": "2023-10-09T04:34:13.219Z",
+  "https://go2expo.expeditors.com/isEmployee": true,
+  "https://go2expo.expeditors.com/email": "Maheswaran.Elumalai@expeditors.com",
+  "https://go2expo.expeditors.com/branch": "GS1",
+  "https://go2expo.expeditors.com/familyName": "Elumalai",
+  "https://go2expo.expeditors.com/givenName": "Maheswaran",
+  "https://go2expo.expeditors.com/sessionExpiryTime": "2023-10-09T16:31:26.495Z",
+  "https://go2expo.expeditors.com/sessionTraceId": "TWFoZXN3YXJhbi5FbHVtYWxhaQ==@expeditors.com|gd6y7y4scx",
+  "iss": "https://login.dev.test-expeditors.com/",
+  "sub": "samlp|Expeditors|Maheswaran.Elumalai@expeditors.com",
+  "aud": [
+    "https://expo-api-dev-expeditors.com",
+    "https://dev-test-expeditors.auth0.com/userinfo"
+  ],
+  "iat": 1696826053,
+  "exp": 1696826953,
+  "azp": "TKiAoi8saKj1oCg31iyTEcbdUEhTX7d1",
+  "scope": "openid profile email offline_access"
+}
+
+
+Verify Signature:
+RSASHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  
+{
+  "e": "AQAB",
+  "kty": "RSA",
+  "n": "7-4WqPvM0QprDv77f0q_z5NEFb3RkOkakl299zB-WD-yJaGrjxGMc-yxQNEZ_tnKGOav4fU1_obhlcstr3SS3FmDjIysYMK3wura7cML-iNn9uz3uwqatoQasqqSRCzaWxV93R0DcQZIr9UPuJN7Y9Y2byZmtYaNK_2xogMDtzI0FeAGkN0EY_Hau92pG6BBZeRDHTfcI4Z3mE2iYIRCOglXb3zsXYxSdcH4AfIkNKgpAwLnT5Wcj61vWQnqbprGyz3a-kDwXrubxt_rvFgxsYdMPwy23ogW0gjzeYQGl511RE81kbB2BBmq4mmnMQkxfRArbKv8J99lV74MNVuXSw"
+}
+,
+  
+Private Key in PKCS #8, PKCS #1, or JWK string format. The key never leaves your browser.

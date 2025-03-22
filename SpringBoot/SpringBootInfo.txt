@@ -1,0 +1,98 @@
+https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/index.html
+
+1) https://www.baeldung.com/spring-boot-bean-definition-override-exception
+The bean 'entityManagerFactoryBuilder', defined in class path resource [com/expd/expo/booking/config/UserDatabaseConfiguration.class], could not be registered. A bean with that name has already been defined in class path resource [com/expd/expo/booking/config/ExpoBookingNumberConfig.class] and overriding is disabled.
+
+-> 4 solutions are there for this 
+a) Changing Method Names
+By default, Spring takes the names of the annotated methods as bean names.
+
+Therefore, if we have beans defined in a configuration class, like our example, then simply changing the method names will prevent the BeanDefinitionOverrideException:
+
+@Bean
+public TestBean1 testBean1() {
+    return new TestBean1();
+}
+Copy
+@Bean
+public TestBean2 testBean2() {
+    return new TestBean2();
+}
+
+b) @Bean Annotation
+Spring’s @Bean annotation is a very common way of defining a bean.
+
+So another option is to set the name property of the @Bean annotation:
+
+@Bean("testBean1")
+public TestBean1 testBean() {
+    return new TestBean1();
+}
+Copy
+@Bean("testBean2")
+public TestBean1 testBean() {
+    return new TestBean2();
+}
+
+
+c) Stereotype Annotations
+Another way to define a bean is with stereotype annotations. With Spring’s @ComponentScan feature enabled, we can define our bean names at the class level using the @Component annotation:
+
+@Component("testBean1")
+class TestBean1 {
+
+    private String name;
+
+    // standard getters and setters
+
+}
+Copy
+@Component("testBean2")
+class TestBean2 {
+
+    private String name;
+
+    // standard getters and setters
+
+}
+
+d) Beans Coming From 3rd Party Libraries
+In some cases, it’s possible to encounter a name conflict caused by beans originating from 3rd party spring-supported libraries.
+
+When this happens, we should attempt to identify which conflicting bean belongs to our application to determine if we can use any of the above solutions.
+
+However, if we’re unable to alter any of the bean definitions, then configuring Spring Boot to allow bean overriding can be a workaround.
+
+To enable bean overriding, we’ll set the spring.main.allow-bean-definition-overriding property to true in our application.properties file:
+
+spring.main.allow-bean-definition-overriding=true
+
+
+e) Even after defining below property, if the issue occurs, then it means that application.properties is not picked up properly:
+
+spring.main.allow-bean-definition-overriding=true
+
+Issue is solved by ensuring that application.properties is specified in vm arguments
+
+eg:
+-Djavax.net.ssl.trustStore=C:/ExpoNow/booking-parent/booking-service/src/main/resources/expd-ca-truststore.jks
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+-Djavax.net.ssl.trustStorePassword=expeditors
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED
+--add-opens=java.base/java.util=ALL-UNNAMED
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+-Dspring.config.location=C:/ExpoNow/booking-parent/booking-service/configs/local/application.properties
+
+
+
+
+2) H2  in memory database 
+
+https://www.baeldung.com/spring-boot-h2-database
+
+
+3) https://www.javainuse.com/boot3/sec/1
+

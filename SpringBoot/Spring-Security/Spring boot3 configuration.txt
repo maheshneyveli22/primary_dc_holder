@@ -1,0 +1,23 @@
+VMoptions
+
+-Djavax.net.ssl.trustStore=C:/NewCode/graphql-router/src/main/resources/expd-ca-truststore.jks
+-Djavax.net.ssl.trustStorePassword=expeditors
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED
+--add-exports=java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED
+--add-opens=java.base/java.util=ALL-UNNAMED
+--add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+--add-opens=java.base/java.lang.concurrent=ALL-UNNAMED
+--add-modules
+java.se
+--add-exports=java.base/sun.net.dns=ALL-UNNAMED
+--add-exports=java.base/sun.net.util=ALL-UNNAMED
+--add-exports=java.base/sun.security.util=ALL-UNNAMED
+
+Program arguments
+spring.config.location=C:\bookingparentnew\booking-parent\booking-service\configs\local\application.properties
+
+Override configuration properties
+spring.config.location
+C:\latestspringboot\springboot\booking-parent\booking-service\configs\local\application.properties

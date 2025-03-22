@@ -1,0 +1,203 @@
+1) To find the list of filters : keep debug in C:\Users\gs1-maheswarane\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.26\tomcat-embed-core-10.1.26.jar!\org\apache\catalina\core\ApplicationFilterChain.class
+
+
+ApplicationFilterChain-> doFilter -> this.internalDoFilter(request, response);
+
+-> Here in this object we can see the list of Application filters 
+
+
+filters = {ApplicationFilterConfig[20]@26761} 
+ 0 = {ApplicationFilterConfig@26764} "ApplicationFilterConfig[name=characterEncodingFilter, filterClass=org.springframework.boot.web.servlet.filter.OrderedCharacterEncodingFilter]"
+ 1 = {ApplicationFilterConfig@26766} "ApplicationFilterConfig[name=webMvcObservationFilter, filterClass=org.springframework.web.filter.ServerHttpObservationFilter]"
+ 2 = {ApplicationFilterConfig@26767} "ApplicationFilterConfig[name=formContentFilter, filterClass=org.springframework.boot.web.servlet.filter.OrderedFormContentFilter]"
+ 3 = {ApplicationFilterConfig@26768} "ApplicationFilterConfig[name=requestContextFilter, filterClass=org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter]"
+ 4 = {ApplicationFilterConfig@26755} "ApplicationFilterConfig[name=springSecurityFilterChain, filterClass=org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean$1]"
+ 5 = {ApplicationFilterConfig@26769} "ApplicationFilterConfig[name=expoTraceExtractionFilter, filterClass=com.expd.expo.booking.filters.ExpoTraceExtractionFilter]"
+ 6 = {ApplicationFilterConfig@26770} "ApplicationFilterConfig[name=expoTraceInjectionFilter, filterClass=com.expd.expo.booking.filters.ExpoTraceInjectionFilter]"
+ 7 = {ApplicationFilterConfig@26771} "ApplicationFilterConfig[name=headersFilter, filterClass=com.expd.expo.booking.filters.HeadersFilter]"
+ 8 = {ApplicationFilterConfig@26772} "ApplicationFilterConfig[name=responseLoggingFilter, filterClass=com.expd.expo.booking.filters.ResponseLoggingFilter]"
+ 9 = {ApplicationFilterConfig@26773} "ApplicationFilterConfig[name=logFilter, filterClass=org.springframework.web.filter.CommonsRequestLoggingFilter]"
+ 10 = {ApplicationFilterConfig@26774} "ApplicationFilterConfig[name=Tomcat WebSocket (JSR356) Filter, filterClass=org.apache.tomcat.websocket.server.WsFilter]"
+ 
+ 
+2) ObservationFilterChainDecorator ->  Provide a new FilterChain that accounts for needed security considerations when there are no security filters.
+
+a) Here doFilter method is called which in turn calls wrapFilter 
+
+-> Here doFilter contains the following:
+ public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+ 
+ 
+-> here request contains the following things regarding request
+ 
+ 
+ 
+ 
+a.1) request = {Request@26990} 
+ coyoteRequest = {Request@26991} "R( /graphql)"
+ cookies = null
+ attributes = {ConcurrentHashMap@26992}  size = 21
+ sslAttributesParsed = false
+ locales = {ArrayList@26993}  size = 4
+ notes = {HashMap@26994}  size = 0
+ authType = null
+ internalDispatcherType = {DispatcherType@26995} "REQUEST"
+ inputBuffer = {InputBuffer@26996} 
+ inputStream = {CoyoteInputStream@26997} 
+ reader = {CoyoteReader@26998} 
+ usingInputStream = false
+ usingReader = false
+ userPrincipal = null
+ parametersParsed = false
+ cookiesParsed = true
+ cookiesConverted = false
+ secure = false
+ subject = null
+ postData = null
+ parameterMap = {ParameterMap@26999}  size = 0
+ parts = null
+ partsParseException = null
+ session = null
+ requestDispatcherPath = {MessageBytes@27000} "/graphql"
+ requestedSessionCookie = false
+ requestedSessionId = null
+ requestedSessionURL = false
+ requestedSessionSSL = false
+ localesParsed = true
+ localPort = -1
+ remoteAddr = "127.0.0.1"
+ peerAddr = null
+ remoteHost = null
+ remotePort = -1
+ localAddr = null
+ localName = null
+ asyncContext = null
+ asyncSupported = {Boolean@27002} true
+ applicationRequest = {RequestFacade@26749} 
+ connector = {Connector@27003} "Connector["http-nio-8443"]"
+ filterChain = {ApplicationFilterChain@22568} 
+ mappingData = {MappingData@27004} 
+ applicationMapping = {ApplicationMapping@27005} 
+ facade = {RequestFacade@26749} 
+ response = {Response@27006} 
+ URIConverter = {B2CConverter@27007} 
+ 
+ 
+ a.2) In that coyoteRequest, contains the following on the request, it also contains headers bearer token etc 
+ 
+ 
+ coyoteRequest = {Request@26991} "R( /graphql)"
+ serverPort = 8443
+ serverNameMB = {MessageBytes@27063} "localhost"
+ remotePort = 0
+ localPort = 0
+ schemeMB = {MessageBytes@27064} "http"
+ methodMB = {MessageBytes@27065} "POST"
+ uriMB = {MessageBytes@27066} "/graphql"
+ decodedUriMB = {MessageBytes@27067} "/graphql"
+ queryMB = {MessageBytes@27068} "null"
+ protoMB = {MessageBytes@27069} "HTTP/1.1"
+ requestId = "1"
+ remoteAddrMB = {MessageBytes@27071} "127.0.0.1"
+ peerAddrMB = {MessageBytes@27072} "null"
+ localNameMB = {MessageBytes@27073} "null"
+ remoteHostMB = {MessageBytes@27074} "null"
+ localAddrMB = {MessageBytes@27075} "null"
+ headers = {MimeHeaders@27076} "=== MimeHeaders ===\r\nauthorization = Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilh2TzJxenM4T01HdHA3U0tlcjYyXyJ9.eyJodHRwczovL2dvMmV4cG8uZXhwZWRpdG9ycy5jb20vbGFzdExvZ2luIjoiMjAyNC0xMC0wMVQwMzoxOTozMS4yNjFaIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL2lzRW1wbG95ZWUiOnRydWUsImh0dHBzOi8vZ28yZXhwby5leHBlZGl0b3JzLmNvbS9lbWFpbCI6Ik1haGVzd2FyYW4uRWx1bWFsYWlAZXhwZWRpdG9ycy5jb20iLCJodHRwczovL2dvMmV4cG8uZXhwZWRpdG9ycy5jb20vYnJhbmNoIjoiR1MxIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL2ZhbWlseU5hbWUiOiJFbHVtYWxhaSIsImh0dHBzOi8vZ28yZXhwby5leHBlZGl0b3JzLmNvbS9naXZlbk5hbWUiOiJNYWhlc3dhcmFuIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL3Nlc3Npb25FeHBpcnlUaW1lIjoiMjAyNC0xMC0wMVQwNDoxOTozMS4zMjZaIiwiaHR0cHM6Ly9nbzJleHBvLmV4cGVkaXRvcnMuY29tL3Nlc3Npb25UcmFjZUlkIjoiVFdGb1pYTjNZWEpoYmk1RmJIVnRZV3hoYVE9PUBleHBlZGl0b3JzLmNvbXx5OTdrcGRpY3RmIiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5kZXYudGVzdC1leHBlZGl0b3JzLmNvbS8iLCJzdWIiOiJzYW1scHxFeHBlZGl0b3JzfE1haGVzd2FyYW4uRWx1bWFsYWlAZXhwZWRpdG9ycy5jb20iLCJhdWQiOlsiaHR0cHM6Ly9"
+ trailerFields = {MimeHeaders@27077} "=== MimeHeaders ===\r\n"
+ pathParameters = {HashMap@27078}  size = 0
+ notes = {Object[32]@27079} 
+ inputBuffer = {Http11InputBuffer@27080} 
+ urlDecoder = {UDecoder@27081} 
+ contentLength = 404
+ contentTypeMB = {MessageBytes@27082} "application/json"
+ charset = {UTF_8@27083} "UTF-8"
+ characterEncoding = "UTF-8"
+ expectation = false
+ serverCookies = {ServerCookies@27084} 
+ parameters = {Parameters@27085} ""
+ remoteUser = {MessageBytes@27086} "null"
+ remoteUserNeedsAuthorization = false
+ authType = {MessageBytes@27087} "null"
+ attributes = {HashMap@27088}  size = 0
+ response = {Response@27089} 
+ hook = {Http11Processor@22580} 
+ bytesRead = 0
+ startTimeNanos = 2063656598700
+ threadId = 141
+ available = 0
+ reqProcessorMX = {RequestInfo@27090} 
+ sendfile = true
+ errorException = null
+ listener = null
+ fireListener = false
+ registeredForRead = false
+ nonBlockingStateLock = {Object@27091} 
+ allDataReadEventSent = {AtomicBoolean@27092} "false"
+ 
+ a.2.1) Here contentTypeMB contains the type of request data and actual json data in bytes 
+ 
+ 
+contentTypeMB = {MessageBytes@27082} "application/json"
+ type = 1
+ hashCode = 0
+ hasHashCode = false
+ byteC = {ByteChunk@27154} "application/json"
+ charC = {CharChunk@27155} "null"
+ strValue = "application/json"
+ longValue = 0
+ hasLongValue = falsen
+ 
+ 
+ a.3) Under attributes it contain the following: 
+ 
+ attributes = {ConcurrentHashMap@26992}  size = 21
+ "org.springframework.web.context.request.async.WebAsyncManager.WEB_ASYNC_MANAGER" -> {WebAsyncManager@26745} 
+ "org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.FILTERED" -> {Boolean@27002} true
+ "org.springframework.web.filter.CorsFilter.FILTERED" -> {Boolean@27002} true
+ "org.springframework.security.web.FilterChainProxy.APPLIED" -> {Boolean@27002} true
+ "org.springframework.web.filter.ServerHttpObservationFilter.context" -> {ServerRequestObservationContext@27038} "name='http.server.requests', contextualName='null', error='null', lowCardinalityKeyValues=[exception='none', method='POST', outcome='SUCCESS', status='200', uri='UNKNOWN'], highCardinalityKeyValues=[http.url='/graphql'], map=[class io.micrometer.core.instrument.LongTaskTimer$Sample='SampleImpl{duration(seconds)=1288.1695402, duration(nanos)=1.2881695402E12, startTimeNanos=2063729742900}', class io.micrometer.tracing.handler.TracingObservationHandler$TracingContext='TracingContext{span=66fb6a501bd19e21682838d6a49daf5d/682838d6a49daf5d}', class io.micrometer.core.instrument.Timer$Sample='io.micrometer.core.instrument.Timer$Sample@289df092'], parentObservation=null"
+ "characterEncodingFilter.FILTERED" -> {Boolean@27002} true
+ "_csrf" -> {CsrfTokenRequestAttributeHandler$SupplierCsrfToken@27040} 
+ "webMvcObservationFilter.FILTERED" -> {Boolean@27002} true
+ "org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@327b99c0.FILTERED" -> {Boolean@27002} true
+ "class org.springframework.security.web.ObservationFilterChainDecorator.observation" -> {ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation@22559} 
+ "org.springframework.web.filter.ServerHttpObservationFilter.observation" -> {SimpleObservation@26849} "{name=http.server.requests(null), error=null, context=name='http.server.requests', contextualName='null', error='null', lowCardinalityKeyValues=[exception='none', method='POST', outcome='SUCCESS', status='200', uri='UNKNOWN'], highCardinalityKeyValues=[http.url='/graphql'], map=[class io.micrometer.core.instrument.LongTaskTimer$Sample='SampleImpl{duration(seconds)=1288.1696605, duration(nanos)=1.2881696605E12, startTimeNanos=2063729742900}', class io.micrometer.tracing.handler.TracingObservationHandler$TracingContext='TracingContext{span=66fb6a501bd19e21682838d6a49daf5d/682838d6a49daf5d}', class io.micrometer.core.instrument.Timer$Sample='io.micrometer.core.instrument.Timer$Sample@289df092'], parentObservation=null}"
+ "org.springframework.security.web.csrf.DeferredCsrfToken" -> {RepositoryDeferredCsrfToken@27044} 
+ "org.springframework.security.web.header.HeaderWriterFilter@4edc0072.FILTERED" -> {Boolean@27002} true
+ "formContentFilter.FILTERED" -> {Boolean@27002} true
+ "requestContextFilter.FILTERED" -> {Boolean@27002} true
+ "org.springframework.security.web.session.DisableEncodeUrlFilter.FILTERED" -> {Boolean@27002} true
+ "org.springframework.security.web.csrf.CsrfFilter@c142cb4.FILTERED" -> {Boolean@27002} true
+ "jakarta.servlet.http.HttpServletResponse" -> {HeaderWriterFilter$HeaderWriterResponse@26661} 
+ "org.springframework.security.web.csrf.CsrfToken" -> {CsrfTokenRequestAttributeHandler$SupplierCsrfToken@27040} 
+ "org.springframework.security.web.context.SecurityContextHolderFilter.APPLIED" -> {Boolean@27002} true
+ "org.springframework.web.servlet.handler.HandlerMappingIntrospector.CachedResult" -> {HandlerMappingIntrospector$CachedResult@27052} "CachedResult for REQUEST dispatch to '/graphql'"
+ 
+ 
+ 
+b) From these attributes, filters are taken and added to ObservationFilterChainDecorator's filter chain as additionalFilters  
+
+eg:
+additionalFilters = {ArrayList@26685}  size = 15
+ 0 = {ObservationFilterChainDecorator$ObservationFilter@22557} 
+  registry = {SimpleObservationRegistry@26682} 
+  convention = {ObservationFilterChainDecorator$FilterChainObservationConvention@26700} 
+  filter = {DisableEncodeUrlFilter@22556} 
+  name = "DisableEncodeUrlFilter"
+  eventName = "session.urlencoding"
+  position = 1
+  size = 15
+ 1 = {ObservationFilterChainDecorator$ObservationFilter@22555} 
+  registry = {SimpleObservationRegistry@26682} 
+  convention = {ObservationFilterChainDecorator$FilterChainObservationConvention@27165} 
+  filter = {WebAsyncManagerIntegrationFilter@22554} 
+  name = "WebAsyncManagerIntegrationFilter"
+  eventName = "context.async"
+  position = 2
+  size = 15
+  
+  
+-> It can be found by placing debug in ObservationFilterChainDecorator-> doFilter ->   parent.wrap(this::wrapFilter).doFilter(request, response, chain);
+
+Here chain contains -> additionalFilters 

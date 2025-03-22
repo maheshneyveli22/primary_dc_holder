@@ -1,0 +1,3 @@
+https://developers.redhat.com/blog/2021/04/15/fail-fast-with-opossum-circuit-breaker-in-node-js#example__opossum_circuit_breaker_for_node_js
+
+https://github.com/nodeshift-archived/nodejs-circuit-breaker-redhat/tree/main/name-service
