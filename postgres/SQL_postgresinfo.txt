@@ -1,0 +1,210 @@
+1) open pgAdmin 4  in windows start
+
+2) List all schemas in postgres:
+
+select schema_name
+from information_schema.schemata;
+
+###eg###
+schema_name        
+------------------ 
+expobook           
+information_schema 
+public             
+pg_catalog         
+pg_toast_temp_1    
+pg_temp_1          
+pg_toast           
+######
+
+
+2) To list all tables in a particular schema :
+
+select table_name
+from information_schema.tables where table_schema= 'expobook';
+
+3) Login to psql: 
+
+#####
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]: postgres
+Password for user postgres:
+psql (11.4)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=#
+
+############
+
+
+4) switch to a different db:
+
+####
+[gs1-maheswarane@g09-6 logs]$ ls
+applicationjson.log                                 application.log.2024-04-09.0.gz                  gqlrouter.log.2024-04-03.1.gz
+application.log                                     application.log.2024-04-09.1.gz                  gqlrouter.log.2024-04-04.0.gz
+application.log.2020-12-30.1318344399043536528.tmp  application.log.2024-04-10.0.gz                  gqlrouter.log.2024-04-05.0.gz
+application.log.2024-04-02.0.gz                     application.log.2024-04-10.1.gz                  gqlrouter.log.2024-04-07.0.gz
+application.log.2024-04-02.1.gz                     application.log.2024-04-11.0.gz                  gqlrouter.log.2024-04-08.0.gz
+application.log.2024-04-02.2.gz                     application.log.2024-04-12.0.gz                  gqlrouter.log.2024-04-09.0.gz
+application.log.2024-04-02.3.gz                     application.log.2024-04-13.0.gz                  gqlrouter.log.2024-04-09.1.gz
+application.log.2024-04-02.4.gz                     application.log.2024-04-15.0.gz                  gqlrouter.log.2024-04-10.0.gz
+application.log.2024-04-03.0.gz                     application.log.2024-04-16.0.gz                  gqlrouter.log.2024-04-10.1.gz
+application.log.2024-04-03.1.gz                     gqlrouter.log                                    gqlrouter.log.2024-04-11.0.gz
+application.log.2024-04-04.0.gz                     gqlrouter.log.2020-11-06.013669659657632983.tmp  gqlrouter.log.2024-04-12.0.gz
+application.log.2024-04-04.1.gz                     gqlrouter.log.2024-04-02.0.gz                    gqlrouter.log.2024-04-13.0.gz
+application.log.2024-04-05.0.gz                     gqlrouter.log.2024-04-02.1.gz                    gqlrouter.log.2024-04-15.0.gz
+application.log.2024-04-07.0.gz                     gqlrouter.log.2024-04-02.2.gz                    methods.txt
+application.log.2024-04-08.0.gz                     gqlrouter.log.2024-04-02.3.gz
+application.log.2024-04-08.1.gz                     gqlrouter.log.2024-04-03.0.gz
+[gs1-maheswarane@g09-6 logs]$ pwd
+/prod/jvm/gqlrouter/logs
+[gs1-maheswarane@g09-6 logs]$
+
+#########
+
+
+
+5) How to find the services connected to postgres:
+
+
+########
+[gs1-maheswarane@g09-dev-1 ~]$ ps -ef | grep  postgres
+postgres   781  1608  0 09:35 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58206) idle
+postgres  1608     1  0 Mar21 ?        00:11:04 /usr/pgsql-15/bin/postmaster -D /u01/pgsql/instance01/data
+postgres  1755  1608  0 Mar21 ?        00:00:24 postgres: logger
+postgres  1768  1608  0 Mar21 ?        00:00:34 postgres: checkpointer
+postgres  1769  1608  0 Mar21 ?        00:00:22 postgres: background writer
+postgres  1777  1608  0 Mar21 ?        00:02:40 postgres: walwriter
+postgres  1778  1608  0 Mar21 ?        00:00:35 postgres: autovacuum launcher
+postgres  1779  1608  0 Mar21 ?        00:00:04 postgres: archiver last was 000000010000001300000000
+postgres  1780  1608  0 Mar21 ?        00:00:01 postgres: logical replication launcher
+postgres  2280  1608  0 09:38 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58220) idle
+postgres  2741  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58224) idle
+postgres  2932  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58228) idle
+postgres  3912  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp postgres 10.249.5.26(51784) idle
+postgres  4054  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51809) idle
+postgres  4812  1608  0 09:43 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58248) idle
+postgres  5465  1608  0 07:51 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51893) idle in transaction
+gs1-mah+  7633  7376  0 09:47 pts/0    00:00:00 grep --color=auto postgres
+postgres 23209  1608  0 09:17 ?        00:00:07 postgres: svc-booking booking 10.254.41.224(58130) idle in transaction
+postgres 23229  1608  0 09:18 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58134) idle
+postgres 23557  1608  0 09:18 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58136) idle
+postgres 26231  1608  0 09:23 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58162) idle
+postgres 29684  1608  0 09:31 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58190) idle
+postgres 29701  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48294) idle
+postgres 29704  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54140) idle
+postgres 29711  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48308) idle
+postgres 29784  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48320) idle
+postgres 29785  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54162) idle
+postgres 29842  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54182) idle
+postgres 29845  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48362) idle
+postgres 30490  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48384) idle
+postgres 30722  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54236) idle
+postgres 30737  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48408) idle
+postgres 30857  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54278) idle
+postgres 30862  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54280) idle
+postgres 30864  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48434) idle
+postgres 30887  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48456) idle
+postgres 30897  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54308) idle
+postgres 30961  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54318) idle
+postgres 30970  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48484) idle
+postgres 31270  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48504) idle
+postgres 31684  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54366) idle
+postgres 31690  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54378) idle
+[gs1-maheswarane@g09-dev-1 ~]$ ps -ef | grep  postgres
+postgres   781  1608  0 09:35 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58206) idle
+postgres  1608     1  0 Mar21 ?        00:11:04 /usr/pgsql-15/bin/postmaster -D /u01/pgsql/instance01/data
+postgres  1755  1608  0 Mar21 ?        00:00:24 postgres: logger
+postgres  1768  1608  0 Mar21 ?        00:00:34 postgres: checkpointer
+postgres  1769  1608  0 Mar21 ?        00:00:22 postgres: background writer
+postgres  1777  1608  0 Mar21 ?        00:02:40 postgres: walwriter
+postgres  1778  1608  0 Mar21 ?        00:00:35 postgres: autovacuum launcher
+postgres  1779  1608  0 Mar21 ?        00:00:04 postgres: archiver last was 000000010000001300000000
+postgres  1780  1608  0 Mar21 ?        00:00:01 postgres: logical replication launcher
+postgres  2280  1608  0 09:38 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58220) idle
+postgres  2741  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58224) idle
+postgres  2932  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58228) idle
+postgres  3912  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp postgres 10.249.5.26(51784) idle
+postgres  4054  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51809) idle
+postgres  4812  1608  0 09:43 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58248) idle
+postgres  5465  1608  0 07:51 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51893) idle in transaction
+postgres  8042  1608  0 09:48 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58272) idle
+postgres  8218  1608  0 09:48 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58274) authentication
+gs1-mah+  8242  7376  0 09:48 pts/0    00:00:00 grep --color=auto postgres
+postgres 23557  1608  0 09:18 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58136) idle
+postgres 26231  1608  0 09:23 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58162) idle
+postgres 29684  1608  0 09:31 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58190) idle
+postgres 29701  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48294) idle
+postgres 29704  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54140) idle
+postgres 29711  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48308) idle
+postgres 29784  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48320) idle
+postgres 29785  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54162) idle
+postgres 29842  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54182) idle
+postgres 29845  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48362) idle
+postgres 30490  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48384) idle
+postgres 30722  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54236) idle
+postgres 30737  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48408) idle
+postgres 30857  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54278) idle
+postgres 30862  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54280) idle
+postgres 30864  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48434) idle
+postgres 30887  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48456) idle
+postgres 30897  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54308) idle
+postgres 30961  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54318) idle
+postgres 30970  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48484) idle
+postgres 31270  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48504) idle
+postgres 31684  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54366) idle
+postgres 31690  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54378) idle
+[gs1-maheswarane@g09-dev-1 ~]$ ps -ef | grep  postgres
+postgres   781  1608  0 09:35 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58206) idle
+postgres  1608     1  0 Mar21 ?        00:11:04 /usr/pgsql-15/bin/postmaster -D /u01/pgsql/instance01/data
+postgres  1755  1608  0 Mar21 ?        00:00:24 postgres: logger
+postgres  1768  1608  0 Mar21 ?        00:00:34 postgres: checkpointer
+postgres  1769  1608  0 Mar21 ?        00:00:22 postgres: background writer
+postgres  1777  1608  0 Mar21 ?        00:02:40 postgres: walwriter
+postgres  1778  1608  0 Mar21 ?        00:00:35 postgres: autovacuum launcher
+postgres  1779  1608  0 Mar21 ?        00:00:04 postgres: archiver last was 000000010000001300000000
+postgres  1780  1608  0 Mar21 ?        00:00:01 postgres: logical replication launcher
+postgres  2280  1608  0 09:38 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58220) idle
+postgres  2741  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58224) idle
+postgres  2932  1608  0 09:39 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58228) idle
+postgres  3912  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp postgres 10.249.5.26(51784) idle
+postgres  4054  1608  0 07:49 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51809) idle
+postgres  4812  1608  0 09:43 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58248) idle
+postgres  5465  1608  0 07:51 ?        00:00:00 postgres: gs1-boomirajp booking 10.249.5.26(51893) idle in transaction
+postgres  8042  1608  0 09:48 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58272) idle
+postgres  8218  1608  0 09:48 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58274) idle
+postgres  8297  1608  0 09:48 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58276) idle
+postgres  8557  1608  0 09:49 ?        00:00:00 postgres: gs1-maheswarane postgres 10.249.5.65(65531) idle
+gs1-mah+  8584  7376  0 09:49 pts/0    00:00:00 grep --color=auto postgres
+postgres 26231  1608  0 09:23 ?        00:00:01 postgres: svc-booking booking 10.254.41.224(58162) idle
+postgres 29684  1608  0 09:31 ?        00:00:00 postgres: svc-booking booking 10.254.41.224(58190) idle
+postgres 29701  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48294) idle
+postgres 29704  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54140) idle
+postgres 29711  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48308) idle
+postgres 29784  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48320) idle
+postgres 29785  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54162) idle
+postgres 29842  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54182) idle
+postgres 29845  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48362) idle
+postgres 30490  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48384) idle
+postgres 30722  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54236) idle
+postgres 30737  1608  0 09:31 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48408) idle
+postgres 30857  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54278) idle
+postgres 30862  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54280) idle
+postgres 30864  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48434) idle
+postgres 30887  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48456) idle
+postgres 30897  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54308) idle
+postgres 30961  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54318) idle
+postgres 30970  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48484) idle
+postgres 31270  1608  0 09:32 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.137(48504) idle
+postgres 31684  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54366) idle
+postgres 31690  1608  0 09:33 ?        00:00:00 postgres: svc-booking1 booking 10.0.231.136(54378) idle
+[gs1-maheswarane@g09-dev-1 ~]$
+
+
+###################

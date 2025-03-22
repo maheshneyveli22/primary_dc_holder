@@ -1,0 +1,18 @@
+1) 26-Oct-2023 
+a) LOT:1 Strategy: EMA  Entry:247/42212/12:37 Exit:218.60/42300/13:13 P/L -429
+-> Forced Impatient entry, No favourable RRR
+
+2) 27-OCT-2023
+a) LOT:1 Strategy: RCBO  Entry:195.2/42622/09:41 Exit:212/42800/15:20 P/L 252
+-> Followed rules, Favourable RRR, but target not hit 
+
+3) 03-Nov-2023
+
+a) LOT:1 Strategy: ES PE Entry:222.5/43262/09:25 Exit:206/43292/09:30 P/L -247
+-> Followed rules, Favourable RRR, but LOSS
+
+b) LOT:1 Strategy: RCBO Entry:246/43352/09:40 Exit:225/43301/09:45 P/L -315
+-> Followed rules, Favourable RRR, but LOSS
+
+) LOT:1 Strategy: FB RCBO Entry:203/43298/09:45 Exit:225/43301/09:45 P/L -
+-> Followed rules, Favourable RRR, but LOSS

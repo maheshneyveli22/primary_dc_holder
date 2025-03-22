@@ -1,0 +1,8 @@
+ALT+u - capitalize the first character of all the words selected.
+CTRL+ALT+u - capitalize the first character of all selected words.
+CTRL+ALT+u - lowercase all selected characters.
+CTRL+SHIFT+u - uppercase all selected characters.
+
+1) 
+How do I turn off line NUMBERS in Notepad++?
+-> Under Settings, Preferences, Margins/Border/Edge look For line number on the right and untick the “display” setting, easy!
