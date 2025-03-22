@@ -677,3 +677,24 @@ gs1-maheswarane@GS1-MAHESWAR-LX MINGW64 /c/ExpoNow/zaidprojects/zaid_repo (arp-s
 $
 
 ...
+
+
+
+13) How to delete unpushed git commits 
+
+....
+
+a) Delete the most recent commit, destroying the work you've done:
+
+git reset --hard HEAD~1
+
+
+....
+
+
+b) git reset --hard origin
+This command will sync the local repository with the remote repository getting rid of every change you have made on your local. You can also do the following to fetch the exact branch that you have in the origin as Cleary suggested in the comments.
+
+git reset --hard origin/<branch>
+
+....
