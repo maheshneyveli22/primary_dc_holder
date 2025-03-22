@@ -1,0 +1,378 @@
+1) AWSSecretsManager
+
+ AWSSecretsManager client = AwsSecretsManagerClientBuilder.standard().withRegion(region).withCredentials(new AWSStaticCredentailsProvider(new BasicAwsCredentials(accessKey,secreteKey)
+ 
+ -> AWSSecrets instance holds the secrets
+
+-> from AWSSecrets we can username/pwd and then build the DataSource object
+
+public DataSource dataSource()
+{AWSSecrets secrets= getSecret();
+return DataSourceBuilder
+.create()
+.driverClassName("")
+.url("")
+.username(secrets.getUserName())
+.password(secrets.getPassword())
+.build();
+
+}
+
+2) Group is required for: DynamoDB, ElasticBeanStalk, SQS
+
+3) Spring boot aws dependencies: AWS Core, AWS RDS, AWS Simple Queue Service
+
+
+4)SQS - Simple Queuing service
+
+#Sending Message:
+
+a) Build QueMessagingTemplate in config class
+
+
+@Bean
+public QueMessagingTemplate queMessagingTemplate()
+{
+return new QueMessagingTemplate(amazonSQSAsync());
+}
+
+@Primary
+@Bean
+private AmazonSQSAsync amazonSQSAsync()
+{
+return AmazonSQSAsyncClientBuilder.standard()
+.withRegion(Regions.AP_SOUTH_1)
+.withCredentials(new AWSStaticCredentailsProvider(new BasicAwsCredentials(awsAccessKey,awsSecretKey))
+.build();
+
+}
+
+b) Sending SQS Message
+ --> In controller class, using URI and message builder, send the message:
+
+@Autowired
+private QueMessagingTemplate queMessagingTemplate;
+
+@Value("$(cloud.aws.end-point.uri})")
+private String endpoint;
+
+@GetMapping("/send/{message}")
+public void sendMessageToQueue(@PathVariable String message)
+{
+queMessagingTemplate.send(endPoint,MessageBuilder.withPayLoad(message).build());
+}
+
+
+5) SQS receiving message
+-> In controller class add @SqsListener annotation specifying the quename:"javatechie-queue\n"
+-> by specifying this annotation, whatever message published to this queue will be loaded in this method
+
+@SqsListener("javatechie-queue\n")
+public void loadMessageFromSQS(String message)
+{
+logger.info("message from SQS queue{}", message);
+}
+
+-> once message is received, queue willl become empty in sqs
+
+
+6) SNS - Simple Notification service
+
+SNS - Publisher/Subscriber messaging system
+-> IN SNS - Message will be published and it can be accessed by all the subscribers 
+--> A topic is a message channel. Once you publish a message to a topic, it will notify  the message to all subscribed endpoints by the configured notification method
+-> Notification methods: HTTPS, EMail, Amazon SQS, AWS Lambda, SMS, Platform application endpoint
+STEPS:
+a) Create topic in aws manually, then add subscription in application  and publish event to the topic 
+b) In Config class, create Object of SNSClient to access AWS SNS  
+
+@Primary
+@Bean
+public AmazonSNSClient getSnsClient(){
+return (AmazonSNSClient)AmazonSNSClientBuilder.standard().withRegision(Regions.AP_SOUTH_1)
+.withCredentials(new AWSStaticCredentailsProvider(new BasicAwsCredentials(ACCESS_KEY,SECRET_KEY)))
+.build();
+
+}
+c) In controller class:
+
+i) Adding subscription
+@Autowired
+private AmazonSNSClient snsClient;
+
+String TOPIC_ARN="arn:aws:sns:ap-south-1:688977:-javatechie-topic"
+
+@getMapping("/addSubscription/{email}")
+public String addSubscription(@PathVariable String emailAddress)
+{
+SubscribeRequest request= new SubscribeRequest(TOPIC_ARN,"email", emailAddress)
+snsClient.subscribe(request);
+return "Subscription request pending, check mail"
+} 
+
+ii) Publishing message to Topic
+
+@GetMapping("/sendNotification")
+public String publishMessageToTopic()
+{
+PublishRequest publishRequest= new PublishRequest(TOPIC_ARN,"actual email message","email subject") ;
+snsClient.publish(publishRequest);
+return "Notification sent successfully";
+}
+
+
+7) Difference between SQS and SNS
+-> In SQS message will be posted in queue and once it is read by a listener - queue will become empty
+-> IN SNS - Message will be published and it can be accessed by all the subscribers 
+
+-> Message will be published in topic of aws sns and it can be read in the prescribed notification method while adding subscription.
+
+
+8) AWS Lambda - Serverless Architecture
+
+-> Lambda method name can be used to access the service
+
+ AWS Lambda
+The AWS adapter takes a Spring Cloud Function app and converts it to a form that can run in AWS Lambda.
+
+10.1.1 Introduction
+The adapter has a couple of generic request handlers that you can use. The most generic is SpringBootStreamHandler, which uses a Jackson ObjectMapper provided by Spring Boot to serialize and deserialize the objects in the function. There is also a SpringBootRequestHandler which you can extend, and provide the input and output types as type parameters (enabling AWS to inspect the class and do the JSON conversions itself).
+
+If your app has more than one @Bean of type Function etc. then you can choose the one to use by configuring function.name (e.g. as FUNCTION_NAME environment variable in AWS). The functions are extracted from the Spring Cloud FunctionCatalog (searching first for Function then Consumer and finally Supplier).
+
+
+STEPS:
+a) Create Lambda function methods in controller class
+b) Create OrderHandler class Extending the SpringBootRequestHandler
+c) Create Lambda function in aws and create function with name: javtechie-function and choose the run time support as: Java8, and then create the function
+d) In function->Edit Basic settings  -> give the handler name as: com.javatechie.aws.lambda.OrderHandler
+e) In controller class we have two functions. We need to tell aws Lambda that, if i specify the function name, call that particular function 
+-> for that copy method name and add it as environment variable in javatechie-function
+give key/value as: FUNCTION_NAME AND orders
+
+
+@Bean
+public Supplier<List<Order>> orders(){
+return()->orderDao.buildOrders();
+}
+
+@Bean
+public Function<String,List<Order>> findOrderByName()
+{
+return (input)->orderDao.buildOrders().stream().filter(order->....)
+
+
+}
+
+f) Now we need to deploy jar file
+
+javatechie-function-> configuration->Function Code -> Actions -> Upload a .zip or .jar file  ---> and upload the jar file here.
+
+Thus java file gets uploaded
+
+g) Now we need to test
+Select Configure test events 
+
+Configure test event-> give event name-> if there is no parameter needed for method just leave empty and click test-> now testing will be started
+
+Later we will be able to see the execution result as succeeded 
+
+
+
+9) AWS API Gateway;
+CALLING AWS LAMBDA FUNCTION USING AWS API GATEWAY: 
+
+a) To work with API Gateway we need to slight modifications to the controller class we used in Spring Lambda function tutorial
+-> Add generic request and response type in the method, since API gateway does not understand String data type.
+i) In orderHandler class change parameter to APIGatewayProxyRequestEvent
+
+eg: 
+public class OrderHandler extends SpringBootRequestHandler<APIGatewayProxyRequestEvent, List<Order>
+
+ii) Change the same in function: findOrderByName
+
+-> here in this method, we are filtering List of order objects, based on input parameter.
+
+@Bean 
+public Function<APIGatewayProxyRequestEvent, List<Order>> findOrderByName()
+{
+return (requestEvent)->orderDao.buildOrder().stream.filter(order->order.getName().equals(requestEvent.getQueryStringParameters().get("orderName"))).collect(Collectors.toList());
+}
+
+
+b) Now with the changes build jar
+
+c) Now go to Lambda function: javatechie-function and Add Trigger
+
+-> Trigger Configuration -> Select API Gateway
+-> IN Option Create a new API or attach an existing one -> select Create an API -> Security :select as Open  and click save
+
+d) Now API Gateway will be pointing to Lambda function: javatechie-function
+
+e) THus API gateway will act as trigger. Once we hit the API gateway, it will trigger the lambda function and it will configured particular function which we configured in API Gateway trigger 
+
+f) URL for API gateway can be found in API Gateway details 
+
+
+g) Ensure you upload updated jar before using API gateway url
+
+
+10) Directly using API gateway:
+Service->API Gateway -> Create API 
+
+-> we can check how based on particular URL, routing to that particular service happens
+
+11) Steps to ACCess REST API through API gateway
+-> we will create spring boot application and deploy it using elastic bean stalk
+-> Once application is hosted in cloud using elastic beanstalk, we need to configure the endpoint of the application in api gateway
+-> So when user sends request to API gateway ->that particular request will be routed to application hosted in elastic bean stalk
+
+
+a) Create rest application and deploy using elastic bean stalk
+b) copy url generated in elastic bean stalk 
+c) go to API gateway in aws-> create API(Rest)-> New API -> i) API name ii) Description iii) Endpoint Type
+-> create API aand specify the actions
+-> create post method and specify the url copied earlier from elastic bean stalk and save
+d) Just by giving Endpoint uRL we can map our application to API gateway
+e) Then deply the api
+f) THen copy the URL in api page and use for further communication via API gateway
+
+THus we can acccess our application via API gateway
+
+
+12) Deploying docker image on Amazon ECS
+
+ECS -> Elastic Container service
+-> FUlly managed container orchestration service
+-> Using eCs we can run n number of docker container, without additional configuration.
+
+AWS Fargate: 
+for Managing infrastructure and cluster in AWS ECS
+-> someone who autoscales the container
+-> AWS Fargate works with ECS and helps to run containers without having to provision, configure and scaling
+
+
+13) AWS S3 Upload and download
+
+a) Config class:
+
+public class StorageConfig
+{
+@Value("${cloud.aws.credentials.access-key}")
+private String accessKey
+
+@Value("${cloud.aws.credentials.secret-key}")
+private String accessSecret;
+
+@Value("${cloud.aws.region.static}")
+private String region;
+
+@Bean
+private AmazonS3 generateS3Client()
+{
+AWSCredentials credentials = new BasicAWSCredentials(accessKey,accessSecret)
+return AmazonS3ClientBuilder.standard().withCredentails(new AWSStaticCredentailsProvider(credentials).withRegion(region).build();
+
+} 
+
+b)Service layer with logic to upload or download file
+
+i) TO UPLOAD FILE
+@Service
+public class StorageService{
+
+@Value("${application.bucket.name}")
+private String bucketName;
+@Autowired
+private AmazonS3 s3Client;
+
+public String uploadFile(MultipartFile file)
+{
+File fileObj = convertMultiPartFileToFile(file);
+String fileName=System.currentTimeMillis()+"_"+file.getOriginalFilename();
+s3Client.putObject(new PutObjectRequest(bucketName,fileName,fileObj));
+fileObj.delete();
+return "filed uploaded successfully :"+fileName;
+}
+
+private File convertMultiPartFileToFile(MultipartFile file)
+{
+File convertedFile= new File(file.getOriginalFilename());
+try(FileOutputStream fos = new FileOutputStream(convertedFile))
+{
+fos.write(file.getBytes());
+}
+catch(IOException e)
+{
+log.error("Error converting multipart fiel to file", e)
+}
+}
+return convertedFile;
+}
+}
+
+
+s3Client.putObject(new PutObjectRequest(bucketName,fileName,fileObj)); -> helps to push file from application to aws s3Client
+
+fileObj.delete(); -> helps to delete file from application after it is pushed to s3
+
+
+ii) TO DOWNLOAD A FILE:
+-> add downloadFile() method in StorageService class:
+
+
+public byte[] downloadFile(String fileName)
+{
+//get S3 Object by giving bucket Name and file name
+S3Object s3Object= s3Client.getObject(bucketName,fileName);
+// get the s3 object input stream from s3 object: to get content  from s3 object
+S3ObjectInputStream inputStream=s3Object.getObjectContent();
+//last step-> converting stream to byte array
+byte[] content= IOUtils.toByteArray(inputStream);
+
+return content;
+}
+
+
+iii) To delete file from S3 bucket:
+
+public String deleteFile(String fileName)
+{
+s3client.deleteObject(bucketName,fileName);
+return fileName+" removed...";
+}
+
+c) Controller side changes
+
+@RestController
+@RequestMapping("/file")
+public class StorageController
+{
+
+@Autowired
+private StorageService service;
+
+@PostMapping("/upload")
+public ResponseEntity<String> uploadFile(@RequestParam(value="file") MultipartFile file)
+{
+return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
+}
+
+@GetMapping("/download/{fileName}")
+public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName)
+{
+byte[] data= service.downloadFile(fileName);
+ByteArrayResource resource= new ByteArrayResource(data);
+return ResponseEntity.ok()
+.contentLength(data.length)
+.header("content-type","application/octet-stream")
+.header("content-disposition", "attachment: filename=\""+fileName+ "\"")
+.body(resource);
+}
+
+}
+
+@DeleteMapping("/delete/{fileName}")
+public ResponseEntity<String> deleteFile(@PathVariable String fileName)
+{
+return new ResponseEntity<>(service.deleteFile(fileName).HttpStatus.OK);

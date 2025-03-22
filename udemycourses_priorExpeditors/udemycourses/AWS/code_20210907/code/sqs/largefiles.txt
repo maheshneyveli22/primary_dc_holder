@@ -1,0 +1,1 @@
+"C:\Users\Maheswaran\Desktop\UdemyCourses\AWS\code_20210907\code\sqs\sqs.sh" 
