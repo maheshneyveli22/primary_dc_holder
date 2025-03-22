@@ -1,0 +1,46 @@
+1) Version : IPV4 or IPV6
+2) Structure: 10.2.3.4
+3) Range: each of range: 0-255
+4) Size: 32 bits: 4*8. Each one of range: 0-255
+
+10011100.11010111.00011101.00010101
+1 octet
+2 octet
+3 octet
+4 octet 
+
+5) SUBNET: or subnet mask
+-> its size is 32 bits
+-> Usage: If we see the subnet mask, we can identify which part of ip address is network part and which part is host part 
+
+-> if network is 1 and host is 0
+
+11111111.11111111.11111111.00000000
+
+So subnet mask: 255.255.255.0
+
+
+6) Class of IP address: 
+-> in IP address - First 3 octets is network and last 1 octet is host 
+---> This will vary in each ip address and it wont be fixed 
+
+It will vary based on class of IP address:
+
+
+Class	Address        Range	Subnet masking	Example IP	Leading bits	Max number of networks	Application
+IP Class A	         1 to 126	255.0.0.0	      1.1.1.1	8	                  128	            Used for large number of hosts.
+IP Class B	        128 to 191	255.255.0.0	     128.1.1.1	16	                  16384	             Used for medium size network.
+IP Class C	        192 to 223	255.255.255.0	  192.1.1.1	24	                 2097157	         Used for local area network.
+IP Class D	        224 to 239	  NA	            NA	    NA	                   NA	             Reserve for multi-tasking.
+IP Class E	        240 to 254	  NA	            NA	    NA	                   NA	            This class is reserved for research and Development Purposes.
+
+
+Class A addresses: 127.0.0.0 to 127.255.255.255 cannot be used and is used for loop back testing 
+
+
+7) our ip address local can be : 192.168.29.5
+But it cannot be:
+
+192.168.29.0
+192.168.29.255
+192.168.29.1

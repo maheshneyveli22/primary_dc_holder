@@ -1,0 +1,5 @@
+1) cmd: mvn dependency:tree
+
+
+eg:
+###

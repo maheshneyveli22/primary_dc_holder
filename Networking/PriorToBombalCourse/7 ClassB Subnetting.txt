@@ -1,0 +1,290 @@
+1) Consider 5 departments in my company 
+-> for these 5 departments we are going to form 5 different networks 
+-> To do this , we are going to use the subnettting table we formed in the last video 
+-> Subnetting table tells when we divide a  network into multiple individual networks - How many IP addresses can be allocated to each invidual network. 
+
+2) 
+Network ID of my company: 192.168.10.0/24
+Its CIDR value: /24
+
+Subnet Mask: 11111111.11111111.11111111.00000000
+
+Maximum No of host ip address: 2^8=256
+
+Department            No of Computers
+Develop						60
+Testing						40
+Design 						40
+HR   						20
+Accounts					20
+
+3) While dividing network based on 256 IP addresses:
+-> we can divide into 2,4,8,16,32,64 and 128 
+-> if we divide into 8, each network will have 32 host ips only, since some of our networks need 60,40,40 IP addresses, dividing into 8 wont work 
+
+4) So we are going to divide into 4 networks 
+-> to change into 4 networks, host has already 8 bits. Now we will change first two bits into network bits
+
+Network ID of my company: 192.168.10.0/26
+Its CIDR value: /26
+
+Subnet Mask: 11111111.11111111.11111111.11000000
+
+No of network bits=26
+No of host bits=6
+No of host IP address: 2^6=64
+
+
+N1: 192.168.10.0 to 192.168.10.63 
+Subnet Mask: 255.255.255.192 
+
+N2: 192.168.10.64 to 192.168.10.127
+Subnet Mask: 255.255.255.192 
+
+N3: 192.168.10.128 to 192.168.10.191
+Subnet Mask: 255.255.255.192 
+
+N4: 192.168.10.192 to 192.168.10.255
+Subnet Mask: 255.255.255.192 
+
+-> in these divided networks first one will be network id and last one will be broadcast id 
+-> so each network will have 62 Ips, using that we can give 60 IP addresses for develop team
+
+5) So we will give:
+ N1 to develop team
+ N2 to testing team
+ N3 to design team 
+
+6) The remaining N4 needs to be given to Network team and also HR team  
+-> so we are going to further divide N4 into two networks 
+-> already our original network is a network in which  CIDR has changed from /24 to /26 
+-> Now we are going to utilize one more host bit and convert it into network bit 
+-> so we are goint to change it to /27  and thus N4 will divide into two
+
+19.168.10.0/27
+
+Subnet mask:
+11111111.11111111.11111111.11100000
+
+
+-> No of network bits = 27
+-> No of host bits = 5
+
+-> so no of host ip addresses= 2^5=32
+
+
+Now in these 5 networks - we are going to see the:
+a) Network ID
+b) Broadcast ID
+c) Subnet Mask  
+
+
+N1: 192.168.10.0 to 192.168.10.63 
+Network ID: 192.168.10.0
+Broadcast ID: 192.168.10.63 
+Subnet Mask: 255.255.255.192 
+-> Here 192.168.10.0/26: 11111111.11111111.11111111.11000000
+-> Hence subnet mask is: 255.255.255.192 
+
+N2: 192.168.10.64 to 192.168.10.127
+Network ID: 192.168.10.64
+Broadcast ID: 192.168.10.127
+Subnet Mask: 255.255.255.192 
+-> Here 192.168.10.0/26: 11111111.11111111.11111111.11000000
+-> Hence subnet mask is: 255.255.255.192 
+
+N3: 192.168.10.128 to 192.168.10.191
+Network ID: 192.168.10.128
+Broadcast ID: 192.168.10.191 
+Subnet Mask: 255.255.255.192 
+-> Here 192.168.10.0/26: 11111111.11111111.11111111.11000000
+-> Hence subnet mask is: 255.255.255.192 
+
+-> Only for N4 and N5, CIDR is /27
+
+N4: 192.168.10.192 to 192.168.10.223
+Network ID: 192.168.10.192
+Broadcast ID: 192.168.10.223
+Subnet Mask: 255.255.255.224
+
+-> Here 192.168.10.0/27: 11111111.11111111.11111111.11100000
+-> Hence subnet mask is: 255.255.255.224
+
+N5: 192.168.10.224 to 192.168.10.255
+Network ID: 192.168.10.224
+Broadcast ID: 192.168.10.255 
+Subnet Mask: 255.255.255.224
+
+-> Here 192.168.10.0/27: 11111111.11111111.11111111.11100000
+-> Hence subnet mask is: 255.255.255.224
+
+
+-> in these divided networks first one will be network id and last one will be broadcast id 
+
+7) Now since company is divided into 5 networks: N1, N2, N3, N4, N5
+-> Person in network N1 cannot communicate with Network N2
+
+
+8) So far we subnetted /24 network(class C)
+-> Now we are going to subnet /16 network(Class B)  
+-> Network ID of the company 172.16.0.0/16
+-> this is similar to a class B address
+
+Subnet Mask: 11111111.11111111.00000000.00000000
+
+No of Network bits=16
+No of Host bits=16
+No of Host IP address: 2^16=65536
+
+4 Departments:
+Develop	
+Testing	
+Design 	 
+HR   	
+
+9) Since we have /16 network, we are going to form new subnetting table 
+
+a) In 1 whole network 
+Subnet: 1
+Host: 65536
+CIDR: /16
+
+b) Dividing into 2 networks
+Subnet: 2
+Host: 32768
+CIDR: /17
+
+c) Dividing into 4 networks
+Subnet: 4
+Host: 16834
+CIDR: /18
+
+d) Dividing into 8 networks
+Subnet: 8
+Host: 8192
+CIDR: /19
+
+e) Dividing into 16 networks
+Subnet: 16
+Host: 4096
+CIDR: /20
+
+f) Dividing into 32 networks
+Subnet: 32
+Host: 2048
+CIDR: /21
+
+g) Dividing into 64 networks
+Subnet: 64
+Host: 1024
+CIDR: /22
+
+h) Dividing into 128 networks
+Subnet: 128
+Host: 512
+CIDR: /23
+
+i) Dividing into 256 networks
+Subnet: 256
+Host: 256
+CIDR: /24
+
+j) Dividing into 512 networks
+Subnet: 512
+Host: 128
+CIDR: /25
+
+k) Dividing into 1024 networks
+Subnet: 1024
+Host: 64
+CIDR: /26
+
+l) Dividing into 2048 networks
+Subnet: 2048
+Host: 32
+CIDR: /27
+
+m) Dividing into 4096 networks
+Subnet: 4096
+Host: 16
+CIDR: /28
+
+
+n) Dividing into 8192 networks
+Subnet: 8192
+Host: 8
+CIDR: /29
+
+o) Dividing into 16384 networks
+Subnet: 16384
+Host: 4
+CIDR: /30
+
+p) Dividing into 32768 networks
+Subnet: 32768
+Host: 2
+CIDR: /31
+
+q) Dividing into 65536 networks
+Subnet: 65536
+Host: 1
+CIDR: /32
+
+
+10) In our scenario, to divide our network into 4 , we need to use CIDR: /18
+
+
+N1: 172.16.0.0 to 172.16.63.255 
+Subnet Mask: 255.255.192.0
+Network ID:172.16.0.0
+Broadcast ID: 172.16.63.255 
+Valid Host IP addresses: 16382
+
+N2: 172.16.64.0 to 172.16.127.255 
+Subnet Mask: 255.255.192.0
+Network ID:172.16.64.0
+Broadcast ID: 172.16.127.255 
+Valid Host IP addresses: 16382
+
+N3: 172.16.128.0 to 172.16.191.255 
+Subnet Mask: 255.255.192.0
+Network ID:172.16.128.0
+Broadcast ID: 172.16.191.255 
+Valid Host IP addresses: 16382
+
+N4: 172.16.192.0 to 172.16.255.255 
+Subnet Mask: 255.255.192.0
+Network ID:172.16.192.0 
+Broadcast ID: 172.16.255.255
+Valid Host IP addresses: 16382 
+
+
+-> Each network will have: 16834 host IP addresses
+-> CIDR: /18
+
+11) If we have a IP address and if it does not have CIDR value, then based on the First Octet's range - we can determine class of the IP address 
+
+Class A:
+Range: 1.0.0.0 to 126.255.255.255
+Default Subnet mask: 255.0.0.0
+
+Class B:
+Range: 128.0.0.0 to 191.255.255.255
+Default Subnet mask: 255.255.0.0
+
+Class C:
+Range: 192.0.0.0 to 223.255.255.255
+Default Subnet mask: 255.255.255.0
+
+-> Here if we have ip address 10.0.0.0
+a) We can identify it as Class A 
+b) Once class is identified, we can determine which is network part and host part
+
+-> In class A - Only Ist Octet is network part and remaining 3 Octets are host part
+
+
+c) In same IP address 10.0.0.0/24, if CIDR value is given, then
+
+No of network bits= 24
+No of host bits = 8
+No of host IP addresses = 2^8=256

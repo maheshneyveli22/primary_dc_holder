@@ -1,0 +1,47 @@
+1) 
+-> IP:With an IP address, we can determine in which network we are 
+-> MAC: With MAC address, we can determine in which computer we are in that particular network 
+-> PORT: To determine which application or service runs in that particular computer . Also we use port in NAT's PAT and Port forwarding 
+
+2) 
+Using one internet connection, we will run multiple service/application . To data go to particular service or application we will use ports
+
+3) Port number range:
+
+a) Well Known ports: 0-1023
+eg: FTP - 20,21 , ssh-22 , Mail -25, DNS -53, HTTP - 80 , HTTPS -  443
+b) Registered Ports: 1024-49151
+-> some companies would have registered these ports
+-> eg: Windows RDP - 3389
+
+c) Random Ports 49152-65535
+-> if your computer is going to do some service, it takes port from this range and randomly uses it 
+
+
+4) Lets take two webservers : Webserver 1 and Webserver 2 
+To Webserver1, HTTP web page is there . Hence Webserver 1 is in listening mode in port 80. If anyone asks for http web page to Webserver1, it will come via port 80 and webserver1, will respond via this port 80 
+To Webserver2, HTTPS web page is there . Hence Webserver 2 is in listening mode in port 443. If anyone asks for https web page to Webserver2, it will come via port 443 and webserver2, will respond via this port 443
+
+
+5) Advantages of ports:
+a) Data traffic does not collapse since we use different ports for each purpose or service
+b)  Security : webserver 2, is in listening mode only in port 443 and all other ports are closed , Similarly in our system also if all open ports are blocked via firewall , then only required service will go from our system . If any request comes via blocked port, rquest will be blocked 
+
+
+
+6) Port Forwarding: 
+
+
+7) Practical 
+http://www.vulnweb.com/ or http://www.vulnweb.com:80 -> page will open. for other ports page wont be loaded 
+
+
+https://www.google.com/ or https://www.google.com:443 -> page will open. for other ports page wont be loaded
+
+
+8) To determine, Source ports used in windows :
+
+Resource Monitor -> Network tab -> TCP connections
+
+-> Here it will show via internet what all traffic we are handling will be shown 
+

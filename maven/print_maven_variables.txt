@@ -1,0 +1,31 @@
+1) https://www.baeldung.com/maven-print-message-during-execution
+
+2) changes:
+			<plugin>
+				<groupId>com.github.ekryd.echo-maven-plugin</groupId>
+				<artifactId>echo-maven-plugin</artifactId>
+				<version>1.3.2</version>
+			<executions>
+				<execution>
+					<id>echo-maven-plugin-1</id>
+					<phase>package</phase>
+					<goals>
+						<goal>echo</goal>
+					</goals>
+					<configuration>
+						<message>
+							Hello, Mahesh
+							Embed a line break: ${line.separator}
+							ArtifactId is ${project.artifactId}
+							Contract Target directory: ${contract.target.dir}
+							WSDL target directory: ${wsdl.target.dir}
+
+
+						</message>
+						<level>INFO</level>
+						<toFile>/logs/log-echo.txt</toFile>
+						<append>true</append>
+					</configuration>
+				</execution>
+			</executions>
+			</plugin>

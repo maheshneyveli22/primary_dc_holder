@@ -1,0 +1,163 @@
+1) Subnetting - Dividing large network into small network 
+
+
+2) 
+Class A:
+Range: 1.0.0.0 to 126.255.255.255
+Default Subnet mask: 255.0.0.0
+
+
+Class B:
+Range:128.0.0.0 to 191.255.255.255
+Default Subnet mask: 255.255.0.0
+
+Class C:
+Range: 192.0.0.0 to 223.255.255.255
+Default Subnet mask: 255.255.255.0
+
+
+3) While subnettting, we wont consider classes
+
+CIDR: Classless inter domain Routing 
+
+Based on CIDR , we will tell which is network and which is host 
+
+
+4) 
+
+In an IP address,how much network is there, we will tell CIDR value 
+
+
+here in: 192.168.10.0/24
+
+Here in these 32 bits, first 24 bits indicate the network . Then in this IP address , the CIDR value is /24
+
+-> it mean first 24 bits is network and only the last 8 bits belong to host 
+
+-> So:
+
+No of Network bits = 24
+No of host bits = 8
+No of host ip Address = 2^8=256
+
+
+5) In this 256
+
+First and last will be for Network and broadcasting respectively
+
+Range: 192.168.10.0 to 192.168.10.255
+
+Hence only 254 IPs can be allocated to hosts
+
+
+6) Possibilities of dividing
+
+No of network/No of IP : 
+
+1/256
+2/128
+4/64
+8/32
+16/16
+32/8
+64/4
+128/2  -> since first and last will be for network and broadcasting 
+-> so we can divide network maximum into 64 parts 
+
+
+7) now one by we are going to convert one host bit  into network bit and see the CIDR value:
+
+192.168.10.0/25
+
+Subnet mask: 
+11111111.11111111.11111111.10000000
+
+-> now network bits come to 25 , hence CIDR is 25
+-> so 7 will be host bits. 
+
+-> so no of host ip addresses= 2^7=128 
+
+-> since 128 we could divide into two networks:
+
+
+N1 : 192.168.10.0 to 192.168.10.127  
+Subnet mask: 255.255.255.128 
+
+N2: 192.168.10.128 to 192.168.10.255 
+Subnet mask: 255.255.255.128 
+
+-> in these divided networks first one will be network id and last one will be broadcast id 
+
+
+8) Now we will divide two host bits into network bit and see the CIDR value:
+
+19.168.10.0/26
+
+Subnet mask:
+11111111.11111111.11111111.11000000
+
+-> so 6 will be host bits. 
+
+-> so no of host ip addresses= 2^6=64
+
+
+
+N1: 192.168.10.0 to 192.168.10.63 
+Subnet Mask: 255.255.255.192 
+
+N2: 192.168.10.64 to 192.168.10.127
+Subnet Mask: 255.255.255.192 
+
+N3: 192.168.10.128 to 192.168.10.191
+Subnet Mask: 255.255.255.192 
+
+N4: 192.168.10.192 to 192.168.10.255
+Subnet Mask: 255.255.255.192 
+
+-> in these divided networks first one will be network id and last one will be broadcast id 
+
+
+9) Similarly the last octet we can convert host bits into network bits and see the CIDR and other values and get a subnettting table 
+
+
+Borrowed Bits:10000000
+Subnet Mask:128
+No of network:2
+CIDR:/25
+No of IP:128
+Valid Host IP:126
+
+Borrowed Bits:11000000
+Subnet Mask:192
+No of network:4
+CIDR:/26
+No of IP:64
+Valid Host IP:62
+
+Borrowed Bits:11100000
+Subnet Mask:224
+No of network:8
+CIDR:/27
+No of IP:32
+Valid Host IP:30
+
+Borrowed Bits:11110000
+Subnet Mask:240
+No of network:16
+CIDR:/28
+No of IP:16
+Valid Host IP:14
+
+Borrowed Bits:11111000
+Subnet Mask:248
+No of network:32
+CIDR:/29
+No of IP:8
+Valid Host IP:6
+
+Borrowed Bits:11111100
+Subnet Mask:252
+No of network:64
+CIDR:/30
+No of IP:4
+Valid Host IP:2

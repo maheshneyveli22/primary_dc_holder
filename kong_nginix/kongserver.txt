@@ -1,0 +1,215 @@
+1) How to access kong logs:
+
+a) ssh into kongservice1dev.aeu1.ei
+
+
+ [gs1-maheswarane@g09-6 logs]$ pwd
+/prod/app/kong/logs
+[gs1-maheswarane@g09-6 logs]$ ls
+access.log              access.log-20220125.gz  access.log-20230619.gz  admin_access.log.1.gz         admin_access.log-20230702.gz
+access.log.1.gz         access.log-20220506.gz  access.log-20230902.gz  admin_access.log-20210618.gz  admin_access.log-20231125.gz
+access.log-20210408.gz  access.log-20220724.gz  access.log-20231123.gz  admin_access.log-20211113.gz  admin_access.log-20240329.gz
+access.log-20210617.gz  access.log-20221014.gz  access.log-20240117.gz  admin_access.log-20220418.gz  error.log
+access.log-20210824.gz  access.log-20230108.gz  access.log-20240321.gz  admin_access.log-20220913.gz  error.log.1.gz
+access.log-20211112.gz  access.log-20230403.gz  admin_access.log        admin_access.log-20230206.gz
+[gs1-maheswarane@g09-6 logs]$
+
+
+b) tail -f access.log  
+
+
+2) How to check graphql logs:
+
+###
+[gs1-maheswarane@g09-6 logs]$ ls
+applicationjson.log                                 application.log.2024-04-09.0.gz                  gqlrouter.log.2024-04-03.1.gz
+application.log                                     application.log.2024-04-09.1.gz                  gqlrouter.log.2024-04-04.0.gz
+application.log.2020-12-30.1318344399043536528.tmp  application.log.2024-04-10.0.gz                  gqlrouter.log.2024-04-05.0.gz
+application.log.2024-04-02.0.gz                     application.log.2024-04-10.1.gz                  gqlrouter.log.2024-04-07.0.gz
+application.log.2024-04-02.1.gz                     application.log.2024-04-11.0.gz                  gqlrouter.log.2024-04-08.0.gz
+application.log.2024-04-02.2.gz                     application.log.2024-04-12.0.gz                  gqlrouter.log.2024-04-09.0.gz
+application.log.2024-04-02.3.gz                     application.log.2024-04-13.0.gz                  gqlrouter.log.2024-04-09.1.gz
+application.log.2024-04-02.4.gz                     application.log.2024-04-15.0.gz                  gqlrouter.log.2024-04-10.0.gz
+application.log.2024-04-03.0.gz                     application.log.2024-04-16.0.gz                  gqlrouter.log.2024-04-10.1.gz
+application.log.2024-04-03.1.gz                     gqlrouter.log                                    gqlrouter.log.2024-04-11.0.gz
+application.log.2024-04-04.0.gz                     gqlrouter.log.2020-11-06.013669659657632983.tmp  gqlrouter.log.2024-04-12.0.gz
+application.log.2024-04-04.1.gz                     gqlrouter.log.2024-04-02.0.gz                    gqlrouter.log.2024-04-13.0.gz
+application.log.2024-04-05.0.gz                     gqlrouter.log.2024-04-02.1.gz                    gqlrouter.log.2024-04-15.0.gz
+application.log.2024-04-07.0.gz                     gqlrouter.log.2024-04-02.2.gz                    methods.txt
+application.log.2024-04-08.0.gz                     gqlrouter.log.2024-04-02.3.gz
+application.log.2024-04-08.1.gz                     gqlrouter.log.2024-04-03.0.gz
+[gs1-maheswarane@g09-6 logs]$ pwd
+/prod/jvm/gqlrouter/logs
+[gs1-maheswarane@g09-6 logs]$
+
+####
+
+3) Show list of databases in postgres
+
+
+######
+[gs1-maheswarane@g09-6 logs]$ ls
+applicationjson.log                                 application.log.2024-04-09.0.gz                  gqlrouter.log.2024-04-03.1.gz
+application.log                                     application.log.2024-04-09.1.gz                  gqlrouter.log.2024-04-04.0.gz
+application.log.2020-12-30.1318344399043536528.tmp  application.log.2024-04-10.0.gz                  gqlrouter.log.2024-04-05.0.gz
+application.log.2024-04-02.0.gz                     application.log.2024-04-10.1.gz                  gqlrouter.log.2024-04-07.0.gz
+application.log.2024-04-02.1.gz                     application.log.2024-04-11.0.gz                  gqlrouter.log.2024-04-08.0.gz
+application.log.2024-04-02.2.gz                     application.log.2024-04-12.0.gz                  gqlrouter.log.2024-04-09.0.gz
+application.log.2024-04-02.3.gz                     application.log.2024-04-13.0.gz                  gqlrouter.log.2024-04-09.1.gz
+application.log.2024-04-02.4.gz                     application.log.2024-04-15.0.gz                  gqlrouter.log.2024-04-10.0.gz
+application.log.2024-04-03.0.gz                     application.log.2024-04-16.0.gz                  gqlrouter.log.2024-04-10.1.gz
+application.log.2024-04-03.1.gz                     gqlrouter.log                                    gqlrouter.log.2024-04-11.0.gz
+application.log.2024-04-04.0.gz                     gqlrouter.log.2020-11-06.013669659657632983.tmp  gqlrouter.log.2024-04-12.0.gz
+application.log.2024-04-04.1.gz                     gqlrouter.log.2024-04-02.0.gz                    gqlrouter.log.2024-04-13.0.gz
+application.log.2024-04-05.0.gz                     gqlrouter.log.2024-04-02.1.gz                    gqlrouter.log.2024-04-15.0.gz
+application.log.2024-04-07.0.gz                     gqlrouter.log.2024-04-02.2.gz                    methods.txt
+application.log.2024-04-08.0.gz                     gqlrouter.log.2024-04-02.3.gz
+application.log.2024-04-08.1.gz                     gqlrouter.log.2024-04-03.0.gz
+[gs1-maheswarane@g09-6 logs]$ pwd
+/prod/jvm/gqlrouter/logs
+[gs1-maheswarane@g09-6 logs]$
+
+#########
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

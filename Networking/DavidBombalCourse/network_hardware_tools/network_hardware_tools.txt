@@ -1,0 +1,1 @@
+1) USB to Ethernet Adapter - If you dont have network interface card in your laptop 

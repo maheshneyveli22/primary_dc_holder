@@ -1,0 +1,10 @@
+1) Kibana sample query filter:
+agent.name : NONPRODAZ-ExpoNow-Kong-API and agent.hostname : "g09-6" or agent.hostname : "g09-7"
+
+2) elastic/changeme
+
+
+3) In "Open" page,  filter : log.file.path
+
+-> enter something like: kong or booking in open
+--> log.file.path will show log location inthose servers 

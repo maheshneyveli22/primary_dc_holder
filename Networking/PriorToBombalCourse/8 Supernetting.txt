@@ -1,0 +1,9 @@
+1) SUPERNETTING:
+-> Reverse process of subnetting
+-> if subnetting is : Converting host bits(0) into Network bits(1)
+-> Supernetting is: Converting Network bits(1) into host bits(0) 
+
+
+2) If there are two networks with cidr /25
+
+we need to move it to /24

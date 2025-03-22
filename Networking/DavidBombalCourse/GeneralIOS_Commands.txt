@@ -1,0 +1,35 @@
+1) 
+
+1) To enable debug of ip packets 
+#ip packet 
+
+2) disabling debug 
+#un all 
+
+3) debugging ping
+#debug ip icmp
+
+4) To check neighbours 
+sh cdp nei
+-> command shows if two devices are connected each other
+
+5) COmmands to enable DHCP in router: 
+a)  At first, the ‘IP DHCP pool pool_name’ command is executed. After this, the network address is defined along with its subnet mask. And further, the ‘default-router IP-address’ command is used to define the default route address.  
+
+Router(config)# ip dhcp pool DHCP 
+DHCP_Router(dhcp-config)# network 192.168.10.0 255.255.255.0
+DHCP_Router(dhcp-config)# default-router 192.168.10.1
+DHCP_Router(dhcp-config)# exit
+DHCP_Router(config)# 
+
+b) In this step, a range of IP addresses is excluded from the addresses defined in the subnet mask of the DHCP pool. Excluded IP addresses will be not assigned to any host system in the network.  
+
+DHCP_Router(config)ip dhcp excluded-address 192.168.10.2 192.168.10.5 
+
+
+c) The interface of the router connected with the switch is assigned with the IP address defined as the default router during the DHCP configuration. This route will be taken by the data packets to reach their destination system. Also, the ‘no shutdown command is used to change the state of the connected interface to up.  
+
+
+DHCP_Router(config)# interface GigabitEthernet 0/0
+DHCP_Router(config-if)#ip address 192.168.10.1 255.255.255.0
+DHCP_Router(config-if)#no shutdown 

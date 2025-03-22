@@ -1,0 +1,315 @@
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:80             GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    0.0.0.0:135            GS1-MAHESWAR-LX:0      LISTENING       1184
+  TCP    0.0.0.0:445            GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    0.0.0.0:2701           GS1-MAHESWAR-LX:0      LISTENING       5128
+  TCP    0.0.0.0:3389           GS1-MAHESWAR-LX:0      LISTENING       1676
+  TCP    0.0.0.0:5040           GS1-MAHESWAR-LX:0      LISTENING       10108
+  TCP    0.0.0.0:5432           GS1-MAHESWAR-LX:0      LISTENING       8116
+  TCP    0.0.0.0:5985           GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    0.0.0.0:7680           GS1-MAHESWAR-LX:0      LISTENING       15012
+  TCP    0.0.0.0:8005           GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    0.0.0.0:8080           GS1-MAHESWAR-LX:0      LISTENING       4976
+  TCP    0.0.0.0:39000          GS1-MAHESWAR-LX:0      LISTENING       4976
+  TCP    0.0.0.0:47001          GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    0.0.0.0:49664          GS1-MAHESWAR-LX:0      LISTENING       772
+  TCP    0.0.0.0:49665          GS1-MAHESWAR-LX:0      LISTENING       960
+  TCP    0.0.0.0:49666          GS1-MAHESWAR-LX:0      LISTENING       2236
+  TCP    0.0.0.0:49667          GS1-MAHESWAR-LX:0      LISTENING       1968
+  TCP    0.0.0.0:49668          GS1-MAHESWAR-LX:0      LISTENING       3724
+  TCP    0.0.0.0:49669          GS1-MAHESWAR-LX:0      LISTENING       5040
+  TCP    0.0.0.0:49670          GS1-MAHESWAR-LX:0      LISTENING       772
+  TCP    0.0.0.0:49686          GS1-MAHESWAR-LX:0      LISTENING       2588
+  TCP    0.0.0.0:49704          GS1-MAHESWAR-LX:0      LISTENING       88
+  TCP    0.0.0.0:50131          GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    10.249.5.23:139        GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    10.249.5.23:49409      20.25.241.18:https     ESTABLISHED     6056
+  TCP    10.249.5.23:53807      proxy01:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:54189      chq-uesmp2:10123       ESTABLISHED     2816
+  TCP    10.249.5.23:57557      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:57595      170-114-14-68:https    ESTABLISHED     15032
+  TCP    10.249.5.23:57604      170-114-27:https       ESTABLISHED     15032
+  TCP    10.249.5.23:57638      170.114.15.231:https   CLOSE_WAIT      10036
+  TCP    10.249.5.23:57782      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:57784      proxy02:8080           ESTABLISHED     1380
+  TCP    10.249.5.23:57796      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:57860      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:58528      proxy03:8080           ESTABLISHED     1380
+  TCP    10.249.5.23:59034      ec2-3-235-96-60:https  CLOSE_WAIT      15032
+  TCP    10.249.5.23:59078      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59132      proxy02:https          TIME_WAIT       0
+  TCP    10.249.5.23:59133      proxy02:https          TIME_WAIT       0
+  TCP    10.249.5.23:59135      proxy01:https          TIME_WAIT       0
+  TCP    10.249.5.23:59149      proxy02:https          TIME_WAIT       0
+  TCP    10.249.5.23:59361      proxy01:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59368      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59376      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59378      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59381      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59385      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59386      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59387      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59388      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59389      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59407      proxy02:https          TIME_WAIT       0
+  TCP    10.249.5.23:59414      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59415      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59416      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59425      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59426      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59427      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59429      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59438      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59439      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59441      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59451      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59455      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59468      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59469      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59470      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59473      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59484      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59485      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59486      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59487      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59488      proxy02:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59489      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59491      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59492      proxy01:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59493      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59504      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59510      proxy02:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59511      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59514      proxy03:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59517      proxy03:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59518      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59527      proxy03:8080           CLOSE_WAIT      5380
+  TCP    10.249.5.23:59545      proxy03:8080           TIME_WAIT       0
+  TCP    10.249.5.23:59546      proxy02:8080           ESTABLISHED     13952
+  TCP    10.249.5.23:59552      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59553      proxy03:8080           CLOSE_WAIT      5380
+  TCP    10.249.5.23:59555      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59563      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59567      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59569      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:59570      proxy03:8080           TIME_WAIT       0
+  TCP    10.249.5.23:60613      207.14.29.41:https     FIN_WAIT_2      5380
+  TCP    10.249.5.23:62293      proxy03:8080           ESTABLISHED     5380
+  TCP    10.249.5.23:62436      proxy02:8080           CLOSE_WAIT      16156
+  TCP    10.249.5.23:62437      proxy02:8080           CLOSE_WAIT      16156
+  TCP    10.249.5.23:62438      proxy02:8080           CLOSE_WAIT      16156
+  TCP    10.249.5.23:62439      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:62484      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:62889      gs1-comm02:microsoft-ds  ESTABLISHED     4
+  TCP    10.249.5.23:62928      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:63251      proxy01:8080           ESTABLISHED     344
+  TCP    10.249.5.23:63256      proxy01:8080           ESTABLISHED     344
+  TCP    10.249.5.23:63381      proxy02:8080           ESTABLISHED     1380
+  TCP    10.249.5.23:63415      proxy01:8080           CLOSE_WAIT      12280
+  TCP    10.249.5.23:63540      expobookdb2qa:50001    ESTABLISHED     4976
+  TCP    10.249.5.23:63541      expobookdb2qa:50001    ESTABLISHED     4976
+  TCP    10.249.5.23:63542      expobookdb2qa:50001    ESTABLISHED     4976
+  TCP    10.249.5.23:63543      expobookdb2qa:50001    ESTABLISHED     4976
+  TCP    10.249.5.23:63544      expobookdb2qa:50001    ESTABLISHED     4976
+  TCP    10.249.5.23:63548      qaapp030:28600         ESTABLISHED     4976
+  TCP    10.249.5.23:63578      qaapp030:28600         ESTABLISHED     4976
+  TCP    10.249.131.92:139      GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    127.0.0.1:6942         GS1-MAHESWAR-LX:0      LISTENING       14564
+  TCP    127.0.0.1:37861        GS1-MAHESWAR-LX:0      LISTENING       17928
+  TCP    127.0.0.1:37861        GS1-MAHESWAR-LX:62882  ESTABLISHED     17928
+  TCP    127.0.0.1:54089        GS1-MAHESWAR-LX:0      LISTENING       7816
+  TCP    127.0.0.1:57593        GS1-MAHESWAR-LX:57594  ESTABLISHED     15032
+  TCP    127.0.0.1:57594        GS1-MAHESWAR-LX:57593  ESTABLISHED     15032
+  TCP    127.0.0.1:58792        GS1-MAHESWAR-LX:58793  ESTABLISHED     14564
+  TCP    127.0.0.1:58793        GS1-MAHESWAR-LX:58792  ESTABLISHED     14564
+  TCP    127.0.0.1:62769        GS1-MAHESWAR-LX:62770  ESTABLISHED     14564
+  TCP    127.0.0.1:62770        GS1-MAHESWAR-LX:62769  ESTABLISHED     14564
+  TCP    127.0.0.1:62771        GS1-MAHESWAR-LX:62772  ESTABLISHED     14564
+  TCP    127.0.0.1:62772        GS1-MAHESWAR-LX:62771  ESTABLISHED     14564
+  TCP    127.0.0.1:62773        GS1-MAHESWAR-LX:62774  ESTABLISHED     14564
+  TCP    127.0.0.1:62774        GS1-MAHESWAR-LX:62773  ESTABLISHED     14564
+  TCP    127.0.0.1:62839        GS1-MAHESWAR-LX:62840  ESTABLISHED     14564
+  TCP    127.0.0.1:62840        GS1-MAHESWAR-LX:62839  ESTABLISHED     14564
+  TCP    127.0.0.1:62881        GS1-MAHESWAR-LX:0      LISTENING       17928
+  TCP    127.0.0.1:62881        GS1-MAHESWAR-LX:62883  ESTABLISHED     17928
+  TCP    127.0.0.1:62881        GS1-MAHESWAR-LX:62884  ESTABLISHED     17928
+  TCP    127.0.0.1:62882        GS1-MAHESWAR-LX:37861  ESTABLISHED     14564
+  TCP    127.0.0.1:62883        GS1-MAHESWAR-LX:62881  ESTABLISHED     14564
+  TCP    127.0.0.1:62884        GS1-MAHESWAR-LX:62881  ESTABLISHED     14564
+  TCP    127.0.0.1:62895        GS1-MAHESWAR-LX:62896  ESTABLISHED     14564
+  TCP    127.0.0.1:62896        GS1-MAHESWAR-LX:62895  ESTABLISHED     14564
+  TCP    127.0.0.1:62897        GS1-MAHESWAR-LX:62898  ESTABLISHED     14564
+  TCP    127.0.0.1:62898        GS1-MAHESWAR-LX:62897  ESTABLISHED     14564
+  TCP    127.0.0.1:62899        GS1-MAHESWAR-LX:62900  ESTABLISHED     14564
+  TCP    127.0.0.1:62900        GS1-MAHESWAR-LX:62899  ESTABLISHED     14564
+  TCP    127.0.0.1:62901        GS1-MAHESWAR-LX:62902  ESTABLISHED     14564
+  TCP    127.0.0.1:62902        GS1-MAHESWAR-LX:62901  ESTABLISHED     14564
+  TCP    127.0.0.1:62903        GS1-MAHESWAR-LX:62904  ESTABLISHED     14564
+  TCP    127.0.0.1:62904        GS1-MAHESWAR-LX:62903  ESTABLISHED     14564
+  TCP    127.0.0.1:62905        GS1-MAHESWAR-LX:62906  ESTABLISHED     14564
+  TCP    127.0.0.1:62906        GS1-MAHESWAR-LX:62905  ESTABLISHED     14564
+  TCP    127.0.0.1:62908        GS1-MAHESWAR-LX:62909  ESTABLISHED     14564
+  TCP    127.0.0.1:62909        GS1-MAHESWAR-LX:62908  ESTABLISHED     14564
+  TCP    127.0.0.1:62910        GS1-MAHESWAR-LX:62911  ESTABLISHED     14564
+  TCP    127.0.0.1:62911        GS1-MAHESWAR-LX:62910  ESTABLISHED     14564
+  TCP    127.0.0.1:62912        GS1-MAHESWAR-LX:62913  ESTABLISHED     14564
+  TCP    127.0.0.1:62913        GS1-MAHESWAR-LX:62912  ESTABLISHED     14564
+  TCP    127.0.0.1:62914        GS1-MAHESWAR-LX:62915  ESTABLISHED     14564
+  TCP    127.0.0.1:62915        GS1-MAHESWAR-LX:62914  ESTABLISHED     14564
+  TCP    127.0.0.1:62916        GS1-MAHESWAR-LX:62917  ESTABLISHED     14564
+  TCP    127.0.0.1:62917        GS1-MAHESWAR-LX:62916  ESTABLISHED     14564
+  TCP    127.0.0.1:62918        GS1-MAHESWAR-LX:62919  ESTABLISHED     14564
+  TCP    127.0.0.1:62919        GS1-MAHESWAR-LX:62918  ESTABLISHED     14564
+  TCP    127.0.0.1:62920        GS1-MAHESWAR-LX:62921  ESTABLISHED     14564
+  TCP    127.0.0.1:62921        GS1-MAHESWAR-LX:62920  ESTABLISHED     14564
+  TCP    127.0.0.1:62922        GS1-MAHESWAR-LX:62923  ESTABLISHED     14564
+  TCP    127.0.0.1:62923        GS1-MAHESWAR-LX:62922  ESTABLISHED     14564
+  TCP    127.0.0.1:62924        GS1-MAHESWAR-LX:62925  ESTABLISHED     14564
+  TCP    127.0.0.1:62925        GS1-MAHESWAR-LX:62924  ESTABLISHED     14564
+  TCP    127.0.0.1:62926        GS1-MAHESWAR-LX:62927  ESTABLISHED     14564
+  TCP    127.0.0.1:62927        GS1-MAHESWAR-LX:62926  ESTABLISHED     14564
+  TCP    127.0.0.1:62944        GS1-MAHESWAR-LX:62945  ESTABLISHED     14564
+  TCP    127.0.0.1:62945        GS1-MAHESWAR-LX:62944  ESTABLISHED     14564
+  TCP    127.0.0.1:62969        GS1-MAHESWAR-LX:62970  ESTABLISHED     14564
+  TCP    127.0.0.1:62970        GS1-MAHESWAR-LX:62969  ESTABLISHED     14564
+  TCP    127.0.0.1:62971        GS1-MAHESWAR-LX:62972  ESTABLISHED     14564
+  TCP    127.0.0.1:62972        GS1-MAHESWAR-LX:62971  ESTABLISHED     14564
+  TCP    127.0.0.1:62973        GS1-MAHESWAR-LX:62974  ESTABLISHED     14564
+  TCP    127.0.0.1:62974        GS1-MAHESWAR-LX:62973  ESTABLISHED     14564
+  TCP    127.0.0.1:62975        GS1-MAHESWAR-LX:62976  ESTABLISHED     14564
+  TCP    127.0.0.1:62976        GS1-MAHESWAR-LX:62975  ESTABLISHED     14564
+  TCP    127.0.0.1:62977        GS1-MAHESWAR-LX:62978  ESTABLISHED     14564
+  TCP    127.0.0.1:62978        GS1-MAHESWAR-LX:62977  ESTABLISHED     14564
+  TCP    127.0.0.1:62979        GS1-MAHESWAR-LX:62980  ESTABLISHED     14564
+  TCP    127.0.0.1:62980        GS1-MAHESWAR-LX:62979  ESTABLISHED     14564
+  TCP    127.0.0.1:62981        GS1-MAHESWAR-LX:62982  ESTABLISHED     14564
+  TCP    127.0.0.1:62982        GS1-MAHESWAR-LX:62981  ESTABLISHED     14564
+  TCP    127.0.0.1:62983        GS1-MAHESWAR-LX:62984  ESTABLISHED     14564
+  TCP    127.0.0.1:62984        GS1-MAHESWAR-LX:62983  ESTABLISHED     14564
+  TCP    127.0.0.1:63342        GS1-MAHESWAR-LX:0      LISTENING       14564
+  TCP    127.0.0.1:63499        GS1-MAHESWAR-LX:63500  ESTABLISHED     14564
+  TCP    127.0.0.1:63500        GS1-MAHESWAR-LX:63499  ESTABLISHED     4976
+  TCP    127.0.0.1:63504        GS1-MAHESWAR-LX:63505  ESTABLISHED     14564
+  TCP    127.0.0.1:63505        GS1-MAHESWAR-LX:63504  ESTABLISHED     14564
+  TCP    127.0.0.1:63506        GS1-MAHESWAR-LX:63507  ESTABLISHED     14564
+  TCP    127.0.0.1:63507        GS1-MAHESWAR-LX:63506  ESTABLISHED     14564
+  TCP    127.0.0.1:63508        GS1-MAHESWAR-LX:63509  ESTABLISHED     14564
+  TCP    127.0.0.1:63509        GS1-MAHESWAR-LX:63508  ESTABLISHED     14564
+  TCP    127.0.0.1:63510        GS1-MAHESWAR-LX:63511  ESTABLISHED     14564
+  TCP    127.0.0.1:63511        GS1-MAHESWAR-LX:63510  ESTABLISHED     14564
+  TCP    127.0.0.1:63512        GS1-MAHESWAR-LX:63513  ESTABLISHED     14564
+  TCP    127.0.0.1:63513        GS1-MAHESWAR-LX:63512  ESTABLISHED     14564
+  TCP    127.0.0.1:64120        GS1-MAHESWAR-LX:0      LISTENING       14564
+  TCP    [::]:80                GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::]:135               GS1-MAHESWAR-LX:0      LISTENING       1184
+  TCP    [::]:445               GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::]:2701              GS1-MAHESWAR-LX:0      LISTENING       5128
+  TCP    [::]:3389              GS1-MAHESWAR-LX:0      LISTENING       1676
+  TCP    [::]:5432              GS1-MAHESWAR-LX:0      LISTENING       8116
+  TCP    [::]:5985              GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::]:7680              GS1-MAHESWAR-LX:0      LISTENING       15012
+  TCP    [::]:8005              GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::]:8080              GS1-MAHESWAR-LX:0      LISTENING       4976
+  TCP    [::]:39000             GS1-MAHESWAR-LX:0      LISTENING       4976
+  TCP    [::]:47001             GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::]:49664             GS1-MAHESWAR-LX:0      LISTENING       772
+  TCP    [::]:49665             GS1-MAHESWAR-LX:0      LISTENING       960
+  TCP    [::]:49666             GS1-MAHESWAR-LX:0      LISTENING       2236
+  TCP    [::]:49667             GS1-MAHESWAR-LX:0      LISTENING       1968
+  TCP    [::]:49668             GS1-MAHESWAR-LX:0      LISTENING       3724
+  TCP    [::]:49669             GS1-MAHESWAR-LX:0      LISTENING       5040
+  TCP    [::]:49670             GS1-MAHESWAR-LX:0      LISTENING       772
+  TCP    [::]:49686             GS1-MAHESWAR-LX:0      LISTENING       2588
+  TCP    [::]:49704             GS1-MAHESWAR-LX:0      LISTENING       88
+  TCP    [::]:50131             GS1-MAHESWAR-LX:0      LISTENING       4
+  TCP    [::1]:42050            GS1-MAHESWAR-LX:0      LISTENING       16324
+  TCP    [::1]:49671            GS1-MAHESWAR-LX:0      LISTENING       5544
+  TCP    [fe80::321c:5347:8880:b608%11]:80  [fe80::54a6:3428:c86a:5656%11]:51779  ESTABLISHED     4
+  TCP    [fe80::321c:5347:8880:b608%11]:80  [fe80::be0c:5e1d:5bbc:8374%11]:53960  ESTABLISHED     4
+  UDP    0.0.0.0:123            *:*                                    1880
+  UDP    0.0.0.0:500            *:*                                    5512
+  UDP    0.0.0.0:3389           *:*                                    1676
+  UDP    0.0.0.0:3702           *:*                                    8852
+  UDP    0.0.0.0:3702           *:*                                    8852
+  UDP    0.0.0.0:3702           *:*                                    6128
+  UDP    0.0.0.0:3702           *:*                                    8852
+  UDP    0.0.0.0:3702           *:*                                    8852
+  UDP    0.0.0.0:3702           *:*                                    6128
+  UDP    0.0.0.0:4500           *:*                                    5512
+  UDP    0.0.0.0:5050           *:*                                    10108
+  UDP    0.0.0.0:5353           *:*                                    6172
+  UDP    0.0.0.0:5353           *:*                                    1028
+  UDP    0.0.0.0:5353           *:*                                    6172
+  UDP    0.0.0.0:5353           *:*                                    6172
+  UDP    0.0.0.0:5353           *:*                                    6172
+  UDP    0.0.0.0:5355           *:*                                    1028
+  UDP    0.0.0.0:8976           *:*                                    14564
+  UDP    0.0.0.0:55408          *:*                                    15812
+  UDP    0.0.0.0:55410          *:*                                    15812
+  UDP    0.0.0.0:55412          *:*                                    15812
+  UDP    0.0.0.0:55414          *:*                                    15812
+  UDP    0.0.0.0:55416          *:*                                    15812
+  UDP    0.0.0.0:55418          *:*                                    15812
+  UDP    0.0.0.0:55420          *:*                                    15812
+  UDP    0.0.0.0:55422          *:*                                    15812
+  UDP    0.0.0.0:55424          *:*                                    15812
+  UDP    0.0.0.0:55426          *:*                                    15812
+  UDP    0.0.0.0:56686          *:*                                    6128
+  UDP    0.0.0.0:57144          *:*                                    15812
+  UDP    0.0.0.0:58317          *:*                                    8852
+  UDP    0.0.0.0:63661          *:*                                    14564
+  UDP    10.249.5.23:137        *:*                                    4
+  UDP    10.249.5.23:138        *:*                                    4
+  UDP    10.249.5.23:1900       *:*                                    14492
+  UDP    10.249.5.23:60050      *:*                                    14492
+  UDP    10.249.131.92:137      *:*                                    4
+  UDP    10.249.131.92:138      *:*                                    4
+  UDP    10.249.131.92:1900     *:*                                    14492
+  UDP    10.249.131.92:60051    *:*                                    14492
+  UDP    127.0.0.1:1900         *:*                                    14492
+  UDP    127.0.0.1:55407        *:*                                    15812
+  UDP    127.0.0.1:55409        *:*                                    15812
+  UDP    127.0.0.1:55411        *:*                                    15812
+  UDP    127.0.0.1:55413        *:*                                    15812
+  UDP    127.0.0.1:55415        *:*                                    15812
+  UDP    127.0.0.1:55417        *:*                                    15812
+  UDP    127.0.0.1:55419        *:*                                    15812
+  UDP    127.0.0.1:55421        *:*                                    15812
+  UDP    127.0.0.1:55423        *:*                                    15812
+  UDP    127.0.0.1:55425        *:*                                    15812
+  UDP    127.0.0.1:57143        *:*                                    15812
+  UDP    127.0.0.1:58200        *:*                                    772
+  UDP    127.0.0.1:59401        *:*                                    2816
+  UDP    127.0.0.1:59550        *:*                                    1640
+  UDP    127.0.0.1:60052        *:*                                    14492
+  UDP    127.0.0.1:61227        *:*                                    7420
+  UDP    127.0.0.1:61979        *:*                                    2668
+  UDP    127.0.0.1:63645        *:*                                    344
+  UDP    [::]:123               *:*                                    1880
+  UDP    [::]:500               *:*                                    5512
+  UDP    [::]:3389              *:*                                    1676
+  UDP    [::]:3702              *:*                                    6128
+  UDP    [::]:3702              *:*                                    6128
+  UDP    [::]:3702              *:*                                    8852
+  UDP    [::]:3702              *:*                                    8852
+  UDP    [::]:3702              *:*                                    8852
+  UDP    [::]:3702              *:*                                    8852
+  UDP    [::]:4500              *:*                                    5512
+  UDP    [::]:5353              *:*                                    6172
+  UDP    [::]:5353              *:*                                    1028
+  UDP    [::]:5353              *:*                                    6172
+  UDP    [::]:5355              *:*                                    1028
+  UDP    [::]:8976              *:*                                    14564
+  UDP    [::]:56687             *:*                                    6128
+  UDP    [::]:58318             *:*                                    8852
+  UDP    [::]:63661             *:*                                    14564
+  UDP    [::1]:1900             *:*                                    14492
+  UDP    [::1]:51320            *:*                                    8116
+  UDP    [::1]:60049            *:*                                    14492
+  UDP    [fe80::321c:5347:8880:b608%11]:1900  *:*                                    14492
+  UDP    [fe80::321c:5347:8880:b608%11]:60047  *:*                                    14492
+  UDP    [fe80::dace:1126:a2f6:fd96%6]:1900  *:*                                    14492
+  UDP    [fe80::dace:1126:a2f6:fd96%6]:60048  *:*                                    14492

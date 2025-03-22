@@ -1,0 +1,336 @@
+1) mvn clean install -X > maheshoutput.txt
+
+2) to clean and have package: 
+mvn clean package
+
+3) To generate a report:
+->go to root directory of the project
+-> mvn clean package site 
+
+package command helps to do tests along with packaging 
+site command generates documentation 
+-> Go to target/site . Inside that open index.html 
+-> It will contain information/report about the project
+
+4) 
+Parent Pom -> standalone and no code associated with it 
+-> Parent pom creates a list of dependancy versions and plugin versions that the subordinate project can leverage
+-> Provides a way to control versions in one place, so that subordinate projects dont have to specify the version and need to specify only the dependancy
+-> In addition to dependancies and plugins, parent poms can provide properties and repositories which helps to manage versions and licenses 
+
+
+5)Reactor:
+-> built on concept of parent poms
+-> Reactor is used to build a group of related projects through the use of parent pom 
+-> maven commands are executed on the parent pom 
+-> while reactor executes commands on each module or artifact in reactor in such a way that the dependancies if they exist are handled in correct order 
+
+
+6) Archetypes:
+-> It is project template in maven 
+-> specified when starting a project
+-> for consistent resources and speed to project 
+
+7) Maven build life cycle:
+3 major buit in life cycles:
+a) default - main lifecycle -> main one used for project build and deployment 
+b) clean - cleans project -> for cleaning the project specifically the target directory 
+c) Site - generates project documentation
+-> Each life cycle is made up of phases
+
+
+8) PHASE: is stage or step in lifecycle 
+
+a) DEFAULT:life cycle has the following phases:  validate, compile,test, package, verify, install and deploy 
+-> phases should be executed in order
+-> phases themselves have goals 
+----> Goals are individual tasks within a phase 
+-------> Goals of a plugin are bound to a phase in the lifecycle 
+-------> Goals can be triggerred on plugins individually 
+eg: consider dependancy plugin: analyze 
+-> this can be triggerred on the project from the command line which will tell the status of the dependancy
+
+
+9) Leverage Build Plugins:
+-> build plugins are most used plugins in maven
+-> build plugins are part of all lifecycles in some part 
+-> Build plugins participate in all three default life cycles of maven in some part 
+----> output of build plugins can be used for reporting  
+----> Output of build plugins is also used for artifact creation 
+Clean plugin is technically a build plugin as well
+--> List of plugins can be found here:
+https://maven.apache.org/plugins/index.html
+
+10) Types of build plugins
+-> Three types: core, packaging and tools
+-> Some reporting plugins also have build aspects 
+
+11) Core plugins:
+-> Most used 
+a) Compiler plugin - responsible for using the jdk to compile to compile source code into bytecode 
+b) Install plugin - responsible for taking the packaged artifact and installing it in local M2 repository 
+c) Deployment plugin - responsible for taking the packaged artifact and pushing it into a remote  repository for others to use 
+d) Validation plugin - used for validating the source code .. There are several types of validation plugins 
+e) Packaging plugins - responsible for taking compiled bytecode and packaging into a structure that can be consumed by JVM or other Java system like the Application server 
+-> Jar plugin is the default packaging plugin and produces a jar file that can be loaded by a classloader of the JVM 
+-> A WAR is a package that can be consumed by the application server like tomcat to run a web application 
+-> EAR is an enterprise archive which often consists of multiple wars , jars , ejbs etc 
+-> SHADE -> special jar file that includes all of your classes from your code as well as the dependancy classes you need for the so called uber jar -> which often becomes an executable jar file which is self contained to ease portability 
+
+---> Tools plugin dont fit into a single box 
+
+12) Tools Plugins 
+-> Variety of uses
+-> Release
+-> signing to prevent tampering 
+
+Dependancy jar - is a build tool that copies, analyzes and builds tress of dependancies
+
+
+13) BUILD:Core Plugins:
+-> Most often used plugins 
+https://maven.apache.org/plugins/index.html
+-> In this page we can see the different types of plugin s
+a) Compiler plugin - to compile source code 
+eg: mvn compile
+ mvn test-compile to complile test classes as well 
+ 
+ 
+ 14) BUILD: Deploy plugin 
+ -> used to within organization, when you want to publish artifact to your central repository for others to use 
+ 
+ 
+ ###
+ If your repository is secured, you may also want to configure your settings.xml file to define corresponding <server/> entries which provides authentication information. Server entries are matched to the different parts of the distributionManagement using their <id/> elements. For example, your project may have a distributionManagement section similar to the following:
+
+[...]
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>MyCo Internal Repository</name>
+      <url>Host to Company Repository</url>
+    </repository>
+  </distributionManagement>
+[...]
+In this case, you can specify a server definition in your settings.xml to provide authentication information for both of these repositories at once. Your server section might look like this:
+
+[...]
+    <server>
+      <id>internal.repo</id>
+      <username>maven</username>
+      <password>foobar</password>
+    </server>
+[...]
+#########
+
+15) Deploy plugin:
+-> alos helps to take third party jar and publish it to your local repository especially it is something not housed in maven central 
+
+
+16 Resources plugin:
+-> for copying all files and your resources elsewhere on your system and putting them into your packaged artifact 
+--> by this css, javascript, properties and different types of files get added to the JAR file 
+-> by default resources folder from the standard maven java package structure gets automatically copied out of that resources folder  and gets into the jar for consumption 
+
+#########
+Copy resources for the main source code
+mvn resources:resources
+Upon executing this command, the resources for your main source code, as specified by the <resources> element, will be copied to your main build output directory. This does not affect the resources for your test code.
+
+Moreover, this goal is bound to the process-resources phase.
+##########
+
+
+The Resources Plugin handles the copying of project resources to the output directory. There are two different kinds of resources: main resources and test resources. The difference is that the main resources are the resources associated to the main source code while the test resources are associated to the test source code.
+
+Thus, this allows the separation of resources for the main source code and its unit tests.
+
+Starting with version 2.3 this plugin uses the Maven Filtering shared component for filtering resources.
+
+
+---> to copy from remote location use copy-resources 
+
+mvn resources:copy-resources
+
+
+17) maven sure fire plugin:
+---> 	Run the JUnit integration tests in an isolated classloader.
+-> to execute JUnit test when we are doing builds 
+-> 
+
+       <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+		  
+-> The Surefire Plugin can be invoked by calling the test phase of the build lifecycle.
+
+
+18) failsafe plugin: 	Run the JUnit integration tests in an isolated classloader.
+
+
+maven-failsafe-plugin
+
+-> mvn verify 
+
+19) BUILD: Tools Plugins:
+-> most configuration heavy of all of your plugins 
+a) dependency
+-> The dependency plugin provides the capability to manipulate artifacts. It can copy and/or unpack artifacts from local or remote repositories to a specified location.
+
+eg:
+ <artifactId>maven-dependency-plugin</artifactId>
+ 
+ 
+ 20) enforcer plugin 
+ -> purpose is to ensure everyone uses specific versions of maven , java etc 
+ ---> Environmental constraint checking (Maven Version, JDK etc), User Custom Rule Execution.
+ 
+ ->   <artifactId>maven-enforcer-plugin</artifactId>
+ 
+ 
+ 21) Jarsigner plugin:
+ 
+ -> Signs or verifies project artifacts.
+ 
+         <artifactId>maven-jarsigner-plugin</artifactId>
+
+22) release plugin:
+
+-> Release the current project - updating the POM and tagging in the SCM.
+
+ <artifactId>maven-release-plugin</artifactId>
+ 
+ -> plugin helps to build a project and release it
+ --> release means doing several things:
+ 
+ a) manipulating version
+ b) taggin things in scm 
+ c) releasing to organization's repository
+ d) preparing the project for next iteration 
+ 
+ 23) Packging plugin: 
+ -> to package the artifact
+ eg:
+ 
+  <groupId>com.mycompany.project</groupId>
+  <artifactId>core</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <!-- <packaging>jar</packaging>  -->
+</project>
+
+
+eg: mvn package
+
+
+24) Dependency Scope:Compile 
+-> Compile scope is the default scope for all dependancies
+-> Complile dependancy is always available in all class path loaders that the artifact is in 
+-> All your tests, whether it is test compile or test execution, compilation,runtime -> compile scope participates in
+-> Compile scope is also propagated to other dependancies , when the artifact specifying it as a dependancy in another artifact , it is called transitive dependancy
+
+
+25) Dependency Scope:Provided 
+-> special case seen in enterprise scenarios
+-> It is similar to compile 
+-> It is in packaging operation we see the difference 
+-> When artifact is packaged we wil not see provider dependancy  inside the war , but instead the application server or at runtime the dependancy will be provided 
+-> Hence in provided scope , we will see dependancies only at runtime and test classpaths
+-> Because of nature of cloud computing ,we wont see this in cloud native applications , as it violates the 12 factor principle 
+-> These dependancies are not transitive
+
+26) Dependency Scope:runtime:
+-> Useful when you have multiple implementations of an api
+-> Run time dependancy needed only for execution
+-> Not needed for compilation
+-> Seen only in run time and in test classpaths
+
+27) Dependency Scope:test:
+-> Useful to reduce size of artifact
+-> These artifacts are needed only for testing
+-> Most of the testing and marking frameworks are specified as testing dependencies
+-> Not transtive
+-> not considered part of final project
+
+28) Other dependency scopes:
+a) System : Similar to provided but you have to specify the location on the system where the jar is because it is not provided by the container 
+b) Import : this scope applies only to pom files when using them for dependency management outside the context of parent pom
+
+29) Transitive dependencies
+-> Dependency of dependancies 
+-> Provides mechanism to not actually declare all of your actual dependencies 
+-> Instead only focussing on things that we know about 
+-> this reduces need to know about the inner workings of libraries 
+-> Reduces risks of upgrading 
+
+30) Rules for transitive dependency:
+Rule1: Closest version 
+-> When two versions of the same artifact are needed, the one that is closest to the actual project wins 
+---> If project A has B and C has dependencies , and if B relies on project Z1.0, whereas C which relies on project D which relies on Z1.2 - Maven will pick Z1.0, because it is closer to A
+...It is two degress of separation instead of 3 
+
+Rule2: Dependancy management beats Closer version
+-> Regardless of which is closer , if there is dependency management section defined and if the artifact is there , it will be the version chosen
+
+
+Rule3: Scopes can play a role in what is included
+-> Scopes play a bigrole in what is included in transitive dependency
+
+Rule4: Local dependency declaration rules them all
+-> Local dependency declaration overrides all other transitive dependencies
+-> so taken into account, when you are building your artifacts - if you need a specific version -You simply mark that on your pom file and then there is no need for transitive dependencies 
+
+
+31) Tricks on transitive dependencies: 
+a) Only declar what you need
+b) Use dependency analyze to check what all you need and dont 
+c) Ensure that you are using correct scope for your dependencies as this can drastically impact transitive dependency trees
+d) Consider using parent poms to control versions 
+e) Always declare when risk of breaking 
+f) Always declare when risk of security 
+
+
+32) Dependency Management:
+mvn dependency:analyze 
+-> It gives warnings on a) used and undeclared dependencies b) Unused and declared dependencies 
+
+mvn dependency:resolve 
+-> it gives a list of everything that i have declared i.e what is included 
+
+mvn dependency: tree 
+-> it helps us to figure out how we got something on our classpath
+
+-> it tells top level we have jar file ..
+-> helps find why specify jar is chosen and particular version is chosen 
+
+
+33) Uber or shaded Jars
+-> special build and packaging routine that has more to do with dependencies than with packaging or build 
+
+WHAT IS UBER OR SHADED JAR :
+-> Uber jar is a war file to run outside of a web container : just an analogy
+-> Just like war file, shaded jar has all the source code that we write for our application
+-> It contains all libraries
+-> Contains all dependencies we need to run our application
+-> Unlike war file, shaded jar is executable
+----> it means you can package your application in a shaded jar and give to somebody to run 
+-> we can also package embedded tomcat in a shaded jar to run a web application
+
+
+34) command to see what is in a standard jar: 
+mvn clean package  -> gives the jar file 
+jar tf test.jar -> gives contents of the jar 
+
+
+
+35) Complete life cycle reference:
+
+https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference
+
+
+
+36) List all dependancies:
+
+without transitive 
+mvn dependency:list  -DexcludeTransitive
+
+with transitive 
+mvn dependency:list 

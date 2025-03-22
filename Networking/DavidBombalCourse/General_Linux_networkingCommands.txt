@@ -1,0 +1,121 @@
+1)Static IP config for linux for eth0:
+
+# auto eth0 
+# iface eth0 inet static 
+# address 192.168.0.2 
+# netmask 255.255.255.0
+# gateway 192.168.0.1
+
+
+2) DHCP config for linux for eth0
+
+#auto eth0
+#iface eth0 inet dhcp 
+
+---> Corresponding dhcp configuration in router 
+
+########ROUTER##########
+-> Create DHCP pool with name NY  and specify the network 
+R2(config)#ip dhcp pool NY 
+R2(dhcp-config)#network 192.168.1.64 /26
+
+-> Configure default gateway
+R2(dhcp-config)#default-router 192.168.1.126 
+
+-> lets set dns server in dhcp to the local router , in real world we will have separate dns server 
+R2(dhcp-config)#dns-server 192.168.1.126
+
+##########################
+
+3) To display routing table:https://www.geeksforgeeks.org/route-command-in-linux-with-examples/
+
+a) Many Linux distributions do not have route commands pre-installed. To install it use the following commands as per your Linux distribution.
+
+b) In case of Debian/Ubuntu
+
+sudo apt-get install net-tools
+c) In case of CentOS/RedHat
+
+sudo dnf install net-tools
+d) In case of Fedora OS
+
+sudo dnf install net-tools
+
+
+e) To display the IP/kernel routing table
+##############
+mahesh@GS1-MAHESWAR-LX ~]$ route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+loopback        0.0.0.0         255.0.0.0       U     256    0        0 lo
+localhost       0.0.0.0         255.255.255.255 U     256    0        0 lo
+127.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+base-address.mc 0.0.0.0         240.0.0.0       U     256    0        0 lo
+255.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+0.0.0.0         reliance.relian 255.255.255.255 U     0      0        0 wifi0
+192.168.29.0    0.0.0.0         255.255.255.0   U     256    0        0 wifi0
+192.168.29.232  0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+192.168.29.255  0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+base-address.mc 0.0.0.0         240.0.0.0       U     256    0        0 wifi0
+255.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+
+##############
+
+f) To display routing table in full numeric form.
+
+########
+[mahesh@GS1-MAHESWAR-LX ~]$ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     256    0        0 lo
+127.0.0.1       0.0.0.0         255.255.255.255 U     256    0        0 lo
+127.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+224.0.0.0       0.0.0.0         240.0.0.0       U     256    0        0 lo
+255.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+0.0.0.0         192.168.29.1    255.255.255.255 U     0      0        0 wifi0
+192.168.29.0    0.0.0.0         255.255.255.0   U     256    0        0 wifi0
+192.168.29.232  0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+192.168.29.255  0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+224.0.0.0       0.0.0.0         240.0.0.0       U     256    0        0 wifi0
+255.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 wifi0
+[mahesh@GS1-MAHESWAR-LX ~]$
+
+#######
+
+g) To add a default gateway.
+sudo route add default gw 169.254.0.0
+
+-> This assigns a gateway address to which all the packets that do not belong to the network are forwarded.
+
+h) To list kernel’s routing cache information.
+route -Cn
+
+i) To reject routing to a particular host or network.
+sudo route add -host 192.168.1.51 reject
+
+
+j) To get details of the kernel/IP routing table using ip command.
+ip route
+
+#######
+[mahesh@GS1-MAHESWAR-LX ~]$ ip route
+none 224.0.0.0/4 dev eth0 proto unspec metric 256
+none 255.255.255.255 dev eth0 proto unspec metric 256
+none 224.0.0.0/4 dev eth1 proto unspec metric 256
+none 255.255.255.255 dev eth1 proto unspec metric 256
+none 127.0.0.0/8 dev lo proto unspec metric 256
+none 127.0.0.1 dev lo proto unspec metric 256
+none 127.255.255.255 dev lo proto unspec metric 256
+none 224.0.0.0/4 dev lo proto unspec metric 256
+none 255.255.255.255 dev lo proto unspec metric 256
+none default via 192.168.29.1 dev wifi0 proto unspec metric 0
+none 192.168.29.0/24 dev wifi0 proto unspec metric 256
+none 192.168.29.232 dev wifi0 proto unspec metric 256
+none 192.168.29.255 dev wifi0 proto unspec metric 256
+none 224.0.0.0/4 dev wifi0 proto unspec metric 256
+none 255.255.255.255 dev wifi0 proto unspec metric 256
+none 224.0.0.0/4 dev wifi1 proto unspec metric 256
+none 255.255.255.255 dev wifi1 proto unspec metric 256
+none 224.0.0.0/4 dev wifi2 proto unspec metric 256
+none 255.255.255.255 dev wifi2 proto unspec metric 256
+#########

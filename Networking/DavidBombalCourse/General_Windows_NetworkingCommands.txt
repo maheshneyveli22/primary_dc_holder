@@ -1,0 +1,191 @@
+1) You can display the routing table's contents with the netstat -nr command or the route print command. The -r option tells netstat to display the routing table, and the -n option tells netstat to display the table in numeric form
+
+##########
+C:\Users\gs1-maheswarane>netstat -nr
+===========================================================================
+Interface List
+ 10...6c 24 08 8b cd d0 ......Intel(R) Ethernet Connection (13) I219-V
+ 23...bc 6e e2 b0 34 7b ......Microsoft Wi-Fi Direct Virtual Adapter
+ 15...be 6e e2 b0 34 7a ......Microsoft Wi-Fi Direct Virtual Adapter #2
+  5...bc 6e e2 b0 34 7a ......Intel(R) Wi-Fi 6 AX201 160MHz
+ 16...bc 6e e2 b0 34 7e ......Bluetooth Device (Personal Area Network)
+  1...........................Software Loopback Interface 1
+===========================================================================
+
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0     192.168.29.1   192.168.29.232     50
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+     192.168.29.0    255.255.255.0         On-link    192.168.29.232    306
+   192.168.29.232  255.255.255.255         On-link    192.168.29.232    306
+   192.168.29.255  255.255.255.255         On-link    192.168.29.232    306
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link    192.168.29.232    306
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link    192.168.29.232    306
+===========================================================================
+Persistent Routes:
+  None
+
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  5     66 ::/0                     fe80::267:62ff:fea4:f855
+  1    331 ::1/128                  On-link
+  5     66 2405:201:e031:70a3::/64  On-link
+  5    306 2405:201:e031:70a3:110e:dbc4:520d:aa5d/128
+                                    On-link
+  5    306 2405:201:e031:70a3:9d2f:9bac:64c0:720f/128
+                                    On-link
+  5    306 fe80::/64                On-link
+  5    306 fe80::dace:1126:a2f6:fd96/128
+                                    On-link
+  1    331 ff00::/8                 On-link
+  5    306 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+
+C:\Users\gs1-maheswarane>route print
+===========================================================================
+Interface List
+ 10...6c 24 08 8b cd d0 ......Intel(R) Ethernet Connection (13) I219-V
+ 23...bc 6e e2 b0 34 7b ......Microsoft Wi-Fi Direct Virtual Adapter
+ 15...be 6e e2 b0 34 7a ......Microsoft Wi-Fi Direct Virtual Adapter #2
+  5...bc 6e e2 b0 34 7a ......Intel(R) Wi-Fi 6 AX201 160MHz
+ 16...bc 6e e2 b0 34 7e ......Bluetooth Device (Personal Area Network)
+  1...........................Software Loopback Interface 1
+===========================================================================
+
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0     192.168.29.1   192.168.29.232     50
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+     192.168.29.0    255.255.255.0         On-link    192.168.29.232    306
+   192.168.29.232  255.255.255.255         On-link    192.168.29.232    306
+   192.168.29.255  255.255.255.255         On-link    192.168.29.232    306
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link    192.168.29.232    306
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link    192.168.29.232    306
+===========================================================================
+Persistent Routes:
+  None
+
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  5     66 ::/0                     fe80::267:62ff:fea4:f855
+  1    331 ::1/128                  On-link
+  5     66 2405:201:e031:70a3::/64  On-link
+  5    306 2405:201:e031:70a3:110e:dbc4:520d:aa5d/128
+                                    On-link
+  5    306 2405:201:e031:70a3:9d2f:9bac:64c0:720f/128
+                                    On-link
+  5    306 fe80::/64                On-link
+  5    306 fe80::dace:1126:a2f6:fd96/128
+                                    On-link
+  1    331 ff00::/8                 On-link
+  5    306 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+  
+############################
+
+
+
+2) In our pc, we can type ARP -A AND SEE THE LOCAL ARP CACHE 
+
+---
+C:\Users\gs1-maheswarane>arp -a
+
+Interface: 192.168.29.232 --- 0x5
+  Internet Address      Physical Address      Type
+  192.168.29.1          00-67-62-a4-f8-55     dynamic
+  192.168.29.116        7c-66-ef-ce-a6-43     dynamic
+  192.168.29.255        ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static
+-----
+
+b) In the above output, my pc ip is 192.168.29.232 
+c) In our example, we have two dynamic mac addreses in our local arp cache. 
+
+  192.168.29.1          00-67-62-a4-f8-55     dynamic
+  192.168.29.116        7c-66-ef-ce-a6-43     dynamic
+
+d) Our ip config output 
+
+------------
+Wireless LAN adapter Wi-Fi:
+
+   Connection-specific DNS Suffix  . :
+   IPv6 Address. . . . . . . . . . . : 2405:201:e031:70a3:9d2f:9bac:64c0:720f
+   Temporary IPv6 Address. . . . . . : 2405:201:e031:70a3:110e:dbc4:520d:aa5d
+   Link-local IPv6 Address . . . . . : fe80::dace:1126:a2f6:fd96%5
+   IPv4 Address. . . . . . . . . . . : 192.168.29.232
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : fe80::267:62ff:fea4:f855%5
+                                       192.168.29.1
+-------------
+e) In our arp -a output we can see mapping for Default gateway's IP address to relevant mac address:
+ 192.168.29.1          00-67-62-a4-f8-55     dynamic
+
+f) command arp -d will allow me to delete arp entries in my local arp cache 
+---
+C:\Users\gs1-maheswarane>arp -d
+---
+
+g) if we do arp -a again, we can see No ARP entries found 
+
+---
+C:\Users\gs1-maheswarane>arp -a
+No ARP Entries Found 
+---
+
+h) If i do arp -a again, we wil notice that entry has happened once again 
+C:\Users\gs1-maheswarane>arp -a
+192.168.29.1          00-67-62-a4-f8-55     dynamic
+
+-> etnry has appeared again because we are sending traffic from our pc to default gateway 
+
+i) If we do arp -a again, it shows the directed broadcast address for the subnet  
+
+C:\Users\gs1-maheswarane>arp -a
+192.168.29.1          00-67-62-a4-f8-55     dynamic
+255.255.255.255       ff-ff-ff-ff-ff-ff     static
+
+j) Now if i ping another IP address of 192.168.29.41   , initially there is no arp entry for this IP address, but when we pinged the ping succeeded  
+
+Now we can notice that the arp entry has been added for ip address 
+192.168.29.41
+########################################### 
+
+C:\Users\gs1-maheswarane>arp -a
+
+Interface: 192.168.29.232 --- 0x5
+  Internet Address      Physical Address      Type
+  192.168.29.1          00-67-62-a4-f8-55     dynamic
+  192.168.29.41         5c-3a-45-1c-93-73     dynamic
+  192.168.29.116        7c-66-ef-ce-a6-43     dynamic
+  192.168.29.255        ff-ff-ff-ff-ff-ff     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static
+  
+k) Moral of the story: Before traffic can be sent to an IP address on the local segment, ARP is required to create a mapping between layer3 IP address  and layer2 mac address 
+###############

@@ -1,0 +1,12 @@
+1) PAN - Personal area network 
+2) LAN - Local Area network 
+3) WLAN - Wireless Local area network 
+4) CAN - Campus Area Network 
+5) MAN - Metropolitan Area network 
+eg: intranet
+Used in Hospitals, call center 
+6) WAN - Wide Area Network 
+
+Internet: Collection of lan, pan , man , wan 
+
+7) SAN - Storage Area Network 

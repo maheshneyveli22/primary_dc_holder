@@ -1,0 +1,1549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.expd.expo</groupId>
+		<artifactId>booking-parent</artifactId>
+		<version>0.3.63-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.expd.expo</groupId>
+	<artifactId>booking-service</artifactId>
+	<name>booking-service</name>
+	<description>Booking hibernate arch runway project</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>17</java.version>
+		<dockerfile-maven-version>1.4.0</dockerfile-maven-version>
+		<require-snapshot>false</require-snapshot>
+		<require-release>false</require-release>
+		<!--Version properties only make sense if build-helper:parse-versions is
+			run -->
+		<!--suppress UnresolvedMavenProperty -->
+		<currentVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}</currentVersion>
+		<!--suppress UnresolvedMavenProperty -->
+		<nextPatchVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion}</nextPatchVersion>
+		<!--suppress UnresolvedMavenProperty -->
+		<nextMinorVersion>${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}.0</nextMinorVersion>
+		<!--suppress UnresolvedMavenProperty -->
+		<nextMajorVersion>${parsedVersion.nextMajorVersion}.0.0</nextMajorVersion>
+		<flyway-maven-plugin.version>5.0.2</flyway-maven-plugin.version>
+
+		<!-- instrument for code coverage only when "-Djacoco.skip=false" is included
+			on mavaen command line. This workaround allows us to run automation tests
+			via maven that would otherwise fail because of extra "synthetic" fields added
+			to our classes by jacoco. -->
+		<jacoco.skip>false</jacoco.skip>
+
+		<jacoco.percentage.instruction>0.09</jacoco.percentage.instruction>
+		<jacoco.percentage.branch>0.06</jacoco.percentage.branch>
+		<jacoco.percentage.class>0.1</jacoco.percentage.class>
+		<sonic-version>8.5.1.14</sonic-version>
+		<commons-collections.version>4.1</commons-collections.version>
+		<commons-digester.version>3.2</commons-digester.version>
+		<commons-lang.version>3.4</commons-lang.version>
+		<commons-logging.version>1.1.3</commons-logging.version>
+
+		<!-- legacy properties -->
+		<!-- Expeditors provided dependency versions -->
+		<!-- Enterprise Technology -->
+<!--		<activemq.version>5.7.0</activemq.version>-->
+		<business-data-types.version>1.17</business-data-types.version>
+		<legacy-appframework.version>7.2.0</legacy-appframework.version>
+		<legacy-web-access.version>6.14.0</legacy-web-access.version>
+		<legacy-docman-client.version>4.8.0</legacy-docman-client.version>
+		<legacy-security-client.version>5.1.5</legacy-security-client.version>
+		<messaging-client.version>RELEASE</messaging-client.version>
+
+		<!-- EI / WSDL dependencies -->
+		<transportation-contract.version>2.0.42</transportation-contract.version>
+		<wsdl.target.dir>${project.build.directory}/wsdl</wsdl.target.dir>
+		<contract.target.dir>${basedir}/target/generated-sources/contract</contract.target.dir>
+		<cxf.version>3.3.0</cxf.version>
+		<vcservices.version>1.1</vcservices.version>
+		<branch-service.version>46.0.1</branch-service.version>
+		<document-management-service.version>29.0.0</document-management-service.version>
+		<global-company-identifier-service.version>49.0.2</global-company-identifier-service.version>
+
+		<!-- legacy required for wsdl generation -->
+		<cxf-xjc-plugin.version>3.0.5</cxf-xjc-plugin.version>
+		<cxf-codegen-plugin.version>3.3.0</cxf-codegen-plugin.version>
+		<jaxb-api.version>2.2.12</jaxb-api.version>
+
+
+		<jaxb2-maven-plugin.version>1.6</jaxb2-maven-plugin.version>
+
+		<usertype.core.version>3.0.0.CR3</usertype.core.version>
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<validation-api.version>1.1.0.Final</validation-api.version>
+		<wssecurity-utility.version>1.0</wssecurity-utility.version>
+		<xercesImpl.version>2.11.0</xercesImpl.version>
+
+		<!-- legacy common dependencies -->
+		<ehcache.version>2.6.11</ehcache.version>
+<!--		<dozer.version>5.5.1</dozer.version>-->
+		<velocity.version>1.7</velocity.version>
+
+		<!-- Graphql -->
+
+		<graphql-java.version>18.4</graphql-java.version>
+		<graphql-java-kickstart-servlet.version>13.0.0</graphql-java-kickstart-servlet.version>
+		<kotlin.version>1.3.40</kotlin.version>
+
+
+		<!-- legacy testing -->
+		<jmock-legacy.version>2.6.0</jmock-legacy.version>
+		<hamcrest-library.version>1.3</hamcrest-library.version>
+		<selenium-java.version>2.48.2</selenium-java.version>
+		<objenesis.version>2.1</objenesis.version>
+		<cglib-nodep.version>3.2.0</cglib-nodep.version>
+		<jmock.version>2.5.1</jmock.version>
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.7.10</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.expd.expo</groupId>
+				<artifactId>identity.contracts</artifactId>
+				<version>1.2.25</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>common-utility</artifactId>
+						<groupId>com.expd.expo</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>42.3.5</version>
+        </dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.13</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<!-- added to prevent runtime excpetion -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.10.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>spring-velocity-support</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- _enow legacy dependencies -->
+		<dependency>
+			<groupId>com.expd.arch.temporary</groupId>
+			<artifactId>legacy-docman-client</artifactId>
+			<version>${legacy-docman-client.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.expd.library.temporary</groupId>
+			<artifactId>vcservices</artifactId>
+			<version>${vcservices.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.expd.arch</groupId>
+			<artifactId>legacy-appframework</artifactId>
+			<version>${legacy-appframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.expd.arch</groupId>
+			<artifactId>legacy-web-access</artifactId>
+			<version>${legacy-web-access.version}</version>
+		</dependency>
+
+		<!-- this is needed for the IEMessaging classes -->
+		<dependency>
+			<groupId>com.expd.library</groupId>
+			<artifactId>messaging-client</artifactId>
+			<version>104.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sonicsw</groupId>
+			<artifactId>sonic-client</artifactId>
+			<version>8.5.1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sonicsw</groupId>
+			<artifactId>sonic-crypto</artifactId>
+			<version>8.5.1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sonicsw</groupId>
+			<artifactId>sonic-selector</artifactId>
+			<version>8.5.1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sonicsw</groupId>
+			<artifactId>sonic-xmessage</artifactId>
+			<version>8.5.1.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.arch</groupId>
+			<artifactId>legacy-interchange</artifactId>
+			<version>6.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.arch</groupId>
+			<artifactId>legacy-expin-object-bridge</artifactId>
+			<version>65.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.library</groupId>
+			<artifactId>messaging-exchange</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+		<!-- _enow FIXME legacy common dependencies -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-engine-core</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-ri</artifactId>
+			<version>2.3.3</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context-support</artifactId>
+                </exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+            </exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+
+		<!-- legacy jms dependencies -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-jms</artifactId>
+		</dependency>
+		<!-- legacy test dependencies -->
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock</artifactId>
+			<version>${jmock.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-junit4</artifactId>
+			<version>${jmock.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit-dep</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-legacy</artifactId>
+			<version>${jmock-legacy.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.expo</groupId>
+			<artifactId>common-utility</artifactId>
+			<version>${common-utility.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcprov-jdk15on</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.library</groupId>
+			<artifactId>visibility-common</artifactId>
+			<version>1.0.3</version>
+			<exclusions>
+				<exclusion>
+					<!-- excluded b/c wtf is this doing in here -->
+					<artifactId>depot-repository</artifactId>
+					<groupId>com.expd.arch</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.expd.expo</groupId>
+			<artifactId>identity.contracts</artifactId>
+			<version>1.2.25</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.expd.expo</groupId>
+			<artifactId>test-utility</artifactId>
+			<version>${test-utility.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java-extended-scalars</artifactId>
+			<version>18.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.graphql-java-kickstart</groupId>
+			<artifactId>graphql-java-servlet</artifactId>
+			<version>${graphql-java-kickstart-servlet.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.graphql-java-kickstart</groupId>
+					<artifactId>graphql-java-kickstart</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.apollographql.apollo</groupId>
+			<artifactId>apollo-runtime</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib-common</artifactId>
+			<version>1.3.40</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.6.9.Final</version>
+		</dependency>
+
+	<dependency>
+		<groupId>net.bytebuddy</groupId>
+		<artifactId>byte-buddy</artifactId>
+		<version>1.12.9</version>
+	</dependency>
+	<dependency>
+		<groupId>org.javassist</groupId>
+		<artifactId>javassist</artifactId>
+		<version>3.23.1-GA </version>
+	</dependency>
+	<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<version>2.7.10</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tngtech.junit.dataprovider</groupId>
+			<artifactId>junit4-dataprovider</artifactId>
+			<version>2.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- TODO untouched from here -->
+		<!-- joda time dependencies -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time-hibernate</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>ehcache</artifactId>
+					<groupId>ehcache</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>antlr</artifactId>
+					<groupId>antlr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>dom4j</artifactId>
+					<groupId>dom4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hsqldb</artifactId>
+					<groupId>hsqldb</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.4</version>
+		</dependency>
+		<dependency>
+			<artifactId>jboss-logging</artifactId>
+			<groupId>org.jboss.logging</groupId>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.oasis</groupId>
+			<artifactId>wssecurity-utility</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- Apache commons dependencies -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<!-- This dependency and its version (6.0.9) are necessary to comply with our JPA libraries. -->
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.9.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jcabi</groupId>
+			<artifactId>jcabi-matchers</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>3.2.2</version>
+			<type>maven-plugin</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.maven</groupId>
+					<artifactId>maven-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.skyscreamer</groupId>
+			<artifactId>jsonassert</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>mapping-dozer-woven</artifactId>
+			<version>112.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>1.9.13</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+
+
+
+	<build>
+
+		<finalName>bookingapi</finalName>
+		<!-- <pluginManagement> -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.7.10</version>
+				<configuration>
+					<jvmArguments>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</jvmArguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+
+<!--			WSDL to Java conversion for BranchService,DocumentManagementService, GlobalCompanyIdentifierService start-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.4.0</version>
+				<executions>
+					<execution>
+						<id>unpack-wsdl</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.expd.service</groupId>
+									<artifactId>branch-service</artifactId>
+									<version>${branch-service.version}</version>
+									<classifier>wsdl</classifier>
+									<type>zip</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${wsdl.target.dir}</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.expd.service</groupId>
+									<artifactId>document-management-service</artifactId>
+									<version>${document-management-service.version}</version>
+									<classifier>wsdl</classifier>
+									<type>zip</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${wsdl.target.dir}</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.expd.service</groupId>
+									<artifactId>global-company-identifier-service</artifactId>
+									<version>${global-company-identifier-service.version}</version>
+									<classifier>wsdl</classifier>
+									<type>zip</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${wsdl.target.dir}</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf-codegen-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>generate-sources-wsdl</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+						<configuration>
+							<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+							<verbose>true</verbose>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>${wsdl.target.dir}/wsdl/BranchService.wsdl</wsdl>
+								</wsdlOption>
+								<wsdlOption>
+									<wsdl>${wsdl.target.dir}/wsdl/DocumentManagementService.wsdl</wsdl>
+								</wsdlOption>
+								<wsdlOption>
+									<wsdl>${wsdl.target.dir}/wsdl/GlobalCompanyIdentifierService.wsdl</wsdl>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.sun.xml.ws</groupId>
+						<artifactId>jaxws-ri</artifactId>
+						<version>2.3.2</version>
+						<type>pom</type>
+					</dependency>
+
+					<dependency>
+						<groupId>javax</groupId>
+						<artifactId>javaee-api</artifactId>
+						<version>7.0</version>
+
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-core</artifactId>
+						<version>2.3.0</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-impl</artifactId>
+						<version>2.3.0</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-xjc</artifactId>
+						<version>2.3.0</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-core</artifactId>
+						<version>3.5.5</version>
+					</dependency>
+					<dependency>
+						<groupId>xerces</groupId>
+						<artifactId>xercesImpl</artifactId>
+						<version>2.9.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-jaxws</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-simple</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-transports-http</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-xjc-plugin</artifactId>
+				<version>${cxf-xjc-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xsdtojava</goal>
+						</goals>
+						<configuration>
+							<sourceRoot>${basedir}/target/generated-sources/</sourceRoot>
+							<xsdOptions>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/branch-service-contract.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/datatypes/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/branch-service-dto.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/datatypes/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/document-management-service-contract.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/document-management-service-dto.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/global-company-identifier-service-contract.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+								<xsdOption>
+									<xsd>${wsdl.target.dir}/wsdl/global-company-identifier-service-dto.xsd</xsd>
+									<deleteDirs>
+										<deleteDir>${basedir}/target/generated-sources/com/expd/arch/</deleteDir>
+									</deleteDirs>
+								</xsdOption>
+							</xsdOptions>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>xerces</groupId>
+						<artifactId>xercesImpl</artifactId>
+						<version>${xercesImpl.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-jaxws</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-frontend-simple</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-transports-http</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		<!--			WSDL to Java conversion for BranchService,DocumentManagementService, GlobalCompanyIdentifierService end-->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>parse-version</id>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>migrate-booking</id>
+						<configuration>
+							<locations>
+								<location>
+									expobooking.db.migration
+								</location>
+							</locations>
+							<schemas>expobook</schemas>
+							<baselineOnMigrate>false</baselineOnMigrate>
+							<table>flyway_schema_history</table>
+						</configuration>
+					</execution>
+				</executions>
+
+			</plugin>
+
+
+
+
+			<plugin>
+				<groupId>com.github.ekryd.echo-maven-plugin</groupId>
+				<artifactId>echo-maven-plugin</artifactId>
+				<version>1.3.2</version>
+			<executions>
+				<execution>
+					<id>echo-maven-plugin-1</id>
+					<phase>package</phase>
+					<goals>
+						<goal>echo</goal>
+					</goals>
+					<configuration>
+						<message>
+							Hello, Mahesh
+							Embed a line break: ${line.separator}
+
+							Base Directory: ${basedir}
+							Project Build Directory: ${project.build.directory}
+							Project Build Source Directory: ${project.build.sourceDirectory}
+							ArtifactId is ${project.artifactId}
+							Contract Target directory: ${contract.target.dir}
+							WSDL target directory: ${wsdl.target.dir}
+
+
+						</message>
+						<level>INFO</level>
+						<toFile>/logs/log-echo.txt</toFile>
+						<append>true</append>
+					</configuration>
+				</execution>
+			</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-help-plugin</artifactId>
+				<version>3.1.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M2</version>
+				<executions>
+					<execution>
+						<id>enforce-no-releases</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireSnapshotVersion>
+									<failWhenParentIsRelease>false</failWhenParentIsRelease>
+									<message>No Releases Allowed in develop!</message>
+								</requireSnapshotVersion>
+							</rules>
+							<fail>${require-snapshot}</fail>
+						</configuration>
+					</execution>
+					<execution>
+						<id>enforce-no-snapshots</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireReleaseVersion>
+									<message>No Snapshots Allowed in release or hotfix!</message>
+								</requireReleaseVersion>
+							</rules>
+							<fail>${require-release}</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>patch</id>
+						<configuration>
+							<newVersion>${nextPatchVersion}-SNAPSHOT</newVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>minor</id>
+						<configuration>
+							<newVersion>${nextMinorVersion}-SNAPSHOT</newVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>major</id>
+						<configuration>
+							<newVersion>${nextMajorVersion}-SNAPSHOT</newVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>release</id>
+						<configuration>
+							<newVersion>${currentVersion}</newVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
+				<dependencies>
+					<!-- need to upgrade to working version 8.19 -->
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>8.19</version>
+					</dependency>
+				</dependencies>
+
+				<configuration>
+					<skip>true</skip>
+					<configLocation>../expo_checks.xml</configLocation>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<consoleOutput>true</consoleOutput>
+							<failOnViolation>false</failOnViolation>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<configuration> <!-- instrument only our code -->
+					<includes> <!-- instrument only our code -->
+						<include>com/expd/**/*</include>
+					</includes>
+					<excludes>
+						<exclude>**/*Test</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule implementation="org.jacoco.maven.RuleConfiguration">
+									<element>BUNDLE</element>
+									<limits>
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>INSTRUCTION</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${jacoco.percentage.instruction}</minimum>
+										</limit>
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${jacoco.percentage.branch}</minimum>
+										</limit>
+										<limit implementation="org.jacoco.report.check.Limit">
+											<counter>CLASS</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${jacoco.percentage.class}</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+		<!-- </pluginManagement> -->
+	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<type>DEV</type>
+			</properties>
+		</profile>
+		<profile>
+			<!-- This profile is to generate contract; use clean package as the maven
+                command (Note the order below may look different, but follows the numbers
+                sequentially because maven Life cycle) It executes the following steps using
+                these plugins with phases/goals in the maven lifecycle order: 1) unpack the
+                wsdl and xsd files to ${contract.target.dir} <artifactId>maven-dependency-plugin</artifactId>
+                <phase>initialize</phase> <goal>unpack</goal> <id>unpack-transportation-contract</id>
+                2) unpack the ObjectMapper cfg files transportation-contract_ObjectMapperBaseConfigurations.cfg
+                transportation-contract_ObjectMapperConfigurations.cfg to src/main/resources
+                <artifactId>maven-dependency-plugin</artifactId> <phase>initialize</phase>
+                <goal>unpack</goal> <id>unpack-transportation-cfg</id> Note: since it is
+                now in the jar, this file should be included by ExpoBook app configuration
+                of ObjectMapper \ 3) delete the existing contract files specifying packages
+                explicitly <artifactId>maven-antrun-plugin</artifactId> <phase>process-sources</phase>
+                <goal>run</goal> <id>delete-contract-files</id> 4) generate new java files
+                to ${contract.target.dir}/src <artifactId>jaxb2-maven-plugin</artifactId>
+                <phase>generate-resources</phase> <goal>xjc</goal> <id>generate-contract-files</id>
+                5) a) copy generated java files from ${contract.target.dir}/src to src/main/java
+                b) delete generated java files from ${contract.target.dir}/src. This averts
+                duplicate file errors during compile phase <artifactId>maven-antrun-plugin</artifactId>
+                <phase>process-resources</phase> <goal>run</goal> <id>copy-contract-files-cleanup-target</id> -->
+			<id>generate-contract</id>
+			<build>
+				<plugins>
+
+					<!-- legacy plugins -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<!-- 1) unpack the wsdl and xsd files to ${contract.target.dir} -->
+							<execution>
+								<id>unpack-transportation-contract</id>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<phase>initialize</phase>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.expd.library</groupId>
+											<artifactId>transportation-contract</artifactId>
+											<version>${transportation-contract.version}</version>
+											<type>jar</type>
+											<overWrite>true</overWrite>
+											<includes>**/*.xsd</includes>
+										</artifactItem>
+
+									</artifactItems>
+
+									<outputDirectory>${contract.target.dir}</outputDirectory>
+								</configuration>
+							</execution>
+							<!-- 2) unpack the ObjectMapper cfg files -->
+							<execution>
+								<id>unpack-transportation-cfg</id>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<phase>initialize</phase>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.expd.library</groupId>
+											<artifactId>transportation-contract</artifactId>
+											<version>${transportation-contract.version}</version>
+											<type>jar</type>
+											<overWrite>true</overWrite>
+											<includes>
+												transportation-contract_ObjectMapperBaseConfigurations.cfg,
+												transportation-contract_ObjectMapperConfigurations.cfg
+											</includes>
+										</artifactItem>
+									</artifactItems>
+
+									<outputDirectory>src/main/resources</outputDirectory>
+								</configuration>
+							</execution>
+<!--
+							<execution>
+								<id>unpack-wsdl</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.expd.service</groupId>
+											<artifactId>branch-service</artifactId>
+											<version>${branch-service.version}</version>
+											<classifier>wsdl</classifier>
+											<type>zip</type>
+											<overWrite>true</overWrite>
+											<outputDirectory>${wsdl.target.dir}</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.expd.service</groupId>
+											<artifactId>document-management-service</artifactId>
+											<version>${document-management-service.version}</version>
+											<classifier>wsdl</classifier>
+											<type>zip</type>
+											<overWrite>true</overWrite>
+											<outputDirectory>${wsdl.target.dir}</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.expd.service</groupId>
+											<artifactId>global-company-identifier-service</artifactId>
+											<version>${global-company-identifier-service.version}</version>
+											<classifier>wsdl</classifier>
+											<type>zip</type>
+											<overWrite>true</overWrite>
+											<outputDirectory>${wsdl.target.dir}</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+-->
+
+						</executions>
+					</plugin>
+	<!--				<plugin>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-codegen-plugin</artifactId>
+						<version>${cxf-codegen-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>generate-sources-wsdl</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>wsdl2java</goal>
+								</goals>
+								<configuration>
+									<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+									<verbose>true</verbose>
+									<wsdlOptions>
+										<wsdlOption>
+											<wsdl>${wsdl.target.dir}/wsdl/BranchService.wsdl</wsdl>
+										</wsdlOption>
+										<wsdlOption>
+											<wsdl>${wsdl.target.dir}/wsdl/DocumentManagementService.wsdl</wsdl>
+										</wsdlOption>
+										<wsdlOption>
+											<wsdl>${wsdl.target.dir}/wsdl/GlobalCompanyIdentifierService.wsdl</wsdl>
+										</wsdlOption>
+									</wsdlOptions>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>com.sun.xml.ws</groupId>
+								<artifactId>jaxws-ri</artifactId>
+								<version>2.3.2</version>
+								<type>pom</type>
+							</dependency>
+
+							<dependency>
+								<groupId>javax</groupId>
+								<artifactId>javaee-api</artifactId>
+								<version>7.0</version>
+
+							</dependency>
+
+
+							<dependency>
+								<groupId>com.sun.xml.bind</groupId>
+								<artifactId>jaxb-impl</artifactId>
+								<version>2.3.0</version>
+							</dependency>
+							<dependency>
+								<groupId>com.sun.xml.bind</groupId>
+								<artifactId>jaxb-xjc</artifactId>
+								<version>2.3.0</version>
+							</dependency>
+
+							<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-core</artifactId>
+								<version>3.5.5</version>
+							</dependency>
+
+
+							<dependency>
+								<groupId>xerces</groupId>
+								<artifactId>xercesImpl</artifactId>
+								<version>2.9.1</version>
+							</dependency>
+						&lt;!&ndash;	<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-rt-core</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>&ndash;&gt;
+							<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-rt-frontend-jaxws</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-rt-frontend-simple</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-rt-transports-http</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>
+					&lt;!&ndash;		<dependency>
+								<groupId>org.apache.cxf</groupId>
+								<artifactId>cxf-api</artifactId>
+								<version>${cxf.version}</version>
+							</dependency>&ndash;&gt;
+						</dependencies>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>add-source</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>target/generated-sources</source>
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+-->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jaxb2-maven-plugin</artifactId>
+						<version>${jaxb2-maven-plugin.version}</version>
+						<executions>
+							<!-- 4) generate new java files to ${contract.target.dir}/src -->
+							<execution>
+								<id>generate-contract-files</id>
+								<goals>
+									<goal>xjc</goal>
+								</goals>
+								<phase>generate-resources</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<schemaDirectory>${contract.target.dir}</schemaDirectory>
+							<outputDirectory>${contract.target.dir}/src</outputDirectory>
+							<bindingDirectory>${contract.target.dir}</bindingDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>${maven-antrun-plugin.version}</version>
+						<executions>
+							<!-- 3) delete the existing contract files specifying packages explicitly -->
+							<execution>
+								<id>delete-contract-files</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/common/joda/**/*.java" />
+										</delete>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/common/data_types/**/*.java" />
+										</delete>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/common/datatypes/**/*.java" />
+										</delete>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/transportation_contract/v2/**/*.java" />
+										</delete>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/edoc_contract/v2/**/*.java" />
+										</delete>
+										<delete>
+											<fileset dir="${project.build.sourceDirectory}"
+													 includes="com/expd/toolhouse_contract/v2/**/*.java" />
+										</delete>
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-contract-files-cleanup-target</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<!-- 5) a) copy generated java files from ${contract.target.dir}/src
+                                            to src/main/java -->
+										<copy todir="${project.build.sourceDirectory}">
+											<fileset dir="${contract.target.dir}/src"
+													 includes="**/*.java" />
+										</copy>
+										<!-- b) delete generated java files from ${contract.target.dir}/src. -->
+										<delete>
+											<fileset dir="${contract.target.dir}/src"
+													 includes="**/*.java" />
+										</delete>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

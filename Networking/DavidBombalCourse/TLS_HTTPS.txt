@@ -1,0 +1,288 @@
+1)  TLS:
+a) Understanding SSL and TLS requires understanding the interaction between 3 players: 
+CLIENT 
+SERVER 
+CERTIFICATE AUTHORITY 
+
+
+######
+1) Symmetric vs asymmetric encryption: 
+-> Symmetric encryption uses the same key to both encrypt and decrypt data, 
+-> while asymmetric encryption uses two different keys for the same purpose. 
+-> Symmetric encryption is faster and easier to use than asymmetric encryption, but it is less secure. If the key is compromised, the data can be easily decrypted.
+
+2) Self-signed TLS/SSL certificate:
+-> A self-signed TLS/SSL certificate is not signed by a publicly trusted certificate authority (CA) but instead by the developer or company that is responsible for the website; 
+-> as they are not signed by a publicly trusted CA, they are usually considered unsafe for public applications and websites.
+
+#######
+
+b) Steps: 
+
+
+1) CERTIFICATE AUTHORITY:
+-> It all starts with the Certificate authority . 
+-> CA is the corner stone of TLS/SSL process 
+->  CA has its own Asymmetric key pair . 
+	A) CA has PUBLIC KEY and PRIVATE KEY 
+	B) CA has a SELF-SIGNED CERTIFICATE 
+	-> this certificate affirms the identity of this Particular Certificate authority 
+	
+	-> Certificate includes CA's public key 
+		Orange certificate which identifies orange Certificate Authority is also signed in Orange. This is called self signed certificate   
+		
+2) SERVER: Server want to acquire a certificate
+-> Server could be a website 
+-> Server could be a SSL VPN client 
+-> Server could be a SSL VPN termination point. 
+
+-> Server is anything that wants to prove its identity and to do the same, it needs a certificate 
+3)  To get a certificate, server will start by generating its own public and private key 
+4)  Server will generate a CSR: Certificate Signing Request(CSR). CSR is a file that is used to request actual certificate 
+	● CSR contains Server's public key . 
+	● CSR is signed with Server's private key. This proves that CSR has the correlating private key to the public key inside it. 
+5) Server gives signed CSR to Certificate Authority(CA) 
+6)  CA inspects and validates information in CSR  and Thus verify Server's identity. 
+	-> CA verifies Server's identity based on the type of Certificate the server purchased: DV, OV, or EV 
+7) Once CA verifies Identity, CA creates certificate using information present inside CSR namely the public key  
+    -> CA has Server's public key because it was included in the CSR 
+8) CA signs Certificate using CA's private key.
+   -> Signing certificate involves tying a particular set of asymmetric keys to a particular identity   
+   -> THis identity is guaranteed by the certificate authority 
+9) CA gives Certificate to User 
+10) Server can use this Certificate to prove its identity for its clients.  or 
+    Server can then provide Certificate to prove its identity 
+	
+-> After this, clients come into picture 
+	
+	
+11) Client: 
+	-> Client is simply an entity that wants to connect to server securely (Normal PC client) 
+	-> Before the client connects to the server, Client already has : Web Browsers which already have CA certificates pre-installed. 
+	   These pre-installed CA certificates comes bundled with various web browsers or sometimes with the operating system itself. 
+    -> So, at this point we NO LONGER NEED THE CERTIFICATE AUTHORITY. 
+	-> Everything else that happens is simply between Client and the Server 
+
+
+12) Client requests Server's Certificate: 
+	-> Now the client can make a request to server and ask for the server's certificate. 
+	-> Upon receiving the certificate, there are two things that the client must verify 
+	I) CLIENT HAS TO VALIDATE IF THE CERTIFICATE IS LEGITIMATE 
+	   FYI: Certificates are just text inside a file. How do we know that text has not been changed. How do we know that text has not been simply typed via notepad.
+	   -> Client will verify it by checking the signature using Certificate Authority's public key 
+	   FYI: Signature was created using CA's private key, which means it can be verified using CA's public key. 
+	        Public key was included in the  CA certificate, the client already has installed.
+    II) VERIFY IF THE SERVER IS THE TRUE OWNER OF THE CERTIFICATE 	
+	   FYI: Certificates are public knowledge. Everytime you connect to a new website - you are downloading that website's certificate. 
+	   TO CHECK IF SERVER IS TRUE OWNER OF THE CERTIFICATE: CLIENT WILL MAKE SURE THAT THE SERVER HAS THE MATCHING PRIVATE KEY TO THE PUBLIC KEY THAT WAS PRESENTED IN THE SERVER CERTIFICATE. 
+	   -> IN THEORY ONLY THE SERVER SHOULD HAVE THE MATCHING PRIVATE KEY AND IF THE SERVER MAKE SURE THAT IF IT HAS THE MATCHING PRIVATE KEY , THEN CLIENT CAN CONFIRM THAT SERVER IS THE TRUE OWNER OF THE CERTIFICATE 
+	   
+	
+	-> Checking Certificate Revocation might involve CA, depending on the method the client uses: CRL, OCSP or OCSP stapling 
+	
+	
+13) SSL Handshake: SSL handshake validates the following:
+a) CLIENT HAS TO VALIDATE IF THE CERTIFICATE IS LEGITIMATE 
+b) VERIFY IF THE SERVER IS THE TRUE OWNER OF THE CERTIFICATE 
+
+c) As part of the handshake, client and server exchange pieces of information which allows the client to verify the above said two items viz: if certificate is legitimate and if server is true owner of certificate 
+d) Handshake also allows client and server to establish cryptographic symmetric keys which is the outcome of Successful SSL handshake. 
+e) Thus SSL/TLS Handshake produces Session Keys to protect bulk data transferred between client and server. 
+f) There will be :
+SYMMETRIC ENCRYPTION: One set of symmetric encryption keys to provide confidentiality 
+MESSAGE AUTHENTICATION CODE(MAC): One set of symmetric MAC keys to provide integrity and authentication 
+-> SSL handshake actually produces few more keys that these above. 
+g) Session Keys create a secure tunnel within which data can be transferred securely between client and server
+
+-> These 13 steps which we have seen so far is the 10000 foot view of the full TLS and sSL process 
+
+
+
+
+2) HTTPS
+-> Without https communication between client and server is in plain text 
+-> HTTPS helps to send data in encrypted fashion. HTTPS is an extension of HTTP protocol 
+a) In HTTPS data is sent in encrypted form using TLS. TLS is transport layer security 
+b) How TLS handshake works :
+STEP 1: Just like http, browser establishes a tcp connection with server using via 3 way handshake : TCP SYN + TCP SYN +ACK+ TCP ACK
+
+
+1. TCP Handshake 
+         Client                        Server
+ 		 |---------------TCP SYN ----->|
+		 |<------TCP SYN+ACK ----------|
+		 |---------------TCP ACK ----->|
+	.......Connection establishedd...............
+	
+	
+STEP2: This is where TLS handshake begins 
+
+2. Certificate check or hello phase of tls handshake: 
+
+        i) Process sends a CLIENT HELLO to the server. In this hello message, browser tells the following to the server: What TLS version can the browser support? like TLS1.2, TLS1.3 etc 
+		ii) What cybersuite the browser supports. Cyber suite is a set of encryption algorithms to use to encrypt data. 
+		iii) After receiving client hello, the server chooses the cybersuite and the TLS version to use, based on the options it got from client. 
+		iv) The chosen information about cybsersuite and TLS version is sent in SERVER HELLO message which is sent from server to the client 
+		v) Server then SENDS CERTIFICATE to the client. Certificate includes lot of things. Important among them are: public key of the server . 
+		   Client uses the public key in asymmetric encryption 
+-> In asymmetric encryption, piece of data that is encrypted by a public key can only be decrypted by the private key 
+       vi) This concludes  Step 2, which is the hello phase of the tls handshake 
+	   vii) At this point, client has a server certificate, client/server has agreed on the TLS version/Cyber suite to use.   
+
+         Client                        Server
+	     |---------------TCP SYN ----->|
+		 |<------TCP SYN+ACK ----------|
+		 |---------------TCP ACK ----->|
+	.......Connection establishedd...............Assymetric encryption [Public Key/Private Key] 
+	     |							   |
+		 |--Client hello-------------->|
+	     |							   |
+		 |<------------Server hello----|
+	     |							   |
+		 |<----------Certificate-------|
+	     |							   |
+		 |<---Server hello done--------|
+		 
+STEP3: Key exchange 
+
+3. Key exchange: 
+
+
+	i) Client key exchange message: 
+-> In this step,client and server  come up with a shared encryption key to encrypt data. 
+-> This is where asymmetric encryption comes into the picture.  In asymmetric encryption, piece of data that is encrypted by a public key  in client side can only be decrypted by the private key in server side 
+-> This is how client sends a encryption key safely to the server over the internet. 
+	-> All these is done In Client key exchange message 
+	ii) Exact details varies depends on the cybersuite used. 
+	iii) In our example we will use RSA as an example, since it is the easiest to understand.  
+	RSA: 
+	iv) With RSA, client generates an encryption key also called a session key.  
+	v) Then With RSA, session key is encrypted with server public key and we get encrypted session key in Client side 
+	vi) The encrypted session key is sent to server side 
+	vii) The server receives the encrypted session key and decrypts it with its private key 
+	viii) After decryption of encrypted session key , we get the session key which the client was holding earlier 
+	-> After this they enter step 4 of the TLS handshake 
+	
+	Session Key ---------> encrypted session key 
+
+         Client                        Server
+	     |---------------TCP SYN ----->|                    
+		 |<------TCP SYN+ACK ----------|              TCP handshake 
+		 |---------------TCP ACK ----->|
+	.......Connection establishedd...............Assymetric encryption [Public Key/Private Key] 
+	     |							   |
+		 |--Client hello-------------->|
+	     |							   |
+		 |<------------Server hello----|			Certificate Check 
+	     |							   |
+		 |<----------Certificate-------|
+	     |							   |
+		 |<---Server hello done--------|
+..........................................................
+	     |							   |
+		 |--Client key exchange------->|
+	     |							   |
+		 |--Change cipher spec-------->|			Key exchange  
+	     |							   |
+		 |---------Finished----------->|
+	     |							   |
+		 |<--Changed cipher spec-------|
+		 |    						   |
+	     |							   |
+		 |<--Finished------------------|		 
+
+
+
+4. STEP4: Data transmission 
+
+   i) In step4 which is data transmission, they use the session key and agreed upon cybersuite to send encrypted data, back and forth in a  secure bidirectional channel 
+   Thus we use symmetric encryption here, since we use only session key here 
+   ii) The main reason why we use symmetric encryption here in data transmission instead of symmetric encryption is :asymmetric encryption is computationally expensive. Asymmetric encryption is not suitable for bulk data transmission 
+
+
+
+
+
+         Client                        Server
+	     |---------------TCP SYN ----->|                    
+		 |<------TCP SYN+ACK ----------|              TCP handshake 
+		 |---------------TCP ACK ----->|
+	.......Connection establishedd...............Assymetric encryption [Public Key/Private Key] 
+	     |							   |
+		 |--Client hello-------------->|
+	     |							   |
+		 |<------------Server hello----|			Certificate Check 
+	     |							   |
+		 |<----------Certificate-------|
+	     |							   |
+		 |<---Server hello done--------|
+..........................................................
+	     |							   |
+		 |--Client key exchange------->|
+	     |							   |
+		 |--Change cipher spec-------->|			Key exchange  
+	     |							   |
+		 |---------Finished----------->|
+	     |							   |
+		 |<--Changed cipher spec-------|
+		 |    						   |
+	     |							   |
+		 |<--Finished------------------|		 
+         Client                        Server
+	     |---------------TCP SYN ----->|                    
+		 |<------TCP SYN+ACK ----------|              TCP handshake 
+		 |---------------TCP ACK ----->|
+	.......Connection establishedd...............Assymetric encryption [Public Key/Private Key] 
+	     |							   |
+		 |--Client hello-------------->|
+	     |							   |
+		 |<------------Server hello----|			Certificate Check 
+	     |							   |
+		 |<----------Certificate-------|
+	     |							   |
+		 |<---Server hello done--------|
+..........................................................
+	     |							   |
+		 |--Client key exchange------->|
+	     |							   |
+		 |--Change cipher spec-------->|			Key exchange  
+	     |							   |
+		 |---------Finished----------->|
+	     |							   |
+		 |<--Changed cipher spec-------|
+		 |    						   |
+	     |							   |
+		 |<--Finished------------------|		 
+....................................................Symmetric Encryption 
+	     |							   |
+		 |--Encrypted data------------>|
+	     |							   |
+		 |         Session key         |			Data transmission 
+	     |							   |
+		 |<--Encrypted data------------|
+	     |							   |
+		 |							   |
+		 |    						   |
+	     |							   |
+		 |-----------------------------|	
+
+
+		 
+		 
+
+
+c) Thus these are the four steps in tls handshake: a) TCP handshake b) Certificate check c) Key Exchange d) Data transmission 
+d) Done with TLS handshake lets discuss two more points: 
+e) First: Handshake we talked above applied to TLS1.2. While the last version is TLS1.3 
+-> TLS1.3 being supported on all major browsers 
+-> In our above illustration of handshake - TLS 1.2 takes two network round trips to complete
+-> TLS 1.3 optimizes the handshake the reduce the number of network round trips to 1.   which is one of the major improvements of TLS1.3
+-> In our illustration we talked about TLS1.2 because we reviewed TLS 1.3 in optimization 
+-> As with most optimizations , it is a bit harder to explain. Hence we chose TLS1.2 in our illustration  
+-> Core concepts of TLS1.2 applies to TLS1.3 also 
+f) Second: We use RSA for symmetric encryption to securely exchange the symmetric session key 
+-> We chose RSA because it is easy to understand. 
+-> However symmetric session key is not the only way to exchange session key during data transmission. 
+-> In TLS1.3 , RSA is no longer supported as a method for key exchange 
+-> diffie helman is a more common way nowadays for exchanging session keys 
+g) DH is complicated, but in a nutshell it uses some advanced math involving large prime numbers to derive a shared session key without ever transmitting a public key over the network. 

@@ -1,0 +1,16 @@
+1) Static NAT:
+
+each device has one static public ip
+
+2) Dynamic NAT
+
+each device will be dynamically allocated a public ip
+
+3) Port address translation:
+
+each private address will be mapped to public address with port
+
+
+4) Port forwarding
+
+based on service : each private ip will be mapped with public ip and port 

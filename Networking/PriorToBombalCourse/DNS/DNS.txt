@@ -1,0 +1,276 @@
+1) In world of networking, computers talk and identify each other using numbers such as IP addresses
+-> Humans on the other hand are accustomed to use names instead of numbers 
+-> In order to bridge communication gap between Computers and Humans and make the communication lot easier , networkin engineers developed DNS 
+
+2) What is DNS 
+a) DNS means Domain name system
+b) Resolves names to numbers 
+-> i.e It Resolves Domain names to IP addresses 
+c) If you type web address in web browser, DNs will resolve the name into a number, because the only thing computers know are numbers 
+d) If you type "yahoo.com" in browser, dns server will search through its data base to find a matching IP address for that domain name. If it finds it 
+it will resolve that domain name to the IP address of the yahoo website 
+e) Once that is done, your computer will be able to communicate and retrieve pages from Yahoo web server 
+f) So DNS basically works like a phone book 
+g) When you wan to find the number, we dont look the number first, instead we lookup the name first and then it will give the number 
+
+
+3) How Dns Works 
+a) If you type in DESKTOP "yahoo.com" in your web browser and if your web browser or operating system can't find the ip address in its own 
+cache memory  - it will send the query to the next level called the Resolver server 
+b) The RESOLVER server is basically the ISP or Internet service provider. When resolver receives the query - it will check its own cache memory to find an ip 
+address for yahoo.com and if it cannnot find it, it will send the query to the next level which is the root server 
+c) The ROOT SERVER: Root servers are the top or the root of a DNS hierarchy. There are 13 sets of these root servers strategically placed around the world 
+-> They are operated by 12 different organizations 
+-> Each set of these root servers have their unique IP address. 
+-> So when root server receives query for IP address of Yahoo.com, the root server is not going to know what the IP address is, but the root server knows 
+where to send the resolver to help it find the IP address. 
+-> Hence root server will direct the resolver to the TLD or TOP LEVEL DOMAIN server for the dot com domain 
+d) TLD : So the resolver will now ask the Tld server for the IP address of yahoo.com 
+-> TLD server stores the address information for  top level domains  such as .com, .net,.org  etc 
+-> This particular TLD server manages the dot com domain which yahoo.com is a part of .
+-> So when TLD server receives query for IP address of yahoo.co, TLD server does not know what is the IP address of yahoo.com 
+e) AUTHORITATIVE NAME SERVERS: 
+-> TLD will direct the resolver to the next and final level called Authoritative Name servers 
+-> So once again, Resolver will ask Authoritative name server for the IP address of yahoo.com 
+-> Authoritative name servers is responsible for knowing everything about the domain which includes the IP address 
+-> When Authoritative name server receives the query from resolver, the authoritative name server will respond with IP address for yahoo.com. 
+-> Finally the resolver will tell your computer the IP address for yahoo.com 
+F) DESKTOP:
+-> Now the desktop or your computer can retrieve the yahoo web page 
+
+-> It is important to note that, once the resolver receives the IP address, It will store it in its cache memory 
+-> In case it receives another query for yahoo.com - it does not have to go through all those steps again 
+
+4) DNS hierarchy and FLOW  
+a) In DNS hierarchy there are three main levels of servers 
+i) Root Server 
+ii) TLD - Top level Domain server 
+iii) Authoritative name server 
+b) But of these three, the DNS servers that are responsible the DNS records for resolving Domain names to IP addresses are the AUTHORITATIVE name servers 
+-> Because they are responsible for knowing everything about a domain including IP addresses and much more 
+c) In order to resolve your query to resolve example.com to an IP address, it needs to know which name server to ask?
+-> So in order to find the correct name server, the query must go through the top of the DNS hierarchy which is the root server.
+d) Once it reaches the root server, the root server will look at example.com and forward the query to the correct TLD - top level domain server . 
+-> THe TOP level domain server is responsible for information of top level domains such as .com, .net, .org and so on. 
+e) So in our case, the root server will forward the query to the .com TLD server . THis is because Top level domain for example.com is .com 
+f) Then TLD server will forward the query to the specific authoritative name server which is responsible for example.com domain. 
+g) Once the query reaches the name server, example.com will be resolved to the IP address so that the website can be retrieved 
+
+
+5) DNS Database
+a) In a DNS database, we have a DNS zone file 
+-> This file contains the DNS records 
+-> There are numerous DNS records 
+b) First DNS record is the A record or address record. 
+-> This is the most common DNS record 
+-> A record resolves domain names to IP addresses(IPv4) 
+
+eg:
+Type: A
+Example: example.com
+IP Address: 12.23.45.678
+TTL:7200 
+
+c) AAAA Record or Quad A recod:
+-> This record is just like A record 
+-> Both A and Quad A resolves domain names to IP addresses.
+-> but the difference is that - Quad A records resolves domain names to IPv6 addresses 
+
+eg:
+Type: AAAA 
+Example: example.com
+IP Address: 2501:0:53b::3330:c2f4
+TTL:7200 
+
+d) CNAME or Canonical name record: 
+i)   The CNAME(canonical) record resolves a domain or subdomain to another domain name 
+ii)  Computers read domain names from right to left and domain names will have several parts 
+iii) Parts of Domain : Root domain, Top level domain, second level domain and a subdomain 
+iv)  When we look at example.com, there is a hidden dot after com  
+
+example.com. 
+
+ROOT DOMAIN: 
+-> Here that dot is the root domain 
+TOP LEVEL DOMAIN: 
+-> .com is the top level domain 
+SECOND LEVEL DOMAIN: 
+-> example is the second level domain 
+SUB DOMAIN 
+-> If there is an additional name to the left of a second level domain, then that would be a subdomain
+-> www is the subdomain 
+-> www is a common subdomain, hence it is common to create a cname recod 
+
+
+eg:
+Type: CNAME 
+Example: www.example.com
+ALIAS TO: example.com
+TTL:7200 
+
+v) Thus we see a CNAME record which points www.example.com to example.com . Hence whether you type example.com or www.example.com, it always goes to 
+example.com because of the CNAME record 
+
+
+vi) Subdomains are often used, when a website has different services running on the same server and are using the same IP address 
+
+eg: consider example.com has an FTP service running on the same server as their website. 
+-> In this case they create a subdomain like ftp.example.com for their ftp service on the server 
+-> Then they can create a cname record directed to example.com 
+
+eg:
+Type: CNAME 
+Example: ftp.example.com
+ALIAS TO: example.com
+TTL:7200 
+
+
+-> Here when user types: ftp.example.com - cname record points it to example.com.
+-> Even though it gets pointed to example.com , webserver will see the url containing ftp service and point it to the correct service 
+
+
+vii) CNAME records are similar to A records. 
+-> But the difference is , A records resolve domain names to IP addresses whiel CNAMES resolve domain name to domain names 
+
+e) MX records:
+i) MX record is also known as Mail exchanger record . 
+-> This record is used for email 
+-> MX records simply points to the server where emails should be delivered for that particular domain name  
+
+
+
+eg:
+Type: MX 
+Priority: 10 
+Example: example.com
+HOST: mail1.example.com
+TTL:7200 
+
+
+ii) For eg: if you send a mail to Tom@example.com, the MTA - Mail Transfer agent will query the Mx records for example.com because its looking for an email server 
+-> in our case it will go to mail1.example.com since that is the host mentioned in MX record 
+
+iii) MX records will have two entries 
+
+eg:
+PRIMARY:
+
+Type: MX 
+Priority: 10 
+Example: example.com
+HOST: mail1.example.com
+TTL:7200 
+
+
+SECONDARY:
+Type: MX 
+Priority: 20 
+Example: example.com
+HOST: mail2.example.com
+TTL:7200 
+
+iv) Here lower the priority number means, it is the primary email server. If the primary email server is overwhelmed or goes down - Secondary email server 
+will be used  
+
+
+
+f) SOA record: Start of Authority 
+i) Start of Authority record stores administrative information about a DNS zone 
+ii) What are DNS zones?
+DNZ zone is a section of a domain name space that a certain administrator has been delegated control over. 
+iii) DNS zones allow a domain namespace such as example.com to be divided into different sections 
+-> If we look at the domain example.com, if this domain was broken down into three sections or subdomains such as 
+shop.example.com, blog.example.com and support.example.com, the head administrator could create DNS zones and delegate control over these subdomains to 
+different administrators if he chooses to. 
+-> Lets assume shop and blog subdomains have only few computers in each domain and the support subdomain has many computers. 
+-> Since these two only have a small number of computers, head admin could create one zone for these two subdomains and  assign 
+an administator to manage it. 
+
+shop.example.com + blog.example.com = DNZ zone 1 
+support.example.com = DNZ zone 2 
+-> But since support has some many computers, the head administator has created another separate zone just for the support domain and then he will 
+assign another administator to manage it . 
+
+iv) So DNZ zones are created for manageability purposes and each will have their own DNZ zone file, which contains a soa record 
+
+v) SOA Record 
+eg:
+TYPE: SOA 
+MNAME: ns1.example.com
+RNAME: admin.example.com
+SERIAL#: 510025 
+RETRY: 60 
+TTL: 7200 
+
+-> Here MNAME is the primary name server 
+-> RNAME is the email address of the administrator for the zone.
+Here admin.example.com equates to admin@example.com  where dot represents @symbol in an email 
+
+-> SERIAL# -> serial number represents a version in the zone 
+Whenever and update happens in the zone, serial number willl change which tells the secondary servers to update as well 
+
+
+
+g) NS Record:
+1) NS record stands for name server record 
+2) Name server provides name of the authoritative name server within a domain 
+-> Name server contains all the DNS records necessary for users to find a computer or server on a local 
+network or on the network . 
+3) Name server is the final authority in a DNS hierarchy 
+4) NS record will generally list two name servers : Primary and secondary 
+
+
+eg:
+TYPE: NS 
+VALUE: ns1.example.com
+NAME: example.com
+TTL: 7200
+
+TYPE: NS 
+VALUE: ns2.example.com
+NAME: example.com
+TTL: 7200
+
+
+h) SRV record:
+1) SRV record stands for service record 
+-> While previous DNS records we talked, will point to a server or an IP address. 
+-> But a SRV(service record) points to a server and a service by including a port number 
+
+
+eg:
+TYPE: SRV 
+PRIORITY: 10 
+SERVICE: service.example.com
+PORT: 999
+NAME: example.com 
+WEIGHT: 0 
+TTL: 7200 
+
+2) When an application needs to find the location of a service on a domain such as voice over IP, instant messaging or a printer, it will look 
+for a service record to see if there is a listing for that service and it wll direct to the correct server and port number 
+
+i) PTR  - Pointer record 
+1) It is basically a reverse of A or quad A record 
+2) While A or Quad A resolves domain names to IP addresses - PTR records does the opposite : They resolve IP addresses to domain names 
+3) PTR records are attached to email and are used to prevent email spam. 
+4) Whenever an email is received, the email server uses the PTR record to make sure the sender is authentic by matching the domain name in email with its 
+AUTHENTIC ip address.-> THis is known as reverse DNS lookup 
+5) But if an email that is sent, does not match with its correct and authentic IP address - the email will be flagged as spam 
+
+TYPE: PTR
+IP ADDRESS: 12.34.56.78
+NAME: example.com 
+TTL:7200 
+
+
+j) TXT - Text record 
+1) This record contains miscellaneous information about a domain such as general or contact information 
+2) These are also used to prevent email spam, by making sure incoming mail is coming from a trusted or authorized source. 
+30 They also contain other miscellaneous texts 
+
+TYPE: TXT 
+NAME: example.com
+VALUE: this is a sample text for this domain 
+TTL: 7200 
+

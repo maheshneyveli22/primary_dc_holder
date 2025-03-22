@@ -1,0 +1,139 @@
+1) our ip address local can be : 192.168.29.5
+But it cannot be:
+
+192.168.29.0
+192.168.29.255
+192.168.29.1
+
+2) UNICAST: one to one 
+   MULTICAST: one to Many 
+   BROADCAST: one to ALL 
+   
+3) if
+
+SRC: 192.168.29.5
+DEST: 192.168.29.255
+
+THen it is broadcast: it will go to all 
+-> hence we wont use .255, since it is used for broadcasting 
+
+4) For this network, an ip address is allocated. That ip address ends with 0
+
+eg: 192.168.29.0 
+
+
+-> hence this also cannot be used
+
+
+5) Router Default IP: 192.168.29.1 
+-> The router in the network will be by default assigned with this IP address 
+
+-> Hence this ip address also cannot be used by others 
+
+-> Router's work : if all are connected in network A and if we want to connet to another device in network B, THen it will be happen via this router only 
+
+
+6) why is our IP address mostly starting with : 192.168? or it starts mostly with: 10.x? 
+
+
+7) Private IP address Range:
+
+Class A: 10.0.0.0 to 10.255.255.255
+Class B: 172.16.0.0 to 172.31.255.255
+Class C: 192.168.0.0 to 192.168.255.255
+
+8) Router will have minimum two interfaces:
+
+one(inside) will have private IP: 192.168.29.1
+Other(outside)  one will have public IP: 49.37.220.86 which is connected to internet 
+
+
+9) Why maximum private ip addresses are class C?
+
+because mostly our network will have less than 254 devices 
+
+10) https://whatismyipaddress.com/
+Tells what is your public address 
+
+
+
+11) More information
+
+....
+
+
+C:\Users\gs1-maheswarane>ipconfig /all
+
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : GS1-MAHESWAR-LX
+   Primary Dns Suffix  . . . . . . . : corp.expeditors.com
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : corp.expeditors.com
+
+Ethernet adapter Ethernet:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Intel(R) Ethernet Connection (13) I219-V
+   Physical Address. . . . . . . . . : 6C-24-08-8B-CD-D0
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+
+Wireless LAN adapter Local Area Connection* 2:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter
+   Physical Address. . . . . . . . . : BC-6E-E2-B0-34-7B
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+
+Wireless LAN adapter Local Area Connection* 11:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Microsoft Wi-Fi Direct Virtual Adapter #2
+   Physical Address. . . . . . . . . : BE-6E-E2-B0-34-7A
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+
+Wireless LAN adapter Wi-Fi:
+
+   Connection-specific DNS Suffix  . :
+   Description . . . . . . . . . . . : Intel(R) Wi-Fi 6 AX201 160MHz
+   Physical Address. . . . . . . . . : BC-6E-E2-B0-34-7A
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   IPv6 Address. . . . . . . . . . . : 2405:201:e031:78b5:831b:8ba2:f50d:b55c(Preferred)
+   Temporary IPv6 Address. . . . . . : 2405:201:e031:78b5:a5c0:f5d6:1351:9558(Preferred)
+   Link-local IPv6 Address . . . . . : fe80::dace:1126:a2f6:fd96%6(Preferred)
+   IPv4 Address. . . . . . . . . . . : 192.168.29.232(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Lease Obtained. . . . . . . . . . : Tuesday, July 11, 2023 9:55:44 PM
+   Lease Expires . . . . . . . . . . : Wednesday, July 12, 2023 1:15:32 AM
+   Default Gateway . . . . . . . . . : fe80::267:62ff:fea4:f855%6
+                                       192.168.29.1
+   DHCP Server . . . . . . . . . . . : 192.168.29.1
+   DHCPv6 IAID . . . . . . . . . . . : 62680802
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-2B-53-AC-47-6C-24-08-8B-CD-D0
+   DNS Servers . . . . . . . . . . . : 2405:201:e031:78b5::c0a8:1d01
+                                       192.168.29.1
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+C:\Users\gs1-maheswarane>
+
+.....
+
+
+
+12) to find public ip:
+
+C:\Users\gs1-maheswarane>nslookup myip.opendns.com resolver1.opendns.com
+Server:  dns.opendns.com
+Address:  2620:119:35::35
+
+Name:    myip.opendns.com
+Address:  2405:201:e031:78b5:a5c0:f5d6:1351:9558
