@@ -1,0 +1,30 @@
+https://tutorialspedia.com/ssl-certificate-concepts-how-ssl-tls-works-ssl-tls-introduction/
+
+1) TLS is a protocol for the secure transmission of data based on SSLv3. It offers confidentiality, integrity, and authentication. 
+Confidentiality: hides the content of the messages
+Integrity: detects when the messages have been tampered with
+Authentication: ensures that whoever is sending them is who he says he is.
+Additionally, it detects missing and duplicated messages.
+
+2) TLS is the primary way to secure web traffic and is mostly used for that purpose. A whole lot of pages trust that TLS is secure (from the smallest online shop to Facebook), that is why things like POODLE and Heartbleed receive so much press.
+
+3) If you are really interested in these subjects I’d recommend researching:
+
+AES
+Block ciphers modes of operation
+Cryptographic hashes
+SHA-2
+HMAC
+Key exchange
+Diffie-Hellman
+Public key cryptography
+
+4) CONFIDENTIALITY:
+For confidentiality TLS uses AES with several modes available (CBC, CCM, GCM).
+
+5) For key exchange either Diffie-Hellman (elliptic curve mode supported) or RSA are available. With the whole Heartbleed debacle, it is now recommended to use a key exchange mechanism with forward secrecy, which implies Diffie-Hellman in this case.
+
+6) For integrity HMAC is commonly used, today is pretty much mandatory to use SHA256.
+
+
+

@@ -1,0 +1,42 @@
+1) https://www.javatpoint.com/how-to-check-tomcat-version-in-linux
+
+2) Checking tomcat version:
+
+1. Start your Linux system's terminal.
+
+2. Navigate to the bin directory of your Tomcat installation. For example:
+
+cd /opt/tomcat/bin  
+3. Run the following command:
+
+./catalina.sh version  
+
+
+3) 
+
+update: 
+a) CATALINA_HOME=C:\Local IS\apache-tomcat-8.5.78
+b) JAVA_HOME=C:\Program Files\Zulu\zulu-8
+c) PATH= %CATALINA_HOME%\bin
+
+d) 
+C:\Local IS\apache-tomcat-8.5.78\conf\server.xml 
+-> <Server port="8006" shutdown="SHUTDOWN">
+
+e) C:\Local IS\apache-tomcat-8.5.78\conf\tomcat-users.xml
+<role rolename="manager-gui"/>
+<user username="tomcat" password="s3cret" roles="manager-gui"/>	
+
+
+4) 
+<multipart-config>
+   <max-file-size>52428800</max-file-size>
+   <max-request-size>52428800</max-request-size>
+   <file-size-threshold>0</file-size-threshold>
+</multipart-config>
+
+change in : 
+C:\Users\gs1-varalakshmir\Desktop\apache-tomcat-8.5.78-windows-x64\apache-tomcat-8.5.78\webapps\manager\WEB-INF
+
+
+http://localhost:8080/querybld/webcheck.jsp
