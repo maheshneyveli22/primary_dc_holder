@@ -1,0 +1,23 @@
+1) when we send a request to create a user profile, User details that are being sent are included in request body and this information about the user profile is well structured in the JSON format
+
+2) Once server side script receives this information, it should be able to take the json text and convert it to Java object
+
+3) for server side script to convert this json text  to java object  - it needs to know how to convert  or it needs to know what type of content that the http request carry in its body
+Is it XML format or JSON format or Plain text?
+
+4) so in addition to user details, http request should contain the type of content it carries in the http request
+
+5) to do that we can use *****content type***** http header
+
+6) in postman under content type , we can see different types of content. in that we can chose the content type we need. 
+
+
+7) When service side of webservice responds back to our request, it can send us some additional information.
+
+eg: user profile details or a list of all users if we send the request to get list of all users
+
+-> And this information can also be structured in a different format. Eg: it can be JSON or XML 
+
+8) So to tell server side, which content type we expect back and we can accept - we use a different HTTP head and it is called *****Accept*****
+
+9) for this also we can provide option for accept as json or anything based on need similar to content type 

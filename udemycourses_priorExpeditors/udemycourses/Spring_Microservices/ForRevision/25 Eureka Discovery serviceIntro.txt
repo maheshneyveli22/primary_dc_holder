@@ -1,0 +1,26 @@
+1) Eureka Discovery Service is also called: Spring Cloud Netflix Eureka, since Netflix were the first to build and use Eureka
+
+2) Initially EUreka was used by Netflix for their own needs. Later Eureka became part of Spring Cloud.
+
+3) What does Eureka do?
+Eureka helps microservices to find each other
+
+
+4) Whenever new instances of microservices starts up, it registers itself with Eureka
+-> when we stop microservices, they will be removed from Eureka 
+-> we need not update configuration files manually, this helps in scaling up your application and also scale down without interruption
+-> API Gateway and Load balancer also part of our architecture
+
+
+
+                                                                |--> Products Micoservice1(http://localhost:8080)
+Mobile App[Client] -->                  API Gateway--->Eureka --|--> Products Micoservice2(http://localhost:8081)
+                                                                |--> Products Micoservice3(http://localhost:8082)
+																
+																
+																
+5) Eureka service will tell API gateway about the location of each instance of product microservices
+
+6) Client application will contact api gateway and then it will be able to contact respective product microservices
+
+7) Load balancer of API gateway will balance the load between instances

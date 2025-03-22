@@ -1,0 +1,62 @@
+1) Spring boot can be configured in application.properties file
+
+server port, context path, actuatore, security etc
+
+2) Properties categorized as:
+
+a) Core
+i) LogLevels severity mapping: TRACE, DEBUG,INFO,WARN,ERROR,FATAL,OFF
+eg:
+logging.level.org.springframework=DEBUG
+logging.level.org.hibernate=TRACE
+logging.level.com.luv2code=INFO
+ii) Log file name
+logging.file=my-crazy-stuff.log
+
+b) Web
+eg:
+#HTTP Server port
+server.port=7070
+-> default value is 8080
+#Context path of application
+server.servlet.context-path=/my-silly-app
+
+-> default value is /
+
+#Default HTTP session time out
+server.servlet.session.timeout=15min
+
+-> default is 30 min
+
+
+c) Security
+#Default user name
+spring.security.user.name=admin
+
+#password for Default user 
+spring.security.user.password=topsecret
+
+d) Data
+#JDBC url of database
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
+
+#login username of database
+spring.datasource.username=scott
+
+#login password of the database
+spring.datasource.password=tiger
+
+e) Actuator
+#End points to include by name or wildcard
+management.endpoints.web.exposure.include=*
+
+#End points to exclude by name or wildcard
+management.endpoints.web.exposure.exclude=beans,mapping
+
+
+#Basepath for actuator endpoints
+management.endpoints.web.base-path=/actuator
+
+f) Integration
+g) Devtools
+h) Testing

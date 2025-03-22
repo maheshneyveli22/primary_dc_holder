@@ -1,0 +1,123 @@
+1) Like Spring Data for JPA , we can do for Rest also, so that it can apply to different entities
+
+2) Wish:
+-> Create a rest API for me
+-> Use my existing JPARepository(entity,primary key) 
+-> give me all the basic rest API crud features for free without any additional coding
+
+
+3) Solution
+-> Spring Data Rest is the solution
+
+4) Spring Data Rest:
+-> it leverages existing JpaRepository
+-> then it gives a REST crud implementation for free like magic
+* This helps to minimize boiler plate REST code
+
+
+5) Spring Data Rest will expose those endpoints for free
+
+
+POST /employees  -> Creates a new employees
+GET /employees  -> Reads a list of employees
+GET /employees/{employeeId} -> Reads a single employeeId
+PUT /employees/{employeeId} -> Update an existing employee
+DELETE /employees/{employeeId} -> Delete an existing employee
+
+6) How does SPRING DATA REST WORK?
+
+a) Spring Data REST will scan your project for JpaRepository
+b) Expose REST APIs for each entity type for your JpaRepository
+c) so for EmployeeRepository spring data rest will expose employee's end point
+
+7) REST Endpoints
+-> By Default, spring data rest will create endpoints based on entity type
+-> Simple pluralized form
+* First character of Entity type is lowercase
+* then just add and s to the entity
+eg: for Employee -> /employees
+
+
+8) Development Process
+-> Add Spring Data REST to your maven POM file
+
+-> that's it no further coding required
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-rest</artifactId>
+</dependency>
+
+
+9) IN a NUTSHELL
+FOr spring Data REST, you need only 3 items
+
+a) Your Entity : Employee
+b) JPARepository: EmployeeRepository extends JpaRepository
+c) Maven POM dependency for spring-boot-starter-data-rest
+
+
+10) Change in architecture
+
+Before:
+
+EmployeeRestController<---->EmployeeService<---->EmployeeRepository<----->DB
+
+
+After with Spring DataRest
+
+Spring Data Rest(/employees)<----> EmployeeRepository<----->DB
+
+
+11) HATEOAS
+-> Spring Data REST endpoints are HATEOAS compliant
+*HATEOAS : Hypermedia as the Engine of APplication State
+* Hypermedia-driven sites provide information to access REST interfaces
+-> think of it as meta data for rest DAta
+
+-> Spring DATA rest response using HATEOAS
+-> for Eg: REST response from: GET /employees/3
+
+
+12) For a collection, meta-data includes page size, total elements, pages etc
+
+eg:REST response from: GET /employees
+
+{"embedded":{
+employees":[
+{"firstName":"Leslie",
+.....
+ },
+ ....
+ ]
+ },
+ "page":{
+ "size":20,
+ "totalElements":5,
+ "totalPages":1,
+ "number":0
+ }
+ 
+ 
+ 13) Spring data rest: ADVANCED FEATURES:
+ 
+ a) Pagination, sorting and searching
+ b) Extending and adding custom queries with JPQL
+ c) QUery domain specific language(Query DSL)
+ 
+ 14) Customizing spring data rest end point
+
+# Spring data REST properties
+
+spring.data.rest.base-path=/magic-api
+
+eg: end point changed from:
+http://localhost:8080/employees
+
+to
+
+http://localhost:8080/magic-api/employees
+
+
+15) Spring data rest only uses ID on the URL
+

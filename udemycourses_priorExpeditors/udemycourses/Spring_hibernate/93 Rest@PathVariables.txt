@@ -1,0 +1,39 @@
+GET :  /api/students/{studentId} Retrieve a single student 
+
+-> {studentId} is the "Path variable"
+-> here we pass the actual value especially id to get the single student
+eg:
+
+/api/students/0
+/api/students/1
+/api/students/2
+
+
+1) Development process
+a) Add Request mapping to spring REST service
+-> Bind path variable to method parameter using @PathVariable
+
+
+@RestController
+@RequestMapping("/api")
+public class StudentRestController {
+
+	// define endpoint for "/students/{studentId}" - return list of students
+	
+	@GetMapping("/students/{studentId}")
+	public List<Student> getStudents(@PathVariable int studentId) {
+
+		List<Student> theStudents = new ArrayList<>();
+		
+		theStudents.add(new Student("Poornima", "Patel"));
+		theStudents.add(new Student("Mario", "Rossi"));
+		theStudents.add(new Student("Mary", "Smith"));		
+			
+		return theStudents;
+	}
+	
+
+
+
+b) 
+

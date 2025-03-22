@@ -1,0 +1,10 @@
+
+                                     |--->Search
+                                     |
+Client APP -> API Gateway -> Eureka--|---> Users
+                                     |
+									 |---> Account Management
+									 
+									 
+
+1) Account management : -> Can do Password reset and email verification to account 									 

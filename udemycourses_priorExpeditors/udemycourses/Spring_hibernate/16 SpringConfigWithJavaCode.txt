@@ -1,0 +1,32 @@
+SPRING CONTAINER CONFIGURATION USING JAVA CODE
+1) Instead of configuring Spring container using XML, we can configure the spring container with Java Code.
+
+
+2) reminder:
+3 ways of configuring Spring container
+a) Full XML config
+b) XML component scan/annotations
+c) Java Configuration class
+
+
+c) Development process
+a) Create Java class and annotate as @Configuration
+
+
+
+b) Add Component scanning support @ComponentScan(optional)
+
+eg:
+@Configuration
+@ComponentScan("com.luv2code.springdemo")
+public class SportConfig{
+
+}
+
+c) Read Spring Java configuration class
+
+AnnotationConfigApplicationContext context= new AnnotationConfigApplicationContext(SportConfig.class);
+
+d) Retrieve bean from spring container
+
+Coach theCoach= context.getBean("tennisCoach",Coach.class);

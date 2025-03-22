@@ -1,0 +1,34 @@
+1) So far we configured routes both
+
+a) Automatically(using discovery locator)  and b) Manually
+
+
+2) We can configured both automatic and manual together
+
+3) eg if i comment filters for rewrite path and changed predicate path accordingly 
+
+***************************
+server.port=8082
+spring.application.name=api-gateway
+eureka.client.service-url.defaultZone=http://localhost:8010/eureka
+
+spring.cloud.gateway.routes[0].id=users-status-check
+spring.cloud.gateway.routes[0].uri = lb://users-ws
+spring.cloud.gateway.routes[0].predicates[0]=Path=/users/status/check
+spring.cloud.gateway.routes[0].predicates[1]=Method=GET
+spring.cloud.gateway.routes[0].filters[0]=RemoveRequestHeader=Cookie
+#spring.cloud.gateway.routes[0].filters[1]=RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+
+spring.cloud.gateway.discovery.locator.enabled=true
+spring.cloud.gateway.discovery.locator.lower-case-service-id=true
+
+***************************
+
+
+4) After this change it will work with both urls:
+
+http://localhost:8082/users/status/check 
+
+and 
+
+http://localhost:8082/users-ws/users/status/check  

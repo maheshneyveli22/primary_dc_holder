@@ -1,0 +1,9 @@
+Create project and add dependancy 
+a) Spring Routing: Gateway 
+b) Webflux: Spring Reactive web
+c) Eureka Discovery client
+
+Configure following in application.properties:
+server.port=8082
+spring.application.name=api-gateway
+eureka.client.service-url.defaultZone=http;//localhost:8010/eureka

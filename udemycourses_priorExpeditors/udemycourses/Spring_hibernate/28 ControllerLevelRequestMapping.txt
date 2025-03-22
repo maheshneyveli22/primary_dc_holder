@@ -1,0 +1,31 @@
+ADDING REQUEST MAPPINGS TO CONTROLLER
+1) We can define a request mapping at controller level 
+2) Serves as parent mapping for controller
+3) All request mappings on methods in controller are relative
+4) Similar to folder directory structures
+
+
+5) eg: for ControllerRequestMapping
+
+
+@RequestMapping("/funny")
+public class FunnyController{
+
+@RequestMapping("showForm")
+public String showForm()
+{
+....
+}
+
+@RequestMapping("/processForm")
+public String process(HttpServletRequest request, Model model)
+{
+...
+}
+}
+
+
+for showForm: /funny/showForm
+for processForm: /funny/processForm
+
+6) Helps group request mapping

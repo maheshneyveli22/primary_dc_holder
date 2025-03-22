@@ -1,0 +1,32 @@
+1) Spring has its own method of handling exceptions
+
+2) Create a new Exception handler that extends ResponseEntityExceptionHandler and mark annotation: @ControllerAdvice
+
+eg: @ControllerAdvice
+public class AppExceptionHandler extends ResponseEntityExceptionHandler{
+
+3) Create a new method handleAnyException with annotation 	@ExceptionHandler(value= {Exception.class})
+
+eg: 
+	@ExceptionHandler(value= {Exception.class})
+	public ResponseEntity<Object> handleAnyException(Exception ex, WebRequest request)
+	{
+		return new ResponseEntity<Object>(ex,new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+
+4) Note: whatever exception datatype  given in value for @ExceptionHandler, same type should given as argument for handleAnyException method
+
+5) 
+eg:
+
+@ControllerAdvice
+public class AppExceptionHandler extends ResponseEntityExceptionHandler{
+	
+	@ExceptionHandler(value= {Exception.class})
+	public ResponseEntity<Object> handleAnyException(Exception ex, WebRequest request)
+	{
+		return new ResponseEntity<Object>(ex,new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+}

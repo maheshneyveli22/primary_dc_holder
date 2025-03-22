@@ -1,0 +1,45 @@
+1) Just create a interface extending JpaRepository
+
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+	// that's it ... no need to write any code LOL!
+	
+}
+
+
+2) Use that interface in service
+
+#################
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+
+
+
+}
+
+
+@Autowired
+	public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
+		employeeRepository = theEmployeeRepository;
+	}
+	
+	@Override
+	public List<Employee> findAll() {
+		return employeeRepository.findAll();
+	}
+	
+	
+	#################
+	
+	
+	3) Actual DB values are given in application.properties file as datasource
+	
+	#
+# JDBC properties
+#
+spring.datasource.url=jdbc:mysql://localhost:3306/employee_directory?useSSL=false&serverTimezone=UTC
+spring.datasource.username=springstudent
+spring.datasource.password=springstudent

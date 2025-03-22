@@ -1,0 +1,52 @@
+HOW TO REUSE AOP POINTCUTS:
+
+https://jstobigdata.com/spring/pointcut-expressions-in-spring-aop/
+--> good doc 
+
+SOLUTION
+1) Create point cut declaration once
+2) Apply it to multiple advices
+
+3) 
+@PointCut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+private void forDaoPackage(){}
+
+
+-> here method name is Pointcut declaration
+-> can have any name, it is like variable reference
+
+
+4) 
+
+@Aspect
+@Componet
+public class MyDemoLoggingAspect{
+
+@PointCut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+private void forDaoPackage(){}
+
+@Before("forDaoPackage()")
+public void beforeAddAccountAdvice()
+{
+... 
+}
+
+}
+
+@Before("forDaoPackage"))
+public void performApiAnalytics()
+{
+...
+}
+
+
+---> Hence we can use same Pointcut declaration for different advices
+
+5) Hence pointcut expressions are reused via pointcut declarations
+
+
+6) Benefits of pointcut declarations
+
+i) Reuse pointcut expressions
+ii) Update pointcut in one location
+iii) Can also share and combine pointcut expressions

@@ -1,0 +1,14 @@
+ADD SERVICE LAYER
+
+CustomerController<--->CustomerService<---->CustomerDAO<----->DB
+
+
+1) Purpose of Service LAYER
+-> Service Facade design pattern
+-> Intermediate layer for custom business logic
+-> Integrate data from multiple sources(DAO/Repositories)
+
+
+2) @service annotation extends @Component annotation
+-> @Service applied to service implementations
+-> Spring will automatically register the service implementation due to component scanning

@@ -1,0 +1,32 @@
+1) String separator = File.Separator
+2) FileSystems.getDefault().getSeparator();
+
+
+3)
+try {
+Path tempFile=Files.createTempFile("myApp",".appext");
+-> myApp is prefix of temp file
+and .appext is suffix of temp file
+System.out.println("Temporary file path="+ tempFile.toAbsolutePath());
+
+
+4) FileStore
+-> in windows each volume or drive is a file store eg: C or D
+
+
+5) getting FileStore data
+Iterable<FileStore> stores= FileSystems.getDefault.getFileStores();
+for(FileStore store:stores)
+{
+System.out.println(store);
+System.out.println(store.name());
+}
+
+
+6) Another way
+
+Iterable<FileStore> rootPaths= FileSystems.getDefault.getRootDirectories();
+for(Path path:rootPaths)
+{
+System.out.println(path);
+}

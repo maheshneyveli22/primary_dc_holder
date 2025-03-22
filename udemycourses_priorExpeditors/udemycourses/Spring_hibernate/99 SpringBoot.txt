@@ -1,0 +1,49 @@
+SPRING BOOT
+1) Makes it easier to get started with spring development
+2) Minimize amount of manual configuration
+ * Perform auto configuration based on props files and JAR classpath
+3) Helps to resolve dependency conflicts(Maven or Gradle)
+ 4) Spring boot provides an embedded HTTP server so you can get started easily
+ * Tomcat, Jetty, Undertow,...
+ 
+ 
+ 5) SPring boot provides spring initializer. helps to quick create a starter spring project
+ 
+ 6) RUnning Spring boot apps
+ -> Spring boot apps can be run standalone(includes embedded server)
+ -> Run the spring boot app from the IDE or command line
+ 
+ 7) Deploying spring boot apps:
+ 
+ -> Spring boot apps can also be deployed in traditional way
+ -> Deploy war file to an external server: Tomcat, JBoss, Websphere etc.
+ 
+ 8) Does spring boot replace Spring MVC, Spring Rest etc ?
+ 
+ No, instead spring boot uses those technologies in the background
+ 
+ spring boot uses
+ a) SPring mvc
+ b) Spring rest
+ c) Spring Core
+ d) Spring aop
+ 
+ -> so once you do spring boot configs, we can make use of regular spring coding
+ 
+ @COmponent
+ @Controller
+ @Autowired etc
+ 
+ -> Hence there is no replacement, hence spring helps gets started with minimal configuration
+ 
+ 
+ 9) Does spring boot run code faster than regular spring code?
+ No because behind the scenes, spring boot uses same code of spring framework
+ 
+ 10) Do i need special ide for spring boot?
+ No
+ You can use any ide for spring boot apps, even use plain text editor
+ -> Spring team provides free spring tool suite(STS)
+ -> also some ides provide fancy spring tooling support
+ 
+ 

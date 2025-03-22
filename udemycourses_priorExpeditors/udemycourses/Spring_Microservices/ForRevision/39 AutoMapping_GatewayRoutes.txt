@@ -1,0 +1,32 @@
+1) Easiest way to enable gateway routing is to enable discovery locator feature in our spring cloud API gateway
+2) This will enable spring cloud API gateway to automatically map and route http request to a destination microservice - provided that the request is sent to a micorservice using its application name
+
+
+3) Add one more property in application.properties file of spring cloud api gateway  to enable discovery locator feature
+
+spring.cloud.gateway.discovery.locator.enabled=true
+
+
+4) To test the same:
+a) Start Eureka discovery service
+b) Start users microservice
+c) Start Spring cloud api gateway
+d) Open eureka dashboard in browser: http://localhost:8010/
+-> now we will be able to see the API-Gateway listed as one of the instances registered with Eureka
+
+
+5) In Postman check if the api gateway is working fine:
+
+http://localhost:8082/USERS-WS/users/status/check
+
+-> so we provided the service name and then the users/status/check are given from controller file: UsersController
+
+
+6) we will be able to access users ws only when it is in caps in url: USERS-WS
+-> this can be solved by adding this property
+spring.cloud.gateway.discovery.locator.lower-case-service-id=true
+
+http://localhost:8082/users-ws/users/status/check
+
+7) For not using service name in request url: we need to create custom gateway routes and solve the problem
+

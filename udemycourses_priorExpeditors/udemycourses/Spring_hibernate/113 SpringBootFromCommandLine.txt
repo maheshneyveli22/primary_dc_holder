@@ -1,0 +1,57 @@
+1) Spring boot apps are self contained
+
+2)Jar file contains a) Application code b) Server
+
+3) Two options for running the apps
+
+Option 1: Use java -jar
+
+eg: java -jar mycoolapp.jar
+
+Option 2: Use Spring boot maven plugin
+           
+  mvnw spring-boot:run
+  
+a) If maven already installed:
+mvn clean compile test  
+
+b) If maven not already installed:
+
+-> Use Spring boot maven plugin
+
+4) Development process steps
+i) Package the app using:
+mvnw package
+ii) Run app using java - jar
+
+iii) or Run app using spring boot maven plugin,
+mvnw spring-boot:run
+
+
+5) Steps
+
+a)luv2code ~ $ cd dev-spring-boot/
+b)luv2code dev-spring-boot/ $ cd 04-command-line-demo/
+c) luv2code dev-spring-boot/ 04-command-line-demo $ ./mvnw package
+
+-> this step will create jar file for our application
+
+
+d) jar is created in "target" sub-directory
+
+Note: if maven already installd just use: mvn package
+
+e)  luv2code dev-spring-boot/ 04-command-line-demo $ cd target
+
+f) luv2code dev-spring-boot/ 04-command-line-demo target dir *.jar
+mycoolapp-0.0.1-SNAPSHOT.jar
+g) luv2code dev-spring-boot 04-command-line-demo target $ java -jar mycoolapp-0.0.1- SNAPSHOT.jar
+
+run the jar using java -jar command
+
+h) stop application by using: control+ C
+
+i) running using spring boot maven plugin
+
+
+$ ./mvnw spring-boot:run

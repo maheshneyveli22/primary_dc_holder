@@ -1,0 +1,51 @@
+1) Handle exception and return error as JSON
+
+2) Development Process
+
+a) Create custom error response class
+-> The custom error response class will be sent back to client as JSON
+-> we will define as Java class(POJO) 
+
+b) Create a custom exception class
+
+-> The custom student exception will be used by our REST service
+-> In our code, if we cant find student, then we will throw an exception
+-> Eg: StudentNotFoundException class
+
+c) Update REST service to throw exception if student not found.
+
+@RestController
+@RequestMapping("/api")
+public class StudentRestController {
+
+// define endpoint for "/students/{studentId}" - return student at index
+
+	@GetMapping("/students/{studentId}")
+	public Student getStudent(@PathVariable int studentId) {
+		
+		// just index into the list ... keep it simple for now
+		
+		// check the studentId against list size
+		
+		if ( (studentId >= theStudents.size()) || (studentId < 0) ) {			
+			throw new StudentNotFoundException("Student id not found - " + studentId);
+		}
+		
+		return theStudents.get(studentId);
+		
+	}
+
+
+d) Add exception handler method using @ExceptionHandler
+
+@ExceptionHandler
+	public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
+		
+		StudentErrorResponse error = new StudentErrorResponse();
+		
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeStamp(System.currentTimeMillis());
+		
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	 }

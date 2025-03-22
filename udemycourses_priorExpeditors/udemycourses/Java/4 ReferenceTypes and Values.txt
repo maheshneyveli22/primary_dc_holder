@@ -1,0 +1,22 @@
+1) Value type behaviour : like int, short , long etc
+int mahesh=10;
+        System.out.println(mahesh);
+        int charan=mahesh;
+        System.out.println(charan);
+        mahesh++;
+        System.out.println(mahesh);
+        System.out.println(charan);
+		
+o/p:
+10
+10
+11
+10
+
+-> for valuetypes variable will directly hold the value
+-> if the value is assigned to another variable, another copy of the value will be created and assigned to the variable.
+-> hence two variables hold different values and changing in one does not affect other variable		
+
+
+2) reference types like array or classes
+-> reference holds a reference i.e address  of the object and  does not hold the object itself 

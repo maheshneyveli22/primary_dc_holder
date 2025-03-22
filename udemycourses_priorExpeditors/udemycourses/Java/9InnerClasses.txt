@@ -1,0 +1,41 @@
+1) 4 types of inner classes:
+
+a) Static nested classes
+b) Non static nested classes
+c) Local class
+d) Anonymous inner class - Nested class without class name
+
+2) Static nested classes
+-> To associate a class with its outer class
+
+
+3) Local Class: Primarily used in Listeners and Comparators
+-> less used than anonyomous inner class
+
+a) within model class, create interface, have it as variable in model class.
+b) add setter for the same
+c) in main method class within the method, create a class which implements the above interface
+d)  then create instance for the model and set the listener(inner class)
+e) then call the method in the implementation class based on need
+
+
+4) anonyomous inner class is a local class without a  name:
+-> it has to be declared and instantiated at the same time, since they dont have a name
+-> in case we have several buttons and each button requires different onclick method, local inner class wont be useful
+-> Rather than declaring class for each button, we can use the anonyomous inner class to declare an object and assign it to a  button
+
+
+It is similar to local inner class, but here in the main method class
+-> while in local inner class we create the new locall inner class withhin the main method or where it is needed and then set the listener or comparator implementation class in the model
+-> while in anonyomous inner class, we wont create new inner local class within main method, instead while setting listener of comparator for bean we create new class for that interface and implement corresponding method of that interface
+
+eg: 
+
+btnPrint.setOnClickListener(new OnClickListener() {
+	
+	@Override
+	public void onClick(String title) {
+		// TODO Auto-generated method stub
+		System.out.println(title+" was clicked");
+	}
+});

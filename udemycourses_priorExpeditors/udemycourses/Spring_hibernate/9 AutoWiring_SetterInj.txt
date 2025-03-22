@@ -1,0 +1,37 @@
+1) Setter Injection
+-> Inject dependancies by calling setter methods on your class
+
+2) Setter Injection - Development process
+
+a) Create setter methods in your class for injections
+
+
+@Component
+public class TennisCoach implements Coach {
+
+	private FortuneService fortuneService;
+	
+	// define a default constructor
+	public TennisCoach() {
+		System.out.println(">> TennisCoach: inside default constructor");
+	}
+
+	// define a setter method
+	@Autowired
+	public void setFortuneService(FortuneService theFortuneService) {
+		System.out.println(">> TennisCoach: inside setFortuneService() method");
+		this.fortuneService = theFortuneService;
+	}
+
+
+b) Configure the dependancy injection with @Autowired Annotation
+
+-> add 	@Autowired annotation in setter method while for constructor injection we will add 	@Autowired annotation in constructor
+
+
+	// define a setter method
+	@Autowired
+	public void setFortuneService(FortuneService theFortuneService) {
+		System.out.println(">> TennisCoach: inside setFortuneService() method");
+		this.fortuneService = theFortuneService;
+	}

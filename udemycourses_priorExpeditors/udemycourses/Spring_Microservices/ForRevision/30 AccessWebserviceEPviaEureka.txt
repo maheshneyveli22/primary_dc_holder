@@ -1,0 +1,8 @@
+1) First run eureka discovery service as Spring boot app
+2) Next Users Microservice as Spring boot app
+
+3) now open Eureka discovery service and check the newly created Users Webservice listed as Instances registered with eureka.
+
+4) now in this link we can see the output of our webservice:
+
+http://desktop-mhbsvit:58344/users/status/check

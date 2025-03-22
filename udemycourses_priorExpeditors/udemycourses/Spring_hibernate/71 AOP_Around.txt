@@ -1,0 +1,93 @@
+1) @Around - advice is run before and after the method
+
+2) @Around : It is like a combination of @Before and @After, but gives you more fine-grained control
+
+3) @Around advice - Use Cases
+
+* Most common : Logging,auditing,security
+* pre-processing and post-processing data
+* Instrumentation/profiling code
+-> eg how long does it take for a section of code to run?
+* Managing exceptions
+-> Swalow/handle/stop exceptions
+
+4) ProceedingJoinPoint
+-> When using @Around advice, you will get a reference to a "proceeding join point"
+-> this is handle to the target method
+
+5) Example
+-> Create an advice for instrumentation/profiling code
+
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
+public Object afterGetFortune(ProceedingJoinPoint theProceedingJoinPoint) throws Throwable
+{
+long begin= System.currentTimeMillis();
+Object result= theProceedingJoinPoint.proceed();
+
+long end= System.currentTimeMillis();
+
+long duration= end - begin;
+System.out.println("\\n===>Duration: "+duration+" milliseconds");
+}
+
+-> ProceedingJoinPoint is the handle for target method
+
+
+6) Development processing
+1) Prep work
+2) Create TrafficFortuneService
+3) Update main app to call TrafficFortuneService
+4) Add @Around advice
+
+7) FOr an exception throwns from proceeding join point,
+==> You can handle/swallow/stop the exception
+==> or Simply rethrow the exception
+-> this gives fine grained control on how the target method is called
+
+
+8) Handle exception example
+
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
+public Object afterGetFortune(ProceedingJoinPoint theProceedingJoinPoint) throws Throwable
+{
+Object result=null;
+
+try{
+result=theProceedingJoinPoint.proceed();
+
+}
+catch(Exception exc)
+{
+System.out.println("Around advice: we have a problem "+exc):
+result=" Nothing exciting here. move along!";
+}
+return result; 
+}
+
+-> since exception occcured we assigned default value to result and share to calling program
+-> Important thing here, is that calling program never knows that such an exception has occurred.
+
+9) Rethrowing the exception @Around
+
+-> Here @Around advice will log the exception and rethrow the exception
+
+eg:
+
+
+@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
+public Object afterGetFortune(ProceedingJoinPoint theProceedingJoinPoint) throws Throwable{
+
+try{
+Object result= theProceedingJoinPoint.proceed();
+
+return result;
+}
+catch (Exception exc)
+{
+System.out.println("@Around advice: we have a problem "+exec);
+
+throw exc;
+}
+}
+
+---> by this way, we rethrow the exception: throw exc;

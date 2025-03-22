@@ -1,0 +1,9 @@
+1) BEAN SCOPE USING ANNOTATIONS
+
+@Component
+@Scope("singleton")
+public class TennisCoach implements Coach
+{
+
+...
+}

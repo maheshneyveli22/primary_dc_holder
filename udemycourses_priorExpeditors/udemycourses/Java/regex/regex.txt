@@ -1,0 +1,452 @@
+###regex documentation####
+https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
+
+Complete symbol list in words:
+https://www.codexpedia.com/regex/regex-symbol-list-and-regex-examples/
+
+
+
+1) To replace a string:
+
+eg: 
+String testStr= "i am from India and i love India";
+testStr.replace("India", "Tamilnadu");
+
+o/p: i am from Tamilnadu and i love Tamilnadu
+
+2) String.matches() -> accepts regular expression and returns true if it matches and false if it does not match
+String testStr= "iamfromIndia";
+System.out.println(testStr.matches("^iamfromIndia"));
+O/P: true
+System.out.println(testStr.matches("^hello"));
+O/P: false
+
+3) 
+CHARACTER CLASS:
+a)  . is  Like a wildcard
+-> Represents set or class of characters
+-> eg: . is character class. It matches any character:
+
+eg: 
+ To replace all characters
+testStr.replaceAll(".", "M")
+-> here . means any characters
+o/p: MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+
+
+BOUNDARY MATCHER:
+-> Looks for boundaries
+-> Like beginning or end of String
+
+#####
+
+^ – Placed before the word to match
+$ – Placed at the end of a word to match
+\b – Checks whether a pattern begin or end on a word boundary
+\B – Matches the expression on a non-word boundary
+\A – The beginning of the input
+\G – Requires to match to occur only at the end of the previous match
+\Z – The end of the input but for the final terminator, if any
+\z —The end of the input
+###########
+
+a) caret boundary matcher: ^
+-> caret boundary matcher is always followed by a pattern. 
+-> when caret boundary matcher is used, regular expression should match the beginning of the string
+
+String testStr= "iamfromIndia and i love India";
+System.out.println(testStr.replaceAll("^iam", "DDD"));
+O/P: DDDfromIndia and i love India 
+
+-> only first occurence will be replaced. second occurence wont be replaced.
+
+b) Dollar boundary matcher: $
+-> it is always preceded by a pattern
+-> it matches strings that ends with pattern
+-> it is opposite of caret boundary matcher.
+eg:
+String testStr= "iamfromIndia";
+System.out.println(testStr.replaceAll("India$", "Chennai"));
+O/P:iamfromChennai
+
+c) Match specific set of letters: []
+eg:
+String testStr= "iamfromIndia";
+System.out.println(testStr.replaceAll("[ar]", "X"));
+O/P: iXAmfXAomIndiXA
+
+-> Important: it does not look for pattern, instead looks for individual letters and replaces it wherever it occurs
+
+d) Match specific set of letters followed by specific set of letters:[][]
+
+eg: 
+String testStr= "iamfromIndia";
+System.out.println(testStr.replaceAll("[ari][mo]", "X"));
+O/P: 
+iXfXmIndia
+
+e) Regex to check  a word starting with specific set of letters
+
+eg: 
+String testStr2="mahesh";
+System.out.println(testStr2.replaceAll("[Mm]ahesh", "Mahesh"));
+
+O/P: 
+Mahesh
+
+f) Replace every letter in alphanumeric string except specific letters
+
+eg:
+String testStr= "iamfromIndia";
+System.out.println(testStr.replaceAll("[^dr]", "0"));
+O/P:
+0000r0000d00
+
+-> Though ^ is boundary matcher, when it is put within [] along with , it becomes a Character class
+
+g) To replace all occurences of a-f, 3-8 
+
+i) 
+String testStr= "iamf12rom1987In741298dia";
+System.out.println(testStr.replaceAll("[abcdef345678]", "0"));
+O/P: i0m012rom1900In0012900i0
+
+ii) 
+String testStr= "iamf12rom1987In741298dia";
+System.out.println(testStr.replaceAll("[a-f3-8]", "X"));
+O/P: iXmX12rom19XXInXX129XXiX
+
+iii) to match capital A-F also: [a-fA-F3-8]
+String testStr= "iaAmf12rom19D87IEDSn7412CD98dia";
+System.out.println(testStr.replaceAll("[a-fA-F3-8]", "X"));
+O/P: iXXmX12rom19XXXIXXSnXX12XX9XXiX
+
+iv) Another way to match capital A-F:(?i)[a-f3-8]
+String testStr= "iaAmf12rom19D87IEDSn7412CD98dia";
+System.out.println(testStr.replaceAll("(?i)[a-f3-8]", "X"));
+O/P: iXXmX12rom19XXXIXXSnXX12XX9XXiX
+
+v) If it contains unicode: (?iu)[a-f3-8]
+vi) To replace any digit: [0-9]
+vii) Another way to replace any digit: "\\d"
+System.out.println(testStr.replaceAll("\\d", "X"));
+O/P:
+iaAmfXXromXXDXXIEDSnXXXXCDXXdia
+viii) To replace non digit: "\\D"
+
+System.out.println(testStr.replaceAll("\\D", "X"));
+
+O/P:
+XXXXX12XXX19X87XXXXX7412XX98XXX
+ix) To replace space:
+String testStr2="mahesh is having space, \t tab and new line\n here";
+System.out.println("RegexEx1.main()"+testStr2);
+System.out.println(testStr2.replaceAll("\\s", ""));
+
+O/P:
+mahesh is having space, 	 tab and new line
+ here
+maheshishavingspace,tabandnewlinehere
+
+x) To replace tab:"\t"
+xi) To replace all non space characeters: "\\S"
+xii) To replace a to z, A to Z, 0-9, - : "\\w"
+xiii) To replace non whitespace characters:"\\W"
+xiv) Each word will be surrounded by replacement string:
+String testStr2="mahesh is having space, \t tab and new line\n here";
+System.out.println(testStr2.replaceAll("\\b", "X"));
+
+XmaheshX XisX XhavingX XspaceX, 	 XtabX XandX XnewX XlineX
+ XhereX
+
+
+
+
+4) Quantifier
+-> It specifies how often an element in regular expression can occur.
+-> In below example we can see how quantifier works in second example
+
+a) 
+String testStr= "adcdeeeeuadhwuiewu21oied928oqeij";
+System.out.println(testStr.replaceAll("^adcdeeee", "Z"));
+System.out.println(testStr.replaceAll("^adcde{4}", "Z"));
+
+O/P: 
+Zuadhwuiewu21oied928oqeij
+Zuadhwuiewu21oied928oqeij
+
+
+b) + means any number of e..s are accepted
+
+System.out.println(testStr.replaceAll("^adcde+", "Z"));
+
+O/P: Zuadhwuiewu21oied928oqeij
+
+c) * means e may be of zero or any count
+
+System.out.println(testStr.replaceAll("^adcde*", "Z"));
+
+O/P: Zuadhwuiewu21oied928oqeij
+
+-> Quantifier useful when verifying user input where part of input is optional
+
+d) Specifying minimum and maximum times a character can occur:
+
+System.out.println(testStr.replaceAll("^adcde{2,5}", "Z"));
+-> only if there is minimum 2 e s and max 5 e..s , there will be match
+
+e) System.out.println(testStr.replaceAll("h+i*j", "Z"));
+-> any number of h, followed by zero or more i and ends with j
+
+5) Pattern class:
+-> To manipulate strings using regular expressions
+a)  Pattern.compile() to compile a regular expression into a Pattern
+
+Pattern p = Pattern.compile("a*b");
+
+b) Matches work with classes that implement the CharSequence interface
+-> So matches can be used with String, StringBuffer and StringBuilder
+-> Generally we use matcher when we want to find multiple occurences of a pattern.
+-> or When we want to use same pattern with multiple sequences
+-> If we are going to use regular expression once to check one occurence in a String, then Matcher is not needed.
+
+Eg:
+If we want to find all occurences of h2 tag, in a char sequence of html text
+
+StringBuilder htmlText= new StringBuilder("<h1>My Heading</h1>");
+htmlText.append("<h2>Sub-heading</h2>");
+htmlText.append("<p>This is a paragraph</p>");
+htmlText.append("<p>This is another paragraph</p>");
+htmlText.append("<h2>Summary</h2>");
+htmlText.append("<p>Here is the summary</p>");
+
+String h2Pattern="<h2>";
+-> Compile pattern by passing the regex
+Pattern pattern= Pattern.Compile(h2Pattern);
+
+-> Use Matcher to identify if there are any h2 tags in this htmlText
+
+Matcher m= p.matcher(htmlText);
+boolean b= m.matches();
+System.out.println(b);
+
+-> Above code will return false, because Matcher will look for entire text. 
+-> Hence we need to modify the regex  to: 		String h2Pattern=".*<h2>.*";
+-> Here . means every character and * means zero or more. 
+-> what we are saying here is: anything before h2 and anything after h2
+
+-> Once you create a pattern, you can use that to create as many texts for multiple texts
+-> If Pattern needs to be case insensitive: 
+  Pattern.Compile(h2Pattern, Pattern.CASE_INSENSITIVE);
+-> Multiple options can be mentioned like this:
+    Pattern.Compile(h2Pattern, Pattern.UNICODE_CASE);
+ 
+6) To find the number of occurences of a pattern:
+-> find() looks for occurences of a pattern.
+-> when it finds one, internal state of matcher is updated and then we can call the start() and end() methods
+-> start() returns the index of the first character in the match.  
+-> end() returns the index of the character that occurs right after the last character in the match
+-> matcher.reset() -> resets the internal state of matcher
+
+###
+String h2Pattern="<h2>";
+Pattern pattern= Pattern.compile(h2Pattern);
+		Matcher matcher=pattern.matcher(htmlText);
+		boolean  b=matcher.matches();
+		System.out.println(b);
+		matcher.reset();
+        int count=0;
+        while(matcher.find())
+        {
+        	count++;
+        	System.out.println("Occurence "+count+":"+matcher.start()+" to "+matcher.end());
+        }
+
+	}
+	
+	O/P: 
+false
+Occurence 1:19 to 23
+Occurence 2:97 to 101
+##########	
+
+7) 
+GROUP: 
+To use group in a regular expression, we use parentheis
+-> While using group, we access the regex marked with parentheis using group method in matcher class
+-> one version of method takes int which is group number for group method in matcher class 
+
+eg: 
+String h2Pattern="(<h2>)";
+
+-> Find occurences of h2 using group.
+
+i)
+String h22Pattern="(<h2>)";
+		Pattern pattern22= Pattern.compile(h22Pattern);
+		Matcher matcher22=pattern22.matcher(htmlText);
+		boolean  b22=matcher22.matches();
+		System.out.println(b22);
+		matcher22.reset();
+    
+        while(matcher22.find())
+        {
+        	
+        	System.out.println("Occurence "+count+":"+matcher22.group(1));
+        }
+        
+		
+O/P:
+Occurence 2:<h2>
+Occurence 2:<h2>		
+
+ii) String h22Pattern="(<h2>.*</h2>)";
+
+O/P: 
+NewOccurence :<h2>Sub-heading</h2><p>This is a paragraph</p><p>This is another paragraph</p><h2>Summary</h2>
+
+-> The reason why it happens is: greedy quantifier Vs Reluctant or lazy quantifier
+-> * is greedy quantifier. It will grab as much text as it can. If it finds a matching it does not stop. it will go and find if there are more of the character sequence that can match.
+
+-> Hence we need to use lazy quantifier that does minimum amount of work
+   Lazy quantifier once it finds a match, it does not keep looking to see if it can include more characters in the match
+   
+? Quantifier:
+-> Means 1 or zero occurences is a lazy quantifier
+-> we can use it convert a greedy quantifier into a lazy quantifier, by adding it after greedy quantifier   
+-> pls see example iii below for the same
+
++ Quantifier:
+-> one or more occurences
+
+* Quantifier:
+-> Zero or more occurences
+
+
+iii) 		String h22Pattern="(<h2>.*?</h2>)";
+O/P: 
+NewOccurence :<h2>Sub-heading</h2>
+NewOccurence :<h2>Summary</h2>
+
+iv) to get text between tags:
+
+String h22Pattern="(<h2>)(.+?)(</h2>)";
+		Pattern pattern22= Pattern.compile(h22Pattern);
+		Matcher matcher22=pattern22.matcher(htmlText);
+		boolean  b22=matcher22.matches();
+		System.out.println(b22);
+		matcher22.reset();
+    
+        while(matcher22.find())
+        {
+        	
+        	System.out.println("NewOccurence :"+matcher22.group(2));
+        }
+        
+
+
+O/P:
+NewOccurence :Sub-heading
+NewOccurence :Summary
+
+v) we can use matchers to replace string using replaceText and replaceAll methods
+
+8) LOGICAL OPERATORS WHILE USING REGEX: and, or, not
+AND
+a) "abc" -> means a and b and c
+OR
+b) "[Hh]arry" -> means H or h and include all of arry
+NOT
+c) "[^abc] -> not of abc.i.e this regex matches all characters except a,b and c
+eg: -> find all t s that are not followed by v 
+i) String tvTest= "tstvtkt";
+   a) String tNotVRegExp="t[^v]";
+   
+   ######
+   String tvTest= "tstvtktd";
+		String tNotVRegExp="t[^v]";
+		System.out.println("RegexEx1.main()");
+		
+		Pattern pattern =Pattern.compile(tNotVRegExp);
+		Matcher matcher=pattern.matcher(tvTest);
+		
+		int count=0;
+		while(matcher.find())
+		{
+			System.out.println("Occurence: "+count+": "+matcher.start()+" to :"+matcher.end());
+		}
+	}
+  ###########
+  O/P:
+	Occurence: 0: 0 to :2
+	Occurence: 0: 4 to :6
+	Occurence: 0: 6 to :8
+
+   
+    another way
+   b) NEGATIVE LOOK AHEAD: ! SIGN
+   Using Not operator in negative LOOK AHEAD expression
+   -> Look ahead does not consume characters
+   -> regex: 		String tNotVRegExp="t(?!v)";
+   -> Here questionmark within parentheis is part of look ahead expression syntax.
+   -> Look ahead expression starts with left parentheis and question mark
+   -> Here Not operator !, does not consume character. So it will match instances of t at the end of string
+   -> note that: when we use lookahead, the characters  in look arent part of the match Indices indicate that the matches are one character in length.
+   -> end method returns the index after the match.   
+   
+   #########
+   String tvTest= "tstvtktdmot";
+		String tNotVRegExp="t(?!v)";
+		System.out.println("RegexEx1.main()");
+		
+		Pattern pattern =Pattern.compile(tNotVRegExp);
+		Matcher matcher=pattern.matcher(tvTest);
+		
+		int count=0;
+		while(matcher.find())
+		{
+			System.out.println("Occurence: "+count+": "+matcher.start()+" to :"+matcher.end());
+		}
+ #########
+O/P: 
+Occurence: 0: 0 to :1
+Occurence: 0: 4 to :5
+Occurence: 0: 6 to :7
+Occurence: 0: 10 to :11
+
+ c) POSITIVE LOOK AHEAD: = SIGN 
+		 To find all matches of t followed by v:
+		 	String tNotVRegExp="t(?=v)";
+			
+########
+		String tvTest= "tstvtktdmtvot";
+		String tNotVRegExp="t(?=v)";
+		System.out.println("RegexEx1.main()");
+		
+		Pattern pattern =Pattern.compile(tNotVRegExp);
+		Matcher matcher=pattern.matcher(tvTest);
+		
+		int count=0;
+		while(matcher.find())
+		{
+			System.out.println("Occurence: "+count+": "+matcher.start()+" to :"+matcher.end());
+		}
+############
+O/P:
+Occurence: 0: 2 to :3
+Occurence: 0: 9 to :10		
+		 
+ 
+
+
+........
++ Plus, matches 1 or more characters in fron of the plus. For example, the below regular expression matches col,cool,…,cooooooooooool,…
+
+1
+co+l
+
+....
+
+	
+	
+	

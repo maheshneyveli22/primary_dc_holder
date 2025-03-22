@@ -1,0 +1,16 @@
+
+1) Create Interface 
+2) Create Impl for that interface
+
+3) We need to autowire this impl service class to User Controller
+
+4) In controller class, create reference variable for the above interface, mark annotation @Autowired
+
+	@Autowired
+	UserService userService;
+
+5) Go to impl class and mark it with annotation @ Service
+
+eg:
+@Service
+public class UserServiceImpl implements UserService{

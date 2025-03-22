@@ -1,0 +1,14 @@
+1) Update Users Microservice with a  new rest controller for Users Microservice
+
+2) Create UsersController and add @RestController annotation
+
+3) create a new method to check status with @GetMapping annotation
+
+	@GetMapping("/status/check")
+	public String status()
+	{
+		return "It is working";
+	}
+	
+	
+	

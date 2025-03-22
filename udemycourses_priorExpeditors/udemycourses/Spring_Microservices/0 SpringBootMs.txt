@@ -1,0 +1,90 @@
+1)To make a method acceptable to return JSON or XML we need to make two changes
+
+a) Change 1:
+---> In getMapping annotation, add produces attribbute for media type xml and json
+
+eg: 	@GetMapping(path= "/{userId}", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+
+Now try to fire request in postman and see if the request gives successful response
+
+b) Change 2:
+-> go to mvn repository, search for jackson xml , select the latest , copy the maven dependancy  and put it in pom xml dependancy - below spring-boot-starter-web
+
+2) 
+a) To make your restful webservice respond with a specific HTTP status code, the return type of the GetUser method should be changed to ResponseEntity
+
+b) Also change return value of getUser method from UserRest to ResponseEntity
+
+c) ResponseEntity has constructors as type of object to be returned and the status code, we can use that.
+
+eg:  ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+
+
+
+	@GetMapping(path= "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
+		UserRest userRest=new UserRest();
+		userRest.setFirstName("Mahesh");
+		userRest.setLastName("Elumalai");
+		userRest.setEmailId("test@test.com");
+		return  new ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+	}
+	
+3) for post request to send details for Rest. add @RequestBody annotation followed by the POJO:UserDetailsRequestModel
+
+	@PostMapping(consumes = {MediaType.APPLICATION_XHTML_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, 
+			     produces = {MediaType.APPLICATION_XHTML_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<UserRest> createUser(@RequestBody UserDetailsRequestModel userDetails)	
+	{ System.out.println("UserController.createUser(Mahesh)");
+		UserRest userRest=new UserRest();
+		userRest.setFirstName(userDetails.getFirstName());
+		userRest.setLastName(userDetails.getLastName());
+		userRest.setEmailId(userDetails.getEmail());
+		userRest.setUserId(userDetails.getPassword());
+		return  new ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+	}
+	
+4) For validation in post method for @RequestBody
+a) @Valid annotation should be in creatusermethod before request body
+b) go to request model: UserDetailsRequestModel and add not null and other annotations for validation	
+
+5) 
+38)	Multiple environments:
+	To load different application properties for different environments, we need to use profile
+	Eg: A-<profilename>.properties  , A-production.properties
+	Here production is the profile name.
+	Profile name will be specified while giving command to run the spring boot application as command line argument:
+	If no name is given, default application properties will be taken by spring cloud config server
+	
+Steps:
+1)	Create new file A-production.properties, which have content specific to production
+2)	While running give the profile name as production
+Eg: mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=production
+
+3)	Hence spring config server will chose A-production.properties file for this configuration
+4)	To see logs about which application.properties, in application class create the following beans:
+   @Bean
+@Profile(“production”)
+Public String createProductionBean()
+{
+System.out.println(“print property from application properties production”);
+  Return “production-bean”;
+}
+
+   @Bean
+@Profile(“!production”)
+Public String createProductionBean()
+{ System.out.println(“print property from application properties Non production”);
+  Return “not-production-bean”;
+}
+
+   @Bean
+@Profile(“default”)
+Public String createProductionBean()
+{ System.out.println(“print property from application properties development”);
+  Return “development-bean”;
+}
+
+
+
+6) 

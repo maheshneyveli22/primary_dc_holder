@@ -1,0 +1,21 @@
+DEVELOPMENT PROCESS
+1) Create Java POJO class for Student
+2) Create Spring REST service using @RestController
+
+@RestController
+@RequestMapping("/api")
+public class StudentRestController {
+// define endpoint for "/students" - return list of students
+	
+	@GetMapping("/students")
+	public List<Student> getStudents() {
+
+		List<Student> theStudents = new ArrayList<>();
+		
+		theStudents.add(new Student("Poornima", "Patel"));
+		theStudents.add(new Student("Mario", "Rossi"));
+		theStudents.add(new Student("Mary", "Smith"));		
+			
+		return theStudents;
+	}
+	

@@ -1,0 +1,360 @@
+
+1) Lambda Expressions 
+-> Introduced in Java8
+-> Easier way to work with interfaces having only one method
+-> Lambda expression can be used only with functional interfaces. ie interfaces with only one method
+-> Especially in anonymous classes
+
+2) Every Lambda expression has three parts:
+
+a) Argument list
+b) Arrow token
+c) Body
+
+
+3)For Single line of code: 
+
+###########
+ Eg:  new Thread(()-> System.out.println("from the runnable")).start();
+###########
+4)for multiple lines of code
+
+###########
+ new Thread(()-> {
+            System.out.println("from the runnable");
+            System.out.println("printing second line from runnable");}).start();
+    }
+###########	
+	
+	
+	
+7) For interfaces with methods having parameters:
+
+#########
+Collections.sort(employees, (employee1, employee2) ->
+                employee1.getName().compareTo(employee2.getName()));
+#########
+
+
+8) For interface methods that return value
+-> if the method that returns value has only one statement - return keyword is not needed
+###########	
+UpperConcat uc=(s1,s2)->s1.toUpperCase()+ s2.toUpperCase();
+###########	
+
+-> if the method that returns value has more than one statement - return keyword is not needed
+      
+###########	  
+ UpperConcat uc = (s1, s2) -> {
+            System.out.println("The lambda expression's class is " + getClass().getSimpleName());
+            String result = s1.toUpperCase() + s2.toUpperCase();
+            return result;
+        };			
+###########	
+
+8) Any variable declared outside  and changed inside lambda expression has to be final
+-> same applies to anonymous inner class too.
+
+eg: final int i=0; in below code 
+
+#######
+final int i=0;
+{
+UpperConcat uc= new UpperConcat(){
+@Override
+public String upperAndConcat(String s1, String s2)
+{
+System.out.println("i (within anonymous class)= "+i);
+return s1.toUpperCase()+s2.toUpperCase();
+}
+};
+System.out.println("The anotherClass class's name is "+getClass().getSimpleName());
+
+System.out.println("i = "+i);
+return Main.doStringStuff(uc,"String1","String2");
+
+}
+
+
+9) Why do local variables be declared as final, when we use them within anonymous class?
+-> Because local variable does not belong to the anonymous class instance. 
+
+10) How does it relate to lambda expression?
+
+-> Here also any variable declared outside lambda expression and used inside lambda expression should be effectively final 
+-> Effectively final means - variable has to be declared final or the value of variable should not be changed. 
+
+final int i=0;
+UpperConcat uc=(s1,s2)->{
+System.out.println("The lambda expression's class is "+getClass().getSimpleName());
+String result =s1.toUpperCase()+s2.toUpperCase();
+return result; 
+
+}
+
+11) Also variables declared within lambda expression cannot be used outside. 
+
+12)
+ArrayList.forEach(Consumer<? super T> action)
+{
+Objects.requireNonNull(action);
+for(T t: this)
+   action.accept(t);
+}
+}
+
+---> so forEach is a method, which calls accept method and returns void
+->  We pass forEach a lambda expression that meets the requirements of the consumer interface
+-> Consumer accepts one argument and performs an action that does not return a value
+-> It is called a consumer because it accepts object in and gives nothing outside
+
+13) Java.util.function has 30 functional interfaces
+
+
+14) Predicate Interface
+-> Used for filtering
+-> returns boolean
+
+-> Here in main method we pass predicate condition as lambda expression and this is used by printEmployeesByAge method
+-> we can also use anonymous inner class for specifying test condition for Predicate 
+
+############
+public static void main(String[] args) {
+        Employee john = new Employee("John Doe", 30);
+        Employee tim = new Employee("Tim Buchalka", 21);
+        Employee jack = new Employee("Jack Hill", 40);
+        Employee snow = new Employee("Snow White", 22);
+        Employee red = new Employee("Red RidingHood", 35);
+        Employee charming = new Employee("Prince Charming", 31);
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(john);
+        employees.add(tim);
+        employees.add(jack);
+        employees.add(snow);
+        employees.add(red);
+        employees.add(charming);
+
+        printEmployeesByAge(employees, "Employees over 30", employee -> employee.getAge() > 30);
+        printEmployeesByAge(employees, "\nEmployees 30 and under", employee ->employee.getAge() <= 30);
+        printEmployeesByAge(employees, "\nEmployees younger than 25", new Predicate<Employee>() {
+            @Override
+            public boolean test(Employee employee) {
+                return employee.getAge() < 25;
+            }
+        });
+		
+############ 
+private static void printEmployeesByAge(List<Employee> employees, String ageText, Predicate<Employee> ageCondition)
+{
+System.out.println(ageText);
+System.out.println("==================");
+
+for(Employee employee:employees)
+{
+if(ageCondition.test(employee)
+{
+System.out.println(employee.getName());
+}
+}
+
+
+}
+############
+-> here if statement uses predicate parameter(ageCondition), if for loop passes each employee to the predicate test method, which in turn uses the employee as a parameter for the lambda expression that maps to the predicate
+-> here if test method of predicate reurns true then the employee name will be printed
+
+
+15) In main method, we use lambda expression to pass predicate argument
+
+printEmployeesByAge(employees,"Employees over 30", employee->employee.getAge()>30);
+printEmployeesByAge(employees,"\nEmployees less than  30", employee->employee.getAge()>30);
+
+16) Here Predicate argument is the lambda expression that matches the predicate interface.
+-> it accepts one parameter and return a boolean value
+-> we can pass any condition to this method
+
+
+17) Consumer and Predicate interfaces are general interfaces
+-> Meaning they dont care about the type of parameter being passed to the lambda expression
+-> they use generics to infer the type
+
+18) Other interfaces
+-> DoubleConsumer -> expects lambda expression that has a double argument
+-> IntConsumer, LongConsumer are there
+-> DoublePredicate, IntPredicate and LongPredicate
+
+-> IntPredicate, just checks if number is greater than particular value
+
+eg:
+##########
+  IntPredicate greaterThan15 = i -> i > 15;
+        IntPredicate lessThan100 = i -> i < 100;
+
+        System.out.println(greaterThan15.test(10));
+        int a = 20;
+        System.out.println(greaterThan15.test(a + 5));
+
+        System.out.println(greaterThan15.and(lessThan100).test(50));
+        System.out.println(greaterThan15.and(lessThan100).test(15));
+
+        Random random = new Random();
+        Supplier<Integer> randomSupplier = () -> random.nextInt(1000);
+        for(int i=0; i<10; i++) {
+            System.out.println(randomSupplier.get());
+        }
+##########		
+
+19) we can also do : Chaining of predicates: and, or , negate, can be chained
+-> done by using "and" in between and connecting them: greaterThan15.and(lessThan100).test(50)
+
+
+eg: 
+IntPredicate greaterThan15 = i->i>15;
+IntPredicate lessThan100= i->i<100;
+
+System.out.println(greaterThan15.test(10));
+int a=20;
+System.out.println(greaterThan15.test(a+5));
+
+System.out.println(greaterThan15.and(lessThan100).test(50));
+
+-> it will return true for the last line, since 50 is less than 100 and greater than 15
+
+
+20) Predicate interfaces also contain negate or isEquals method
+
+21) Supplier Interface
+
+a) Supplier interface does not accept any argument but it returns  value using get()
+   To note: Consumer and Predicate accepts arguments
+   
+
+###########
+
+Random random = new Random();
+Supplier<Integer> randomSupplier = ()->random.nextInt(1000);
+for(int i=0;i<10;i++)
+{
+System.out.println(randomSupplier.get());
+}
+####################
+
+b) while consumer has accept() method, supplier has get() method
+
+c) Flavours of supplier:
+i) BooleanSupplier
+ii) DoubleSupplier
+iii) IntSupplier
+iv) LongSupplier
+
+21) So far
+
+Predicate -> returns only boolean
+Consumer -> only accepts and does not returns
+Supplier -> does not accept and only returns and it canot be chainged
+
+22) Now if we have a requirement to accept string and return a string?
+-> this can be done by Function interface
+
+23) Functions
+-> this interface takes one parameter and returns a value
+-> method used is : apply()
+
+
+eg:
+
+Function<Employee, String> getFirstName = (Employee employee) -> {
+            return employee.getName().substring(0, employee.getName().indexOf(' '));
+        };
+
+
+
+24) Functions Types:
+
+a) Like Consumer, Supplier, Predicate - there are more specific Functions interfaces
+
+i) LongToIntFunction accepts long and returns int value
+ii) IntToDoubleFunction accepts Int and returns double value
+
+
+25) Chaining Functions
+-> we use andThen method for the same
+-> we use compose method for the reverse case
+
+-> function that calls the andTHen will get executed and argument will be later
+   Function chainedFunction = upperCase.andThen(firstName);
+-> here upperCase first and then firstName will be executed
+
+eg:
+Function<Employee, String> getLastName = (Employee employee) -> {
+            return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+        };
+
+        String lastName = getLastName.apply(employees.get(1));
+//        System.out.println(lastName);
+
+        Function<Employee, String> getFirstName = (Employee employee) -> {
+            return employee.getName().substring(0, employee.getName().indexOf(' '));
+        };
+
+        Random random1 = new Random();
+        for(Employee employee : employees) {
+            if(random1.nextBoolean()) {
+                System.out.println(getAName(getFirstName, employee));
+            } else {
+                System.out.println(getAName(getLastName, employee));
+            }
+        }
+
+        Function<Employee, String> upperCase = employee -> employee.getName().toUpperCase();
+        Function<String, String> firstName = name -> name.substring(0, name.indexOf(' '));
+        Function chainedFunction = upperCase.andThen(firstName);
+        System.out.println(chainedFunction.apply(employees.get(0)));
+
+   
+		
+26) Function accepts only one argument while if we want to pass two arguments we can use BI interface
+-> Except supplier - Predicate, Consumer and Functions supports BI interfaces i.e supports two arguments		
+
+Eg: 
+     BiFunction<String, Employee, String> concatAge = (String name, Employee employee) -> {
+            return name.concat(" " + employee.getAge());
+        };
+		
+
+27) 
+UnaryOperator interface
+a) More specific type of function
+-> it accepts single argument and returns value of same type as argument
+eg: long unary operator accepts long and returns a long
+
+b) All the unary variants extend function interface
+
+
+c) IntUnaryOperator
+
+IntUnaryOperator incBy5 = i -> i + 5;
+        System.out.println(incBy5.applyAsInt(10));	
+		
+
+28)  Streams - Means a series of computations
+
+   someBingoNumbers
+                .stream()
+                .map(String::toUpperCase)
+                .filter(s->s.startsWith("G"))
+                .sorted()
+                .forEach(System.out::println);
+
+
+
+a) stream() -> First method call in stream
+-> sequence of element supporting sequential and parallel aggregate operations
+b) String::toUpperCase . Here :: means method reference. If we use them , lambda calls the existing method.
+  map() method accepts a function
+
+-> first converst to upper case
+-> filter next
+-> next do sorting
+-> forEach

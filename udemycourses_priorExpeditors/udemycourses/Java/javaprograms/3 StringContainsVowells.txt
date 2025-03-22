@@ -1,0 +1,17 @@
+public class StringContainsVowels{
+
+public static void main(String args[])
+{
+String a = "Mahesh";
+String b= "jhhhjkkkw";
+isVowel(a);
+isVowel(b);
+
+}
+
+public  boolean isVowel(String str)
+{
+return str.toLowerCase().matches(".*[aeiou].*");
+}
+
+}

@@ -1,0 +1,61 @@
+1) Should Implement serializable
+2) long serialVersionUID should be declared
+3) Instead of having it automatically generated, it is advised to manually declare serialVersionUID since if it is automatically generated, values may differ when used in different compilers
+4) serialVersionUID should be private 
+
+5) what is serialVersionUID
+-> can think it of like a serial number for a class
+-> if we dont set it, compiler will create it based on the fields, methods present in class
+-> if we change the class by adding field or method, we have to change serialVersionUID values
+-> when we read an object from stream, runtime checks the stored serialVersionUID against the one contained in the compiled class file - if they dont match then there is a compatibility problem and at runtime, it will throw invalid class exception
+
+6) If we want to serialize an object. eg: Location
+-> Object should implement serializable interface
+-> if there are objects with Location object, that corresponding object also should implement serializable, else we should write code to make it serializable or writing the content of that object to file by ourself
+
+
+
+7) TO SERIALIZE:
+
+In main method:
+
+try(ObjectOutputStream locFile= new ObjectOutputStream(new BufferedOutputStream(new FIleOutputStream("locations.dat")))
+{
+for(Location location:locations.values())
+{
+locFile.writeObject(location);
+}
+}
+
+
+8) TO DESERIALIZER:
+
+In Main method:
+
+
+try(ObjectInputStream locFile= new ObjectInputStream(new BufferedInputStream(new FIleInputStream("locations.dat")))
+{
+boolean eof=false;
+while(!eof)
+{
+
+try{
+Location location = (Location)locFile.readObject();
+System.out.println("Read Location "+location.getLocationId());
+}
+
+catch(EOFException e)
+{
+eof=true;
+
+}
+}}
+}
+
+
+9) when two objects of : FOO access the same instance of Bar. then only one Bar object will be serialized.
+-> so serialized file will contain only one bar instance
+-> 
+
+a) when we write FOO instances to two files, when both FOO instances are on both files , then at this time there will be two instances of Bar object
+-> Object instance will be unique for a file and not across files

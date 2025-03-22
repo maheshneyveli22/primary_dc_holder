@@ -1,0 +1,41 @@
+DEVELOPMENT PROCESS
+a) Create Properties file
+b) Load Properties file in Spring config
+c) Reference values from Properties file
+
+
+a) Create Properties file
+
+eg: sport.properties
+
+foo.email=myeasycoach@luv2code.com
+foo.team= Awesome Java Coders
+
+b) Load Properties file in Spring config
+
+eg: File SportConfig.java
+
+
+@Configuration
+@PropertySource("classpath:sport.properties") 
+public cass SportConfig{
+
+
+}
+
+@PropertySource("classpath:sport.properties")   -> Loads properties file
+
+
+c) Reference values from Properties file
+
+Eg: SwimCoach.java
+
+public class SwimCoach implements Coach
+{
+@value("${foo.email}")
+private String email;
+
+@value("${foo.team}")
+private String team;
+
+}

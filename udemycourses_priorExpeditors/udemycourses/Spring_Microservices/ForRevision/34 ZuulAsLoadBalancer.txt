@@ -1,0 +1,6 @@
+1) Zuul comes with a prepackaged load balancer called ribbon
+2) To add load balancer functionality to our architecture, just starting app zuul is enough
+3) there is a default which works right away
+4) so if you have zull running, we already have load balancer up and running
+5) So we can think zuul as a router and server side load balancer
+6) if you start more instances of a users microservice, zuul will balance incoming http requests equally between these running instances of users microservice

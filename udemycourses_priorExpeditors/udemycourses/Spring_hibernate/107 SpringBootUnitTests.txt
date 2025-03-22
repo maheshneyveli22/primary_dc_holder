@@ -1,0 +1,5 @@
+1) Spring boot unit test class is created by Spring initializer
+
+MyownappApplicationTests. java
+
+2) 

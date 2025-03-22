@@ -1,0 +1,33 @@
+-> Reading Binary data from dat file
+
+1) 
+
+try(DataInputStream bis= new DataInputStream(new BufferedInputStream(new FileInputStream("locations.dat"))))
+{
+while(true)
+{
+Map<String,Integer>exits= new LinkedHashMap<>();
+int locID= locFile.readInt();
+String description= locFile.readUTF();
+int numExits=locFIle.readInt();
+System.out.println("Read location "+ locId+":"+description);
+System.out.println("Found  "+ numExits+":exits");
+
+for(int i=0;i<numExits;i++)
+{
+String direction=locFIle.readUTF();
+int destination= locFIle.readInt();
+exits.put(direction,destination);
+system.out.println("\t\t"+direction+","+description)
+}
+locations.put(locId, new Location(locId,description,exits));
+}
+catch(IOException io)
+{
+System.out.println("IO Exception");
+}
+}
+
+
+2) EOFException
+-> it is thrown when the end of file is reached after reading all data in DataInputStream

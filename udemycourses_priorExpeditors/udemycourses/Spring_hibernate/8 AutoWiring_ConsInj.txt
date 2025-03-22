@@ -1,0 +1,63 @@
+1) Dependancies for a class will be inserted via auto wiring
+
+2) WHAT IS AUTOWIRING
+-> For dependancy injection spring uses auto wiring
+-> Spring will look for a class that matches the property
+  * matches by type: class or interface
+-> Spring will inject it automatically
+
+
+3) AUTOWIRING EXAMPLE:
+-> Injecting FortuneService into a Coach Implementation
+-> Spring will scan @Components
+-> Anyone implements FortuneService interface?
+-> If so, lets inject them for example: HappyFortuneService class
+
+
+
+4) AUTOWIRING injection types:
+
+a) Constructor injection
+b) Setter Injection
+c) Field Injections
+
+
+5)Constructor Injection - Development process
+a) Define dependancy interface and class
+
+eg: Create Fortune Serivice interface and MyFortuneService class
+b) Create a constructor in your class for injections
+
+eg:
+@Component 
+public class TennisCoach implements Coach{
+
+private FortuneService fortuneService;
+
+public TennisCoach(FortuneService theFortuneService)
+{
+fortuneService=theFortuneService;
+}
+}
+
+c) Configure dependancy injection with @Autowired Annotation
+
+-> this is the real work
+-> Add @Autowired annotation for the constructor
+-> we are telling that for the parameter passed in the constructor, we want spring to automatically wire up this component
+-> what happens in background
+  Spring wants to satisfy this dependancy, so it will scan all the components there, it will find the component that implements FortuneService, which in our case is HappyFortuneService. Spring will take that bean and it will inject or autowire it into TennisCoach
+eg:
+@Component 
+public class TennisCoach implements Coach{
+
+private FortuneService fortuneService;
+
+public TennisCoach(FortuneService theFortuneService)
+{
+fortuneService=theFortuneService;
+}
+}
+
+
+    

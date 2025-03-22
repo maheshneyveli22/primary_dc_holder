@@ -1,0 +1,28 @@
+1) Sets
+-> No Duplicates(Important differentiator)
+-> No default ordering
+
+
+2) Sets that have default ordering: Linked Hash set, Tree set
+
+3) methods:
+
+size()
+isEmpty()
+contains()
+
+4) Getting an element from nth position is not possible
+-> we can check if element exists
+-> we can iterate over the elements in the set, but cant get element from a specific location
+
+
+5) Using mutable objects as elements in set can cause problems and behaviour is undefined if changing an object needs equals comparisons
+
+6) Similar to map cannot contain itself as a key
+-> Set cannot be an element of itself
+
+7) Best performing implementation of set : HashSet
+
+8) As of Java8, HashSet implementation uses HashMap
+
+9) When hashset is created, object is added as key and dummy object added as value 

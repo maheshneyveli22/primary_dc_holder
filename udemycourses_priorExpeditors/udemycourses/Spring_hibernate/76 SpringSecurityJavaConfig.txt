@@ -1,0 +1,84 @@
+1) Java Configuration
+-> Instead of configuring SPring MVC app using xml(web.xml and spring-mvc-demo-servlet.xml), we configure the spring mvc app with Java code
+
+2) Development process
+a) Add maven dependencies for spring mvc web app
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-webmvc</artifactId>
+<version>...</version> 
+</dependency>
+-> add dependancy for servlet, jstl etc
+
+Also add support for Maven war plugin
+
+b) Create spring app configuration(@Configuration)
+i)@EnableWebMvc
+-> Provides similar support to <mvc:annotation-driven /> in xml
+-> Adds conversion, formatting and validation support
+-> Processing of @Controller classes and @RequestMapping etc... methods
+
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages="com.luv2code.springsecurity.demo")
+public class DemoAppConfig{
+
+
+@Bean
+public ViewResolver viewResolver()
+{
+InternalResourceViewResolver viewResolver= new InternalResourceViewResolver();
+viewResolver.setPrefix("/WEB-INF/view");
+viewResolver.setSuffix(".jsp");
+
+return viewResolver;
+
+}
+
+}
+
+ 
+c) Create Spring dispatcher Servlet initializer
+i) Extend abstract base class:
+AbstractAnnotationConfigDispatcherServletInitializer
+ii) Override required methods
+iii) Specify servlet mapping and location of your app config 
+
+eg:
+
+public class MySpringMvcDIspatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+
+@Override
+protected class<?>[] getRootConfigClasses()
+{
+return null;
+}
+
+
+@Override
+protected Class<?> getServletConfigClasses()
+{
+return new Class[](DemoAppConfig.class);
+}
+
+@Override
+protected String[] getServletMappings()
+{
+return new String[]{"/"};
+}
+}
+
+d) Develop our spring controller
+
+@Controller
+public class DemoController{
+
+@GetMapping("/")
+public String showHome()
+{
+return "home";
+}
+}
+
+e) Develop JSP view page

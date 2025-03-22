@@ -1,0 +1,32 @@
+1) Spring boot provides a "starter parent"
+2) This is a special starter that provides maven defaults
+
+<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+3) Following are maven defaults defined in the starter parent
+
+a) Default compiler level
+b) UTF-8 source encoding
+
+
+4) TO override a default, set as a property:
+
+eg:
+
+<properties>
+<java.version>12</java.version>
+</properties>
+
+5) Benefits of spring boot starter parent:
+
+a) Default maven configuration: Java version, UTF-encoding etc
+b) Dependancy management
+* use version on parent only
+
+spring-boot-starter-* dependencies inherit version from parent
+c) Default configuration of spring boot plugin

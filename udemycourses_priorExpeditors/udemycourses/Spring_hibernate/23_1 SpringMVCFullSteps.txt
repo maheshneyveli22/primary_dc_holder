@@ -1,0 +1,13 @@
+1) Copy web.xml from existing project and ensure information of dispatcher servlet and init-param(contextConfigLocation) are present(no action needed, just verification)
+2) Also in web.xml - Ensure that servlet mapping is proper with dispatcher and url pattern(no action needed)(no action needed, just verification)
+3) Now go to contextConfigLocation(spring configuration file) file: spring-mvc-demo-servlet.xml
+a) Add support for component scanning
+b) Add support for conversion, formatting and validation support)
+c) Define spring mvc view resolver
+
+4) Controller and View part
+a) Define controller class
+b) Define controller method
+c) Add request mapping to controller method
+d) Return view name
+e) Develop view page

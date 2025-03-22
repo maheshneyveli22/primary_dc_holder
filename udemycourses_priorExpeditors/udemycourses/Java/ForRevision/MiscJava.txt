@@ -1,0 +1,148 @@
+1) int to Integer
+a)  Integer intObj = new Integer(i);where i is integer
+b)       int i=100;
+      // Convert int to Integer using Integer.valueOf() method
+      Integer intObj = Integer.valueOf(i);
+
+2) Integer to int
+a)     Integer intobject = new Integer(68);
+        // Returns the value of this Integer as an int
+        int i = intobject.intValue();
+
+
+3) Inner Classes:
+a) Static inner classes:
+-> To associate a class with its outer class
+-> behaviour identical to outer class, but the difference is that its packaged in the outer class, rather than in the package.
+-> cant access non static members of its outer class without first creating instance of that class
+
+b) non static inner classes: 
+
+GearBox mclarenGearBox= new GearBox(6);
+GearBox.Gear first= mclarenGearBox.new Gear(1,12.3);
+System.out.println(first.driveSpeed(1000));
+
+c) Local classes
+d) Anonymous class
+
+btnPrint.setOnClickListener(new Button.onClickListener()
+{
+@Override
+public void onClick(String title)
+{
+System.out.println(title+ "  was clicked");
+}
+}
+
+
+4) Generics:
+
+a) usage:
+private ArrayList<Player> members= new ArrayList<>();
+
+b) Creating generic class:Team
+i) Modify class declaration to include Type parameter and also specify upper bound: Here by saying T extends Player
+---> by specifying bounds only Type which extends player can be used with team
+-> here we can use interface also.
+-> Can restrict type to single class type also.
+		eg: public class Team<T extends Player & Coach & Manager> 
+
+-> Like inheritance we can specify Class first and they multiple interfaces. 
+			public class Team<T extends Player> {
+			private String name;
+			int played=0;
+			int won = 0;
+			int lost=0;
+			int tied=0;
+
+ii) Modify ArrayList to accept only with T type
+
+		private ArrayList<T> members = new ArrayList<>();
+
+iii) Modify addPlayer method , instead of allowing Player class - change to allow Type parameter T. so that it will be generic and work for any type of player
+-> Similarly if there are any  methods, which accepts player type, change it to generic type T and places where Team is used should be parameterized
+
+
+
+       public boolean addPlayer(T player)
+	   {
+	   if(members.contains(player)
+	   {
+	   System.out.println(player.getName() +" is already in this team");
+	   return false;
+	   }
+	   else
+	   {
+	   members.add(player);
+	   System.out.println(player.getName() +" is picked for team "+this.name);
+	   return true;
+	   }
+	   }
+	   
+	   
+	   eg:
+	   public int compareTo(Team<T> team)
+	   {
+	   if(this.ranking()>team.ranking
+	   return -1;
+	    else  if(this.ranking()<team.ranking
+	   return 1;
+	   else
+	   return 0;
+	   }
+	   
+iv) Usage:
+    FootballPlayer joe= new FootballPlayer("Joe");
+    Team<FootballPlayer> adelaideCrows = new Team<>("Adelaide Crows");
+	adelaideCrows.add(joe);
+
+
+
+5) Different encapsulation techniques to prevent fields of pojo from external changes
+a) Making field Private and final
+b) not returning the original collection and instead returning the copy of collection, so that original collection cannot be altered
+
+		eg:     
+		public Map<String, Integer> getExits() {
+        return new HashMap<String, Integer>(exits);
+    }
+c) Not providing setters	
+
+6) HOW TO CREATE IMMUTABLE CLASS:
+Immutable Class: Class fields or elements of the class can be set only once and never changed again
+1) Declaring all fields private and Setting all values only via constructor  and no further scope to change them again
+
+	public class Location {
+    private final int locationID;
+    private final String description;
+    private final Map<String, Integer> exits;
+    public Location(int locationID, String description, Map<String, Integer> exits) {
+        this.locationID = locationID;
+        this.description = description;
+        if(exits != null) {
+            this.exits = new HashMap<String, Integer>(exits);
+        } else {
+            this.exits = new HashMap<String, Integer>();
+        }
+        this.exits.put("Q", 0);
+    }
+	
+	-> note that we dont use the same HashMap of exits, intead we create the new HashMap for populating this.exits. Only after this, immutability is achieved
+2) Declare the class Final or if not possible
+---> Make constructor private and construct instances in factory methods	
+
+
+7) Exception with multiple catch
+
+try
+{
+}
+catch(NoSuchElementException | NumberFormatException e)
+{
+e.printStackTrace();
+}
+
+8) 	
+	
+	
+	

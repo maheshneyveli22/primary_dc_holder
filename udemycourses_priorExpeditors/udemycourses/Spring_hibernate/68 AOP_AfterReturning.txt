@@ -1,0 +1,45 @@
+1) @AfterReturning
+-> advice executes after successful return of the method without exceptions
+
+2) 
+a) Most common use cases:
+Loggin, security, transactions
+
+b) Audit Logging:
+who, what,when, where
+
+c) Post-processing Data
+-> post process the data before returning to caller
+-> Format the data or enrich the data
+
+
+3) Example:
+-> Create an advice that will run after a method call(success execution)
+
+
+4) @AfterReturning Advice
+-> This advice will run after the method call(success execution)
+
+@AfterReturning("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+public void afterReturningFindAccountsAdvice()
+{
+System.out.println("Executing @AfterReturning advice");
+}
+
+5) Access the return value 
+-> need to access the return value of method called
+
+
+@AfterReturning(pointCut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..)):, returning="result")
+public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result)
+{
+//print out the results of the method call
+System.out.println("\n====>>> result is "+result);
+}
+
+
+6) Development process - @AfterReturning
+1) Prep work: Add constructors to Account class
+2) Add new method:findAccounts() in AccountDAO
+3) Update main app to call new method: findAccounts()
+4. Add @AfterReturning advice

@@ -1,0 +1,31 @@
+1) We are going to see how to handle http request and how to read JSON or XML payload from body of http post request
+
+2) HTTP request body has a JSON payload
+
+3) THe JSON payload in HTTP request body must be converted to Java object so that we can use it in our Java method
+
+4) When HTTP request is sent, Framework will take the JSON payload and will convert it into a Java object
+
+5) create a Java model class with fields correponding to those in JSON payload
+
+6) In createUser method , parameter should be added with @RequestBody annotation and UserDetailsRequestModel
+
+-> in Postmapping annotation we will introduce attribute consumes
+----> in Postmapping we should mention both consumes and produces media type
+
+-> we should get details from the UserDetailsRequestModel and set it into UserRest model and attach it to ResponseEntity
+
+
+eg:
+	@PostMapping(consumes = {MediaType.APPLICATION_XHTML_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, 
+			     produces = {MediaType.APPLICATION_XHTML_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<UserRest> createUser(@RequestBody UserDetailsRequestModel userDetails)
+	{ System.out.println("UserController.createUser(Mahesh)");
+		UserRest userRest=new UserRest();
+		userRest.setFirstName(userDetails.getFirstName());
+		userRest.setLastName(userDetails.getLastName());
+		userRest.setEmailId(userDetails.getEmail());
+		userRest.setUserId(userDetails.getPassword());
+		return  new ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+	}
+	

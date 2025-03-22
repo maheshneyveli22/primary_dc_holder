@@ -1,0 +1,41 @@
+1) Create spring starter project in same workspace
+2) Open PhotoAppApiAccountManagementApplication class and add annotation to enable Eureka Client: @EnableDiscoveryClient
+
+eg: @SpringBootApplication
+@EnableDiscoveryClient
+public class PhotoAppApiUsersApplication {
+
+-> This annotation will make spring boot application as a client which will communicate with the discovery server
+
+3) Go to application properties to specify portnumber, application name and then the url to eureka
+
+
+4) 1) Update Users Microservice with a  new rest controller for Users Microservice
+
+5) Create UsersController and add @RestController annotation
+
+6) create a new method to check status with @GetMapping annotation
+
+	@GetMapping("/status/check")
+	public String status()
+	{
+		return "It is working";
+	}
+	
+7) Start eureka and account management service and check below url
+
+http://desktop-mhbsvit:62806/account/status/check
+
+
+8) Now start users webservice and check if eureka discovery service page displays the same
+
+9) Try accessing the url and see if users webservice displays accordingly
+
+
+http://desktop-mhbsvit:62849/users/status/check
+
+10) SO both these microservices are running on different ports	
+	
+	
+	
+	

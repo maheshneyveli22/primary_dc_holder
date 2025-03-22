@@ -1,0 +1,19 @@
+1) 
+
+@RestController
+public class FunRestController {
+		
+	// expose "/" that return "Hello World"
+	
+	@GetMapping("/")
+	public String sayHello() {
+		return "Hello World! Time on server is " + LocalDateTime.now();
+	}
+	
+	
+2) Advantages
+a) We need not do any 	xml or java configuration for servelt mapping etc
+b) we are simply focussed on writing our REST controller code
+c) Need not manually add maven dependancies
+d) No server needed, since server is embedded
+

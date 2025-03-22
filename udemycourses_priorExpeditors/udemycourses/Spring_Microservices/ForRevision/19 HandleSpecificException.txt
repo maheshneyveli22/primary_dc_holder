@@ -1,0 +1,15 @@
+1) Earlier we handled complete Exception.class
+
+2) Now to handle specific exception, create separate methods in AppExceptionHandler for each type of exception
+
+
+3) change value from Exception.class to specific exception type. Eg: NullPointerException
+
+	@ExceptionHandler(value = { NullPointerException.class })
+	
+4) Can change method name:
+   	@ExceptionHandler(value = { NullPointerException.class })
+	public ResponseEntity<Object> handleNullPointerException(NullPointerException ex, WebRequest request)
+
+5) thus we can handle specific exceptions	
+	

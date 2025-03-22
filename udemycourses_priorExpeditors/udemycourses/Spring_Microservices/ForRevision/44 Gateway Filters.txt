@@ -1,0 +1,11 @@
+Gateway Filters
+A list of API Gateway filters is very long to be included in a single lecture. Below are direct links to gateway filters published in Spring Cloud API Gateway documentation.
+
+GatewayFilter Factories
+
+Global Filters
+
+HTTPHeadersFilters
+
+
+

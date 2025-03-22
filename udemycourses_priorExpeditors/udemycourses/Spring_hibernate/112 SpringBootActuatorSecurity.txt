@@ -1,0 +1,57 @@
+1) Add the spring-boot-starter-security to the dependencies in pom
+
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+2) Even after adding this ,/health is available  you can disable based on need
+
+3) 	Secured endpoints
+
+when you access: /actuator/beans
+
+-> SPring security will prompt for login
+
+4) default user name: user and for password check the console logs
+
+5) You can override default user name and generated password in application properties
+
+eg:
+spring.security.user.name=scott
+spring.security.user.password=tiger
+
+5) More application properties, you can customize spring security for spring boot actuator/beans
+-> use a database for roles, encrypted passwords etc.
+-> Follow same technique as regular spring security
+
+public class DemoSecurityConfig extends WebSecurityConfigureAdapter
+{
+
+@Autowired
+private DataSource securityDataSource;
+
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception
+{
+auth.jdbcAuthentication().datasource(securityDataSource);
+}
+}
+	---> to secure via database
+	
+16) only autorize admin users
+
+
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception
+{
+http.authorizeRequests().antMatchers("/actuator/"**").hasRole("ADMIN")
+}
+}	
+
+
+17) To exclude endpoints
+in application.properties
+
+management.endpoints.web.exposure.exclude=health,info
+

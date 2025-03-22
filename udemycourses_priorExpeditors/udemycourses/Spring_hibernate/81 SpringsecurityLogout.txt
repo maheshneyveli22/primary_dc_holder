@@ -1,0 +1,39 @@
+1) Logout -> clears user session and go to login form saying, you are logged out
+
+2) DEVELOPMENT PROCESS
+
+a) Add logout support to spring security configuration
+
+@Override
+protected void configure(HttpSecurity http) throws Exception
+{
+http.authorizeRequest().anyRequest().authenticated().and().formLogin().loginPage("showLoginPage").loginProcessUrl("/authenticateTheUser").permitAll().and().logout().permitAll();
+
+}
+
+
+b) Add logout button to JSP page
+
+-> send data to default logout URL:/logout 
+
+-> logout url will be handled by SPring Security Filters
+-> this will be done by spring, no coding required. 
+
+-> by defualt must use POST method
+
+<form:form action=${pagecontext.request.contextPath}/logout" method="POST">
+<input type="submit" value="logout"/>
+
+</form:form>
+
+-> WHen a logout is processed, by default spring security will
+* Invalidate user's HTTP session and remove session, cookies etc
+* Send user back to login page
+* APpend logout parameter ?logout 
+
+c) Update login form to display "logged out" message
+* CHeck logout parameter
+* if logout parameter exists, show "logged out" message
+
+
+

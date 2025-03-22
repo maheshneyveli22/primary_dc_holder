@@ -1,0 +1,26 @@
+public Class CheckPrime{
+
+public static void main(String args[])
+{
+int a=123;
+int b=3445;
+System.out.println("Is Prime of "+a+ " is "+isPrime(a);
+System.out.println("Is Prime of "+b+ " is "+isPrime(b);
+}
+
+public static boolean isPrime(int numbertoCheck)
+{
+if(numbertoCheck==0 || numbertoCheck==1)
+return false;
+
+if(numbertoCheck==2)
+return true;
+
+for(int i=2;i<=numbertoCheck/2;i++)
+{
+if(numbertoCheck%i==0)
+return false
+}
+return true; 
+}
+}

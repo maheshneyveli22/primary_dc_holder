@@ -1,0 +1,49 @@
+1) we are going to change as part of existing adventure game project
+
+2) 
+a) First step: Write no of locations to the file
+
+----> 
+ try(RandomAccessFile rao= new RandomAccessFile("locations_rand.bat","rwd")
+{
+rao.writeInt(locations.size()); 
+
+}
+
+-> so the first argument to RandomAccessFile is the locations size
+-> rwd is to handle synchronization
+
+b) since pointer is correct next we are going to directly to writeInt of locationStart
+
+ try(RandomAccessFile rao= new RandomAccessFile("locations_rand.bat","rwd")
+{
+rao.writeInt(locations.size()); 
+int indexSize=locations.size()*3*Integer.BYTES;
+int locationStart=(int)(indexSize+rao.getFilePointer+Integer.BYTES);
+rao.writeInt(locationstart);
+}
+
+-> Each index record will have 3 integers
+a) location id b) offset for the location c) size or length of the location record
+
+c) Next section in file is the index, before we write the index we will write the locations - because index record will require offset for the location 
+->
+d)  disk access is more expensive when the access is not sequential 
+
+-> so next step is write all the locations and write the index as a whole 
+-> to do that - we need to boot the index in memory as we write the locations
+
+
+ try(RandomAccessFile rao= new RandomAccessFile("locations_rand.bat","rwd")
+{
+rao.writeInt(locations.size()); 
+int indexSize=locations.size()*3*Integer.BYTES;
+int locationStart=(int)(indexSize+rao.getFilePointer+Integer.BYTES);
+rao.writeInt(locationstart);
+long indexStart=rao.getFilePointer();
+}
+
+-> add new java class IndexRecord to project
+
+3) RandomAccessFile can not read or write objects.
+we need to append data to file

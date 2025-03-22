@@ -1,0 +1,28 @@
+1) Create Rest controller and add 4 simple methods that will accept http request and will send out some information
+
+2) Create a controller package which holds all the rest controllers
+
+3) Create a new class: UserController
+
+4) when spring boot application starts and for this class to be able to accept http requests, we need to add two important annotations:
+
+a) @RestController  
+-> This annotation will register this class as a rest controller
+-> now the class will be able to receive http request when a matching url request is sent by client
+
+b) @RequestMapping
+-> when http request is sent, it is sent to a certain url and that url contains path
+
+
+5) Add a new method to getUser()
+-> to make this method respond for get requests, add a new annotation 
+-> @GetMapping
+
+6) Similarly add method for createUser and update with annotation : @PostMapping
+
+7) Create new method for updateUser and update with annotation @PutMapping
+
+8) Create new method for deleteUser and update with annotation @DeleteMapping
+
+9) then we can run in spring tool and check in postman if the service is running
+

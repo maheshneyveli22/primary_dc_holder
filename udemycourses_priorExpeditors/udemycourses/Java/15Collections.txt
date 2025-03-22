@@ -1,0 +1,27 @@
+
+1) Collection Interface
+--> Set, List, Queue,Deque
+      |
+	  |->Sorted Set
+	  
+	  
+	  Map->Sorted Map
+	  
+2) Collection methods:
+
+a) Collections.sort -> for sorting
+b) Collections.binarySearch -> index of the object that was searched
+c) Collections.reverse()	  -> to reverse the list 
+d)   Collections.shuffle(seatCopy);-> to randomise the objects in the list 
+e) COllections.min() and Collections.max() according to natural sort order
+f) Collections.swap -> for swapping elements in list
+	  
+3)         List<Theatre.Seat> seatCopy = new ArrayList<>(theatre.seats);
+-> here seats from theatre.seats is copied to seatCopy., 
+
+-> they are two arraylists but they refer to tht esame objects. hence shallow copy
+
+4)  Collections.copy(newList, theatre.seats);
+   -> source,destination
+   -> to copy from source to destination 
+   ----> 

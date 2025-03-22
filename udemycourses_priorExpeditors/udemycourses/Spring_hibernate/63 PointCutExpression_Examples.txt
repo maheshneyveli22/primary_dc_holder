@@ -1,0 +1,205 @@
+Skip to content
+Jstobigdata Logo
+Java™
+JavaScript
+DevOps
+Coming soon
+Pointcut expressions in Spring AOP
+Home/Spring Framework/Pointcut expressions in Spring AOP
+
+Introduction
+In this article, you will learn about the Pointcut expressions used to match advice with the target Joinpoints. Spring AOP uses AspectJ pointcut expressions. In the tutorial home page, you read the Pointcut definition. Spring AOP only supports method execution join points, so you can think of a pointcut as matching the execution of methods on Spring beans.
+
+Pointcut: It is a predicate expression that determines the Join points, hence allowing us to control the advice execution.
+
+In simple words, a pointcut expression is like a Regular Expression which determines the classes and methods where the Advice will be executed.
+
+1. Declaring a Pointcut
+Declaring a pointcut is simple, all you need is annotate the method with @Pointcut(POINTCUT_EXPRESSION).
+
+@Pointcut("execution(* transfer(..))") // the pointcut expression
+private void anyTransfer() {}   //pointcut signature
+It is optional to use @Pointcut instead, the pointcut expressions can be directly used inside the advice annotations as shown below.
+
+Before advice –@Before
+Around advice – @Around
+After returning – @AfterReturning
+After throwing – @AfterThrowing
+After (finally) advice – @After
+  @Before("execution(* c.jbd.saop.gettingstarted.dao.*.add(..))")
+  public void allRepoAddMethods(JoinPoint joinPoint) {
+  //Aspect body
+  }
+The term execution inside the @Before or @Pointcut annotation is known as Pointcut designators. Spring provides several designators which are discussed next.
+
+2. Supported Pointcut Designators
+Spring AOP supports the following Pointcut Designators (PCD).
+
+execution – for matching method execution join points. This is the most widely used PCD.
+within – for matching methods of classes within certain types e.g. classes within a package.
+@within – for matching to join points within types (target object class) that have the given annotation.
+this – for matching to join points (the execution of methods) where the bean reference (Spring AOP proxy) is an instance of the given type.
+target – for matching with the target object of the specific instance type.
+@target – for matching with the target object annotated with a specific annotation.
+args – for matching with methods where its arguments are of a specific type.
+@args – for matching with methods where its arguments are annotated with a specific annotation.
+@annotation – for matching to join points where the subject (method) of the Joinpoint has the given annotation.
+bean (idOrNameOfBean) – This PCD lets you limit the matching of join points to a particular named Spring bean or to a set of named Spring beans (when using wildcards).
+AspectJ provides several other designators which are not supported in Spring AOP, only the above mentioned PCD are supported.
+
+3. Combining Pointcut Expressions
+You can combine multiple pointcut expressions by using AND – &&, OR – || and NOT – !. You can also refer to pointcut expressions by name. The following example shows the same:
+
+@Pointcut("execution(public * *(..))")
+private void anyPublicOperation() {} 
+@Pointcut("within(com.jsbd.trading..*)")
+private void inTrading() {} 
+@Pointcut("anyPublicOperation() && inTrading()")
+private void tradingOperation() {} 
+4. Various Pointcut designators example
+a. execution designator
+This is the most widely used designator that everyone needs to know, used to match the method execution Joinpoint. The syntax of an execution() designator is discussed below.
+
+execution(modifiers-pattern? return-type-pattern declaring-type-pattern? name-pattern( param-pattern)
+  throws-pattern?)
+? – Means optional to specify, e.g. modifiers, throws_exception
+* – A star in the pattern represents a wildcard
+() – For parameter_pattern means no arguments
+(..) – For matching for parameter_pattern with zero or more arguments of any type
+(*) – pattern matches a method that takes one parameter of any type.
+(*, String) – matches a method that takes two parameters, first one is of any type and the second parameter of type string.
+In the below table, I have shown you some of the most commonly used examples to give you a good understanding of the execution designator. The word any represents all in the below table.
+
+Explanation	Pattern
+To match with the execution of any public method	execution(public * *(..))
+The match with any setter	execution(* set*(..))
+Match with any method inside ActorRepository, defined inside a particular package	execution(* c.jbd.saop.gettingstarted.dao.ActorRepository.*(..)
+Match with any DAO delete() method with any type of arguments.	"execution(* c.jbd.app.dao.*.*(..))"
+Match any method inside any DAO with exactly one argument of any type.	"execution(* c.jbd.saop.gettingstarted.dao.*.*(*))"
+b. within and @within designators
+The within is used for matching methods of classes within certain types e.g. classes within a package.
+
+Similarly, the @within is used for matching with join points (method execution) where the declared class of the target object has a given annotation.
+
+Explanation	Pattern
+Match with any joinpoint within business package.	"within(com.jbd.business.*)"
+Match with any joinpoint within business and its sub-packages	"within(com.jbd.business..*)"
+Match with any join point (method) execution where the declared type of the target object (the class) has an @Transactional annotation.	"@within( org.springframework.transaction.annotation.Transactional )"
+c. The this designator
+It limits the matching to join points (the execution of methods) where the bean reference (Spring AOP proxy) is an instance of the given type.
+
+For example, match with any join point (method execution) where the proxy implements the AccountService interface.
+
+"this(com.jbd.service.AccountService)"
+d. The target and @target designators
+The target designator limits matching to join points (the execution of methods) where the target object (application object being proxied) is an instance of the given type. e.g. when the target object implements a specific interface.
+
+Example, any join point where the target object implements the AccountService interface.
+
+"target(com.jbd.service.AccountService)"
+Similarly, the @target is used to Limit matching to join points (the execution of methods) where the class of the executing object has an annotation of the given type.
+
+Example, any join point where the target object has a @Transactional annotation.
+
+"@target(org.springframework.transaction.annotation.Transactional)"
+e. The args and @args designators
+The args limits matching to join points (the execution of methods) where the arguments are instances of a given types.
+
+For example, any join point (method execution) that takes a single parameter and where the argument passed at runtime is Serializable.
+
+"args(java.io.Serializable)"
+Similarly, the args limits the matching to join points where the runtime type of the actual arguments passed have annotations of the given types.
+
+For example, any join point (method execution) which takes a single parameter, and where the runtime type of the argument passed has the @Classified annotation:
+
+"@args(com.jbd.security.Classified)"
+f. The @annotation designator
+The @annotation designator limits matching to join points where the subject of the join point (the method being executed) has the given annotation.
+
+NOTE: The @annotation limits the matching of joinpoint where the method has the given annotation, whereas the @within matches if a class has the annotation.
+
+Example, match with any join point (method execution) where the executing method has an @Transactional annotation.
+
+"@annotation(org.springframework.transaction.annotation.Transactional)"
+g. The bean Pointcut designator
+The bean PCD lets you limit the matching of join points to a particular named Spring bean or to a set of named Spring beans (when using wildcards).
+
+Example, any join point (method execution) on Spring beans having names that match the wildcard expression *Manager.
+
+"bean(*Manager)"
+Another example, any join point where the Spring bean name is accountRepository.
+
+"bean(accountRepository)"
+Conclusion:
+I recommend keeping the Pointcut expressions simple from the readability perspective, at the same time make sure it is easier for the compiler to narrow down the Joinpoint scanning. E.g. Use execution with with or @within. Now that you have learned about the expressions, let us learn to reuse the pointcuts in the next article.
+
+By Bikram Kundu|April 28th, 2020|Categories: Spring Framework|Tags: Spring 5.x, Spring AOP
+Share This Page, Choose Your Platform!
+Facebook
+Twitter
+Reddit
+LinkedIn
+WhatsApp
+Pinterest
+Email
+
+Leave A Comment
+Comment
+Comment...
+Name (required)
+Email (required)
+Website
+Save my name, email, and website in this browser for the next time I comment.
+
+This site uses Akismet to reduce spam. Learn how your comment data is processed.
+
+Table of Contents	
+Introduction
+1. Declaring a Pointcut
+2. Supported Pointcut Designators
+3. Combining Pointcut Expressions
+4. Various Pointcut designators example
+a. execution designator
+b. within and @within designators
+c. The this designator
+d. The target and @target designators
+e. The args and @args designators
+f. The @annotation designator
+g. The bean Pointcut designator
+Conclusion:
+Spring AOP Tutorial
+Spring AOP – Introduction
+Spring AOP – @Before advice
+Spring AOP – Pointcut expressions
+Combine and Reuse pointcut expressions
+Spring AOP – @AfterReturning advice
+Spring AOP – @AfterThrowing advice
+Spring AOP – @After advice
+Spring AOP – @Around advice
+Spring AOP – Ordering advice using @Order
+
+Recent Posts
+Circuit Breaker Pattern in Microservices
+Service Discovery Patterns in Microservices
+The API Gateway Pattern in Microservices
+Introduction to Microservices Architecture
+Getting Started with JUnit 5
+Spring @Import and @ImportResource annotations
+Handle Resources in Spring
+JUnit 5 – Software Testing Framework
+Spring WebFlux REST Api with MongoDB and Spring Data
+A functional endpoint in Spring WebFlux
+Categories
+Categories
+Select Category
+About Jstobigdata
+About us
+Contact us
+Privacy Policy
+Terms & Conditions
+Sitemap
+© Copyright 2023 | All Rights Reserved | Created by Bikram Kundu
+FacebookLinkedInReddit
+Jstobigdata uses cookies and third party services.
+OK
+Go to Top

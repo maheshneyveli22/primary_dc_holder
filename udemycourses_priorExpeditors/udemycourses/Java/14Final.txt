@@ -1,0 +1,32 @@
+
+1) Final constants
+Not actually constants
+2) It can be modified once  before class constructor finishes
+-> it means we can assign a final variable a) either when we declare it or b) in the constructor
+
+3) by this way each time instance is created, final variable will be incremented
+
+4) 
+if class marked as final, it prevents your class from subclassed. i.e inherited
+if constructor is marked private, it prevents class from being instantiated
+
+5) TO make method from being overridden, mark the method as final
+
+
+6) Java does not allow static constructor to be created
+
+6) static initialization block
+
+-> static initializer block executed only once when the class is first loaded into the project
+
+7) static final variables of a class gets initialized by the time,static initialization blocks get terminated. 
+
+8) Static initialization block called in the order they are declared in class
+
+
+9) so order is:
+
+First: Static initialization blocks called in order as they are declared
+Second: Empty blocks called
+Third: Constructor called
+Fourth: Instance methods called

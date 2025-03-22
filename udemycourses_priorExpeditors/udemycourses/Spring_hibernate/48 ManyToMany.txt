@@ -1,0 +1,49 @@
+1) for many to many mapping we can use join table, this table makes use of relationship between course and students
+
+2) Join Table:
+-> a table that provides a mapping between two tables.
+-> it has foreign keys for each table to define the mapping relationship
+
+
+3) 
+@ManyToMany
+
+COURSE<--->COURSE_STUDENT<--->STUDENT
+
+
+4) Join table example
+COURSE:
+id int
+title varchar(128)
+instructor_id INT(11)
+
+COURSE_STUDENT
+course_id int(11)
+student_id int(11)
+
+STUDENT
+ID INT(11)
+first_name varchar(45)
+last_name varchar(45)
+email varchar(45) 
+
+
+5) @ManyToMany
+
+@Entity
+@Table(name="course")
+public class Course{
+
+
+@ManyToMany
+@JoinTable(
+name="course_student",
+joinColumns=@JoinColumn(name="course_id"),
+inverseJoinColumns=@JoinColumn(name="student_id")
+)
+private List<Student> students;
+
+
+-> inverse refers to the other side of the relationship
+
+}

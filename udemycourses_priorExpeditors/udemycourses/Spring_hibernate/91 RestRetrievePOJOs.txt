@@ -1,0 +1,23 @@
+CREATE A NEW SERVICE
+
+a) Return a list of students
+
+GET /api/students Returns a list of students
+
+
+b) Spring Rest service
+
+Rest CLient--/api/students--->Rest SERVICE
+
+-> this api request will return a list of students as json
+-> We will write this code for the rest service on right side
+
+c) Convert Java POJO to JSON
+a)  Our rest service will return List<Student>
+b) we need to conver List<Student> to JSON
+c) Jackson can help on the to convert list of student pojos to JSON
+d) As long as jackson project is on classpath or pom.xml, json data being passed to rest controller is converted to Java POJO
+e) Similarly Java POJO being returned from REST controller is converted to JSON
+
+
+

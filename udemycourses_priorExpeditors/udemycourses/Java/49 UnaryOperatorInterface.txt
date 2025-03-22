@@ -1,0 +1,12 @@
+UnaryOperator interface
+1) More specific type of function
+-> it accepts single argument and returns value of same type as argument
+eg: long unary operator accepts long and returns a long
+
+2) All the unary variants extend function interface
+
+
+3) IntUnaryOperator
+
+IntUnaryOperator incBy5 = i -> i + 5;
+        System.out.println(incBy5.applyAsInt(10));

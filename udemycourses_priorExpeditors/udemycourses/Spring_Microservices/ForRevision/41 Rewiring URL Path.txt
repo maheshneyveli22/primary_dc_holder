@@ -1,0 +1,15 @@
+REWRITE PATH GATEWAY FILTER
+1) spring.cloud.gateway.routes[0].filters[1]=RewritePath=users-ws/users/status/check, /users/status/check
+
+2) Using regex:
+now here when i request for 
+http://localhost:8082/users-ws/users/status/check
+
+it will replace with path
+
+http://localhost:8082/users/status/check
+
+because of this change in application.properties
+
+spring.cloud.gateway.routes[0].filters[1]=RewritePath=users-ws/users/status/check, /users/status/check
+

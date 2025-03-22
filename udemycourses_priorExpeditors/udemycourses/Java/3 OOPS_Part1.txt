@@ -1,0 +1,24 @@
+1. Important points on overriding
+1. Only inherited methods can be overridden, in other words, methods can be overridden only in child classes
+2. Constructors and private methods cannot be overridden
+3. Methods that are final cant be overriden
+4. A sub class can use super.methodName() to call the super class version of overridden method.
+5. Must have same return type or child class return type
+6.  Must not have a lower modifier but may have a higher modifier
+7. Must not throw a new or broader checked exception 
+
+
+2. STATIC Methods
+-> declared using static modifier
+-> cant access intance mthods and instance variables directly
+-> Cant use 'this' keyword in static methods
+-> when we see method that does not use instance variables, that method can be declared static
+
+
+3. Instance methods;
+-> instance methods can access instance methods and variables directly
+-> instance methods can also access static methods and variables directly
+
+4. Static Variables:
+-> every instance of that class share the same static variable.
+-> if changes are made to that variable, all other instances can see the effect of that change.

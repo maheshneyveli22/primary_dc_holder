@@ -1,0 +1,17 @@
+1) Instead of using HttpServletRequest use @RequestParam annotation to read request params
+
+
+@RequestMapping("/processFormVersionTwo")
+public String letsShoutDude(
+@RequestParam("studentName") String theName, Model model)
+{
+// now we can use the variable: theName
+
+}
+
+
+2) behind the scenes:
+-> Spring will read param from request: studentName
+-> Bind it to the variable: theName
+
+3) @RequestParam is the annotation used for reading form data

@@ -1,0 +1,27 @@
+1) Bufferred reader reads text from the input stream and buffers the characters into character array
+2) Reading chunks of data from file is more efficient than reading just few characters at a time
+-> because it takes time to seek and find exact sector or location in the diskspace
+3) Default size of buffer is 8KB
+
+4) Reading contents of a file:
+
+try(BufferredReader dirLocation= new BufferredReader(new FileReader("locations.txt)))
+{
+ String input;
+
+while((input=dirLocation.readLine())!=null)
+{
+String[] data=input.split(" ");
+
+}
+}
+
+
+4) Writing contents to a file:
+
+try(BufferedWriter writeFile= new BufferedWriter(new FileWriter("locations.txt)))
+{
+ {
+ writeFile.write("write the contents as string");
+ }
+ }

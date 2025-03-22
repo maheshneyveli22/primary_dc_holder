@@ -1,0 +1,136 @@
+1) Java NIO - Java new input output
+-> added in Java 1.4
+
+2) Java NIO two buckets
+a) Those that deal with file system
+b) Those that deal with reading and writing data.
+
+3) 
+Java IO package - Thread will block while waiting to read or write to a stream or buffer
+
+Java nio package - Threads using java.nio classes will not block.
+-> they are free to continue executing
+-> thus Java nio was introduce as performance improvement
+
+
+4) 
+-> while using java.io classes work with streams(character and binary)
+-> Data is read one byte or character at a time and sometimes bufferred depending on which classes are used.
+-> when using Java.nio you will deal with data in blocks and rather than processing one byte or character at a time, one block will be processed at a time.
+-> To accomplish this, you use channels and buffers
+
+
+5) FOR WRITING
+Path locPath=FileSystems.getDefault.getPath("locations_big.txt");
+Path dirPath=FileSystems.getDefault.getPath("directions_big.txt");
+
+try(BufferedWriter locFile= Files.newBufferedWriter(locPath);
+BufferedWriter dirFile=Files.newBufferedWriter(dirPath))
+{
+for(Location: locations.values())
+{
+locFile.write(location.getLocationID()+","+location.getDescription())+"\n";
+
+for(String direction:location.getExits().keySet())
+{
+if(!direction.equalsIgnoreCase("Q"))
+{dirFile.write(location.getLocationID()+","+direction+","+location.getxits().getDirection+"\n");
+}
+}
+{
+catch(IOException e)
+{
+System.out.println("IO Exception:" +e.getMessage());
+}
+}
+
+
+6) FOR READING:
+
+Path locPath= FileSystems.getDefault.getPath("locations_big.txt");
+Path dirPath= FileSystems.getDefault.getPath("directions_big.txt");
+
+try(Scanner scanner= new Scanner(Files.newBufferedReader(locPath)))
+{
+scanner.useDelimeiter(",");
+while(scanner.hasNextLine())
+{
+int loc =Scanner.nextInt();
+scanner.skip(scanner.delimiter());
+String description=scanner.nextLine();
+Sytem.out.println("Imported loc: "+loc+":"+description);
+
+locations.put(loc,new Location(loc,description,null));
+
+}
+
+
+catch(IOException e)
+{
+e.printStacktrace():
+}
+
+
+try(BufferedReader dirFile=Files.newBufferedReader(dirPath))
+{
+String input;
+
+while((input=dirFile.readLine()!=null)
+{
+String[] data=input.split(",");
+
+...Populate the object
+}
+}
+catch(IOException e)
+{
+e.printStacktrace();
+}
+
+}
+
+
+}
+
+
+7) To Read and Write Objects using java nio
+WRITE OBJECTS:
+Path path = FileSystems.getDefault.getPath("locations.dat");
+
+try(ObjectOutpuStream locFile = new ObjectOutpuStream(new BufferedOutputStream(Files.newOutputStream(locPath)))
+{
+for(Location location:locations.values())
+{
+locFile.writeObject(location);
+}
+
+
+READ OBJECTS:
+
+Path locPath= FileSystems.getDefault().getPath("locations.dat");
+try(ObjectInputStream locFile= new ObjectInputStream(new BufferedInputStream(Files.newInputStream(locPath)))
+boolean eof=false;
+try{
+Location location=(location)
+locFile.readObject();
+locations.put(location.getLocationID(),location);
+
+}
+catch(EOFException e)
+{
+eof=true;
+}
+
+}
+catch(InvalidClassException e)
+{
+System.out.println("InvalidClassException "+e.getMessage());
+}
+catch(IOException e)
+{
+System.out.println("IOException "+e.getMessage());
+}
+catch(ClassNotFoundException e)
+{
+System.out.println("ClassNotFoundException "+e.getMessage());
+}

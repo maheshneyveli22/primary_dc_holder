@@ -1,0 +1,2 @@
+1) Class can extend only one class in Java
+2) While one class can implement many interfaces

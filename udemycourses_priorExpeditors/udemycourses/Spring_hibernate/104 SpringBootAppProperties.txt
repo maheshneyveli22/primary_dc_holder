@@ -1,0 +1,29 @@
+APPLICATION PROPERTIES
+
+1) By default spring boot will load properties from: application.properties, this file will be present under sr/main/resources directory
+
+
+2) application.properties file is created by spring initializer as empty at the beginning
+-> we can add spring boot properties
+server.port=8585
+#Configure my properties
+coach.name= Mickey Mouse
+team.name= The Mouse Crew
+
+-> so we say dont listen on port 8080 instead listen on 8585 port
+
+
+3) How to read data from application.properties file?
+
+@RestController
+public class FunRestController
+{
+@Value("${coach.name}")
+private String coachName;
+
+@Value("${team.name}")
+private String teamName;
+
+}
+
+

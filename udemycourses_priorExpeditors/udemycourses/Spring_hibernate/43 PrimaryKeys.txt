@@ -1,0 +1,18 @@
+1) @ID for primary Key
+
+2) ID generation strategies
+
+GenerationType.AUTO -> Pick appropriate strategy for the particular DB
+GenerationType.IDENTITY -> Assign primary keys using database identity column
+GenerationType.SEQUENCE -> Assign primary keys using database sequence
+GenerationType.TABLE -> Assign primarykeys using underlying database table to ensure uniqueness
+
+
+3) Changing AUTO_INCREMENT values
+
+eg: 
+ALTER TABLE hb_student_tracker.student AUTO_INCREMENT=3000
+
+4) Resetting auto_increment value to 1
+
+TRUNCATE hb_student_tracker.student

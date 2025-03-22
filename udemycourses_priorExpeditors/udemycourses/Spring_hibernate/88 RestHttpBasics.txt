@@ -1,0 +1,58 @@
+1) REST over HTTP
+->Most common use of rest is over HTTP
+-> Leverage HTTP methods for crud operations
+
+2) HTTP vs Crud
+
+POST - Create new entity
+GET - Read list of entities
+PUT - Update existing entity
+DELETE - Delete existing entity
+
+3) HTTP Request message
+-> has three main parts
+
+i)  Request Line: HTTP command
+-> i.e whether get,post method etc
+
+ii) Header Variables
+-> contains request meta data.
+-> it contains additional information about this request
+
+iii) Message Body
+-> Contents of message
+
+
+4) HTTP Response Message:
+
+i) Response Line
+-> Contains server protocol and status code like 200,404 or 500
+
+ii) Header variables
+-> Contains response metadata
+
+
+iv) Message Body
+-> contents of message
+
+HTTP Response status codes
+100-199 ---> Informational
+200-299 ---> Successful
+300-399 ---> Redirection
+400-499 ---> Client error
+500-599 ---> Server error
+
+
+5) MIME content types
+-> MIME content types is the message format for the actual payload
+-> MIME - Multipurpose Internet mail extension
+
+SYNTAX:
+type/sub-type
+
+eg: text/html,text/plain
+
+6) Client Tool
+-> Sends HTTP requess to the REST web service/api
+
+eg: curl, Postman etc

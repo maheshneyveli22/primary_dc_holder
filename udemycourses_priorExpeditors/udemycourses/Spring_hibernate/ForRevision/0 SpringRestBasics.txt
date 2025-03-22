@@ -1,0 +1,225 @@
+1) Free Rest APIs can be found at:
+
+www.programmableweb.com
+www.jsonplaceholder.typicode.com
+
+2) JSON
+a) Name always in quote
+b) Value if String will be in quote
+   if integer, boolean - No quote
+   Array will hold values of nothing or null or with some value 
+c) There can be nested json objects
+
+JSON Data Binding:
+-> process of converting json data into Java POJO or vice versa
+-> Serialization/Deserialization , Marshalling/Unmarshalling  all mean the same
+
+3) Spring uses Jackson behind scenes to handle data binding between JSON and Java POJO
+
+-> called as Jackson Data binding API
+-> Jackson supports both JSON and XML
+
+4) JSON to Java POJO:
+import 
+-> done using ObjectMapper
+
+com.fasterxml.jackson.databind.ObjectMapper;
+
+psvm()
+{
+ObjectMapper mapper= new ObjectMapper();
+
+Student myStudent= mapper.readValue(new File("data/sample.json"), Student.class);
+
+}
+
+
+5) Java POJO to JSON:
+//create ObjectMapper
+ObjectMapper mapper = new ObjectMapper();
+//Read JSON from file and map/conver to Java POJO
+Student myStudent= mapper.readValue(new File("data/sample.json"),Student.class);
+
+//Enable serialization with indent output
+mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//Write JSON to output file
+mapper.writeValue(new File("data/output.json"), myStudent);
+
+
+
+6) Spring and Jackson supports
+-> Spring automatically handles Jackson integration
+-> JSON data passed to REST controller is converted to POJO. Also Java object being returned form REST controller is converted to JSON  automatically.
+
+7) If JSON has new properties but if java is not in sync, then we can ignore those properties - else it will throw UnrecognisedPropertyException
+
+-> in POJO add @JsonIgnoreProperties(ignoreUnknown=true)
+
+eg:
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class Student{
+
+}
+
+7) HTTP Request Message:
+a) Request line:The Http command eg: get/post/delete/put
+ b) Header Variables: request metadata
+ c) Message body: actual payload
+
+
+HTTP Response Message:
+a) Response line:Server Protocol and status code
+ b) Header Variables: Response  metadata: content type, xml/json, size
+ c) Message body: actual payload/contents of message
+
+8) HTTP Response codes:
+
+100-199 Informational
+200-299 Successful
+300-399 Redirection
+400-499 Client error
+500-599 Server error
+
+
+9) Spring Rest support:
+@RestController extension of @Controller
+-> handles Rest requests and responses
+
+a) ->in COnfig class:
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages="com.luv2code.springdemo")
+public class DemoAppConfig{
+
+
+b) WebappInititializer or ServletInitializer
+-> Spring MVC provides support for  web app initialization
+-> Makes sure that code is automatically detected
+-> Your code is used to initialize the servlet container
+
+AbstractAnnotationConfigDispatcherServletInitializer
+-> we need to extend this abstract class, override the required methods
+-> specify servlet mapping  and location of your app config
+
+eg: 
+MySprintMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
+
+-> Override: getRootConfigClasses(), getServletConfigClasses()->DemoAppConfig, getServletMapping()->"/"
+
+c) -> Create spring RestController
+
+10) when request contains PathVariable:
+-> In controller
+
+@GetMapping("/students/{studentId}")
+public Student getStudents(@PathVariable int studentId)
+{
+
+11) Exception handling for bad data: eg studentId 
+
+a) Create custom error response class
+
+public class StudentErrorResponse
+{
+private int status;
+private String message;
+private long timeStamp;
+
+}
+
+b) Create custom exception class
+
+public class StudentNotFoundException extends RuntimeException
+{
+public StudentNotFoundException(String message)
+{
+super(message);
+}
+}
+
+c) Update Rest service to throw exception if student not found
+-> in rest controller class
+
+d) Add an exception handler method using @ExceptionHandler annotation in RestController(StudentRestController) class
+-> ExceptionHandler will return a response entity
+-> ResponseEntity is a wrapper for HttpResponseObject
+-> ResponseEntity gives fine grained control to specify: a) Status code b) HTTP headers c) Response body
+
+
+@ExceptionHandler
+public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc)
+{
+StudentErrorResponse error= new StudentErrorResponse();
+error.setStatus(HttpStatus.NOT_FOUND.value());
+error.SetMessage(exc.getMessage());
+error.setTimeStamp(System.currentTimeMillis());
+
+return new ResponseENtity(error,HttpStatus.NOT_FOUND);
+
+
+12) To handle generic exceptions add another method which accepts Exception as parameter
+
+@ExceptionHandler
+public ResponseEntity<StudentErrorResponse> handleException(Exception exc)
+{
+StudentErrorResponse error= new StudentErrorResponse();
+error.setStatus(HttpStatus.BAD_REQUEST.value());
+error.SetMessage(exc.getMessage());
+error.setTimeStamp(System.currentTimeMillis());
+
+return new ResponseENtity(error,HttpStatus.BAD_REQUEST);
+
+
+13) Global Exception Handlers: 
+-> ExceptionHandler code is specific only for specific rest controller
+-> cant be reused by other controllers
+-> We need global exception handlers
+  * to help reuse
+  * Centralize exception handling
+  
+ To Solve:
+ a) Add Spring @ControllerAdvice
+ -> @ControllerAdvice is similar to Interceptor/filter
+ -> Pre-process requests to controllers
+ -> Post-process responses to handle exceptions
+ -> Perfect for global exception handling
+ -> Real time use of AOP
+ 
+ Development process:
+ a) Create new @ControllerAdvice
+ i) Create StudentRestExceptionHandler class
+ 
+ @ControllerAdvice
+ public class StudentRestExceptionHandler{
+ 
+ 
+ b) Refactor REST service remove exception handling code from our rest controller class
+ 
+ c) Add exception handling code to @ControllerAdvice
+ -> remove from controller class and place exception handling code here in @ControllerAdvice->StudentRestExceptionHandler class
+ 
+ @ExceptionHandler
+public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc)
+{
+StudentErrorResponse error= new StudentErrorResponse();
+error.setStatus(HttpStatus.NOT_FOUND.value());
+error.SetMessage(exc.getMessage());
+error.setTimeStamp(System.currentTimeMillis());
+
+return new ResponseENtity(error,HttpStatus.NOT_FOUND);
+
+14) API Design:
+a) Review API requirements
+b) Identify main resource/entity
+c) Use HTTP methods to assign action on resource
+
+
+15) Accessing request body
+-> Jackson will convert request body from JSON to PoJO
+
+->@RequestBody annotation binds the POJO to a method parameter
+
+@PostMapping("/customers")
+public Customer addCustomer(@RequestBody Customer theCustomer)
+{ }
+

@@ -1,0 +1,19 @@
+1) to write contents to a file:
+
+FileWriter locFile= new FileWriter("locations.txt");
+for(Location location: locations.values())
+{
+locFile.write(location.getLocationID()+","+location.getDescription());
+}
+locFile.close();
+
+
+2) try with resources from Java7:
+-> here we declare the file resource in try block itself 
+-> no need for closing FileWriter, since the java nio handles it
+
+try(FileWriter locFile = new FileWriter("locations.txt");
+for(Location location: locations.values())
+{
+locFile.write(location.getLocationID()+","+location.getDescription());
+}

@@ -1,0 +1,18 @@
+1) To make your restful webservice respond with a specific HTTP status code, the return type of the GetUser method should be changed to ResponseEntity
+
+2) Also change return value of getUser method from UserRest to ResponseEntity
+
+3) ResponseEntity has constructors as type of object to be returned and the status code, we can use that.
+
+eg:  ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+
+
+
+	@GetMapping(path= "/{userId}", produces = { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
+		UserRest userRest=new UserRest();
+		userRest.setFirstName("Mahesh");
+		userRest.setLastName("Elumalai");
+		userRest.setEmailId("test@test.com");
+		return  new ResponseEntity<UserRest>(userRest,HttpStatus.ACCEPTED);
+	}

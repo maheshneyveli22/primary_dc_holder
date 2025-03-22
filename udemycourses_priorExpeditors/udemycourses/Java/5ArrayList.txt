@@ -1,0 +1,40 @@
+1) For arrays to copy: Arrays.CopyOf
+
+eg:    int a[] = { 1, 8, 3 };
+ 
+        // Create an array b[] of same size as a[]
+        // Copy elements of a[] to b[]
+        int b[] = Arrays.copyOf(a, 3);
+		
+
+2) For array list to find an object: use arraylist.contains()
+3) to find where an object is there: arraylist.indexOf() will return the position		
+
+4) To copy array list:
+
+a) addAll of Arraylist
+b) while creating pass the old list as parameter
+
+
+eg:
+
+
+        ArrayList<String> maheshList2= new ArrayList<String>();
+        maheshList2.addAll(mahesList);
+
+        System.out.println(maheshList2);
+
+        ArrayList<String> maheshList3= new ArrayList<String>(mahesList);
+        System.out.println(maheshList3);
+		
+		
+5) Convert ArrayList to array: 
+
+it has two steps a) first create array using list size b) use list.ToArray(T t) to convert it to array		
+
+
+eg: 
+        String[] maheArray=new String[mahesList.size()];
+        maheArray=mahesList.toArray(maheArray);
+
+        System.out.println(Arrays.toString(maheArray));

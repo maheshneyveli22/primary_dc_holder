@@ -1,0 +1,45 @@
+1) We can use Java Standard Bean validation API
+2) Defines metadata model and api for entity validation
+3) Not tied to either the webtier or the persistence tier
+4) Available for server side apps and also client side Java FX/Swing apps
+
+
+SPRING AND VALIDATION
+1) Spring version 4 and higher supports bean validation API
+2) Preferred method for validation when building Spring apps
+3) Simply add validation JARs to our project
+
+
+VALIDATION
+14) @NotNull - Checks that the annotated value is not null
+15) @Min - Must be a number>=value
+16) @Max - Must be a number<=value
+17) @Size - Size must match given size
+18) @Pattern - Must match a regular expression pattern
+19) @Future/@Past - Date must be in future or past of given date
+20) @valid -> performs validation rules of model object
+
+
+
+RESULTS OF VALIDATION:
+-> Spring stores results of validation in BindingResult object
+
+@RequestMapping("processForm")
+public String processForm(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult theBindingResult)
+{
+if(theBindingResult.hasErrors())
+{
+return "customer-form";
+}
+else
+{
+return "customer-confirmation";
+}
+
+}
+
+###########
+-> Important things to note here are:
+a) @valid  is for validation and 
+b) BindingResult is for storing validation results
+-> location of BindingResult is important, it should be after ModelAttribute. Only then validation will work. It will not work if present in any other location.

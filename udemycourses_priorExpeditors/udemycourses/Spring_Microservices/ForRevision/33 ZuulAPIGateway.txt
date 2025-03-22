@@ -1,0 +1,8 @@
+API GATEWAY WILL ACT AS SINGLE ENTRY POINT TO THE APPLICATION
+1) Zuul is api gateway while ribbon is load balancer which comes along with it
+2) If there are three instances of a microservice, client cant remember urls of all 3) To solve this problem we have  API gateway
+4) Zuul API Gateway will be single entry point for our running microservices
+5) API gateway accepts HTTP requests coming from client application and it will be routing these HTTP requests to instances of microservices running behind the gateway and zuul gateway will get the list of addresses of all the running microservices  from Eureka Discovery server
+6) We will enable spring security on Zuul API gateway and additional data routing for incoming https requests to destination microservices
+7) Zuul will also peform User authorization for us 
+8) If requests to a protected web service does not contain a valid json web token in the authorization header, zuul api gateway will not let that request pass through and it will return proper errror message. 

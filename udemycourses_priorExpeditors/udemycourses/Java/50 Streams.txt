@@ -1,0 +1,20 @@
+1) Streams - Means a series of computations
+
+2) 
+
+   someBingoNumbers
+                .stream()
+                .map(String::toUpperCase)
+                .filter(s->s.startsWith("G"))
+                .sorted()
+                .forEach(System.out::println);
+
+
+
+a) stream() -> 
+-> sequence of element supporting sequential and parallel aggregate operations
+
+-> first converst to upper case
+-> filter next
+-> next do sorting
+-> forEach

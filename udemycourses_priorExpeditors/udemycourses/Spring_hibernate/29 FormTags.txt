@@ -1,0 +1,36 @@
+SPRING MVC FORM TAGS
+1) Spring MVC form tags are building blocks for a web page
+-> Form tags are configurable and reusabale for a web page
+
+
+2) Data Binding:
+-> Spring MVC form tags can make use of data binding
+-> Automatically setting/retrieving data from a Java object/bean
+
+3) Form tags generate html for you
+
+
+form:form    Main form container
+form:input   text field
+form:textarea multi-line text field
+form:checkbox   checkbox
+form:radiobutton  radio buttons
+form:select       drop down list
+
+
+4) Web Page Structure
+
+-> JSP Page with special Spring MVC form tags
+
+<html>
+....regular html....
+....spring mvc form tags...
+....more html....
+
+</html>
+
+
+5) how to reference spring mvc form tags:
+-> Specify the Spring namespace at the beginning of JSP file
+
+<%@ taglib prefix="form" uri="https://www.springframework.org/tags/form" %>

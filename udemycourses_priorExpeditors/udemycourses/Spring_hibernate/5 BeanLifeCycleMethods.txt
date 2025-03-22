@@ -1,0 +1,21 @@
+BEAN LIFECYCLE
+1) Container started
+2) Bean instantiated
+3) Dependencies injected
+4) Internal spring processing
+5) Your custom init method
+6) Bean is ready to use/Container is shutdown
+7) Custom destroy method
+8) Stop
+
+1) Init/Destroy method
+<bean id="myCoach"
+class="com.luv2code.springdemo.TrackCoach"
+init-method="doMyStartupStuff"
+destroy-method="doMyCleanupStuff">
+....
+</bean>
+
+2) Development process:
+a) Define methods for init and destroy
+b) Configure method names in Spring config file

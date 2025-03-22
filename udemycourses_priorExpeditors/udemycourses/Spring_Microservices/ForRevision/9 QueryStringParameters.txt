@@ -1,0 +1,13 @@
+1) Query string is to getusers based on a condition. this will still return collection but based on certain condition
+
+2) Query String indicated by adding question mark(?) as part of the url. whatever comes after ?, will be query string
+eg: http://wwww.yourWebsiteAddress.com/api/users/?start=1&limit=50
+
+3) Multiple parameters of query string can eb passed in url via & symbol
+
+4) SO the first query string parameter will have ? and the second and remaining query string parameters will have & symbol
+
+5) Now to accept query string parameter along with users, we need to create new method getUsers and pass the query string parameters
+using @RequestParam annotation as parameter
+
+	public String getUsers(@RequestParam int pageId, @RequestParam int limit)

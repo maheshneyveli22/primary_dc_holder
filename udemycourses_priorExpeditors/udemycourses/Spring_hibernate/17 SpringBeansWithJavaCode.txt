@@ -1,0 +1,63 @@
+1) Earlier we defined spring beans with xml
+
+
+2) Write new coach eg: SwimCoach
+
+public class SwimCoach implements Coach
+{
+
+.....
+}
+
+
+
+3) DEVELOPMENT PROCESS:
+a) Define method to expose beans in configuration class
+
+@Configuration
+public class SportConfig{
+
+@Bean
+public Coach swimCoach()
+{
+SwimCoach mySwimCoach= new SwimCoach();
+
+return mySwimCoach;
+}
+
+}
+
+@Bean -> defines a bean in spring configuration class. method creates instance of bean and returns it
+-> method creates instance of SwimCoach and return it
+-> method name swimCoach is the bean id that will be registered by the spring container
+-> we wont use component scan in thsi config class, instead define each bean individually in the config class
+
+
+b) Inject bean dependancies
+
+eg: Coach wants FortuneService
+
+@Bean
+public FortuneService happyFortuneService()
+{
+return new HappyFortuneService();
+}
+
+-> here method name will be "bean id" eg: "happyFortuneService"
+
+
+@Bean
+public Coach swimCoach()
+{
+SwimCoach mySwimCoach = new SwimCoach(happyFortuneService());
+
+return mySwimCoach;
+}
+c) Read spring java configuration class
+
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SportConfig.class);
+
+d) Retrieve bean from Spring container
+
+Coach theCoach = context.getBean("swimCoach",Coach.class);
+

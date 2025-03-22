@@ -1,0 +1,11 @@
+<!-- Load custom message resources -->
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+<property name="basenames" value="resources/messages"/>
+
+</bean>
+
+---> above declaration loads resources/messages.properties
+
+
+in properties file:
+typeMismatch.customer.freePasses=Invalid number

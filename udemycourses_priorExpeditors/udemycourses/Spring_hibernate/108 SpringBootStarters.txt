@@ -1,0 +1,24 @@
+Spring Boot Starters
+
+1) Spring Boot Starters are a curated list of Maven dependencies
+-> collection of dependencies grouped together
+-> Tested and verified by Spring development team
+-> Makes it much easier for the developer to get started with spring
+-> Reduces amount of maven configuration
+
+2) In spring initializer we select web dependancy
+-> on doing that, we automatically get spring-boot-starter-web in pom.xml
+
+3) If we are building spring app that needs: web, security - then simply select the dependancy in the spring initializer
+
+
+4) SPring boot starters
+
+a) spring-boot-starter-web -> Building web apps includes validation, rest.
+-> uses tomcat as default embedded server
+
+b) spring-boot-starter-security -> Adds spring security support
+
+c) spring-boot-starter-data-jpa -> spring database support with jpa and hibernate
+
+d) 

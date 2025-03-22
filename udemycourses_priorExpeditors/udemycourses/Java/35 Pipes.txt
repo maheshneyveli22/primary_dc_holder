@@ -1,0 +1,4 @@
+1) Pipes -> to transfer data between threads
+2) SinkChannel -> several threads write into this channel
+
+3) SourceChannel -> for reading data

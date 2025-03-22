@@ -1,0 +1,26 @@
+FIELD INJECTION:
+-> Inject dependencies by setting field values on your class directly(even private fields)
+-> Accomplished by using java reflection
+
+
+FIELD INJECTION - DEVELOPMENT PROCESS:
+
+1) Configure dependancy injection with autowired annotation
+-> applied directly to field
+-> no need for setter methods
+
+
+eg:
+public class TennisCoach implements Coach
+{
+@Autowired
+private FortuneService fortuneService;
+
+public TennisCoach()
+{
+
+}
+
+//Setter methods not needed
+
+}

@@ -1,0 +1,19 @@
+1) Reading existing directory contents
+
+Path directory=FileSystems.getDefault().getPath("FileTree\\Dir2");
+try(DirectoryStream<Path> contents=Files.newDirectoryStream(directory))
+{
+for(Path file:contents)
+{
+
+System.out.println(file.getFileName());
+}
+}
+catch(IOException | DirectoryIteratorException e)
+{
+System.out.println(e.getMessage());
+}
+
+newDirectoryStream---> this method returns a directory stream of paths
+-> DirectoryStream is a sinterface that implements Iterable interface. 
+

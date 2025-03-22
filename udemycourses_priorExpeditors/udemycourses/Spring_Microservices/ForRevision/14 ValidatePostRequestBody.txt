@@ -1,0 +1,16 @@
+1) Now we are going to add validation for the entry parameters ie firstName,lastName etc should not be empty
+
+2) To do validation we are going to use HibernateValidator and the prevalidation constraints
+
+3) since we are using spring boot and added corresponding dependancy in pom.xml we dont need any additional libraries
+
+4) what we need to do is to enable validation for our beans and add few annotations
+
+5) in createUser method, just be @RequestBody annotation we will add another annotation @valid
+
+6) now go to UserDetailsRequestModel and add the corresponding annotation
+
+
+7) 
+a) @Valid annotation should be in creatusermethod before request body
+b) go to request model: UserDetailsRequestModel and add not null and other annotations for validation

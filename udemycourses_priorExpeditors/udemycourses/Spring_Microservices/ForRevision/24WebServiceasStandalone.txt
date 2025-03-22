@@ -1,0 +1,119 @@
+1) now we can run the webservice without using eclipse
+
+2) first build jars using mvn install
+
+3) before than ensure maven is downloaded and set upto bin in path
+
+eg:
+D:\softwares\apache-maven-3.8.6\bin
+
+4) After maven installed, go to the directory of project in cmd prompt
+
+eg: D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>
+
+5) execute mvn clean install
+
+eg: D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>mvn clean install
+
+
+6) Once build is successfull, go to the target path where Jar is present
+
+eg: 
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>cd target
+
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws\target>dir
+ Volume in drive D is New Volume
+ Volume Serial Number is 6C62-D499
+
+ Directory of D:\Java\SpringMicroServiceProject_July12\mobile-app-ws\target
+
+13-07-2022  13:56    <DIR>          .
+13-07-2022  13:54    <DIR>          ..
+13-07-2022  13:54    <DIR>          classes
+13-07-2022  13:54    <DIR>          generated-sources
+13-07-2022  13:54    <DIR>          generated-test-sources
+13-07-2022  13:55    <DIR>          maven-archiver
+13-07-2022  13:54    <DIR>          maven-status
+13-07-2022  13:56        21,076,211 mobile-app-ws-0.0.1-SNAPSHOT.jar
+13-07-2022  13:55            12,796 mobile-app-ws-0.0.1-SNAPSHOT.jar.original
+13-07-2022  13:55    <DIR>          surefire-reports
+13-07-2022  13:54    <DIR>          test-classes
+               2 File(s)     21,089,007 bytes
+               9 Dir(s)  437,523,304,448 bytes free
+			   
+			   
+			   
+7) Now execute java command to execute the jar
+
+eg:
+
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws\target>java -jar mobile-app-ws-0.0.1-SNAPSHOT.jar	
+
+
+
+8) see if tomcat is up:
+
+2022-07-13 14:03:37.917  INFO 6696 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-07-13 14:03:37.928  INFO 6696 --- [           main] c.appsmahesh.ws.MobileAppWsApplication   : Started MobileAppWsApplication in 2.88 seconds (JVM running for 3.379)
+
+
+9) now execute webservice requests in postman
+
+10) Other useful commands 
+
+a) use control+C to shutdown tomcat
+
+b) To clean the target folder and build jar again use: mvn clean 
+
+---> now if you check target will be empty
+
+
+eg:
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws\target>cd..
+
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>mvn clean
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------< com.appsmahesh.ws:mobile-app-ws >-------------------
+[INFO] Building mobile-app-ws 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:3.2.0:clean (default-clean) @ mobile-app-ws ---
+[INFO] Deleting D:\Java\SpringMicroServiceProject_July12\mobile-app-ws\target
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.459 s
+[INFO] Finished at: 2022-07-13T14:07:28+05:30
+[INFO] ------------------------------------------------------------------------
+
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>dir
+ Volume in drive D is New Volume
+ Volume Serial Number is 6C62-D499
+
+ Directory of D:\Java\SpringMicroServiceProject_July12\mobile-app-ws
+
+13-07-2022  14:07    <DIR>          .
+12-07-2022  00:25    <DIR>          ..
+12-07-2022  00:28             2,016 .classpath
+12-07-2022  00:25               395 .gitignore
+12-07-2022  00:25    <DIR>          .mvn
+12-07-2022  00:28               718 .project
+12-07-2022  10:16    <DIR>          .settings
+12-07-2022  00:25               848 HELP.md
+12-07-2022  00:25            10,284 mvnw
+12-07-2022  00:25             6,734 mvnw.cmd
+13-07-2022  00:21             1,630 pom.xml
+12-07-2022  00:25    <DIR>          src
+               7 File(s)         22,625 bytes
+               5 Dir(s)  437,544,464,384 bytes free
+
+D:\Java\SpringMicroServiceProject_July12\mobile-app-ws>
+
+----> now we can see there is no target folder
+
+c) now if we do mvn install , jars will be built again and target folder will be present again
+
+
+
+

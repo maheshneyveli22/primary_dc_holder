@@ -1,0 +1,47 @@
+1) IOC ->creating and management of objects
+   Dependency injection -> Inject Object's dependencies
+   
+2) Configuring Spring container:
+ a) XML Configuration file
+ b) Java annotation
+ c) Java source code
+
+3) Spring development process
+ a) Configure your spring beans
+ b) Create a spring container
+ c) Retrieve beans from spring container
+ d) close the context
+ 
+ 
+ a) Configure your spring beans
+ ->applicationContext.xml
+ 
+ b) creating a spring container
+ 
+ ClassPathXmlApplicationContext context= new ClassPathXmlApplicationContext("applicationContext.xml");
+ 
+ -> spring container generically called ApplicationContext
+ 
+ -> Specialized implementations:
+  * ClassPathXmlApplicationContext
+  * AnnotationConfigApplicationContext
+  * GenericWebApplicationContext
+  * Others
+  
+  
+ c) Retrieve bean from spring container
+
+ ClassPathXmlApplicationContext context= new ClassPathXmlApplicationContext("applicationContext.xml");
+ 
+Coach theCoach= context.getBean("myCoach",Coach.class);
+-> here myCoach is the bean id defined in the configuration file: i.e applicationContext.xml
+
+
+d) Steps in Main class:
+i) Load spring configuration file
+ii) Retrieve bean from spring container
+iii) Call methods on the bean
+iv) Close the Application context
+  
+
+ 

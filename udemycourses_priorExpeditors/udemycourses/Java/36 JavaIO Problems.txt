@@ -1,0 +1,19 @@
+PROBLEMS IN java.io File
+
+1) Many methods in class dont throw exceptions or provide specific error messages on why they fail
+
+eg: File.delete() which returns a boolean
+-> if deletion fails , you cant tell if it was because file did not exist or application did not have permission to delete the file
+
+2) File.rename() method works differently in different platforms - hence not portable across platforms
+
+3) No support for Symbolic links
+
+
+4) File class does not provide a way to get metadata about a file such as its permissions, its owner and other security information. metadata it does provide is retrieved inefficiently
+
+5) Many file methods dont work well when working with lots of data.
+
+eg: if you use the File class to request a list of all the files in a directory and if there are lot of files, method can hang
+
+6) Since File class does not understand symbolic links, walking a directory tree is problematic

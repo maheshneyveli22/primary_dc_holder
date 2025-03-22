@@ -1,0 +1,6 @@
+Aspect: Module of code for cross cutting concern
+Advice: What action is taken and when it should be applied
+Join Point: TO read method arguments using join points
+Pointcut: A predicate expression for where advice should be applied.
+Pointcut declaration: for reusage
+Aspect Ordering: to order aspects in required order

@@ -1,0 +1,150 @@
+1) Spring boot
+-> to reduce manual configuration and getting started quickly
+-> comes with embedded server
+
+
+2) mvnw and mvnw.cmd
+-> if maven not installed it will install else ignore
+
+3) Main Spring boot application class:
+-> Created by spring initializer
+-> @SpringBootApplication 
+  : Special annotation
+  : It enables Auto configuration
+  : Component scanning
+  : Additional configuration
+  : This annotation composed of following other annotations:
+i) @EnableAutoConfiguration
+-> ENables auto configuration support
+ii) @ComponentScan
+iii) @Configuration 
+-> To register extra beans with @Bean or import other configuration classes
+
+-> THis class behind scenes
+a) Creates application context and registers all beans
+b) Starts the embedded server like tomcat etc
+
+-> Always place main application class in root package above other packages, so that all packages can be included in component scanning
+-> if stil some packags fall outside we can explicitly mention it like this:
+
+@SpringBootApplication( scanBasePackages=("com.luv2code.springboot.demo.mycoolapp","org.acme.iot.utils", "edu.cmu.wean"))
+public class MyCoolappApplication{
+...
+} 
+
+3)  Spring boot loads properties from application.properties
+
+4) DOnt use src/main/webapp directory if application is packaged as jar
+-> although it is standard maven directory it works only with war packaging
+
+
+5) Spring boot starter - colllection of maven dependancies
+contains: spring-web, spring-webmvc, hibernate-validator, json, tomcat
+-> in spring initializer if we select Web dependancy automatically we will get spring-boot-starter in pom.xml
+
+6) Spring boot-dev-tools -> for restarting server automatically for code changes
+
+7) Spring boot actuator
+-> exposes endpoints to monitor and manage application
+-> easily get DevOps functionality out of the box
+-> just need to add dependancy in pom to enable the same
+
+localhost:8080/actuator/health -> to check status of your application
+localhost:8080/actuator/health -> to get info of your application
+
+-> by default only health and info endpoints are exposed
+
+8) Disable actuator's specific endpoints by adding in application.properties file
+
+9) To run spring boot app from command line:
+
+Two options:
+a) java -jar mycoolapp.jar
+b) mvnw spring-boot:run
+
+a) mvnw package
+-> will create jar
+
+10) By default spring boot reads information from standard properties file: src/main/resources/application.properties
+-> we can deefine any custom properties in this file
+-> Your spring boot app can access properties using @Value
+
+-> In Controller class
+
+@RestController
+public class FunRestController
+{
+
+@Value("${coach.name}")
+private String coachName;
+
+-> Here values will be injected from properties file
+
+11) application.properties
+-> hibernate datasource details are given in application.properties
+
+12)
+EntityManager || SessionFactory
+-> Entity Manager can serve as wrapper for Hibernate session object
+
+13) Various DAO techniques
+
+Version1: Use Entity manager but leverage native Hibernate API
+Version2: Use EntityManager and standard JPA API
+Version3: Spring Data JPA
+
+
+14) 
+a) DAO Interface
+public interface EmployeeDAO
+{
+public List<Employee> findAll()
+
+}
+
+b) DAOImpl
+@Repository
+public class EmployeeDAOHibernateImpl implements EmployeeDAO{
+private EntityManager entityManager;
+
+@Autowired
+public EmployeeDAOHibernateImpl(EntityManager theEntityManager)
+{
+entityManager=theEntityManager;
+}
+
+
+15) Spring Data JPA
+a) Create repository interface extending JPARepository
+
+Here Employee is Entity type and Integer is primary key
+
+eg: public Interface EmployeeRepository extends JPARepository<Employee,Integer> 
+{
+
+}
+
+b) we can use the same in service class to call the database methods
+
+eg:
+@Service
+public class EmployeeServiceImpl implements EmployeeService{
+private EMployeeRepository employeeRepository;
+
+@Autowired
+public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository)
+{
+employeeRepository=theEmployeeRepository;
+}
+
+@Override
+public List<Employee> findAll()
+{
+return employeeRepository.findAll();
+}
+
+}
+
+
+
+16) Spring Data Rest

@@ -1,0 +1,10 @@
+1) hasNext is just a check and only next moves to the element
+
+eg:  while(iterator.hasNext())
+        {
+            System.out.println("Visiting the place: "+iterator.next());
+        }
+		
+2) previous and next 
+-> we can go back and forth in both directions
+---> Java has implemented linked list as doubly linked list		

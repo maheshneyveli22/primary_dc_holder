@@ -1,0 +1,75 @@
+1) Spring initializer created maven project for us
+2) Maven standard directory structure:
+a) src/main/java -> your Java source code
+b) src/main/resources -> Properties/config files used by our app
+c) src/test/java -> Unit testing source code
+
+d) 
+Maven wrapper files:
+mvnw -> Allows you to run a maven project
+-> No need to have maven installed or present in your path
+-> If correct version of maven is not found on your computer, then it automatically downloads correct version and runs maven
+Two files are provided
+
+i) mvnw.cmd -> for ms windows
+mvnw clean compile test
+ii) mvnw.sh for linux/mac 
+$ ./mvnw clean compile test
+
+-> if you have maven already installed in your computer  - then you can ignore/delete the mvnw files
+
+e) Maven pom files
+i) pom.xml -> includes infor that you entered at spring initializer website
+
+
+######
+<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.mahesh</groupId>
+	<artifactId>myownapp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>myownapp</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+################
+<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+-> THis is to package executable jar or war archive. Can also easily run the app.
+
+eg> $ ./mvnw package 
+
+$ ./mwnw spring-boot:run
+
+-> these commands actually run the application			
+			

@@ -1,0 +1,29 @@
+1) So far we have created HTTP requests for users to handle get,post,put,delete.
+2) suppose if we want to get details of a particular user or update a particular user or delete it, we need to provide id of particular user in the uri
+3) this userid going to be passed in uri is going to be a path variable
+
+4) as of now, entire UserController class has only binding i.e @RequestMapping("users")//http://localhost:8080/users
+
+-> entire class is mapped to /users and will be associated with a http request
+
+5) to create binding if user id is passed along with users:
+
+//http://localhost:8080/users/234443xxx
+
+--> we need to update the @GetMapping annotation with PathVariable
+----> so now we have created a binding that will bind this method getUser to a uri which will start with /users/ and with /somevalue
+
+--> Annotation to be added:
+@Get(path="/{useID}")
+
+6) at this point we will have binding, but we need to read this value in our get method
+
+7) we need to add a parameter to the method :getUser(@PathVariable String userId) 
+
+8) so to add PathVariable we need to do two things:
+
+a) update Get annotation with userId: #####@Get(path="/{useID}")######
+b) Update parameter for get method will @PathVariable and pass String UserID:
+######getUser(@PathVariable String userId)###### 
+
+

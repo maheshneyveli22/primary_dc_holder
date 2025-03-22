@@ -1,0 +1,7 @@
+1) RequestParams can be made to optional by using required=false option in requestParam
+
+eg: 
+
+2) but we cannot make required=false for primitives as it will throw error(-> because primitive can not be converted to null), hence always make required=false only for objects. eg: String
+
+3)public String getUsers(@RequestParam(value="page" ,defaultValue = "10" ) int pageId, @RequestParam(value="limit",defaultValue="23") int limit, @RequestParam(value="limit",required=false) String sort)

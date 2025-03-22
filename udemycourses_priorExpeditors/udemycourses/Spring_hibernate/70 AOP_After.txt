@@ -1,0 +1,34 @@
+@After(finally) Advice
+1) This advice runs after a method is completed - regardless of the outcome/exceptions
+2) @After will execute before @AfterThrowing
+3) @After advice Use Cases:
+* Log the exception and/or perform auditing
+* Code to run regardless of method outcome
+* Encapsulate this functionality in AOP aspect for easy reuse
+4) Example
+* Create an advice to run after the method( finally.. success or failure) 
+
+@After("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..)))")
+public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint)
+{
+String method= theJoinPoint.getSignature().toShortString();
+System.out.println("Executing @After(finally)  on method "+method)
+}
+
+5) @After advice does not have access to the exception
+- if you need exception, the use @AfterThrowing advice
+
+6) THe @After advice should be able to run in the case of success or error
+* Your code should not depend on happy path or an exception
+* Logging/Auditing is the easiest case here
+
+
+7) Starting with Spring 5.2.7:
+
+- if advice methods defined in the same @Aspect class that need to run at the same join point
+
+- the @After advice method is invoked AFTER any @AfterReturning or @AfterThrowing advice methods in the same aspect class
+
+
+
+So in our case, the @After and @AfterThrowing are in the same aspect class: MyDemoLoggingAspect.java, hence in latest Spring 5.2.7, the @After will run AFTER the @AfterThrowing.

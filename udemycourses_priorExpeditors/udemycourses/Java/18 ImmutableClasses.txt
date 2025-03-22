@@ -1,0 +1,30 @@
+1) Immutable class is a class whose objects cannot be modified once it is created
+
+2) 
+Why immutable classes?
+a) To produce encapsulation
+b) To reduce errors, if we allow external code to modify our instances
+
+
+3) hOW TO MAKE A CLASS IMMUTABLE:
+a) All class variables should be defined private and final
+b) dont have setters
+c) they can be set via constructors
+d) In constructor, if you have map set, instead of setting it directly - create new map and pass constructor argument to new map
+
+4) oracle recommendation for immutable class:
+
+
+a) Dont provide setter methods
+b) make all fields private and final
+c) Dont allow subclasses to override methods. Simplest way is to declare class as final. 
+-> better approach is to make i) Constructor private and construct instances in factory methods  
+d) if instances fields contains references to mutable objects, dont allow those objects to be changed
+    i) dont provide methods to modify mutable objects
+	ii) dont share references to mutable objects. Never share references to external mutable objects passed to constructor.
+	-> if necessary create copies and store references to those copies.
+	-> Similarly create copies of your internal mutable objects when necessary to avoid returning originals in your methods
+
+
+
+5) In map, if we pass objects as key, then we need to ensure that immutable objects as keys

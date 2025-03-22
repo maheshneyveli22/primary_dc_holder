@@ -1,0 +1,55 @@
+WHAT IS SPRING MVC
+
+1) Framework for building web applications in java
+2) Based on Model-view-controller design pattern
+3) Leverage features of Core Spring framework(IOC,DI) 
+
+4) MVC:
+                                     
+WEB Browser ----> FrontController ----Model-----> View Template ---Model----->WEB Browser
+
+
+5) Spring MVC benefits
+
+-> Spring way of building web app UIs in Java
+-> Leverage set of reusable UI components
+-> Help Manage application state for web requests
+-> Process form data: validation, conversion etc
+-> Flexible configuration for view layer
+
+
+6) Spring MVC behind scenes
+COMPONENTS OF SPRING MVC APPLICATION
+a) Set of web pages to layout UI components : WEB PAGES
+B) Collection of Spring beans(Controllers, services etc) BEANS
+C) Spring Configuration (XML, Annotations or Java) SPRING CONFIGURATION
+
+
+7) FLOW
+1) Everything starts with the first incoming request
+2) Incoming request encounters with FrontController
+-> Also known as dispatcher servlet
+-> Part of spring framework
+-> DIspatcher Servlet or front controller delegates the request to other objects or items in our system
+3) As a developer we will create
+-> Model Objects
+-> View Templates
+-> Controller classes
+4) CONTROLLER 
+-> Code created by developer
+-> Contains business logic
+* Handles request
+* Store/retrieve data(db,web service..)
+* Place data in model
+-> Send to appropriate view template 
+5) MODEL 
+-> Contains data
+-> Store/retrieve data via backend systems
+* DB, web service etc
+* Use Spring bean if you like
+-> Place your data in model
+* Data can be any Java object/Collection
+6) VIEW TEMPLATE
+-> Spring MVC supports many view templates
+-> JSP+JSTL is most common
+-> Developer creates a page and displays data

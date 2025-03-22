@@ -1,0 +1,36 @@
+1) Start discovery service and then start users ms twice
+2) there will be two instances but only one will be showing, since we marked as server.port=0 in application.properties
+
+3) To fix this add the following in application.properties
+
+-> we are starting a new instance whose instance id is starting with application name,
+
+server.port=${PORT:0}
+eureka.instance.instance-id=${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+4) now we will have two application instances with different names:
+
+USERS-WS	n/a (2)	(2)	UP (2) - users-ws:61cae0585ba42606f2a26450eaa9220d , users-ws:236855b69cc39426bf76f1abf2008148
+
+
+5) to do via command line prompt: 
+
+go to path of user service app in cmd line: 
+
+a) D:\Java\SpringMicroServiceProject_July13\PhotoAppApiUsers>dir
+b) D:\Java\SpringMicroServiceProject_July13\PhotoAppApiUsers>mvn spring-boot:run -Dspring-boot.run.arguments=--spring.application.instance_id=mahesh
+-> command to run the instance with command line parameters where instance-id is given with name mahesh
+
+
+6) in eureka dashboard we will have three instances
+
+Application	AMIs	Availability Zones	Status
+USERS-WS	n/a (3)	(3)	UP (3) - users-ws:ed0accfcc357c38efa1f02567a27e00c , users-ws:mahesh , users-ws:a623589b185bc0c7e5439b2cdef71309
+
+
+7) now we will given port number
+
+a) D:\Java\SpringMicroServiceProject_July13\PhotoAppApiUsers>mvn spring-boot:run -Dspring-boot.run.arguments=--spring.application.instance_id=mahesh,--server.port=8999
+
+Application	AMIs	Availability Zones	Status
+USERS-WS	n/a (4)	(4)	UP (4) - users-ws:ed0accfcc357c38efa1f02567a27e00c , users-ws:mahesh , users-ws:a623589b185bc0c7e5439b2cdef71309 , users-ws:mahesh,--server.port=8999

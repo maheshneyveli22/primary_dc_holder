@@ -1,0 +1,12 @@
+YOU WILL LEARN HOW TO:
+
+1) Secure Spring MVC web apps
+2) Develop login pages(default and custom)
+3) Define users and roles with simple authentication
+4) Protect URLs based on role
+5) Use JSP tags to hide/show content based on role
+6) Store users, passwords and roles in DB(plain-text->encrypted)
+
+PRACTICAL RESULTS:
+
+1) Cover most common Spring security tasks needed on daily projects

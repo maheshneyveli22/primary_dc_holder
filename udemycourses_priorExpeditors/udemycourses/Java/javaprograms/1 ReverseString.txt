@@ -1,0 +1,25 @@
+public class StringProgram
+{
+
+public static void main(String args[])
+{
+String s ="abcd";
+reverse(s);
+
+}
+
+public void reverse(String str)
+{
+StringBuilder builder= new StringBuilder();
+
+char[] chars=str.toCharArray();
+
+for(int i=char.length-1;i>=0;i--)
+{
+builder.append(chars[i]);
+}
+
+System.out.println(builder.toString());
+}
+
+}

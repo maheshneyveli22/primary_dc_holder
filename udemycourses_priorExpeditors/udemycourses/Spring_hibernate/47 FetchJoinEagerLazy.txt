@@ -1,0 +1,9 @@
+
+
+Query<Instructor> query = session.createQuery("select i from Instructor i "+"JOIN FETCH i.course "+ "where i.id=:theInstructorId",Instructor.class);
+
+query.setParametere("theInstructorId", theId);
+
+
+
+-> MappedBy signals hibernate that the key for the relationship is on the other side.

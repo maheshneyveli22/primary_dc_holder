@@ -1,0 +1,54 @@
+1. If we start more than one MS instances and then see in eureka dashboard there will be only instance seen as running
+
+2. There are two instances running but only one is registered with Eureka.
+
+3. It would have worked if we have hardcoded the port in application properties instead of 0.
+
+server.port=0
+
+4. Since we use 0 here and let spring boot generate port number, this port number has been assigned after spring boot registers with Eureka.
+
+5. When we have started second application, it basically reregistered itself with Eureka.
+
+6. Even though we have two spring boot applications running, only one spring boot application is registered.
+
+7. To fix that:
+a) In application properties of the Users Serice, create one more property which is Eureka instance ID, so every application can have application name.
+-> if we start new instances, application name will be the same, but we must give it a unique instance. Instance ID will be a unique ID that will identify the running instance of users microservices 
+-> we can have instance id as randomly generated one
+
+8. 
+eg:
+eureka.instance.instance-id={spring.application.name}:{spring.application.instance-id:${random.value}}
+
+-> here we assign new instance id  which will start with application name and the value of application name will be read from another application property mentioned above:spring.application.name
+
+-> for instance id we either pass it in command line or have it randomly generated for us.
+
+9. with regards to server.port, intead of giving it as zero, we will pass it as command line argument. if command line argument is not provided, we will assign value of zero.
+
+eg:
+
+server.port={PORT:0} 
+
+
+9) Now after changing application.properties, stop all intances included discovery services and then start again one by one. 
+
+10) now after running user services we can see instance name is different and we will see two instance when more than one service is running
+
+11) Instead of randomly generating instance id and passing it via command line argument, we need to open command line prompt and do the following:
+
+a) Copy past of UserService spring boot project and go to that directory in cmd line
+b) Now we will start spring boot application using maven commands:
+
+eg: mvn spring-boot:run -DSpring-boot.run.arguments=--spring.application.instance_id=mahesh and then give enter
+
+b) this will run spring boot application in terminal window
+
+c) Once it is up, switch to eureka dashboard and refresh the page and we can see that there are three instances now and third has my name in it
+
+d) now we will start one more instance and pass port number as well
+
+mvn spring-boot:run -DSpring-boot.run.arguments="--spring.application.instance_id=mahesh2 --server.port=8999"
+
+e) then hit enter,we can fourth instance is up and it has new name and we can access new instance using this port

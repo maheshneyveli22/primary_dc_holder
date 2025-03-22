@@ -1,0 +1,87 @@
+SPRING MVC CONFIGURATION PROCESS
+
+A) Add configurations to file: WEB-INF/web.xml
+
+
+</web-app>
+1) Configure Spring MVC dispatcher servlet(no step involved here. spring will do
+-> Next we need to add init-param: contextConfigLocation where we specify the location of the file
+2) Setup URL mappings to Spring MVC Dispatcher Servlet
+
+##############
+<web-app>
+<!-- Step 1: Configure Spring MVC Dispatcher Servlet -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-demo-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Step 2: Set up URL mapping for Spring MVC Dispatcher Servlet -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+################
+
+----> by this configuration, we are telling that for any url pattern , i want to pass it via DispatcherServlet
+
+B) Add Configurations to file: WEB-INF/spring-mvc-demo-servlet.xml
+
+3) Add support for Spring component scanning
+
+#############
+	<!-- Step 3: Add support for component scanning -->
+	<context:component-scan base-package="com.luv2code.springdemo" />
+
+############
+
+4) Add support for conversion, formatting and validation
+
+##########
+	<!-- Step 4: Add support for conversion, formatting and validation support -->
+	<mvc:annotation-driven/>
+#############	
+
+5) Configure Spring MVC view Resolver
+
+
+#############
+
+	<!-- Step 5: Define Spring MVC view resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+#############
+
+
+eg:if view name is "show-student-list"
+
+then based on prefix and suffix mentioned above, view will bean: /WEB-INF/view/show-student-list.jsp
+
+
+
+6) Jars are placed in WEB-INF/lib because this is a special directory where files placed in this directory are automatically added to Java build path /classpath
+
+7) spring-mvc-demo-servlet.xml and web.xml should be withing /WEB-INF/ folder	
+
+
+
+
+###############ACTUAL STEPS FOR DEVELOPER###############
+1) Copy web.xml from existing project and ensure information of dispatcher servlet and init-param(contextConfigLocation) are present(no action needed, just verification)
+2) Also in web.xml - Ensure that servlet mapping is proper with dispatcher and url pattern(no action needed)(no action needed, just verification)
+3) Now go to contextConfigLocation(spring configuration file) file: spring-mvc-demo-servlet.xml
+a) Add support for component scanning
+b) Add support for conversion, formatting and validation support)
+c) Define spring mvc view resolver

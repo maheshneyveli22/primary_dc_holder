@@ -1,0 +1,26 @@
+1) Adding H2 support to users microservice project: 
+a) Copy maven dependancy from maven repository and put in pom.xml of users microservice
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		
+b) Update application.properties file with following values:
+
+spring.h2.console.enabled=true
+spring.h2.console.settings.web-allow-others=true
+
+c) Open all three services: Eureka discovery, users and cloud api
+
+
+d) In eureka page on opening cloud api gateway service 	for the following in new tab:
+API-GATEWAY	n/a (1)	(1)	UP (1) - DESKTOP-MHBSVIT:api-gateway:8082
+
+e) it will open with url:http://desktop-mhbsvit:8082/actuator/info
+
+f) Change url to: http://desktop-mhbsvit:8082/users-ws/h2-console
+
+g) it will lead to sign in page of h2 db
+

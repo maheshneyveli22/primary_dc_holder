@@ -1,0 +1,32 @@
+1) By default spring boot reads information from a standard properties file
+
+-> located at: src/main/resources/application.properties
+
+-> we can define any custom properties in this file.
+-> spring boot app can access properties using @Value
+
+
+2) Development process
+a) Define custom properties in application.properties
+eg:
+src/main/resources/application.properties
+#Define custom properties
+coach.name= Mickey mouse
+team.name= The Mouse club
+
+b) Inject properties into spring boot application using @Value
+
+@RestController
+public class FunRestController
+{
+//inject properties for coach.name and team.name
+
+@Value("$(coach.name}")
+private String coachName;
+
+
+@Value("$(team.name}")
+private String teamName;
+
+}
+

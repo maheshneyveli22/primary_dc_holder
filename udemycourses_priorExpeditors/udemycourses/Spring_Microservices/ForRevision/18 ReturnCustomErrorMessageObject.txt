@@ -1,0 +1,25 @@
+1. Instead of returning complete stack trace and to return custom error message object
+
+2. Create a custom error object class.
+
+eg:
+
+public class ErrorMessage {
+	private Date timeStamp;
+	private String message;
+
+3. set the values for the Date and message of that error message class:
+
+eg:
+
+	String errorDescription = ex.getLocalizedMessage();
+		if (null == errorDescription)
+			errorDescription = ex.toString();
+
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), errorDescription);
+		
+
+4. Return the ResponseEntity object by using ErrorMessage object instead of Exception which was done previously
+
+eg: 
+		return new ResponseEntity<Object>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);		

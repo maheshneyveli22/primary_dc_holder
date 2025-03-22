@@ -1,0 +1,116 @@
+1) 
+http://wwww.yourWebsiteAddress.com/api/users/?start=1&limit=50
+
+---> this is complete URL address to access first 50 users from our database
+
+2) Parts:
+
+a) http://    -> Protocol
+b) www        -> subdomain
+c) yourWebsiteAddress.com  -> website address/domain name
+d) /api/users/  -> URI
+d) ?start=1&limit=50  -> query strings
+
+
+2) if the address contains protocol i.e http, then it is called URL
+
+3) /api/users/  -> this part is URI
+
+
+4) Traditional URI for registration of users
+
+POST /RegisterUserServlet
+{
+"firstName":"James",
+"lastName" : "Bond"
+}
+
+
+Restful URI for registration of users:
+
+POST /users
+{
+"firstName":"James",
+"lastName" : "Bond"
+}
+
+
+5) Other HTTP Methods:
+
+a) for getting user details with a specific user id
+
+
+Traditional:
+
+GET /GetUserDetailsServlet?userId=1
+
+
+###Rest:
+GET /users/1
+
+b) for deleting user details with a specific user id
+
+Traditional:
+
+GET /DeleteUserDetailsServlet?userId=1
+
+
+###Rest:
+DELETE /users/1
+
+
+c) Updating user details
+
+Traditional:
+
+POST /UpdateUserDetailsServlet
+{
+"firstName":"James",
+"lastName" : "Bond"
+"userID": "1"
+}
+
+###Rest:
+
+PUT /users/1
+{
+"firstName":"James",
+"lastName" : "Bond"
+}
+
+
+d) COllections 
+-> getting details of all resources
+-> getting details of single user
+
+Traditional:
+
+GET /GetAllUsersServlet
+GET /GetUserDetailsServlet?userid=1
+
+###REST:
+GET /users
+GET /users/1
+
+
+e) Longer URIs
+
+-> get all comments published in a specific message
+
+Traditional:
+/GetMessageComments?userId=1&messageId=5
+
+###REST:
+GET /users/1/messages/5/comments
+
+
+f)
+-> to get a specific comment under that message:
+
+Traditional:
+/GetMessageComment?userId=1&messageId=5&commentId=1
+
+###REST:
+GET /users/1/messages/5/comments/1
+
+

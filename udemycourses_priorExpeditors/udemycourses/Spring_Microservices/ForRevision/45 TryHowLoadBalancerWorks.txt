@@ -1,0 +1,34 @@
+1) In users service controller, lets make changes to display port id:
+
+	@Autowired
+	private Environment env;
+	@GetMapping("/status/check")
+	public String status()
+	{
+		return "Working on port"+ env.getProperty("local.server.port");
+	}
+	
+	
+
+
+2) Start Eureka Discovery service
+3) Start users service twice
+4) start spring cloud api service
+5) Now if we go to eureka
+
+Instances currently registered with Eureka
+Application	AMIs	Availability Zones	Status
+API-GATEWAY	n/a (1)	(1)	UP (1) - DESKTOP-MHBSVIT:api-gateway:8082
+USERS-WS	n/a (2)	(2)	UP (2) - users-ws:9493aaea243206d1277b7dc19ae70a6b , users-ws:5739f18d1effa4dd9888d192f35bd664
+
+
+6) In post man: http://localhost:8082/users-ws/users/status/check
+
+
+Working on port 63143
+Working on port 63149
+
+-> hence it uses different port numbers
+
+
+7) hence built in load balancer works fine. starting more instances will run different port number

@@ -1,0 +1,91 @@
+PROBLEM:
+1) How can i monitor and manage my application
+2) How can i check my application health?
+3) How can i access application metrics?
+
+SOLUTION: Use SPring boot Actuator
+
+SPRING BOOT ACTUATOR
+1) It exposes end points to monitor and manage your application
+* Easily get devops functionality out of the box
+* Simply add dependancy to your pom file
+2) Rest Points are then added automatically to your application
+3) No additional code needed.
+
+4) Dependancy to add in pom.xml to enable spring boot actuator
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		
+5) Spring automatically exposes endpoints for metrics out of the box.
+-> End points are prefixed with:/actuator
+
+/health -> health information about your application
+/info -> information about your project
+
+
+
+6) Health Endpoint
+
+/health - Checks status of your application
+-> Normally used by monitoring apps to see if your app is up or down
+
+eg: 
+localhost:8080/actuator/health
+{"status":"UP"}
+
+7) Health status is customizable based on your own business logic
+
+
+8) Info
+
+/info gives information about your application
+* Default is empty
+
+localhost:8080/actuator/info
+
+{}
+
+-> to customize the information, update application.properties with your app info
+
+eg:
+
+info.app.name= My super cool app	
+info.app.description= Crazy cool app	
+info.app.version= 1.0.0
+
+9) Hence properties starting with "info" will be used by /info endpoint
+
+
+10) Spring boot actuator endpoints
+->10+ available
+
+a) /auditevents - Audit events for your application
+b) /beans - List of all beans registered in the spring application context
+c) /mappings - List of all @RequestMapping paths
+
+
+11) EXPOSING ENDPOINTS
+-> By default only /health is exposed
+-> To expose all actuator endpoints over http, use wildcard "*" to expose all endpoints in application.properties
+-> Can also expose individual endpoints with a comma-delimited list
+
+eg:
+management.endpoints.web.exposur.include=*
+
+or 
+management.endpoints.web.exposure.include=health,info
+management.info.env.enabled=true
+
+
+12) Get a list of beans:
+
+13) http://localhost:8080/actuator/beans
+14) http://localhost:8080/actuator/threadump
+-> for analysing and profiling application's performance
+15) http://localhost:8080/actuator/mappings -> gets list of all the request mappings for your app
+
+
+

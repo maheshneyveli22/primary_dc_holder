@@ -1,0 +1,6 @@
+1. FileVisitor Interface helps walking file Tree
+2) previsitDirectory()
+
+3) Files.walkFileTree()
+
+

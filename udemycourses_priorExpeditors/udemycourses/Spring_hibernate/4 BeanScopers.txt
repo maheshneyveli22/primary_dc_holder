@@ -1,0 +1,14 @@
+1) WHat is bean scope?
+-> lifecycle of a bean
+-> how long does bean live?
+-> how many instances are created?
+-> how is the bean shared?
+
+2) Scopes:
+ a) Singleton
+ b) Prototype
+ c) Request
+ d) Session
+ e) Global session
+ 
+3) By default  bean scope is singleton 

@@ -1,0 +1,36 @@
+1) Introduced in Java8
+2) Easier way to work with interfaces having only one method
+
+3) Especially in anonymous classes
+4) Every Lambda expression has three parts:
+
+a) Argument list
+b) Arrow token
+c) Body
+
+4) Lambda expression can be used only with functional interfaces. ie interfaces with only one method
+
+5) Eg:  new Thread(()-> System.out.println("from the runnable")).start();
+
+6) for multiple lines of code
+
+
+ new Thread(()-> {
+            System.out.println("from the runnable");
+            System.out.println("printing second line from runnable");}).start();
+    }
+	
+	
+7) For interfaces with return value:
+
+
+8) Any variable declared and changed outside lambda expression has to be final
+
+
+3,4,5,6
+
+
+
+
+	
+	

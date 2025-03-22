@@ -1,0 +1,69 @@
+
+1) 
+Path interface does not know about file system, it knows only about paths
+
+2) Java nio or java io, does not throw error when we try to access path of the file(if the file actually does not exist)
+-> it throws error only if we try to access the file 
+
+3) Hence always we need to check if file exits before actually using the file
+
+
+4) Check if file exists:
+
+Path path=Paths.get("/Volumes/Test/ING","abcdef","whatever.txt");
+System.out.printlna(path.toAbsolutePath()); 
+
+filePath=FileSystems.getDefault.getPath("files");
+System.out.println("Exists="+Files.exists(filePath));
+ // this checks if folder or directory containing the file exists or not 
+
+System.out.println("Exists="+File.exists(path));
+// this checks if file exists or not hence it will come as false
+
+
+4) Checking for Symbolic links
+-> Files.exits() has an overloaded method that contains second parametere that specifies how you want to handle symbolic links
+-> we can choose to follow or not follow
+-> By default it is followed
+-> if it is not followed, then if the path contains a symbolic link that points to an exisiting file, the method will return false
+
+
+5) Additional methods: isWritable isReadable isExecutable
+
+
+6) Copying a file: 
+
+
+Path sourceFIle=FileSystems.getDefault.getPath("Examples","file1.txt):
+Path copyFile=FileSystems.getDefault.getPath("Examples","file1Copy.txt):
+Files.copy(SourceFile,copyFile);
+-> this method will throw error if file exists already
+
+7) 
+Files.copy(SourceFile,copyFile,StandardCopyOption.REPLACE_EXISTING);
+-> this method while copying replace existing file, if it exists already
+
+
+8) MOVE
+
+Path fileToMove=FileSystems.getDefault.getPath("Examples","file1copy.txt");
+Path destination=FileSystems.getDefault.getPath("Examples","Dir1","file1copy.txt");
+
+File.move(fileToMove,destination);
+
+9) RENAME
+-> Should use new file name in the destination
+
+Path fileToMove=FileSystems.getDefault.getPath("Examples","file1].txt");
+Path destination=FileSystems.getDefault.getPath("Examples","Dir1","file2.txt");
+
+File.move(fileToMove,destination);
+-> while renaming source and destination directory should be the same
+
+10) DELETE
+
+Path fileToDelete=FileSystems.getDefault.getPath("Examples","file1copy.txt");
+Files.delete(fileToDelete);
+
+Another method which has additional check 
+Files.deleteIfExists(fileTODelete):

@@ -1,0 +1,18 @@
+1) We are going to use a Utility class in UserServiceImpl
+
+2) Utility class reference will be passed as reference to UserServiceImpl and that will be set
+
+3) To wire this and do constructor based dependancy injection, we should add @Autowired annotation to the UserServiceImpl with utility class parameter
+
+eg:
+	@Autowired
+	public UserServiceImpl(Utils utils)
+	{
+		this.utils=utils;
+	}
+
+4) for spring to create instance of the Utility classi.e inject Utility class into UserServiceImpl, in Utility class we should add annotation @Service
+
+eg:
+@Service
+public class Utils {

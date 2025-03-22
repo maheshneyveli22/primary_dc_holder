@@ -1,0 +1,40 @@
+1) Using FileReader, FileWrite we read contents of file as character and then wrote them as characters
+2) ByteStreams also known as Binary Data
+
+3) Advantage of ByteStreams is that,we dont have to pass the data into various datatypes that were stored.
+-> Reason is ByteStreams itself can be used to read write any of the primitive types like, int, double float byte etc
+
+4) In Bytestream methodology, 
+a) We use FileInputStream instead of FileReader and FileOutputStream instead of FileWriter
+b) Buffering will be done via BufferedInputStream and BufferedOutputStream
+
+c) 
+eg:
+try(DataOutputStream locFile= new DataOutputStream(new BufferedOutputStream(new FileOutputStream("locations.dat"))
+{
+
+for(Location location:locations.values())
+{
+locFile.writeInt(location.getLocationID());
+locFile.writeUTF(location.getDescription());
+System.out.println("Writing location "+location.getLocationID()+" : "+location.getDescription());
+System.out.println("Writing "+(location.getExits().size()-1)+" exits"); 
+locFile.writeInt(location.getExits().size()-1);
+
+for(String direction: location.getExits().keyset())
+{
+if(!direction.equalsIgnoreCase("Q"))
+{
+System.out.println("\t\t"+direction+","+location.getExits().get(direction));
+locFile.writeUTF(direction);
+locFile.writeInt(location.getExits().get(direction));
+}
+}
+}
+
+}
+
+
+5) Here we are writing the locations.dat file
+
+6) while working with .dat files, ensure that the debugging information is updated properly

@@ -1,0 +1,21 @@
+1) Create the custom exception class
+
+2) go to getUser method in controller class and throw the exception
+
+3) go to AppExceptionHandler and add a new method so that it handles custom exception we created
+
+4) again setResponseEntity accordingly
+
+eg:
+
+	@ExceptionHandler(value= {UserServiceException.class})
+	public ResponseEntity<Object> handleUserServiceException(UserServiceException userServiceException, WebRequest webRequest)
+	{
+		String errorDescription = userServiceException.getLocalizedMessage();
+		if (null == errorDescription)
+			errorDescription = userServiceException.toString();
+
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), errorDescription);
+		return new ResponseEntity<Object>(errorMessage,new HttpHeaders(),HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}

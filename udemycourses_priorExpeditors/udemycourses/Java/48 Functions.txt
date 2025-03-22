@@ -1,0 +1,74 @@
+1) So far
+
+Predicate -> returns only boolean
+Consumer -> only accepts and does not returns
+Supplier -> does not accept and only returns and it canot be chainged
+
+2) Now if we have a requirement to accept string and return a string?
+-> this can be done by Function interface
+
+3) Functions
+-> this interface takes one parameter and returns a value
+-> method used is : apply()
+
+
+eg:
+
+Function<Employee, String> getFirstName = (Employee employee) -> {
+            return employee.getName().substring(0, employee.getName().indexOf(' '));
+        };
+
+
+
+3) Functions Types:
+
+a) Like Consumer, Supplier, Predicate - there are more specific Functions interfaces
+
+i) LongToIntFunction accepts long and returns int value
+ii) IntToDoubleFunction accepts Int and returns double value
+
+
+4) Chaining Functions
+-> we use andThen method for the same
+-> we use compose method for the reverse case
+
+-> function that calls the andTHen will get executed and argument will be later
+   Function chainedFunction = upperCase.andThen(firstName);
+-> here upperCase first and then firstName will be executed
+
+eg:
+Function<Employee, String> getLastName = (Employee employee) -> {
+            return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+        };
+
+        String lastName = getLastName.apply(employees.get(1));
+//        System.out.println(lastName);
+
+        Function<Employee, String> getFirstName = (Employee employee) -> {
+            return employee.getName().substring(0, employee.getName().indexOf(' '));
+        };
+
+        Random random1 = new Random();
+        for(Employee employee : employees) {
+            if(random1.nextBoolean()) {
+                System.out.println(getAName(getFirstName, employee));
+            } else {
+                System.out.println(getAName(getLastName, employee));
+            }
+        }
+
+        Function<Employee, String> upperCase = employee -> employee.getName().toUpperCase();
+        Function<String, String> firstName = name -> name.substring(0, name.indexOf(' '));
+        Function chainedFunction = upperCase.andThen(firstName);
+        System.out.println(chainedFunction.apply(employees.get(0)));
+
+   
+		
+5) Function accepts only one argument while if we want to pass two arguments we can use BI interface
+-> Except supplier - Predicate, Consumer and Functions supports BI interfaces i.e supports two arguments		
+
+Eg: 
+     BiFunction<String, Employee, String> concatAge = (String name, Employee employee) -> {
+            return name.concat(" " + employee.getAge());
+        };
+		

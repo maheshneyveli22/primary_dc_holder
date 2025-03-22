@@ -1,0 +1,22 @@
+1) Open PhotoAppApiUsersApplication class and add annotation to enable Eureka Client: @EnableDiscoveryClient
+
+eg: @SpringBootApplication
+@EnableDiscoveryClient
+public class PhotoAppApiUsersApplication {
+
+-> This annotation will make spring boot application as a client which will communicate with the discovery server
+
+2) Go to application.properties and add following configuration details
+
+
+server.port=0
+spring.application.name=users-ws
+eureka.client.serviceUrl.defaultZone=http://localhost:8010/eureka
+spring.devtools.restart.enabled=true
+
+
+a) server.port=0  -> here server port is mentioned zero, since we want a random port number to be assigned  to this application
+b) spring.application.name=users-ws -> name by which application will be known
+                                    -> this name will be registered in eureka discovery server dashboard
+c) eureka.client.serviceUrl.defaultZone=http://localhost:8010/eureka -> Fully qualified name by which Eureka client communicate with discovery server
+d) spring.devtools.restart.enabled=true  -> this will help automatically restart and redeploy,  when we change java code

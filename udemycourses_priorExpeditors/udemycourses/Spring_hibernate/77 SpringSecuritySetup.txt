@@ -1,0 +1,14 @@
+1) Spring security has two dependancies
+a) spring-security-web
+b) spring-security-config
+
+2) Finding compatible version between spring security and spring Framework applications
+
+
+a) Find desired version of spring security in maven central repo
+* spring-security-web
+
+b) Look at the project pom file
+* find supporting spring framework version
+
+c) 

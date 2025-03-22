@@ -1,0 +1,21 @@
+1) Supplier interface does not accept any argument but it returns boolean value
+
+2) 
+
+eg:
+
+Random random = new Random();
+Supplier<Integer> randomSupplier = ()->random.nextInt(1000);
+for(int i=0;i<10;i++)
+{
+System.out.println(randomSupplier.get());
+}
+
+
+3) while consumer has accept() method, supplier has get() method
+
+4) Flavours of supplier:
+a) BooleanSupplier
+b) DoubleSupplier
+c) IntSupplier
+d) LongSupplier

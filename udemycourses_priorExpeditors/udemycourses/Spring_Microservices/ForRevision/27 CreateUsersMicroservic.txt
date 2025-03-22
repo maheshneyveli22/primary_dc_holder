@@ -1,0 +1,2 @@
+1) Create new spring started project in same workspace
+2) Add dependencies: spring web, validation, eureka discovery client,dev tools and create project

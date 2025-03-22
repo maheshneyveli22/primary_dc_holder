@@ -1,0 +1,14 @@
+
+1) To make a method acceptable to return JSON or XML we need to make two changes
+
+a) Change 1:
+---> In getMapping annotation, add produces attribbute for media type xml and json
+
+eg: 	@GetMapping(path= "/{userId}", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+
+Now try to fire request in postman and see if the request gives successful response
+
+b) Change 2:
+-> go to mvn repository, search for jackson xml , select the latest , copy the maven dependancy  and put it in pom xml dependancy - below spring-boot-starter-web
+
+Now try to fire request in postman and see if the request gives successful response

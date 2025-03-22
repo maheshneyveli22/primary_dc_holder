@@ -1,0 +1,53 @@
+HOW TO CONTROL ORDER OF ADVICES BEING APPLIED, when they all match the same condition?
+
+To control ORDER
+1) Place advices in separate Aspects
+2) Control order on Aspects using @Order annotation
+
+
+3) Development process:
+a) Place advices in separate aspect classes instead of having them in a single aspect class
+b) Add @Order annotation to aspects
+
+@Order(1)
+public class MyCloudLogAspect
+{
+...
+}
+
+4) eg:
+
+@Aspect
+@Component
+@Order(1)
+public class MyCloudLogAspect
+{
+...
+}
+
+@Aspect
+@Component
+@Order(2)
+public class MyLoggingDemoAspect
+{
+...
+}
+
+@Aspect
+@Component
+@Order(3)
+public class MyApiAnalyticsAspect
+{
+...
+}
+
+5) Lower numbers are given higher precence
+
+Range: Integer.MIN_Value to Integer.MAX_VALUE
+
+6) Negative numbers are allowed
+
+7) does not need to be consecutive
+
+8) what happens if they have same order of annotation
+-> that is undefined

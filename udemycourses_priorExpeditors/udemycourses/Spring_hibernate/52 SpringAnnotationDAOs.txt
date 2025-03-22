@@ -1,0 +1,24 @@
+Spring provides @Repository annotation
+
+@Component
+@Controller
+@Repository
+@Transactional
+
+@Repository
+-> will be on top of dao
+
+-> @Controller and @Repository inherits from @Component annotation
+
+
+1) @Repository
+-> Applied to DAO implementations
+-> Spring will automatically register DAO implementation due to component-scanning feature of @Component inheritance
+-> It translates any jdbc related exceptions
+
+
+2) 
+
+@Repository -> over dao class
+@Autowired -> over session factory object
+@Transactional -> over getCustomers or the specific method

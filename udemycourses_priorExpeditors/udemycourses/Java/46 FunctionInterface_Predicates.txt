@@ -1,0 +1,81 @@
+1) 
+ArrayList.forEach(Consumer<? super T> action)
+{
+Objects.requireNonNull(action);
+for(T t: this)
+   action.accept(t);
+}
+}
+
+---> so forEach is a method, which calls accept method and returns void
+->  We pass forEach a lambda expression that meets the requirements of the consumer interface
+-> Consumer accepts one argument and performs an action that does not return a value
+-> It is called a consumer because it accepts object in and gives nothing outside
+
+2) Java.util.function has 30 functional interfaces
+
+
+3) Predicate Interface
+-> Used for filtering
+-> returns boolean
+
+
+eg: 
+private static void printEmployeesByAge(List<Employee> employees, String ageText, Predicate<Employee> ageCondition)
+{
+System.out.println(ageText);
+System.out.println("==================");
+
+for(Employee employee:employees)
+{
+if(ageCondition.test(employee)
+{
+System.out.println(employee.getName());
+}
+}
+
+
+}
+
+-> here if statement uses predicate parameter(ageCondition), if for loop passes each employee to the predicate test method, which in turn uses the employee as a parameter for the lambda expression that maps to the predicate
+-> here if test method of predicate reurns true then the employee name will be printed
+
+
+4) In main method, we use lambda expression to pass predicate argument
+
+printEmployeesByAge(employees,"Employees over 30", employee->employee.getAge()>30);
+printEmployeesByAge(employees,"\nEmployees less than  30", employee->employee.getAge()>30);
+
+5) Here Predicate argument is the lambda expression that matches the predicate interface.
+-> it accepts one parameter and return a boolean value
+-> we can pass any condition to this method
+
+
+6) Consumer and Predicate interfaces are general interfaces
+-> Meaning they dont care about the type of parameter being passed to the lambda expression
+-> they use generics to infer the type
+
+7) Other interfaces
+-> DoubleConsumer -> expects lambda expression that has a double argument
+-> IntConsumer, LongConsumer are there
+-> DoublePredicate, IntPredicate and LongPredicate
+
+-> IntPredicate, just checks if number is greater than particular value
+
+8) Chaining of predicates:
+
+
+eg: 
+IntPredicate greaterThan15 = i->i>15;
+IntPredicate lessThan100= i->i<100;
+
+System.out.println(greaterThan15.test(10));
+int a=20;
+System.out.println(greaterThan15.test(a+5));
+
+System.out.println(greaterThan15.and(lessThan100).test(50));
+
+-> it will return true for the last line, since 50 is less than 100 and greater than 15
+
+
+9) Predicate interfaces also contain negate or isEquals method

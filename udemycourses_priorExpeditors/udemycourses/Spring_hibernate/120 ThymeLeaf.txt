@@ -1,0 +1,25 @@
+Thymeleaf
+1) Java templating engine
+2) Commonly used to generate HTML views for web apps
+3) General purpose templating engine
+4) Can use Thymeleaf outside of webapps
+
+
+5) what is Thymeleaf template
+-> Can be html page with some Thymeleaf expressions
+-> Include dynamic content from Thymeleaf expressions
+-> can access Java code, objects, spring beans etc
+
+6) Where is Thymeleaf template processed?
+-> In web app, Thymeleaf is processed on the server
+-> Results included in HTML returned to browser
+
+7) Thymeleaf vs JSP
+
+-> can be used for web view templates
+-> Key difference: JSP can only be used in web environment while Thymeleaf can be used in web as well as non web environments
+
+8) Non Web Thymeleaf use cases
+a) Email template
+b) CSV template
+c) PDF template

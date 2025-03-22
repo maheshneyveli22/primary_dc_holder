@@ -1,0 +1,61 @@
+1) 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MyownappApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyownappApplication.class, args);
+	}
+
+}
+
+
+2) @SpringBootApplication
+-> This annotation enables 
+a) auto configuration: @EnableAutoConfiguration
+b) Component scanning: @ComponentScan
+c) Additional Configuration: @Configuration
+
+
+3) import org.springframework.boot.SpringApplication;
+
+-> this is a special calss to boot strap your spring boot application
+
+public static void main(String[] args) {
+		SpringApplication.run(MyownappApplication.class, args);
+	}
+
+----> Behind the scenes, this a) Creates Application context and registers all beans
+b) Starts the embedded server like tomcat etc
+
+
+
+4) More on component scanning:
+-> Place your main application class in the root package above your other packages
+-> THis implicitly defines a base search package
+* Allows you to leverage default component scanning
+* No need to explicitly reference the base package name
+
+
+5) Default scanning is fine if everything is under:
+
+com.luv2code.springboot.demo.mycoolapp
+
+6) But what about my other packages
+* org.acme.iot.utils
+* edu.cmu.wean
+
+-> in that case we need to explicitly mention the  base packages
+
+eg:
+
+package com.luv2code.springboot.demo.mycoolapp
+
+@SpringBootApplication(
+scanBasePackages={"com.luv2code.springboot.demo.mycoolapp","org.acme.iot.utils", "edu.cmu.wean"})
+
+public class MyownappApplication{
+....
+
+}

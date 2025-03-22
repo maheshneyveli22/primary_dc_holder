@@ -1,0 +1,74 @@
+1) Spring security defines framework for security
+2) Implemented using servlet filters in background
+
+3) Two methods of securing a web app:
+
+a) Declarative
+b) Programmatic
+
+
+4) SPRING SECURITY WITH SERVLET FILTERS
+-> Servlet filters used to preprocess/post process web requests
+-> Servlet filters can route web requests based on security logic
+-> Spring provides bulk of security functionality with servlet filters
+
+
+5) SPRING SECURITY OVERVIEW
+
+
+
+WEB BROWSER <--->SPRINGSECURITY FILTERS***-->PROTECTED WEB RESOURCE(/mytopsecretstuff)
+
+SPRINGSECURITY FILTERS***<--->my app security configuration<--->users passwords roles
+
+
+6) Spring SECURITY in Action
+
+
+1) Spring security filters
+2) Is web Resource protected?
+3) If Web Resource is not Proected, show the resource
+4) If web Resource protected is yes? Check if User Authenticated?
+5) If User is not authenticated, show login form, authentcate user id/password again
+6) if User Authenticated is Yes, Check if User is Authorized
+7) If User not Authorized, Access is denied
+8) If User is authorized show resource
+
+
+7) Security Concepts
+
+a) Authentication
+-> check if userid/password with credentials stored in app/db
+b) Authorization
+-> Check if user has an authorized role.
+
+-> Hence there are two levels of security that are in place for a given security framework
+
+
+8) Declarative SECURITY
+-> Define application's security constraints in configuration
+* All Java Config(@Configuration, no xml) 
+* Or Spring XML config
+
+-> Provides separation of concerns between application code and security
+
+9) Programmatic SECURITY
+-> Spring security provides API for custom application coding
+-> Provides greater customization for specific app requirements
+
+
+10) Different login methods: 
+a) HTTP Basic Authentication
+b) Default login form
+* Spring security provides default login form
+c) Custom Login form
+* your own look and feel, HTML+CSS
+
+11) HTTP Basic Authentication
+
+12) Authentication
+a) In Memory
+b) JDBC
+c) LDAP
+d) Custom/pluggable
+ 

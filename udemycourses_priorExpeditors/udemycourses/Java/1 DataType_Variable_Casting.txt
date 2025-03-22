@@ -1,0 +1,79 @@
+#1 Datatype
+#2 Variable
+#3 Type casting
+
+1) 8 primitive data types
+boolean: 1 bit
+byte: 1 Byte
+short: 2 Byte
+char: 2 bytes
+int:  4 Bytes
+long: 8 Bytes
+float: 4 bytes
+double: 8 bytes
+
+2) By default all variables are assigned with value int. 
+-> if we need to move to other variable type, we should type cast it
+
+Eg: 
+		byte b = Byte.MIN_VALUE;
+        System.out.println("Old value" + b);
+        byte oldValue = Byte.MIN_VALUE;
+        byte newValue = (byte) (oldValue / 2);
+        System.out.println("newvalue"+newValue);
+		
+		
+3) For storing small datatypes in higher datatypes, explicit casting is not required, but for putting big datatype value in small ones, explicit casting is required:
+
+eg:    byte byteValue = 120;
+        short shortValue = 2455;
+        int intValue = 2344;
+        long longValue = 50000 + 10 * (byteValue + shortValue + intValue);
+        System.out.println("finalLongValue " + longValue);
+
+      short newShortValue=(short)(10000+ 1*(byteValue+shortValue+intValue));
+        System.out.println(newShortValue);
+		
+O/P:
+finalLongValue 99190
+14919		
+		
+		
+4) Float is not the preferred data type to use.
+   Double is the preferred data type to use
+		
+		Float can be represented as:         float f=5.25f; ->Preferred  or         float f=(float)5.25;
+		-> Float precision upto 7 digits
+		-> double precision upto 16 digits after dot. 
+		
+Eg: 
+f value 1.6666666
+d value 1.6666666666666667
+
+Double is preferable: Though it occupies double space than float
+a) Faster to process since Many computers in chip level have ability/functionality to deal with double numbers faster than the float
+b) Java libraries that process math functions are written to process double and not float and return results as double
+c) Hence double is used a lot in code
+
+***Java treats double as floating point number, while int as default whole number
+
+
+5) Float and double will be used for general floating point operations. But i cant be used for precise calculation requirements, due to a limitation on how floating point numbers are stored. 
+---> Java has another class called Big decimal which can be used for precise calcuation requirements
+
+
+6)Char should have been a single byte, but it occupies two byes because it allows to store unicode characters also
+
+7) int double boolean most common data types
+   long, char sometimes 
+   float, short - rarely
+   
+8) Result = Result + 1 or Result++
+   Resutl = Result + 2 or Result+=2
+   
+9) Ternary Operator:
+-> Shortcut to assign one or two values to a variable depending on a given condition
+
+eg: int ageOfClient=20;
+    boolean is18Over= (ageOfClient==20)?true:false;
+    	

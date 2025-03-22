@@ -1,0 +1,44 @@
+1) Defining bean
+
+
+<bean id="myFortuneService" class="com.luv2code.springdemo.HappyFortuneService">
+</bean>
+
+2) Defining bean with constructor-arg
+
+<bean id="myCoach"
+class ="com.luv2code.springdemo.BaseballCoach">
+<constructor-arg ref="myFortuneService" />
+</bean>
+
+
+3) 
+->) load properties file in config file
+<context:property-placeholder location="classpath:sport.properties"/>
+->) Referencing values from properties file
+
+<bean id="myCricketCoach" class="com.luv2code.springdemo.CricketCoach">
+
+<property name ="emailAddress" value="${foo.email}" />
+<property name ="team" value="${foo.team}" />
+
+</bean>
+
+4) prototype,singleton
+
+eg:
+   <bean id = "helloWorld" class = "com.tutorialspoint.HelloWorld" scope = "singleton">
+   </bean>
+
+
+5) 
+
+ Init/Destroy method
+<bean id="myCoach"
+class="com.luv2code.springdemo.TrackCoach"
+init-method="doMyStartupStuff"
+destroy-method="doMyCleanupStuff">
+....
+</bean>
+
+

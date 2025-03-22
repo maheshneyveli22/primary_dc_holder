@@ -1,0 +1,37 @@
+1) To make union of two sets:A and B
+
+a) Create third set C which will hold the union values, while creating C, pass A as parameter
+b) then use set.addAll(B) to add elements of set B to set C
+
+
+
+2) setA.retainAll(setC)
+-> this will retain elements in set A, corresponding to set Create
+-> basically it will return the intersection elements
+
+
+
+3) to add words of a sentence to a set
+
+a) get words array using String split method
+b) then convert arrays to Arraylist using: Arrays.asList(stringArray)
+c) then add this arraylist to set
+
+
+
+4) if there are two sets A and B
+
+-> if you want to remove all elements, which are present in setB from Set A, then
+
+setA.removeAll(SetB)
+
+-> Similarly, if you want to remove all elements, which are present in set A from Set B, then
+
+setB.removeAll(SetA)
+
+
+5) we can check if SetB is subset of setA, using containsAll method
+
+setA.containsAll(setB)
+
+-> it will return true, if all elements of B are in Arraylist

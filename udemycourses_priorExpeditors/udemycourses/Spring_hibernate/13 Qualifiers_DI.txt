@@ -1,0 +1,21 @@
+1) During autowiring if an interface has multiple implementations, to specify which implementation to be used for DI, we use @Qualifier annotation and specify the bean id to be used.
+-> in this case both @Autowired and @Qualifier annotation are used 
+
+eg:
+
+@Component
+public class TennisCoach implements Coach
+{
+@Autowired
+@Qualifier("happyFortuneService")
+private FortuneService fortuneService;
+
+.....
+
+}
+
+2) 
+@Qualifier annotation can be used for
+a) Constructor injection
+b) Setter Injection
+c) Field Injection

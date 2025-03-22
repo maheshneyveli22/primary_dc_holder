@@ -1,0 +1,7 @@
+1) Only classes, interfaces and enums can exit at the top level, everything else must be included within one of these.
+
+2) 
+public visible outside packages also
+default visible only for package
+
+Protected: object is visible anywhere in its own package but also in subclasses even if they are in another package

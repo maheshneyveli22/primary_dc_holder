@@ -1,0 +1,14 @@
+1) Create properties file
+2) load properties file in config file
+<context:property-placeholder location="classpath:sport.properties"/>
+3) Referencing values from properties file
+
+<bean id="myCricketCoach" class="com.luv2code.springdemo.CricketCoach">
+
+<property name ="emailAddress" value="${foo.email}" />
+<property name ="team" value="${foo.team}" />
+
+</bean>
+
+
+

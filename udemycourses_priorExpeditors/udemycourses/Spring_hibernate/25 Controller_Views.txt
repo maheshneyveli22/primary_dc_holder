@@ -1,0 +1,64 @@
+1) Setup request mapping for a given path, then have a home controller(HomeController) that handles the request and then it will forward it to a view template(main-menu.jsp)
+2) Development process
+
+a) Create controller class
+-> Annotate class with @Controller
+* Controller inherites from @Component. supports scanning
+
+@Controller
+public class HomeController{
+
+
+}
+
+
+
+b) Define controller method
+
+@Controller
+public class HomeController{
+
+public String showMyPage()
+{
+.....
+}
+
+}
+
+
+
+c) Add request Mapping to controller method
+
+@Controller
+public class HomeController{
+
+@RequestMapping("/")
+public String showMyPage()
+{
+.....
+}
+
+}
+
+d) Return view name
+@Controller
+public class HomeController{
+
+@RequestMapping("/")
+public String showMyPage()
+{
+return "main-menu";
+}
+
+}
+
+e) Develop view page
+
+
+File:/WEB-INF/view/main-menu.jsp
+
+<hml>
+<body>
+<h2> Spring MVC demo - home Page</h2>
+</body>
+</html>

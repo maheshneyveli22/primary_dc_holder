@@ -1,0 +1,102 @@
+DEVELOPMENT PROCESS
+1) Modify spring security configuration to reference custom login form
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityCOnfig extends WebSecurityConfigureAdapter
+{
+//override configure method to configure users for  in-memory authentication\
+
+@Override
+protected void configure(HttpSecurity http) throws Exception
+{
+
+http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/showLoginPage").loginProcessUrl("/authenticateTheUser").permitAll();
+}
+}\
+
+-> showLoginPage we need to develop controller
+-> authenticateTheUser this one spring provides and handles. we need not do
+
+2) Develop a controller to show custom login form
+
+@Contoller
+public class LoginController{
+
+@GetMapping("/showMyLoginPage")
+public String showMyLoginPage()
+{
+return "plain-login";
+}
+}
+
+3) Create custom login form
+* HTML(CSS optional)
+* Spring MVC form tag<form:form>
+
+-> send data to login processing URL:/authenticateTheUser
+-> Login processing URL will be handled by Spring Security Filters
+-> this is provided by SPring, no coding required. 
+
+-> SPring security defines default names for login form fields
+
+* User Name Field: username
+* Password Field: password
+
+User name: <input type="text" name="username")/>
+Password: <input type="password" name ="password"/>
+
+-> SPring security filters will read form data and authenticate the username
+
+
+<% taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<form:form action=${pageContext.request.contextPath}/authenticateTheUser" method="POST">
+
+<p>
+User Name: <input type="text" name="username"/>
+</p>
+
+<p>
+Password: <input type="password" name="password"/>
+</p>
+<input type="submit" value="Login" />
+</form:form>
+
+
+${pageContext.request.contextPath}  ----> 
+
+Context Root:
+-> Root path of our web application
+eg:
+Context Root: my-ecommerce-app
+
+http://localhost:8080/my-ecommerce-app
+
+-> Context Path and context root are both the same
+
+
+
+4) Why should we use COntext Path?
+-> to Dynamically reference context path of application
+-> Help to keep links relative to application context path
+-> if you change context path of app, then links will still work
+
+
+5) for custom loginform to have error message:
+-> need to modify form to show error message.
+
+6) When login fails, by default spring security will
+-> Send use back to login page
+-> Append an error parameter ?error
+
+DEVELOPMENT PROCESS:
+1) Modify custom login form
+a) Check error parameter
+b) If error parameter exists, show an error message
+
+-> form will be modified to do the same
+
+
+<c:if test="${param.error!=null}">
+<i>Sorry! you entered the invalid username/password</i>
+<c:if>

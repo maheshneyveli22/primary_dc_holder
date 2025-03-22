@@ -1,0 +1,10 @@
+1) Nouns as opposed to Verbs or actions
+Eg: /users vs /getUsers
+
+2) Plurals
+eg: /users/1 vs /user/1
+
+3) Predictable
+
+Eg: /users/1/messages  vs /users/1/publishedMessages/
+   /users/1/messages/2/likes   vs /users/1//publishedMessages/2/allLikes

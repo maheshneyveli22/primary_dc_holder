@@ -1,0 +1,20 @@
+1. In user service controller, will make change to display the portnumber on which the instance is running
+
+2.
+@Autowired
+private Environment env;
+
+ @GetMapping("status/check")
+ public String status()
+ {
+ return "working on port "+env.getProperty("local.server.port");
+ }
+ 
+ 
+ 3. http://localhost:8011/users-ws/users/status/check
+ 
+ 4. if we hit it we will see the out put with port number
+ 
+ 5. upon refreshing we will see microservice running on different port
+ 
+ 6. Thus the zuul load balancer is running 

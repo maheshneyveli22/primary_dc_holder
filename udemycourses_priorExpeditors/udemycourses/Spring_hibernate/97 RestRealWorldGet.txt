@@ -1,0 +1,4 @@
+DEVELOPMENT PROCESS
+1) Create Customer REST controller
+2) Autowire CustomerService
+3) Add mapping for GET /customers

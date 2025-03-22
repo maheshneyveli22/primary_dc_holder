@@ -1,0 +1,76 @@
+1) AOP -> Mode of code for cross cutting concerns(loggin, security etc
+2) Advice - what action is taken, when it should be applied
+3) Join Point - when to apply code during program execution
+4) PointCut - A predicate expression for where advice should be applied
+
+
+5) Advice Types:
+a Before advice: run before the method
+b After finally advice: run after the method(finally)
+c After returning advice : run after the method(success execution)
+d after throwing advice : run after method(if execution thrown)
+e Around advice: run before and after method
+
+6) Weaving
+-> COnnecting aspects to target objects to create an advised objects
+-> different types of weaving:
+a) Compile time
+b) Load Time
+c) Run time
+-> Regarding performance: run time weaving is the slowest
+
+7) AOP frameworks in java
+a) Spring AOP
+b) AspectJ
+
+
+7) Spring AOP support:
+-> Key components of spring
+* Security, transactions, caching etc
+-> Uses run time weaving of aspects
+
+8) AspectJ
+-> original AOP framework released in 2001
+-> Provides complete support for aop
+-> Rich support for
+a) Join Points - method-level,constructor, field
+b) Code weaving: compile-time, post compile time and load-time
+
+9) Spring AOP advantages over AspectJ
+
+a) Simpler to use than AspectJ
+b) Uses Proxy pattern
+c) Can migrate to AspectJ when using @Aspect annotation
+
+10) Spring AOP disadvantages:
+a) Only supports method-level join points
+b) Can only apply aspects to beans created by Spring app context
+c) Minor performance cost for aspet execution(run-time weaving) 
+
+
+11) Aspect J
+
+Advantages:
+a) Supports all join points
+b) Works with any POJO not just beans from app context
+c) Faster performance than SPring AOP
+d) Complete AOP support
+
+Disadvantages
+a) Compile time weaving requires extra compilation step
+b) AspectJ pointcut syntax can become complex.
+
+
+12) Comparing Spring AOP and AspectJ
+
+-> Spring AOP only suppots
+* method level join points
+* RUn time code weaving(slower than aspectJ)
+
+
+-> AspectJ supports
+* All Join points : method-level, constructor, field
+* weaving: compile-time, post compile-time and load-time
+
+-> Spring AOP is light weight implementation of AOP
+-> Solves most common problems in enterprise applications

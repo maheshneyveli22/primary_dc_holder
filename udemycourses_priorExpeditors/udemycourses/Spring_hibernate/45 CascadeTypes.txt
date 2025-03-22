@@ -1,0 +1,6 @@
+1) PERSIST -> if entity is persisted/saved, related entity will also be persisted
+2) REMOVE -> if entity is removed/deleted, related entity will also be deleted
+3) REFRESH -> if entity is refreshed, related entity will also be refreshed
+4) DETACH -> If entity is detached(not associated with session), then related entity will also be detached
+5) MERGE -> If entity is merged, then related entity will also be merged
+6) ALL -> all of above cascade types

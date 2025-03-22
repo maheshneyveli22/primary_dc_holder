@@ -1,0 +1,2 @@
+1) Implement login request model
+2) AuthenticationFilter. Implementing attemptAuthentication()

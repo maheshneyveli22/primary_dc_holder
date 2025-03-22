@@ -1,0 +1,36 @@
+
+1) When microservices start, they register themselves with eureka discovery services
+2) Eureka becomes aware of each of the microservices and their address
+3) when we start more instances of a particular microservice eg: users microservice, each instance of microservice will have a unique address and requests from client applications needs to be balanced between the instances
+
+4) Now when we have multiple instance of microservice running and each instance has its unique address, we need a way to route incoming requests from client application to one of these instances
+
+
+5) To do the routing of incoming requests from Client application to one of the instances of microservices we can use SPRING CLOUD API GATEWAY
+
+6) Spring Cloud API Gateway has in built load balancer, which will distribute requests coming from client application equally between available instances
+
+7) SPRING CLOUD GATEWAY is the single point of entry to our system
+
+8) We can configure filters, which filters all http requests that comes in and out of gateway
+
+
+9)                |--------------------------------------------------------------|
+                  |                                                              | 
+				  |         SPRING CLOUD GATEWAY                                 |
+				  |                                                              |
+GATEWAY CLIENT <----->GATEWAY HANDLER MAPPING<--->GATEWAY WEB HANDLER---FILTERS<------> Proxied Services
+                  |                                                              |
+				  |                                                              |
+				  |--------------------------------------------------------------|
+				  
+				  
+10) FLOW:
+1) Flow starts with Gateway Client - It is the client application that sends http request to a destination microservice that is running behind api gateway
+2) SPRING CLOUD GATEWAY
+a) When Spring Cloud Gateway receives the request, the first component in the flow is Gateway Handler mapping. 	
+-> Gateway handler mapping determines that the request matches the configured route
+b) Then the request is sent to Gateway web handler
+-> Gateway web handler will take the request through a set of filters configured for this route
+c) if HTTP request matches a route, handler 			  
+				  

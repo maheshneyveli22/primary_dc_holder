@@ -1,0 +1,136 @@
+1) 
+  @EnableWebMVC for enabling mvc
+  
+2) Security classes should extend and create new Class: AbstractAnnotationConfigDispatcherServletInitializer and mention config classes and mapping:
+Override the following Methods: 
+a) getRootConfigClasses() -> no root config classes for our project
+b) getServletConfigClasses() -> mention the config classes as an array
+c) getServletMappings() -> eg return new String{"/"};
+
+eg: MySpringMVCDispatcherServletInitializer
+
+3) For spring filter: create a class extending AbstractSecurityWebApplicationInitializer  
+-> Create config class extending: WebSecurityConfigurerAdapter
+
+-> in config class add two annotations:
+a) @Configuration
+b) @EnableWebSecurity
+
+-> And then override configure(AuthenticationManagerBuilder auth) method 
+-> use auth.inMemoryAuthentication.withUser(users.userName("John").password("test123").roles("EMPLOYEE") and authenticate the users
+
+-> but WebSecurityConfigurerAdapter got deprecated in 2022 from Spring security 5.7
+
+4) ContextRoot is the root path of web application
+
+eg: ContextRoot: my-ecommerce-app
+
+http://localhost:8080/my-ecommerce-app
+
+5) Above steps will show default login form. to show custom login form, perform the following steps
+a) Modify Spring security configuration to reference Custom login form:
+-> Like Previous DemoSecurityConfig extends WebSecurityConfigurerAdapter and override following methods
+  i) configure(AuthenticationManagerBuilder) -> Configure users(in memory, database, ldap etc)
+  ii) configure(HttpSecurity http) -> configure security of web paths in application, login, logout etc
+  
+  eg: 
+   http.authorizeRequests().anyRequest.authenticated().and().formLogin().loginPage("/showLoginPage").loginProcessingUrl("/AuthenticateTheUser").permitAll();
+   
+   -> we need to create controller for this request mapping:"/showLoginPage"
+   -> no controller request mapping required for "/AuthenticateTheUser"
+
+b) Develop a controller to show custom login form
+c) Create Custom login form
+
+--> and add getMapping for "showLoginPage"
+
+
+5) User ID and roles:
+-> spring security provides jsp custom tags to access user id and roles
+Dev process:
+a) Update pom.xml to suppor Spring security JSP tag library
+b) Add Spring security tag library to JSP page.
+-> <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+c) Display user id and user roles
+-> 		User: <security:authentication property="principal.username" />
+		<br><br>
+		Role(s): <security:authentication property="principal.authorities" />
+d) Roles are added earlier in DemoSecurityConfig class's configure():
+-> 				
+		auth.inMemoryAuthentication()
+			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+			.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
+			.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+			
+6) Restrict based on user and roles:
+-> update spring security Java configuration file(DemoSecurityConfig class)
+-> Syntax:
+for single role:
+antMatchers(<< add path to match on >>).hasRole(<<authorized role>>)
+
+for multiple roles:
+antMatchers(<< add path to match on >>).hasAnyRole(<<list of authorized roles>>)
+			
+Eg: 		
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+			.antMatchers("/").hasRole("EMPLOYEE")
+			.antMatchers("/leaders/**").hasRole("MANAGER")
+			.antMatchers("/systems/**").hasRole("ADMIN")
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll()
+			.and()
+			.logout().permitAll();
+		
+	}
+
+
+7) Display content based on roles: make following changes in jsp:
+
+<security:authorize access="hasRole('MANAGER')">
+	
+		<!-- Add a link to point to /leaders ... this is for the managers -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+			(Only for Manager peeps)
+		</p>
+
+	</security:authorize>	
+	
+
+8) Database support in spring security
+-> Out of the box: Spring security can read user account info from Database
+-> by default you have to follow spring security's predefined table schemas
+-> By following the schemas, spring security includes all JDBC code to read information from the database
+-> as a result we need to write only less java code to read info from DB
+-> all we have to do is :a) Create the security configuration b) create DB tables, spring security does all the heavy lifting
+->  we can also customize table schemas, but in that case we wneed to write all code to retrieve data from DB
+
+a) need to create two tables: users and authorities. here authorities table is similar to roles
+b) id is encoding algorithm to store passwords
+noop - means no hashing 
+bcrypt - bcrypt password hashing
+-> bcrypt password is 68 character length(8 for bcrypt and 60 for pwd)
+-> bcrypt is one way algorithm meaning it will only be encrypted and no decryption is done.
+-> checking is done by using two encrypted passwords
+c) create jdbc properties file with connection and other details
+d) In config class, refer the properties file as Property source
+-> read from properties file using Environment env variable and then set the SecurityDataSource properties
+-> Datasource is created from ComboPooledDataSource class instance
+e) in config class' configure method call the below thing to do the authentication
+
+protected void configure(AuthenticationManagerBuilder auth)
+{
+auth.jdbcAuthentication.dataSource(securityDataSource);
+}
+
+-> thi code tells Spring security to use JDBC authentication  with our datasource
+
+
+

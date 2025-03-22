@@ -1,0 +1,23 @@
+1) HTTP methods -> specifies how the information will be passed in our request and which operation needs to be performed by web services
+
+2) Most commonly used HTTP requests
+
+3) Non Restful:
+
+POST - Create user /RegisterUserServlet
+GET - Read user details /GetUserDetailsServlet?userID=1
+POST - Update user details /UpdateUserDetailsServlet
+GET - Delete user details /DeleteUserDetailsServlet?userID=1
+
+
+4) RESTFUL
+
+POST - Create user /users
+GET - Read user details /users/1
+PUT - Update user details /users/1
+DELETE - Delete user details /users/1
+
+-> for get, put, delete uri looks same and only the http methods will be different for them
+
+
+

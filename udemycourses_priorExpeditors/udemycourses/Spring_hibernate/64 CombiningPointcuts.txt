@@ -1,0 +1,56 @@
+HOW TO APPLY MULTIPLE POINTCUT EXPRESSIONS TO SINGLE ADVICE?
+
+1) Execute an advice only if certain conditions are met
+
+eg:
+-> to apply advice to all methods in a package except getter/setter methods
+-> so exclusion can be performed by combining pointcut expressions
+
+
+2) Combining pointcut expressions using logic operators
+a) AND(&&)
+b) OR(||)
+c) NOT(!)
+
+3) When you combine pointcut expressions, it works like if statement
+-> execution happens only if it evaluates to true
+
+4) eg:
+
+@Before("expressionsOne() && expressionTwo()")
+@Before("expressionOne() || expressionTwo()")
+@Before('expressionOne && !expressionTwo()")
+
+
+
+5) development process
+a) Create pointcut declarations
+
+@Pointcut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+private void forDaoPackage(){}
+
+-> Create another pointcut for getter methods
+@Pointcut("execution(* com.luv2code.aopdemo.dao.*.get*(..))")
+private void getter(){}
+
+-> Create pointcut for setter methods
+@Pointcut("execution(* com.luv2code.aopdemo.dao.*.set*(..))")
+private void setter(){}
+
+b) Combine pointcut declarations
+
+eg:
+@Pointcut("forDaoPackage() && !(getter() || setter())")
+private void forDaoPackageNoGetterSetter(){}
+
+c) Apply pointcut declaration to advice(s)
+
+@Before("forDaoPackageNoGetterSetter()")
+public void beforeAddAccountAdvice()
+{
+...
+}
+
+
+
+

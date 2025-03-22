@@ -1,0 +1,26 @@
+1) Linked versions of hashmap and hashset provide ordering capability
+2) ordering of hashmap and hashset chaotic according to oracle
+
+3) -> getOrDefault method of map
+-> it will try to get the value associated with the key, else if value is not present for the key, then it will set the default value passed as argument to the key of the map 
+
+The getOrDefault(Object key, V defaultValue) method of Map interface, implemented by HashMap class is used to get the value mapped with specified key. If no value is mapped with the provided key then the default value is returned.
+
+4) Collections.unmodifiableMap()-> returns map which cannot be modified. if tried to modify it throws UnsupportedOperationException
+   Similarly we have, Collections.unmodifiableList()
+   
+   --> THough map structure cant be changed, individual items of map can be changed
+   ----> Thus collections is not modifiable , but individual items of map is modifiable
+
+The unmodifiableMap() method of java.util.Collections class is used to return an unmodifiable view of the specified map. This method allows modules to provide users with “read-only” access to internal maps. Query operations on the returned map “read through” to the specified map, and attempts to modify the returned map, whether direct or via its collection views, result in an UnsupportedOperationException.
+
+
+5) TreeMap
+--> TreeMap - default sort order
+----> it uses CompareTo method to put it in sorted order
+
+
+
+6) Removing items in map
+a) we can map.remove(key) -> we can remove the corresponding object
+b) map.clear() -> will clear all  the items in map

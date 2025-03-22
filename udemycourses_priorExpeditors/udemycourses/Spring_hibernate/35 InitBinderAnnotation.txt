@@ -1,0 +1,18 @@
+1) @InitBinder - Works as a preprocessor
+-> it will preprocess each web request to our controller
+-> method annotated with @InitBinder is executed
+
+
+2) Register custom editor in Controller
+
+CustomerController.java
+
+
+@InitBinder
+public void initBinder(WebDataBinder dataBinder)
+{
+StringTrimmerEditor stringTrimmerEditor= new StringTrimmerEditor(true):
+dataBinder.registerCustomerEditor(String.class,stringTrimmerEditor);
+
+}
+-

@@ -1,0 +1,129 @@
+1) @Component("beanid") -> for making a class as a bean
+2) @Autowired  -> for dependancy injection
+3) @Qualifier  -> when interface has multiple implementations while autowiring , via qualifier we specify beanid of the implementation to be used
+4) @Scope("singleton") -> specifies scope of the bean
+ or 
+   @Scope("prototype")
+   
+   
+5) @Configuration -> for java based configuration without xml
+6) @ComponentScan("com.luv2code.springdemo")
+7) @PropertySource("classpath:mylogger.properties") -> to load properties file
+8) @Bean -> defines a bean in spring configuration class. method creates instance of bean and returns it
+9) @value("${foo.email}") -> does field level injection from properties file
+
+
+10) @Controller - define class as controller as part of mvc flow
+11) @RequestMapping("/processFormVersionTwo")
+12) @RequestParam -> reading html form data
+13) @ModelAttribute("student")
+-> binds form data to object
+-> @ModelAttribute annotation binds a method parameter or method return value to a named model attribute and then exposes it to a web view
+
+
+VALIDATION
+14) @NotNull - Checks that the annotated value is not null
+15) @Min - Must be a number>=value
+16) @Max - Must be a number<=value
+17) @Size - Size must match given size
+18) @Pattern - Must match a regular expression pattern
+19) @Future/@Past - Date must be in future or past of given date
+20) @Valid 
+21) @InitBinder - Works as a preprocessor
+-> it will preprocess each web request to our controller
+-> method annotated with @InitBinder is executed
+22)@Min(value=0,message="must be greater than or equal to zero")
+23) @Max(value=10,message="must be less than or equal to 10")
+24) @Pattern(regexp="^[a-zA-Z0-9]{5}, message="only 5 chars/digits")  -> for regex validation
+
+DAO related:
+25) @Repository -> in dao layer
+26) @Transactional -> no begin and commit transaction needed
+-> in service layer
+27) @service annotation extends @Component annotation
+-> @Service applied to service implementations
+
+
+AOP related
+28) @EnableAspectJAutoProxy -> Enables support for handling components marked with AspectJ's @Aspect annotation
+29) @Aspect -> this will be applied on top of class which is going to be act as aspect
+30) @Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())")
+30) @PointCut("execution(* com.luv2code.aopdemo.dao.*.*(..))")
+-> for declaring point cutexpression
+
+eg:
+@Pointcut("forDaoPackage() && !(getter() || setter())")
+private void forDaoPackageNoGetterSetter(){}
+
+31)@Order(1) Control order on Aspects using @Order annotation
+32) @AfterReturning(pointCut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..)):, returning="result")
+33) @AfterThrowingAdvice("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))", throwing="theExc") -> after exception is thrown by method
+34) @After(finally) This advice runs after a method is completed - regardless of the outcome/exceptions
+35) @Around - advice runs before and after the method
+
+
+36) Spring app configuration in Java 
+a) @Configuration
+b) @EnableWebMvc
+c) @ComponentScan(basePackages="com.luv2code.springsecurity.demo")
+public class DemoAppConfig{
+
+}
+d) Define bean or view resolver
+@Bean
+public ViewResolver viewResolver()
+{
+InternalResourceViewResolver viewResolver= new InternalResourceViewResolver();
+viewResolver.setPrefix("/WEB-INF/view");
+viewResolver.setSuffix(".jsp");
+
+return viewResolver;
+
+}
+
+SPRING SECURITY
+37)@EnableWebSecurity -> To enable spring security
+
+SOME CLASSES TO REMEMBER
+
+1) AbstractAnnotationConfigDispatcherServletInitializer
+-> to configure the servlet config files and servlet mappings
+
+
+2) AbstractSecurityWebApplicationInitializer -> To configure security
+
+3) DemoSecurityConfig extends WebSecurityConfigureAdapter
+
+
+SPRING REST
+38) @RestController -> Handles REST requests and responses
+39) @PathVariable 
+-> for accepting path variable in rest requests for single id or input
+40) @ExceptionHandler Define exception handler for Rest
+41) @ControllerAdvice - for global exception, similar to interceptor/filter. Pre-process requests to controller and post-process responses to handle exceptions
+42) @RequestBody - Binds the pojo to a method parameter 
+
+
+SPRING BOOT
+43)@SpringBootApplication
+-> This annotation enables 
+a) auto configuration: @EnableAutoConfiguration
+-> This annotation enables spring boots auto-configuration support
+b) Component scanning: @ComponentScan
+c) Additional Configuration: @Configuration
+44) @Value -Spring boot to read values from application.properties file
+
+
+spring DATA REST
+45) 
+@RepositoryRestResource(path="members")
+-> to have different name for spring data rest endpoints
+
+
+SPRING MICROSERVICES
+46) @EnableEurekaServer -> to make main application class act as Eureka server
+47) @EnableDiscoveryClient -> to make this application a eureka client and to be discovered/registered by eureka discovery server
+48) @EnableZuulProxy -> to make the application act as zuul api gateway
+49) @EnableConfigServer -> to Make application as spring cloud config server
+50) @FeignClient(name=”album-ws”) -> to enable Feign client support
+51) @FeignClients in application class to enable Feign client support for the application

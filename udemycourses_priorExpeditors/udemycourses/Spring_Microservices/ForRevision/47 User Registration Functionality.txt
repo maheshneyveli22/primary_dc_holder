@@ -1,0 +1,48 @@
+1) We will add new method to users controller class and this new method will be responsible for posting http post requests.
+
+2) To make this method triggerred when http post requests are triggerred, we need to annotate this method with a @PostMapping annotation
+
+3) WHen client application sends post request to create a new user with our API, they will send the HTTP post request containing json or xml body with user details
+-> this json payload needs to be converted by the framework into a java object, so that method in rest controller class can take and use it to record in db
+-> this conversion from json to java is done by framework
+
+
+4) TO convert it we need to create a java class with fields that the json payload has and then use that class to convert json to java object
+
+5) Create new User Request Model Class:
+
+6) after creating this model class: CreateUserRequestModel, take it and use it in contoller class
+
+7) Then add required validations in model class
+
+
+8) For multilayer microservice approach, pls visit the diagram in this folder
+
+
+9) IMPLEMENTING SERVICE LAYER
+a) Will create a service layer interface and a class with one method 
+
+10) Created shared DTO class
+
+11) Create Unique public user ID
+
+12) Add support for Spring Data JPA
+
+13) IMPLEMENTING User Entity class
+
+14) IMPLEMENTING Spring Data JPA repository
+
+15) Save User Details in Database
+
+-> ModelMapper ==> It maps fields from Source Object i.e UserDetails into a destination object which is going to be our user entity
+-> for this mapping to work -> field names in source object i.es UserDto object must match the fields in destination object ie UserEntity 
+
+
+16) Return HTTP status code 
+
+
+17) Implementing Create User Response model
+
+18) Add Spring security to users Microservice
+
+19) BCryptPasswordEncoder.encode method used for encoding the password

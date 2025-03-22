@@ -1,0 +1,46 @@
+1) in Java NIO, data processed in blocks rather than byte or char
+
+
+2) To read and write the file we need to create a channel for read and write
+-> there are two ways to create channel
+a) create channel from open file instance
+b) use File channel. open method
+
+
+3)
+a) create channel from open file :
+-> we can get file chanel from three instances of 3 classes i) FileInputStream ii) FileOutputStream iii)RandomAccessFile
+
+4) now we shall use FileInputStream instance to create File channel
+
+FileInputStream file = new FileInputStream("data.txt");
+FileChannel channel = file.getChannel();
+
+5) One channel is enough for reading and writing
+-> but there is an exception to this rule. 
+-> if we create a file channel from FileInputStream it is open only for reading
+-> if we create a file channel from FileOutputStream it is open only for writing
+-> For RandomAccessFile based on the parameter passed:rwd - it can be used for reading or writing
+
+
+6) FileChannel is an instance of SeekableByteChannel
+
+7) Next step is to create buffer to read the file
+-> while creating buffer from channel, we need to specify the size of buffer which will inturn specify the size how many bytes are read at any point of time
+
+FileInputStream file = new FileInputStream("data.txt");
+FileChannel channel = file.getChannel();
+
+8) 
+
+Path dataPath= FileSystems. getDefault().getPath("data.txt");
+Files.write(datapath,"\nLine 4".getBytes("UTF-8"), StandardOpenOption.APPEND);
+List<String> lines = Files.readAllLines(dataPath);
+for(String line:lines)
+{
+System.out.println(line);
+}
+catch(IOException e)
+{
+e.printStackTrace();
+}

@@ -1,0 +1,23 @@
+1) Spring security protects against Cross-Site Request forgery(CSRF)
+
+2) what is CSRF
+-> Security attack where an evil website tricks you into executing an action on a web application that you are currently logged into
+
+3) Spring Security's CSRF protection:
+
+-> CSRF  protection enabled by default in spring security.
+-> Spring security uses Synchronizer token pattern
+* Each request includes a session cookie and randomly generated token
+-> for request processing, spring security verifies token before processing
+-> All these handled by Spring security filters
+
+4) When to use CSRF protection?
+->for any normal browser web requests
+-> For non browser clients, you may disable csrf protection(after careful review)
+
+5) For Form submissions, use POST instead of GET
+* Include CSRF token in form submission
+
+<form:form> automatically adds CSRF token
+
+-> if<form:form> is not used, we need to manually add csrf token

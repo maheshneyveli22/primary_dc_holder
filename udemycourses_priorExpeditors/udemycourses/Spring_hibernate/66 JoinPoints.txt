@@ -1,0 +1,40 @@
+READ METHOD ARGUMENT WITH JOIN POINTS
+
+PROBLEM:
+-> How can we access Method Parameters when we are in aspect 
+
+
+DEVELOPMENT PROCESS:
+1) Access and display method signature
+
+@Before("...")
+public void beforeAddAccountAdvice(JoinPoint theJoinPoint)
+{
+MethodSignature methodSig=(MethodSignature) theJoinPoint.getSignature();
+System.out.println("Method: "+methodSig);
+}
+
+-> we will add new argument to before method called JoinPoint
+-> JoinPoint has metadata about method call
+-> JoinPoint will give us information about the method that we are actually executing
+
+2) Access and display method arguments
+
+
+@Before("...")
+public void beforeAddAccountAdvice(JoinPoint theJoinPoint)
+{
+//display method arguments
+
+//getargs
+Object[] args=theJoinPoint.getArgs();
+
+//loop through args
+for(Object tempArg:args)
+{
+System.out.println(tempArg);
+}
+
+}
+
+-> theJoinPoint gives the array of arguments via getargs()

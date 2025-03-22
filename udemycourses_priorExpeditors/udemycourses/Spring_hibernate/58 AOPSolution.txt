@@ -1,0 +1,32 @@
+AOP SOLUTION
+
+MAIN APP<---->AOP PROXY<---lOGGING ASPECT-SECURITY ASPECT---->TARGET OBJECT
+
+
+1)Benefits of AOP:
+-> Code for Aspect defined in a single class
+* much better than being scattered everwhere
+* promotes code reuse and easier to change
+
+-> Business code in you application is cleaner
+-> Configurable
+
+2) Use Cases:
+a) Logging, Security,Transactions are most common
+b) Audit Logging
+-> who, what, when, where
+c) Exception handling
+-> log exception and notify dev ops via sms
+d) API Management
+-> how many times a method has been called by user
+-> analytics, what are peak times, average load, who is top user?
+
+3) AOP advantages
+-> reusable modules
+-> resolve code tangling
+-> resolve code scattered
+-> applied selectively based on configuration
+
+4) AOP disadvantages
+-> Too many aspects and app flow is hard to follow
+-> Minor performance cost for aspect execution(run-time weaving) 

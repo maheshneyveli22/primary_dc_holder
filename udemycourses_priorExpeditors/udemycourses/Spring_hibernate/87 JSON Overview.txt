@@ -1,0 +1,28 @@
+1) JSON in plain text, in name value pairs
+
+-> name will be in quotes
+
+2) JSON Values
+-> Numbers no quotes
+-> String in double quotes
+-> Boolean: true, false
+-> Nested Json object
+-> Array
+-> value can be value,empty or null
+
+
+3) Java JSON Data binding
+-> Data binding is the process of converting json data to Java POJO
+
+4) JSON data binding with Jackson
+-> Spring uses Jackson project behind the scenes
+_> Jackson handles data binding between JSON and Java POJO
+
+
+5) JSON to Java POJO
+-> Jackson Calls setter methods on POJO
+
+6) Java POJO to JSON
+-> Jackson calls getter methods on POJO
+
+7 

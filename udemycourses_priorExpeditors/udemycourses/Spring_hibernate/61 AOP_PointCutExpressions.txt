@@ -1,0 +1,60 @@
+AOP TERMINOLOGY
+
+1) Pointcut
+-> Predicate expression for where advice should be applied
+-> 
+
+2) Pointcut expression language
+
+-> Spring AOP uses AspectJ's pointcute expression language
+
+*Execution Pointcuts:
+-> Applies to execution of methods
+
+
+3) Match on method name
+
+execution(modifiers-pattern? return-type-pattern declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
+
+2) Pointcut expression examples
+
+Match on method names:
+a) Match only addAccount() method in AccountDAO class
+
+eg:
+@Before("execution(public void com.luv2code.aopdemo.dao.AccountDAO.addAccount())")
+
+
+public-> Modifier
+void -> Return type
+com.luv2code.aopdemo.dao.AccountDAO -> Declaring type
+addAccount() -> Actual method
+
+b) Match any addAccount() in any class
+
+@Before("execution(public void addAccount())")
+
+
+
+c) Match on method names(using wildcards)
+i) -> Match methods starting with add in any class
+
+@Before("execution(public void add*())"
+
+ii) -> Match methods starting with processCreditCard in any class
+
+@Before("execution(public VerificationResult processCreditCard*())")
+
+d) Use wildcards on return type
+
+@Before("execution(public *processCreditCard*())")
+
+-> Modifier is optional, so need not list it
+
+
+eg: 
+@Before("execution(* processCreditCard*())")
+
+e) 
+
+

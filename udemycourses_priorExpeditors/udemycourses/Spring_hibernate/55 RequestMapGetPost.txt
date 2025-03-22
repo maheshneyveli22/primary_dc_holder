@@ -1,0 +1,32 @@
+1) 
+
+@RequestMapping(path="/processForm", method=RequestMethod.POST)
+public String porcessForm(...)
+{
+...
+}
+
+-> this method handles only POST method. any other http reqeust method will get rejected
+
+
+2) new method added in Spring 4.3
+@PostMapping("/processForm")
+public String processForm(...)
+{
+
+}
+
+-> handles only post method
+
+
+
+3) get vs post
+Get:
+-> Good for debugging
+-> Bookmark or email URL
+-> limitations on data length
+
+POST:
+-> Cant bookmar or email url
+-> no limitations on data length
+-> can also send binary data

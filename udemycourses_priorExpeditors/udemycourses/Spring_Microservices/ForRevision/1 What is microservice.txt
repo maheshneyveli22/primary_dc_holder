@@ -1,0 +1,31 @@
+1) 
+What is a Microservice
+- A Web Service
+- Small and Responsible for one thing (Search, Password Reset, Email
+Verification)
+- Configured to work in the Cloud and is easily scalable
+
+
+2)Since microservices are separate web services, they somehow need to communicate with each other
+-> Microservices mostly communicate with each other via http
+
+3) Spring cloud is an environment that supports microservices that we build via spring boot.
+
+
+4) 
+-> API Gateway is a standalone springboot application
+-> then we have load balancer, config server and Service Discovery which are standalone sprint boot applications that are built to service the purpose
+
+5) when one microservice is being deployed or redeployed : then other microservices in your system are still up and running and are servicing client requests
+
+6) each microservice can be implemented with different technologies
+
+7) In monolithic application, changes to any module will need rebuilding and deploying the complete application, while in microservices it is enough that particular microservice is rebuilt and deployed while others are running
+
+8) for commmunication between services:
+-> IN monolithic it is enough to just import that particular service 
+-> while in microservice commmunication between services is done via http
+
+9) In monolithic application we have single db for whole application, while microservice application will have separate db for each purpose
+
+10) each microservice is designed around a single domain and has its own db

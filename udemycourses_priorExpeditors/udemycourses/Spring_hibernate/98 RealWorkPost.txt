@@ -1,0 +1,10 @@
+1) @RequestBody - Binds pojo to a method parameter
+
+
+2)
+@PostMapping("/customer")
+public Customer addCustomer(@RequestBody Customer theCustomer)
+{
+
+
+}

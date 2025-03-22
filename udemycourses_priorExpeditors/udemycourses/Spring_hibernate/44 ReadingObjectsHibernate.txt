@@ -1,0 +1,16 @@
+1) In Hibernate we retrieve/read from database using the primary key
+
+Student myStudent= session.get(Student.class, theStudent.getID());
+
+
+
+2) using hql
+
+List<Student> theStudents=session.createQuery("from student").getResultlist();
+
+
+3) update for all students
+
+session.createQuery("update student set email='foo@gmail.com'").executeUpdate();
+
+4) for a single object means, just get the object, set the value and commit the transaction

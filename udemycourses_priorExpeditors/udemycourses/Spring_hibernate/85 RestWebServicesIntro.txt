@@ -1,0 +1,16 @@
+YOU WILL LEARN HOW TO
+
+1) Create Rest APIs/ Web Services with spring
+2) Discuss REST concepts, JSON and HTTP messaging
+3) Install REST client tool:Postman
+4) Develop Rest APIs/Web Services with @RestController
+5) Build a crud interface to the database with Spring Rest
+
+
+PRACTICAL RESULTS
+1) Introduction to Spring Rest Development
+
+
+
+APPLICATION ARCHITECTURE
+

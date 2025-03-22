@@ -1,0 +1,60 @@
+SPRING SECURITY - RESTRICT ACCESS BASED ON USER ROLE
+
+Development Process
+1) Create supporting controller code and view pages
+2) Update user role
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// add our users for in memory authentication
+		
+		UserBuilder users = User.withDefaultPasswordEncoder();
+		
+		auth.inMemoryAuthentication()
+			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+			.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
+			.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+	}
+
+
+3) Restrict based on user roles
+
+-> Update Spring Security Java configuration file
+
+-> General syntax:
+
+
+antMatchers(<< add path to match on>>).hasRole(<<authorized role>>)
+
+
+antMatchers(<< add path to match on>>).hasAnyRole(<<authorized role>>)
+
+4) Restrict access to Employee
+
+antMatchers("/").hasRole("EMPLOYEE")
+
+
+5) Restrict Path /leaders to employees
+
+antMatchers("/leaders/**").hasRole("MANAGER")
+
+
+5) Putting it together
+
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+			.antMatchers("/").hasRole("EMPLOYEE")
+			.antMatchers("/leaders/**").hasRole("MANAGER")
+			.antMatchers("/systems/**").hasRole("ADMIN")
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage")
+				.loginProcessingUrl("/authenticateTheUser")
+				.permitAll()
+			.and()
+			.logout().permitAll();
+		
+	}

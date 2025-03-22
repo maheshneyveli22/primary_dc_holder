@@ -1,0 +1,9 @@
+#Expressions
+#Statements
+#Code Block
+#Methods
+
+1)Switch case statements can be used with 4 primitive types: byte, short ,char and int
+
+-> In Java 7, switch for strings is introduced
+-> Character,Byte, Short, Integer, String, Enum are allowed currently

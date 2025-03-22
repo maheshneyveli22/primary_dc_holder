@@ -1,0 +1,10 @@
+1) Spring security provides JSP custom tags for accessing user id and roles
+2) 
+
+
+<p>
+User: <security:authentication property="principal.username"/>
+<br><br>
+Role(s): <security:authentication property="principal.authorities"
+/>
+</p>

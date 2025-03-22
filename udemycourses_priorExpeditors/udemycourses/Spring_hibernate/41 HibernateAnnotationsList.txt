@@ -1,0 +1,125 @@
+##############################
+For Creating Session Factory and Session:
+SessionFactory factory = new Configuration.configure("hibernate.cfg.xml").addAnnotatedClass(Student.class).buildSessionFactory();
+
+Session session = factory.getCurrentSession()
+
+
+// create a student object
+			System.out.println("Creating new student object...");
+			Student tempStudent = new Student("Paul", "Doe", "paul@luv2code.com");
+			
+			// start a transaction
+			session.beginTransaction();
+			
+			// save the student object
+			System.out.println("Saving the student...");
+			session.save(tempStudent);
+			
+			// commit transaction
+			session.getTransaction().commit();
+##############################
+
+
+For Table: Mapping class to Table
+1) @Entity   -> Java object for sql table
+2) @Table(name="student") -> for setting name of table
+
+For Columns: Marking fields of class to Columns in DB
+3) @Id -> for setting primary key
+4) @GeneratedValue(strategy=GenerationType.IDENTITY) -> for setting primary key generation type
+GenerationType.AUTO -> Pick appropriate strategy for the particular database
+GenerationType.IDENTITY -> Assign primary keys using database identity column
+GenerationType.SEQUENCE -> Assign primary keys using database sequence
+GenerationType.TABLE -> Assign primary keys using underlying database table to ensure uniqueness
+
+5) @Column(name="id") -> for setting column 
+
+
+6) for mapping we need to specify a) cascade type and then b) join column .  c) Fetch type(if needed)  d) Mappedby(if needed)
+7) OneToOneMapping eg: Instructor -> Instructor detail
+ a) @OneToOneMapping(Cascade=cascade = CascadeType.ALL)   @JoinColums(name="instructor_detail_id") in instructor class
+ b) @OneToOneMapping(mappedBy="instructorDetail")    in InstructorDetail class
+ instructorDetail -> is variable in Instructor class for InstructorDetail
+   
+  -> for unidirectional a) Specify @OneToOneMapping with join column at one side alone and the cascade type alone
+  -> for bidirectional a) Specify @OneToOneMapping on both sides and on second side specify mappedby with associated object of first side
+
+a) PERSIST -> if entity is persisted/saved, related entity will also be persisted
+b) REMOVE -> if entity is removed/deleted, related entity will also be deleted
+c) REFRESH -> if entity is refreshed, related entity will also be refreshed
+d) DETACH -> If entity is detached(not associated with session), then related entity will also be detached
+e) MERGE -> If entity is merged, then related entity will also be merged
+f) ALL -> all of above cascade types
+
+8) ManyToOneMapping: Many courses mapped to one instructor
+Alternately OneToMany: One Instructor mapped to many courses
+
+for Bidirectional: a) @ManyToOneMapping  b) @JoinColumn(name="instructor_id"  In Course class
+                   b) @OneToManyMapping(mappedBy="instructor" cascade={CascadeType.All}) b)
+                   instructor-> is variable used by Course class for Instructor				   
+
+
+ 9) FetchType:
+-> while specifying mapping we can specify the fetch type wherther FetchType.Eager or FetchType.Lazy: 
+-> Default: 
+ OneToOne,ManyToOne -> Eager
+  OneToMany, ManyToMany -> Lazy
+ -> Specifying fetchtype:
+@ManyToOne(fetch=FetchTYpe.Lazy)
+@JoinColumn(name="instructor_id")
+private Instructor instructor;
+
+10) TO retrieve lazy data, need to open hibernate session
+Two options to retrieve lazy data:
+a) session.get and call appropriate getter methods
+b) Hibernate Query with HQL:
+Query query= session.createQuery("select i from Instructor i"+ "JOIN FETCH i.courses "+"where i.id=:theInstructorId",Instructor.class);
+query.setParameter("theInstructorId", theId);
+query.singleResult(); -> will fetch all the data.
+
+11) To fetch the eager data, either we need to enable fetch type to eager or call the getter of that inherent collection directly
+
+12) If you want to fetch the lazy data, after session is closed, we need to get lazy data before close and then call lazy data even after we close the session 
+  
+  
+13) OneToMany - Unidirectional:
+-> One course mapped to Many reviews
+
+a) Course.java
+@OneToMany(fetch=FetchTYpe.Lazy ,cascade={CascadeType.All}) 
+@JoinColumn(name="course_id" )
+private List<Review> reviews;
+-> course_id is column in review table
+
+-> add convenience method in Course.java for addReview()
+
+-> no need in Review.java since this is unidirectional
+
+
+14) ManyToMany : A course can have many students and A student can have many courses 
+                 STUDENT <=>COURSES
+-> To keep track of which student assigned to which course and vice versa we need JoinTable
+-> JoinTable is a special table which maintains relationships between Course and students
+           -> it has foreign keys for each table to define the mapping relationship
+           -> For course and Student - Join table name will be course_student and it will contain two columns: course_id and student_id
+
+a) Course.java
+@ManyToMany
+@JoinTable(
+name="course_student",
+joinColumns=@JoinColumn(name="course_id"),
+inverseJoinColumns=@JoinColumn(name="student_id")
+)	
+private List<Student> students;	   
+
+b) Student.java
+
+@ManyToMany
+@JoinTable(
+name="course_student",
+joinColumns=@JoinColumn(name="course_id"),
+inverseJoinColumns=@JoinColumn(name="student_id")
+)	
+private List<Course> Courses;	  
+				 

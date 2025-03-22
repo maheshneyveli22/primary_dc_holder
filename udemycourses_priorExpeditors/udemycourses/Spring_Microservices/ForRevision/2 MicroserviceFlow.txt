@@ -1,0 +1,22 @@
+
+
+
+Discovery service
+-> when client application needs to send a http request to users microservice, it needs to know the url of users microservice.
+-> but it is not possible for client application to know the urls of all the microservices, since each microservice will be having multiple instances and on different ports
+
+---> when microservices start up, they register themselves to a discovery service and then the client application can send the request to users microservice through an API gateway
+---> API gateway will be able to direct requests to the needed microservice because API gateway  know the location of all the microservices via Discovery service
+
+API Gateway:
+-> Serves as single entry point for HTTP requests coming from the client application.
+
+LOAD Balancer:
+-> with help of load balancer HTTP requests will be redirected to one of the running instances of the requested microservice
+
+COnfig Server:
+-> We need Configuration server to create a centralized configuration for our microservices
+-> because some of the microservices will have configuration properties which will be shared and centralized.
+-> these configuration properties needs to be updated sometimes
+--> if the dont have configuration servers and if the configuration properties lies in the microservices itself then if there is any changes in the value of those properties then we need to restart the particular microservice
+-> then if the configuration properties get updated in the config server then we will be pushing the corresponding values to the required microservices

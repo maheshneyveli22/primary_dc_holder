@@ -1,0 +1,92 @@
+Development process:
+1) Create custom validation rule
+2) Add validation rule to customer class
+3) Display error messages on html form
+4) Update confirmation page
+
+
+-> Step 2,3,4 has been done, no of times before
+
+1. Create custom validation rule
+a. Create @CourseCode annotation
+
+Usage Example:
+@CourseCode(value="LUV", message="must start with LUV")
+private String courseCode;
+
+###############
+@Constraint(validatedBy=CourseCodeConstraintValidator.class)
+@Target({ ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CourseCode{
+
+//define default course code
+public String value() default "LUV";
+
+//define default error message
+public String message() default "must start with LUV";
+
+//define default groups
+public class<?>[] groups default{};
+
+//define default payloads
+public Class<? extends Payload>[] payload() default{};
+
+}
+#######################
+@interface -> special type of interface to define custom annotation
+Contraint - CourseCodeConstraintValidator.class-> helper class that contains business logic
+Target - tells where we can apply our annotation to a method or field
+Retention - Retain this annotation in java class file and process it at run time
+public String value() default "LUV"; -> this method will be annotation's parameter
+
+b. Create CourseCodeConstraintValidator
+-> this is a helper class which contains business logic for validation
+
+
+##################
+package com.luv2code.springdemo.mvc.validation;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+public class CourseCodeConstraintValidator 
+	implements ConstraintValidator<CourseCode, String> {
+
+	private String coursePrefix;
+	
+	@Override
+	public void initialize(CourseCode theCourseCode) {
+		coursePrefix = theCourseCode.value();
+	}
+
+	@Override
+	public boolean isValid(String theCode, 
+						ConstraintValidatorContext theConstraintValidatorContext) {
+
+		boolean result;
+		
+		if (theCode != null) {
+			result = theCode.startsWith(coursePrefix);
+		}
+		else {
+			result = true;
+		}
+		
+		return result;
+	}
+}
+
+
+###########################
+
+
+
+
+
+
+
+
+
+
+

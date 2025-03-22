@@ -1,0 +1,6 @@
+1) Spring starter web -> for basic spring and rest
+2) Eureka server - to make application as a discovery server
+3) Eureka Discovery - to make application as Eureka client which registers to Eureka server
+4) Spring cloud routing  - Gateway -> to make application as spring cloud api gateway
+Spring reactive web(web flux) -> needed for spring cloud api gateway 
+5) Spring Cloud Config server - for spring cloud config server

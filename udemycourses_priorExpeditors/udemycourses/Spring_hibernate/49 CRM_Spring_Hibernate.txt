@@ -1,0 +1,16 @@
+ARCHITECTURE
+
+BROWSER---1--> CUSTOMER CONTROLLER <--2-->CUSTOMER DAO <--3-->DB
+
+
+CUSTOMER CONTROLLER----4---->JSP PAGES----5---->WEB BROWSER
+
+
+
+1) packagestoScan
+
+<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+<property name ="datasource" ref= "myDataSource" />
+
+<property name="packagestoScan" value ="com.luv2code.springdemo.entity" />

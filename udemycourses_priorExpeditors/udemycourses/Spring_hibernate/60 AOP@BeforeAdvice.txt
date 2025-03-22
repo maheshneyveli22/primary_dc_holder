@@ -1,0 +1,55 @@
+1) If we want to run Custom code before the Target Object method call , we go for @Before advice
+
+2) @Before Advice - use cases
+* Most common
+-> logging, security, transactions
+* Audit logging
+-> who, what, when, where
+* API management
+-> how many times a method has been called by user
+-> analytics: what are peak times, what is average load? who is top user?
+
+
+3) Developmental Process:
+a) Create target object: AccountDao
+b) Create Spring Java config class
+
+@Configuration
+@EnableAspectJAutoProxy
+@ComponentScan("com.luv2code.aopdemo")
+public class DemoConfig
+{
+}
+
+
+c) Create main app
+
+
+d) Create an Aspect with @Before advice
+
+@Aspect
+@ComponentScan
+public class MyDemoLogginAspect{
+
+
+
+@Before("execution(public void addAccount())")
+public void beforeAddAccountAdvice()
+{
+
+.....
+}
+
+}
+
+@Before-> indicates - before this method is called lets execute this method
+-> execution(public void addAccount()) -> this is pointcut expression
+-> This pointcut expression means Run this code BEFORE - target object method: "public void addAccount()"
+
+
+4) Best Practices:
+-> Keep code small
+-> keep code fast
+-> dont perform any expensive/slow operations
+-> get in and out as quickly as possible
+

@@ -1,0 +1,14 @@
+Hibernate Session Factory:
+-> Hibernate session Factory needs a Data source
+* THe data source defines database connection info
+
+
+Customer DAO(data access object)<---->SessionFactory<---Data Source---->Database
+
+-> all these dependencies will be wired via dependency injection
+
+
+
+2) Spring @Transactional
+-> Automatically begins and ends a transaction for hibernate
+-> no need to explicitly mention in code for begin transaction, commit etc

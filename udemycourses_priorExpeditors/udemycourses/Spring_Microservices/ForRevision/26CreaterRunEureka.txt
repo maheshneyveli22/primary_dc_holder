@@ -1,0 +1,28 @@
+1) Create new Spring Starter project
+
+2) Select Eureka server as dependancy and finish
+
+3) Our Application class created is: PhotoAppDiscoveryServiceApplication
+
+4) Current this is a spring boot application. 
+
+5) TO make this spring boot application as a Eureka Discovery server, add annotation: @EnableEurekaServer
+
+
+eg: 
+@SpringBootApplication
+@EnableEurekaServer
+public class PhotoAppDiscoveryServiceApplication {
+
+
+6) Next step is to provide Configuration Properties: Open application.properties
+
+server.port=8010
+spring.application.name=discoveryservice
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+eureka.client.serviceUrl.defaultZone=http://localhost:8010/eureka
+eureka.instance.prefer-ip-address=true
+
+7) 
+

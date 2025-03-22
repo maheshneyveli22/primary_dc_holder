@@ -1,0 +1,38 @@
+1) So far we have read files sequentially
+2) but for large files we can read files sequentially and access files in Random manner
+
+3) File terms:
+
+a) File Pointer
+-> It is an offset in the file where the next read or write in the file will start from
+eg: If file pointer is set to 100, then next time when we call read or write method, read or byte position will start at 100 in file
+-> if we read an int byte positions from 100 to 103 will be read 
+--> File pointer 's first position starts from 0
+--> whenever we read or write the file, the file position is advanced for the number of bytes we read or write
+eg: if file pointer is equal to 100,  and if we have read 5 bytes, the file pointer will  be equal to 105 after the read and write has taken place
+
+
+b) Offset
+-> term offset used while randomnly accessing files
+-> Offset is the byte location in the file
+For eg: if the value has an offset of 100, then it would mean that the value is located at byte 100 in the file, so file pointer will be set to 100 when we read and write the value
+-> Value could occupy more than one byte, but the offset is where the value's first byte is located.
+
+-
+ |
+ |
+
+c) Index:
+-> Inde Stores Offset and record length of each object
+-> location id should also be present in index
+---> in Java Each index is 12 bytes
+
+
+
+Section 1:  first 4 bytes -> no of locations in game(0-3)
+Section 2: -> next 4 bytes -> start offset of the location section(4-7)
+Section 3: -> next 4 bytes -> will contain index. Index is 1692 bytes long and it will start at byte 8 and end at byte 1699
+Section 4: FInal section of file  will contain location records i.e the actual data. it will start at byte 1700
+
+
+d) To move to a specific offset we use RandomAccessFile's seek() to move to the particular file pointer

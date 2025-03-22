@@ -1,0 +1,31 @@
+1) Add path to delete mapping annotation
+
+	@DeleteMapping(path="/{id}")
+	
+	
+2) Add PathVariable as parameter to method to accept the uuid passed in the url
+
+
+  public ResponseEntity<Void> deleteUser(@PathVariable String id)
+	
+
+3) in method remove the user from the users map using uuid as key
+
+
+4) Change return type of method to ResponseEntity 
+
+5) return 		return ResponseEntity.noContent().build();
+
+
+6) Eg:
+
+############
+	@DeleteMapping(path="/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable String id)
+	{
+		users.remove(id);
+		
+		return ResponseEntity.noContent().build();
+	}	
+	
+#############	

@@ -1,0 +1,24 @@
+1) Default Fetch types:
+
+@OneToOne - FetchType.Eager
+@OneToMany - FetchType.Lazy
+@ManyToOne - FetchType.Eager
+@ManyToMany - FetchType.Lazy
+
+2) how to change
+
+eg:
+
+@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="instructor_id")
+private Instructor instructor;
+
+eg:
+@OneToMany(fetch=FetchType.Eager, mappedBy="instructor",cascade={CascadeType.ALL})
+private List<Course> courses;
+
+
+3) Retrieve lazy data
+
+1) session.get and call appropriate getter methods
+2) Hibernate query with hql

@@ -1,0 +1,52 @@
+
+1) Configure Locale resolver and interceptor in spring
+
+
+a) #Add LocaleResolver in config class
+@Bean
+public LocaleResolver localeResolver()
+{
+SessionLocaleResolver slr= new SessionLocaleResolver();
+slr.setDefaultLocale(Locale.US);
+return slr
+}
+b) # Add LocaleChangeInterceptor in config class
+@Bean
+public LocaleChangeInterceptor localeChangeInterceptor()
+{
+LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+lci.setParamName("lang");
+return lci;
+}
+
+c) override addInterceptors in controller class
+
+@override
+public void addInterceptors(IntercptorRegistry registry)
+{
+registry.addInterceptor(localeChangeInterceptor());
+}
+
+in controller class:
+
+@GetMapping("/")
+public String viewHomePage(Model model, HttpServletRequest request)
+{
+model.addAttribute("pageTitle","Home - Shopme Admin");
+Locale currentLocale= request.getLocale();
+String countryCode= currentLocale.getCountry():
+String countryName=currentLocale.getDisplayCountry();
+String langCode=currentLocale.getLanguage();
+}
+
+
+2) Create language files(messages_XX.properties) in src/main/resources folder
+a) messages.properties -> default for english
+b) messages_xx.properties: XX -> Language code
+c) messages_fr.properties : french
+
+ 3) Update view using: [[#{keyNameInProperties}]]
+ 
+ eg:
+ 
+ <a><ht:href="@{/users}">[[#{menu.user}]]</a>

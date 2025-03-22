@@ -1,0 +1,28 @@
+1) Two common types of injection
+    a) Constructor Injection
+	b) Setter Injection
+	
+	
+2) Constructor  Injection
+  a) definne dependency interface and class
+  b) Create constructor in your class for injections
+  c) Configure dependency injection in Spring config file
+
+
+3) Sample definition in applicationContext.xml
+
+
+<bean id="myFortuneService" class="com.luv2code.springdemo.HappyFortuneService">
+</bean>
+
+<bean id="myCoach"
+class ="com.luv2code.springdemo.BaseballCoach">
+<constructor-arg ref="myFortuneService" />
+</bean>
+
+
+4) Setter Injection
+
+a) Create setter methods in your class for injections
+b) Configure dependency injection in Spring config file  
+	

@@ -1,0 +1,18 @@
+1) if the business logic of exception handler methods does not change much, we can use one method to handle multiple exceptions
+
+2) we can combine two or more methods into one method
+
+3) In value section of 	@ExceptionHandler(value = { NullPointerException.class }), add the exceptions you want to handle :
+
+eg:
+
+	@ExceptionHandler(value = { NullPointerException.class,UserServiceException.class })
+	
+4) Change the method parameter to accept Exception to accept any exception
+eg:
+
+	@ExceptionHandler(value = { NullPointerException.class,UserServiceException.class })
+	public ResponseEntity<Object> handleSpecificExceptions(Exception ex, WebRequest request) {
+
+5) 	
+	

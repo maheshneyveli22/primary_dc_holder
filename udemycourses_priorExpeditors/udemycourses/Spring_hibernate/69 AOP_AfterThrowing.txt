@@ -1,0 +1,33 @@
+@AfterThrowingAdvice
+
+1) @AfterThrowingAdvice advice is executed after an exception is thrown from the method
+
+2) @AfterThrowingAdvice - Use Cases
+
+a) Log the exception
+b) Perform auditing on the exception
+c) Notify Devops team via email or sms
+
+3) Example
+
+* Create an advice that will run after an exception is thrown
+
+
+@AfterThrowingAdvice("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))", throwing="theExc")
+public void afterThrowingFindAccountsAdvice(JoinPoint theJoinPoint, Throwable theExc)
+{
+String method= theJoinPoint.getSignature().toShortString();
+System.out.println("executing @AfterThrowingAdvice"+method);
+
+System.out.println("THe exception is  "+theExc);
+
+
+}
+
+throwing-> is the new parameter for exception that we can use
+
+4) Development process
+
+a) In the main app, add a try/catch block for exception handling
+b) Modify AccountDAO to simulate throwing an exception
+c) Add @AfterThrowing Advice

@@ -1,0 +1,38 @@
+1) CREATING A FILE
+
+Path fileToCreate = FileSystems.getDefault().getPath("file2.txt");
+Files.createFile(fileToCreate);
+
+
+2) CREATE DIRECTORY
+
+Path dirToCreate = FileSystems.getDefault().getPath("Examples","Dir4");
+Files.CreateDirectory(dirToCreate);
+
+3) CREATE MULTIPLE DIRECTORIES: 
+
+Path dirToCreate = FileSystems.getDefault().getPath("Examples","Dir2\\Dir3\\Dir4\\Dir5\\Dir6");
+Files.CreateDirectories(dirToCreate);
+
+-> this command not only creates leaf directory but also all the non existent directories mentioned in path
+
+
+4) GETTING FILE ATTRIBUTES:
+eg: last modified,,size, path , directory etc
+
+a) SIZE
+Path filePath = FileSystems.getDefault().getPath("Examples","Dir1\\file1.txt");
+
+long size=Files.size(filePath);
+System.out.println("size="+size);
+
+b) Last modified date
+
+System.out.println("Last modified="+Files.getLastModifiedTime(filePath));
+
+c) GET ALL ATTIBUTES OF FILE
+BasicFileAttributes attrs= Files.readAttributes(filePath, BasicFileAttribute.class);
+
+System.out.println("size="+attrs.size);
+System.out.println("Last Modified="+attrs.lastModifiedTime());
+System.out.println("Created ="+attrs.CreationTime());

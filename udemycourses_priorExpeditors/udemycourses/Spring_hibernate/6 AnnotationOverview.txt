@@ -1,0 +1,57 @@
+STEPS:
+1) Enable component scanning in Spring config file
+
+ 
+<beans>
+<context:component-scan base-package="com.luv2code.springdemo"/>
+</beans>
+
+
+2) Add the @Component annotation to your java classes
+
+@Component("thatSillyCoach")
+public class TennisCoach implements Coach
+{
+
+public String getDailyWorkout()
+{
+return "Practice your backhand volley";
+}
+
+}
+
+
+3) Retrieving bean from spring container
+
+Coach theCoach= context.getBean("thatSillyCoach",Coach.class);
+
+"thatSillyCoach" -> this is the component id we gave in annotation
+
+
+4) Suppose if the bean id is not given in @Component annotation, Spring will provide default bean id: the class name, make first letter lower-case
+
+eg:
+
+Class Name: TennisCoach
+Default Bean ID: tennisCoach
+
+
+eg:
+1) Remove explicit bean id from TennisCoach class
+
+@Component()
+public class TennisCoach implements Coach
+{
+
+public String getDailyWorkout()
+{
+return "Practice your backhand volley";
+}
+
+}
+
+
+2) Retrieve the bean using default bean id:
+
+
+Coach theCoach= context.getBean("tennisCoach",Coach.class);

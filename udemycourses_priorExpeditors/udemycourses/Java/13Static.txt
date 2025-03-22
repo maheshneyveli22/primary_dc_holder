@@ -1,0 +1,4 @@
+1) Static methods can access only static variables and not instance variables
+2) Non static methods can access both static and instance variables
+
+3) Restriction present only when static methods accessing non static method/variables

@@ -1,0 +1,55 @@
+
+1) Put method in map can be used to tell if a value is there for a key or not
+
+eg:
+       langMap.put("java","OOPS language");
+
+	   System.out.println(langMap.get("java"));
+
+        System.out.println(langMap.put("java","My core language"));
+        System.out.println(langMap.get("java"));
+		
+		
+		
+o/p:
+   OOPS language
+  OOPS language
+  My core language
+  
+  -> by this way we can identify if the value is added first time or not
+  
+2)        if(langMap.containsKey("java"))
+
+-> containsKey method checks if a particular key is already present in the map or not
+
+3) langMap.remove(key) -> by passing the particular key we can can remove the key value pair from map
+
+4) langMap.remove(key,value) -> here object will be removed from the map, if the key and value are  matched. else it will not remove
+
+5) langMap.replace  -> it will replace the entry for a specific key, if the key is already mapped to the specific value       
+
+ ->langMap.replace("key","oldValue","newValue");  -> replacing old value with new value
+ -> this will be used, when we want to update name eg: after marriage
+  ->langMap.replace("key","oldValue");  -> replacing  with new value
+  
+  
+  6) FOr Python, keys of map should be immutable. FOr Java it is not mandatory
+  -> but as per java doc, care must be excerised when we use mutable objects as keys because: map object can behave unpredictably, if key objects change in way such that equal comparisons are affected
+  
+  7) for a map, the same map object can not be a key
+ 
+ 
+ 8) Important methods:
+ 
+ containsKey
+ replace
+ get
+ put
+ remove
+ 
+ 
+ 9) here we prevent external people from modifying internal map, instead we create new map using the external map and return it
+ 
+     public Map<String, Integer> getExits() {
+        return new HashMap<String,Integer>(exits);
+    }

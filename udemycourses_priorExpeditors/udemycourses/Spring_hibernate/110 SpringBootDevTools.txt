@@ -1,0 +1,6 @@
+1) PROBLEM 
+WHen running spring boot applications - if you have to make changes to your source code, you have manually restart your applications
+
+2) SOLUTION
+spring-boot-devtools -> Automatically restarts your application when code is updated
+-> we just need to add the dependancy to the pom file

@@ -1,0 +1,39 @@
+DEVELOPMENT PROCESS
+1) Create Spring Security initializer
+
+SPRING SECURITY WEB APP INITIALIZER: AbstractSecurityWebApplicationInitializer
+a) Spring security provides support for security initialization 
+b) Security code we write is used to initialize servlet container
+c) AbstractSecurityWebApplicationInitializer is the special class to register Spring Security filters
+
+-> we just need to extend this abstract class and there is no code to override or configure
+
+eg: 
+
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer{
+
+
+}
+
+2) Create Spring Security Configuration(@Configuration)
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig extends WebSecurityConfigureAdapter{
+
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception
+{
+UserBuilder users= User.withDefaultPasswordEncoder();
+auth.inMemoryAuthentication();.withUser(users.username("john").password("test123").roles("EMPLOYEE")
+.withUser(users.username("Mary").password("test123").roles("MANAGER")
+.withUser(users.username("susan").password("test123").roles("ADMIN")
+
+}
+
+}
+
+
+-> configure method is used to specify the type of authentication needed.
+-> here we specify inMemoryAuthentication
+3) Add Users/passwords/roles

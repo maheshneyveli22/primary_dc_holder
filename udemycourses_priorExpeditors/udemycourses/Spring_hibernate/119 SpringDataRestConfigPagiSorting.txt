@@ -1,0 +1,49 @@
+1) By default, spring data REST will create endpoints based on entity type
+
+2) TO specify different end point name in repository use new Annotation
+
+@RepositoryRestResource(path="members")
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>
+{
+
+}
+
+
+3) Pagination
+-> by default spring data rest will return the first 20 elements
+* Page size=20
+-> you can navigate to different pages of data using query param
+
+eg:
+http://localhost:8080/employees?page=0
+http://localhost:8080/employees?page=1
+
+-> pages are zero-based
+
+
+4) Following properties are available for pagination: application.properties
+
+
+spring.data.rest.base-path  -> Base path used to expose repository resources
+spring.data.rest.defaul-page-size -> default size of pages
+spring.data.rest.max-page-size -> Maximum size of pages
+
+eg:
+
+spring.data.rest.base-path=/magic-api
+spring.data.rest.defaul-page-size=50
+
+5) Sorting
+-> you can sort by the property names of your entity
+* in Employee we have firstName, lastName and email
+-> sort by lastname(ascending is default)
+
+http://localhost:808/employees?sort=lastName
+
+-> sort by firstName, descending
+
+http://localhost:808/employees?sort=lastName,desc
+
+-> sort by lastname, then firstname, ascending
+
+http://localhost:808/employees?sort=lastName,firstname,asc

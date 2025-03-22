@@ -1,0 +1,291 @@
+1) Array list
+
+a) add: list.add(object)
+b) set: list.set(3, 30); -> 3 is index and 30 is value
+         list.add(2,40); -> adds element at specified index and pushes other elements one step below
+c) contains: arr.contains(2); -> here 2 is value or object
+d) to get position of object: arr.indexOf(3) -> here 3 is value or object
+e) delete:     i) al.remove(1); -> here 1 is index
+                ii)  al.remove(Integer.valueOf(1));  -> removes object with value 1
+				iii	using iterator: 
+									Iterator itr = al.iterator();
+									while (itr.hasNext()) {
+					  
+								// Remove elements smaller than 10 using
+								// Iterator.remove()
+								int x = (Integer)itr.next();
+								if (x < 10)
+									itr.remove();
+							}
+f) Copying one array list contents to another
+		i) ArrayList<String> newArray = new ArrayList<String>();
+		   newArray.addAll(groceryList.getGroceryList());
+		   
+		
+g) convert arrayList to array
+        i) String[] myArray= new String[groceryList.getGroceryList().size()];
+		   myArray=groceryList.getGroceryList().toArray(myArray);
+
+       		  
+		
+2) Iterator:
+    Iterator<String> i = LinkedList.iterator();
+	while(i.hasNext())
+	{
+	System.out.println("Now visiting "+i.next());
+	}
+i.hasNext()  -> hasNext	returns a boolean whether next element is present or not
+i.next() -> returns the actual object in that linked list via iterator
+
+3) 
+a) An Iterator is an interface in Java and we can traverse the elements of a list in a forward direction 
+    An Iterator can be used in these collection types like List, Set,and Queue 
+	The important methods of Iterator interface are hasNext(), next() and remove()
+	
+b) a ListIterator is an interface that extends the Iterator interface and we can traverse the elements in both forward and       backward directions. 
+  ListIterator can be used in List collection only.  
+  important methods of ListIterator interface are add(), hasNext(), hasPrevious() and remove().
+
+
+			 ListIterator<String> stringListIterator = linkedList.listerIterator();
+			 while(stringListIterator.hasNext())
+			 
+			 
+5) Comparable -> currentList.compareTo(newList)		
+eg: int comparison = currentList.compareTo(newList);
+-> if it returns 0 , both equal
+-> if it returns greater than 0, currentList(Brisbane or 10) item is larger than newList(Adelaide or 4) item: 
+-> if it returns less than 0, currentList(Calcutta 0 5) item is lesser than newList(Mumbai or 8) item	 
+
+
+#################################
+public int compareTo(Object obj): It is used to compare the current object with the specified object. It returns
+
+positive integer, if the current object is greater than the specified object.
+negative integer, if the current object is less than the specified object.
+zero, if the current object is equal to the specified object.
+############################
+	
+6) Comparator -> compare(currentList, newList)
+int comparison = compare(currentList, newList)
+-> if it returns 0 , both equal
+-> if it returns greater than 0, currentList(Brisbane or 10) item is larger than newList(Adelaide or 4) item: 
+-> if it returns less than 0, currentList(Calcutta 0 5) item is lesser than newList(Mumbai or 8) item	 	
+
+7) To sort:
+   Collections.sort(list);
+
+	
+8) Linked List
+LinkedList<String> placesToVisit= new LinkedList<String>();
+a) To add -> placestoVisit.add("Sydney");
+b) To add at specific position: placesToVisit.add(1, "Alice Springs");
+ -> adds element at specified index and pushes other elements one step below in linked list, but actually only links are changed. but in arraylist actual positions of all objects below are changed.
+c) To remove element at particular index position: placesToVisit.remove(4);
+d)  TO copy elements one 
+
+		
+
+9) Collection Interface: List, Set, Queue, Dequeue
+                       : Map does not come under Collection interface.
+   -> Hashset does not return in order. LinkedHashSet,SortedSet, TreeSet returns output in order	
+  -> TO search for a particular seat:
+     int foundSeat= Collections.binarySearch(seats, requestedSeat, null);  
+		
+a) to sort a collection:
+
+           Collections.sort(list);
+b) To reverse a collection
+          Collections.reverse(list);
+c) To shuffle a collection:
+          Collections.shuffle(list);
+d) To get minimum and max element in a collection:
+       Theatre.Seat minSeat=   Collections.min(seatList);
+	    Theatre.Seat maxSeat=   Collections.max(seatList);
+e) To do deep copy of one list into another list:
+     List<Theatre.Seat> newList=new ArrayList<>(theatre.seats.size());
+     Collections.copy(newList,theatre.seats);	 
+		
+
+10)
+
+Collection - Interface: List, set, queue,Dequeue
+Collections - Utility class for the collection interface types
+Collection - framework - List, Set, Queue, Maps
+
+11) Map Interface - Part of Collections framework	
+-> Map cant contain duplicate keys
+-> Map implementations : HashMap, LinkedHashMap
+-> Sorted Map implementations: TreeMap
+
+a) Map<String,String> map = new HashMap<>();
+ -> to set values: map.put("Java","High level language");
+ -> to get values: map.get("Java");
+
+b) Put method can tell if value is added newly or the existing value got changed.
+
+System.out.println(map.put("Java","High level language");); 
+-> First time if we put value in to map for a key, the output will be null
+System.out.println(map.put("Java","Good language");); 
+-> if we try to change existing value for map , the output will be the value that existed prior
+   o/p: High level language
+   
+c) containsKey() : checks if a particular key is present or not
+  map.containsKey("Java"));   
+  
+d) containsValue() : Checks if a particular value is present for any of the keys or not
+   map.containsValue("High level language"));  
+   
+e) =putIfAbsent(K key, V value) :  is used to map the specified key with the specified value, only if no such key exists (or is mapped to null)  in this HashMap instance.   
+     map.putIfAbsent("d", 77633);
+	 
+f) Print values in map:
+
+for(String key: map.keySet())
+{
+System.out.println(key+":"+map.get(key));
+}	
+
+g) remove key/value in map: 
+i) map.remove("Java")
+-> this removes if the map contains certain key
+ii) Remove key, if it is mapped to a certain value:
+-> remove() method does not return true or false
+
+
+if(map.remove("Java","High level language"))
+{
+System.out.println(" Map with this key/value found and removed");
+}
+
+h) map.replace  : replace entry for a specific key if it is already mapped to a value
+
+i) Care must be taken if immutable objects are used as keys
+
+j) Map cannot contain itself as key
+
+12) Sets:
+-> No defined ordering
+-> Hashset: not ordered
+-> LinkedHashSet and TreeSet: Ordered
+ Methods: set, get,remove, size(), isEmpty(), contains()
+-> getting element from a particular position is not possible in set. Need to use List in that case
+-> Using mutable objects in set can cause problems
+-> Best Performing Set: HashSet
+-> Set is nothing but a hashmap where : if an element is added to set , it becomes a key and a dummy object is stored as value in underlying hashmap
+
+Collection methods for set: containsAll, retainAll,addAll, removeAll
+
+
+13) Sorted Collections
+LinkedHashMap and LinkedHashSet
+
+
+14)   To return unmodifiableMap     
+ Map<String, String> m = Collections.unmodifiableMap(table);
+-> else it throws UnsupportedOperationException
+
+
+15) 
+ArrayList forEach() method in Java
+Difficulty Level : Basic
+Last Updated : 26 Nov, 2018
+Read
+Discuss
+
+The forEach() method of ArrayList used to perform the certain operation for each element in ArrayList. This method traverses each element of the Iterable of ArrayList until all elements have been Processed by the method or an exception is raised. The operation is performed in the order of iteration if that order is specified by the method. Exceptions thrown by the Operation are passed to the caller.
+
+Until and unless an overriding class has specified a concurrent modification policy, the operation cannot modify the underlying source of elements so we can say that behavior of this method is unspecified.
+
+Retrieving Elements from Collection in Java.
+
+Syntax:
+
+public void forEach(Consumer<? super E> action)
+Parameter: This method takes a parameter action which represents the action to be performed for each element.
+
+Returns: This method does not returns anything.
+
+Exception: This method throws NullPointerException if the specified action is null.
+
+Below programs illustrate forEach() method of ArrayList:
+
+Program 1: Program to demonstrate forEach() method on ArrayList which contains a list of Numbers.
+
+
+// Java Program Demonstrate forEach()
+// method of ArrayList
+  
+import java.util.*;
+public class GFG {
+  
+    public static void main(String[] args)
+    {
+        // create an ArrayList which going to
+        // contains a list of Numbers
+        ArrayList<Integer> Numbers = new ArrayList<Integer>();
+  
+        // Add Number to list
+        Numbers.add(23);
+        Numbers.add(32);
+        Numbers.add(45);
+        Numbers.add(63);
+  
+        // forEach method of ArrayList and
+        // print numbers
+        Numbers.forEach((n) -> System.out.println(n));
+    }
+}
+Output:
+23
+32
+45
+63
+Program 2: Program to demonstrate forEach() method on ArrayList which contains list of Students Names.
+
+
+// Java Program Demonstrate forEach()
+// method of ArrayList
+  
+import java.util.*;
+public class GFG {
+  
+    public static void main(String[] args)
+    {
+        // create an ArrayList which going to
+        // contains a list of Student names which is actually
+        // string values
+        ArrayList<String> students = new ArrayList<String>();
+  
+        // Add Strings to list
+        // each string represents student name
+        students.add("Ram");
+        students.add("Mohan");
+        students.add("Sohan");
+        students.add("Rabi");
+  
+        // print result
+        System.out.println("list of Students:");
+  
+        // forEach method of ArrayList and
+        // print student names
+        students.forEach((n) -> print(n));
+    }
+  
+    // printing student name
+    public static void print(String n)
+    {
+        System.out.println("Student Name is " + n);
+    }
+}
+Output:
+list of Students:
+Student Name is Ram
+Student Name is Mohan
+Student Name is Sohan
+Student Name is Rabi
+
+
+#################
+
+										

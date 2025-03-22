@@ -1,0 +1,4 @@
+AUTOWIRING METHOD INJECTION
+
+1) Inject dependencies by calling any method on your class
+-> Any method name, if simply annotated with @Autowired - its dependencies will be injected automatically by Spring

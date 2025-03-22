@@ -1,0 +1,8 @@
+SPRING REST SUPPORT
+1) Spring web mvc provides support for Spring REST
+2) 
+@RestController helps the same
+->@RestController is an extension of @Controller annotation
+-> Handles REST requests and responses
+-> Spring Rest automatically converts Java POJOs to JSON
+-> As long as json project is on classpath or pom.xml -spring rest will handle this conversion automatically

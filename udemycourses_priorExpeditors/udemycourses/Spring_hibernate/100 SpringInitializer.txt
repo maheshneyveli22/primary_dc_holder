@@ -1,0 +1,17 @@
+SPRING INITIALIZER
+1) Create starter spring project
+2) Select dependencies
+3) Create maven/gradle project
+4) Import project to your ide
+
+
+DEVELOPMENT PROCESS
+a) Configure project at Spring initializer website
+
+http://start.spring.io
+
+b) Download the zip file
+
+c) Unzip the file
+
+d) Import maven project into your IDE

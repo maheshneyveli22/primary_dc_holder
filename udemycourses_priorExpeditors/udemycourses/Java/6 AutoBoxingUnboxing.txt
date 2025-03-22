@@ -1,0 +1,7 @@
+1) To get Integer object from Primitive:
+Integer intObj= Integer.valueof(50);
+
+to get primitive from Object:
+int i= intObj.intValue()
+
+2) But java does Autoboxing(convert primitive to its corresponding wrapper object) and unboxing(Object to primitive) automatically

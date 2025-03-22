@@ -1,0 +1,189 @@
+1) 
+Character stream: 
+-> Involves text
+-> Readable format
+-> json,xml,text data
+
+Byte Stream: 
+-> Invovles binary data
+-> Not readable format
+-> Program's variable or classes
+
+
+2) 
+Sequential files:
+-> Stream of data sent from program or arrives in a proper order or sequence
+
+
+Random access files:
+-> applies only to files
+-> Jump within files for accessing data
+-> eg: DB data
+
+3) Using FileWriter to write content to file: locations.txt
+FileWriter filewriter =null;
+try{
+ filewriter = new FileWriter("locations.txt");
+
+for(int i=1;i<=10;i++)
+{
+filewriter.write("writing line "+i); 
+}
+}
+catch(IOException e)
+{
+e.printStackTrace();
+}
+finally{
+
+filewriter.close();
+}
+
+4) Java 7 Feature: Try with resources -> takes care of closing the FileWriter stream 
+
+try(FileWriter filewriter = new FileWriter("locations.txt"))
+{
+for(int i=1;i<=10;i++)
+{
+filewriter.write("writing line "+i); 
+}
+}
+catch(IOException e)
+{
+e.printStackTrace();
+}
+
+
+5) We can put more than one resource also:
+
+try(FileWriter locFile = new FileWriter("locations.txt");
+    FileWriter dirFile = new FileWriter("directions.txt"))
+	{}
+	
+6) FileReader
+ FileReader fr=null;
+        try
+        {
+            fr = new FileReader("text");
+        }
+        catch (FileNotFoundException fe)
+        {
+            System.out.println("File not found");
+        }
+ 
+        // read from FileReader till the end of file
+        while ((ch=fr.read())!=-1)
+            System.out.print((char)ch);
+ 
+        // close the file
+        fr.close();
+    }
+
+7) BufferedReader: 
+for Text data: Reads text from input stream and buffers the characters into character array
+-> default size of buffer is 8K bytes
+-> BufferedReader read() -> reads one character at a time while readLine() reads one line at a time
+
+a) reading the data from the text file testout.txt using Java BufferedReader class.
+##########
+public class BufferedReaderExample {  
+    public static void main(String args[])throws Exception{    
+          FileReader fr=new FileReader("D:\\testout.txt");    
+          BufferedReader br=new BufferedReader(fr);    
+  
+          int i;    
+          while((i=br.read())!=-1){  
+          System.out.print((char)i);  
+          }  
+          br.close();    
+          fr.close();    
+    }    
+}    
+##########
+b) for reading data from console:
+
+public class BufferedReaderExample{    
+public static void main(String args[])throws Exception{             
+    InputStreamReader r=new InputStreamReader(System.in);    
+    BufferedReader br=new BufferedReader(r);            
+    System.out.println("Enter your name");    
+    String name=br.readLine();    
+    System.out.println("Welcome "+name);    
+}    
+}
+
+O/P:
+Enter your name
+maheswaran
+Welcome maheswaran
+
+c) reading data from console until user writes stop
+
+#########
+public class BufferedReaderExample{    
+public static void main(String args[])throws Exception{             
+     InputStreamReader r=new InputStreamReader(System.in);    
+     BufferedReader br=new BufferedReader(r);           
+     String name="";    
+     while(!name.equals("stop")){    
+      System.out.println("Enter data: ");    
+      name=br.readLine();    
+      System.out.println("data is: "+name);    
+     }              
+    br.close();    
+    r.close();    
+    }    
+    }  
+########	
+
+8) BufferedWriter:
+
+Important methods:
+void newLine()	It is used to add a new line by writing a line separator.
+void write(int c)	It is used to write a single character.
+
+#Writing the data to a text file testout.txt using Java BufferedWriter.
+#########
+public class BufferedWriterExample {  
+public static void main(String[] args) throws Exception {     
+    FileWriter writer = new FileWriter("D:\\testout.txt");  
+    BufferedWriter buffer = new BufferedWriter(writer);  
+    buffer.write("Welcome to javaTpoint.");  
+    buffer.close();  
+    System.out.println("Success");  
+    }  
+}  
+#########
+
+9) ByteStream:
+
+-> ByteStream classes are used to read bytes from the input stream and write bytes to the output stream. 
+-> In other words, we can say that ByteStream classes read/write the data of 8-bits. 
+-> We can store video, audio, characters, etc., by using ByteStream classes. 
+-> These classes are part of the java.io package.
+-> The ByteStream classes are divided into two types of classes, i.e., InputStream and OutputStream.
+
+Read in same order i.e readInt(), readUTF() in same order that we did write. 
+Byte streams can be used while dealing with Java primitive types 
+BinaryIO can be used while dealing with objects i.e ObjectInputStream and ObjectOutputStream
+
+10) SERIALIZATION:
+While Serializing if we don't give serialVersionId, Java will automatically calculate serialVersionId for us.
+But the problem will come during deserialization if we have different compilers which will calculate serialVersionId using different methods
+Hence it is always recommended to set serialVersionId in code
+
+What is serialVersionId used for?
+It is like versio number for class
+If we don't set it in code, compiler will set it based on class details like it's fields
+Hence if we change class, we should change its serialVersionId
+If serialVersionId does not match, InvalidClassException will be thrown .
+If we want later versions of object to be read by earlier versions of objects we should provide custom implementation for readObject() and writeObject()
+
+If you want to make a class serializable,, then objects it contains also should implement serializable. Developer needs to ensure that.
+
+During serialisation, if there are two objects foo1 and foo2 refer to same object bar. During serialisation, only one copy of bar object will be present.
+
+But if there are two serialised files created. There will be one bar object in each of the file 
+
+11) 
+

@@ -1,0 +1,43 @@
+1) Abstract class Vs Interface
+
+a)  Abstract class can have member variables that are inherited
+    -> Interface  can have variables that are public, static, final which are essentially constant values which can never be changed.
+	    They need to be static because non static variables need an instance
+		
+b) 
+    -> Interface/Abstract classes cannot be instantiated.
+	
+c) Abstract classes can have constructors, while interfaces can not have constructors
+
+d) Methods of abstract class can have any visibility
+  -> All methods of interface are automatically public
+  
+e) Abstract classes can have defined/implemented methods
+   -> interface methods cannot have implementation, since all methods of interface are abstract
+   
+   
+f) Abstract class can extend only one parent class while it can implement multiple interfaces
+
+
+When to use abstract class:
+a) When you want to share code among several closely related classes(animals with field age, name etc)
+b) When you expect classes that extend your abstract class to have common methods or fields or required access modifiers other than public
+c) when you want to declare non static or non final fields(for eg: name, age) , this enables you to define methods that can access and modify the state of an object(getName,setName) 
+
+
+When to use interface:
+a) From Java8 , Interfaces can contain default methods, in other words methods with implementation
+b) They keyword default is used(for backward compatibility) and static methods as well before Java8, that was not possible
+c) From Java9, interface can also contain private methods(commonly used when two default methods in an interface share commmon code)
+
+
+when use interfaces?
+a) when you wwnat to separate different behaviour
+-> you want to specify behaviour of a particular data type, but you are not concerned about who implements its behaviour
+b) Collections api is an excellent example, we have list interface and implementations ArrayList and LinkedList
+c) JDBC API another example of interfaces
+d
+	
+	
+	
+	

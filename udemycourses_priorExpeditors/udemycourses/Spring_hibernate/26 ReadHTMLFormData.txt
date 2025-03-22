@@ -1,0 +1,72 @@
+1) Reading form data using spring mvc
+ helloworld-form.jsp ---->-->helloWorld.jsp
+ input name and the have response in helloworld with name 
+ 
+ 2) Application Flow
+ 
+ i) Website and enter /showForm
+ -> this goes to HelloWorld Controller and the main purpose of this is to simply show the JSP form
+ 
+ Website---Request Mapping(/showForm)---->HelloWorld Controller---->helloWorld-form.jsp
+ 
+ ii) Once we have form displayed, user enters their information and hit submit
+ 
+ helloworld-form.jsp--Request Mapping(/processForm)---> HelloWorld Controller--->helloWorld.jsp
+ 
+ 
+ iii) So we are going to have one HelloWorld controller for two request mappings
+ 
+ 
+ 
+ 3) Controller Class
+ 
+ @Controller
+ public class HelloWorldController
+ {
+ //need a controller method to show the initial HTML form
+ @RequestMapping("/showForm")
+ public String showForm()
+ {
+ return "helloWorld-form";
+ }
+ 
+ //need a controller method to process the HTML form
+ @RequestMapping("/processForm")
+ public String processForm()
+ {
+ return "helloworld";
+ }
+ 
+ 
+ }
+ 
+ -> method names can be of any name
+ 
+ 
+ 
+ DEVELOPMENT PROCESS:
+ 1) Create Controller class
+ 2) Show html form
+ a. Create controller method to show HTML form
+ b. Create View Page for HTML form
+ 
+ 3) Process HTML form
+ a. Create controller method to process HTML form
+ b. Develop view page for confirmation
+ 
+ 
+ public String letsShoutDude(HttpServletRequest request, Model model)
+ {
+ //read the request from html formString theName=request.getParameter("studentName");
+ 
+ //convert data to all caps
+ theName= theName.toUpperCase();
+ //create the message
+ String result="Yo! " + theName;
+ 
+ //add message to the model
+ model.addAttribute("message", result);
+ 
+ return "helloWorld";
+ 
+ }
