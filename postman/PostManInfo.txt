@@ -1,0 +1,11 @@
+1) We can start by creating a new workspace
+2) We can access postman using this url:
+https://www.postman.com/
+3) To access sample req/response or sample api:
+https://reqres.in/
+
+4) Difference between put and patch request
+-> Both are for update request
+Put: Complete body will be updated
+
+Patch: Only particular element will be updated 

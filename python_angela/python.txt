@@ -1,0 +1,622 @@
+1) Get python version:
+a) use command python --version 
+
+eg: 
+C:\Users\gs1-maheswarane>python --version
+Python 3.9.13
+
+
+2) installation path of python:
+a) go to python interpreter using 'python' command
+b) In interpreter type the following: 
+import os
+import sys 
+os.path.dirname(sys.executable) 
+
+
+eg:
+PS C:\ExpoNow\1A_pythonangela> python
+Python 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> import sys
+>>> os.path.dirname(sys.executable)
+'C:\\Users\\gs1-maheswarane\\AppData\\Local\\Programs\\Python\\Python39'
+>>>
+
+
+b) or ou can club all these and use a single line command. Open cmd and enter following command
+
+python -c "import os, sys; print(os.path.dirname(sys.executable))"
+
+c) If you have Python in your environment variable then you can use the following command in cmd or powershell:
+
+
+Windows
+ where python
+ 
+eg:
+C:\Users\gs1-maheswarane>where python
+C:\Users\gs1-maheswarane\AppData\Local\Programs\Python\Python39\python.exe
+C:\Users\gs1-maheswarane\AppData\Local\Microsoft\WindowsApps\python.exe
+
+
+Unix enviroment
+ which python
+
+
+3) How to exit python interpreter:
+
+CTRL+Z and then enter  -> for windows 
+
+4) Print in python
+a) simple print:
+
+
+b) With quotes :
+
+print('Hello "indian" Mahesh')
+
+o/p:
+Hello "indian" Mahesh
+
+print('Hello "indian" Mahesh')
+
+o/p:
+Hello "indian" Mahesh
+
+c) printing in multiple lines:
+
+print("Hello World\nHello World")
+
+eg:
+Hello World
+Hello World
+
+
+5) Python - Input function 
+a) -> Input function helps to input values 
+
+
+eg:
+input("Enter your name:")
+
+o/p:
+ExpoNow/1A_pythonangela/1_Python_HelloWorld/input.py
+Enter your name:Maheswaran
+
+b) Combining input with print
+
+eg:
+print("Hello "+input("Enter your name:"));
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/input.py
+Enter your name:maheswaran
+Hello maheswaran
+
+c) Print number of characters in the input using len function 
+
+eg:
+print(len(input("Enter your name:")));
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/input.py
+Enter your name:mahesh
+6
+
+6) Python Variables
+a)
+name = input("What is your name?");
+print(name);
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/input.py
+enter your name:east
+east
+
+
+7)  Python primitive Datatypes: 
+a) String 
+eg: "Hello" 
+i) To print first letter of the word 
+
+eg: print("Hello"[0])
+
+o/p:
+& C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/input.py
+H
+
+-> subscripting : extracting particular element from string is called subscripting
+
+b) Integer 
+c) Float 
+d) Boolean 
+
+8) Type Error, Type Checking and Type Conversion :
+
+a) When you concatenate int to str:
+
+eg:
+num_char= len(input("What is your name?"));
+# print(type(num_char));
+
+print("Mahesh "+num_char);
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/3primdatatyles.py
+What is your name?& C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/3primdatatyles.py
+Traceback (most recent call last):
+  File "c:\ExpoNow\1A_pythonangela\1_Python_HelloWorld\3primdatatyles.py", line 2, in <module>
+    print("Mahesh "+num_char);
+TypeError: can only concatenate str (not "int") to str
+
+
+b) print datatype of a particular variable 
+
+eg:
+num_char= len(input("What is your name?"));
+print(type(num_char));
+
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/3primdatatyles.py
+What is your name?maheswaran
+<class 'int'>
+
+c) Typecasting or Type conversion
+Here lets convert int to str:
+
+syntax:
+newdatatype_variable= newdatatype(olddatatype_variable)
+
+eg:
+num_char= len(input("What is your name?"));
+new_num_char = str(num_char)
+# print(type(num_char));
+
+print("Mahesh "+new_num_char);
+
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/3primdatatypes.py
+What is your name?maheswaran
+Mahesh 10
+
+
+d) Typecast number to string;
+
+eg:
+a= 123;
+print(type(a)); 
+a=float(a);
+print(type(a)); 
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/4type_conversion.py
+<class 'int'>
+<class 'str'>
+
+
+e) Typecast number to float:
+
+
+eg:
+a= 123;
+print(type(a)); 
+a=float(a);
+print(type(a)); 
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/4type_conversion.py
+<class 'int'>
+<class 'float'>
+
+f) Sum of two digit number
+
+eg:
+twoDigitNum= input();
+sum=int(twoDigitNum[0])+int(twoDigitNum[1]);
+print(sum);
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/5twodigitsum_eg.py
+76
+13
+
+
+
+9) Mathematical operations in python 
+
+a) 3+5
+b) 7-4
+c) 3*2
+print(type(6/3))  
+//Here output of / operation will always be a float 
+in python 
+d) ** 
+-> To raise to a certain power 
+
+print(2 ** 3);
+
+o/p:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/6operations.py
+8
+
+
+
+10) Operations and priority:
+-> Order of priority: PEMDASLR
+
+Parenthesis ()
+Exponents **
+Multiplication  *
+Division /
+Addition +
+Subtraction  - 
+
+-> Actual order for pemdaslr:
+()
+**
+* /
++ - 
+
+-> Always operations go from left to right 
+
+
+a) print(3 * 3 + 3/3 -3);
+-> Here first 3*3 will be done
+-> to it 3/3 will be done and and gets added to 
+output of 3*3
+-> then the result will be subtracted by 3 
+
+
+11) Number manipulation and FStrings in Python 
+
+a) Convert float to int :
+
+eg:
+mahe = 7/3;
+print(mahe);
+print(int(mahe));
+
+o/p:
+2.3333333333333335
+2
+
+b)rounding a number 
+
+eg:
+mahe = 7/3;
+print(mahe);
+# print(int(mahe));
+print(round(mahe,2)); # Here it means 2 decimal places 
+print(round(mahe,3)); # Here it means 2 decimal places 
+
+o/p:
+2.3333333333333335
+2.33
+2.333
+
+
+c) floor division:
+i) using two forward slashes instead of one 
+-> Whenever we divide any number by any number, result is 
+a floating point number 
+-> But if you dont want a floating point number and get only 
+whole numbers, we will use floor division 
+
+
+eg:
+print(7/3);
+print(7//3);
+
+o/p:
+2.3333333333333335
+2
+
+
+ii) checking types of normal division and floor division:
+-> Normal division output is float and floor division output is int 
+
+eg:
+print(type(7/3));
+print(type(7//3));
+
+o/p:
+<class 'float'>
+<class 'int'>
+
+
+iii) shortcut for : result=result/2
+
+
+eg:
+result=4/2;
+result/=2;
+print(result);
+
+o/p:
+1.0
+
+
+iv) shortcut for result=result+1;
+
+eg:
+result=0;
+result+=1;
+print(result);
+
+o/p:
+1
+
+v) shortcut for result=result-1;
+
+eg:
+result=0;
+result-=1;
+print(result);
+
+
+o/p:
+-1
+
+vi) shortcut for result=result*3;
+
+eg:
+result=5;
+result*=3;
+print(result);
+
+o/p:
+15
+
+d) FStrings:
+-> Normally while combining different datatypes and printing , python will throw error 
+
+eg:
+score=10;
+height=2;
+isWinning =True;
+print("score is "+score+"your height is:"+height+"isWinning:"+isWinning);
+
+
+o/p:
+    print("score is "+score+"your height is:"+height+"isWinning:"+isWinning);       
+TypeError: can only concatenate str (not "int") to str
+
+
+
+-> To overcome this issue - we will use f strings 
+
+eg:
+
+
+score=10;
+height=2;
+isWinning =True;
+print(f"score is:{score},your height is:{height},isWinning:{isWinning}");
+
+o/p:
+score is:10,your height is:2,isWinning:True
+
+
+e) rounding a number and formatting the output 
+
+-> Here .2f specifies that we want two decimal points in our float  
+-> we use format function to achieve the same 
+
+eg:
+final_amount= round(bill_per_person,2)
+final_amount = "{:.2f}".format(bill_per_person)
+print(f"Each 
+
+11) if statement in python:
+
+a) syntax: 
+
+  if condition:
+   do this
+  else:
+   do this 
+   
+b) eg:
+
+water_level=50
+if water_level > 80:
+  print("Drain water")
+else:
+ print("Continue")
+ 
+ 
+ 
+c) In python spacing and indentation are very important 
+
+
+d) List of comparison operators 
+
+Operator     					Meaning
+>						      Greater than 
+< 							  Less than 
+>=                            Greater than or equal to 
+<=                            Less than or equal to 
+==                            Equal to 
+!=                            Not equal to 
+
+
+
+12) Nested if statements and elif statements 
+
+a) if condition with only two choices:
+
+
+if condition:
+  do this
+else:
+  do this
+
+
+b) in Nested if/else we can check :  if the first condition passes, we can check for another condition also 
+
+eg:
+
+if condition:
+  if another condition:
+    do this
+  else:
+    do this 
+else:
+  do this
+
+
+c) if/elif/else
+-> Here elif is similar to elseif of other programming languages 
+
+eg:
+
+if condition1:
+  do A
+elif condition2:
+  do B 
+else: 
+  do this 
+  
+  
+13) Logical operators: AND OR NOT 
+
+a) Logical operators are used for checking multiple conditions 
+
+eg:
+  if age>=45 and age<=55:
+  print("Everything will be ok")
+  
+  
+  
+13) To convert text to lower case
+
+name="MAHEsh"
+lower_case_name= name.lower()
+
+
+14) To count the number of characters in a word:
+
+count = name.count("s");
+
+eg:
+name="Maheshes";
+print(name.lower());
+print(name.count("h"));
+print(name.count("hes"));
+
+o/p:
+maheshes
+2
+2
+
+
+15) Concatenate two integers and add them:
+
+eg:
+score = int(str(first_digit) + str(second_digit))
+
+
+
+16) Printing ascii arts:
+
+a) Use three single quotes : 
+
+----> print('''Mahesh''')
+
+
+b) Printing Rhino ascii:
+--> https://ascii.co.uk/art/rhino
+
+eg:
+print('''          .--------------------------------------------.
+           ( DO YOU KNOW HOW HARD IT IS TO DRAW AN OKAPI? )
+          //'--------------------------------------------'
+         /      , _.-~~-.__            __.,----.
+      (';    __( )         ~~~'--..--~~         '.
+(    . \"..-'  ')|                     .       \  '.
+ \\. |\.'                    ;       .  ;       ;   ;
+  \ \'"   /9)                 '       .  ;           ;
+   ; )           )    (        '       .  ;     '    .
+    )    _  __.-'-._   ;       '       . ,     /\    ;
+    '-'"'--'      ; "-. '.    '            _.-(  ".  (
+                  ;    \,)    )--,..----';'    >  ;   .
+                   \   ( |   /           (    /   .   ;
+     ,   ,          )  | ; .(      .    , )  /     \  ;
+,;'-PjP;.';.-.;._,;/;,;)/;.;.);.;,,;,;,,;/;;,),;.,/,;.).,;,''')
+
+
+o/p:
+ .--------------------------------------------.
+           ( DO YOU KNOW HOW HARD IT IS TO DRAW AN OKAPI? )
+          //'--------------------------------------------'
+         /      , _.-~~-.__            __.,----.
+      (';    __( )         ~~~'--..--~~         '.
+(    . "..-'  ')|                     .       \  '.
+ \. |\.'                    ;       .  ;       ;   ;
+  \ '"   /9)                 '       .  ;           ;
+   ; )           )    (        '       .  ;     '    .
+    )    _  __.-'-._   ;       '       . ,     /\    ;
+    '-'"'--'      ; "-. '.    '            _.-(  ".  (
+                  ;    \,)    )--,..----';'    >  ;   .
+                   \   ( |   /           (    /   .   ;
+     ,   ,          )  | ; .(      .    , )  /     \  ;
+,;'-PjP;.';.-.;._,;/;,;)/;.;.);.;,,;,;,,;/;;,),;.,/,;.).,;,
+
+
+
+17) Printing special characters using \
+
+eg:
+print('you\'re at a crossroad, where do you want to go? Type "left" or "right"')
+
+o/p:
+you're at a crossroad, where do you want to go? Type "left" or "right"
+
+
+
+
+
+18) What is a module 
+-> Similar to classes in java , where we access properties and methods of one class from another class
+-> Module primarily helps to separate modules 
+
+a) Here  lets have create : samplemodule.py and its module will be called samplemodule
+samplemodule.py
+mahes=22
+b) Now lets create another file: 11random_module.py and access samplemodule's mahes variable 
+
+eg:11random_module.py
+import random
+import samplemodule
+
+# Here 1 and 10 are the range between which the random numbers are
+# generated
+random_integer= random.randint(1,10)
+print(random_integer)
+print(samplemodule.mahes)
+
+o/p:
+10
+22
+
+
+19) Randomisation:
+
+a) generate random integer numbers
+
+To get random numbers of a specific range 
+import random
+
+# Here 1 and 10 are the range between which the random numbers are
+# generated
+random_integer= random.randint(1,10)
+print(random_integer)
+
+->  Here random is a python module 
+
+
+b) How to generate random floating point numbers:

@@ -1,0 +1,9 @@
+1) Type issue in leng:
+
+eg:
+PS C:\ExpoNow\1A_pythonangela> & C:/Users/gs1-maheswarane/AppData/Local/Programs/Python/Python39/python.exe c:/ExpoNow/1A_pythonangela/1_Python_HelloWorld/3primdatatyles.py
+Traceback (most recent call last):
+  File "c:\ExpoNow\1A_pythonangela\1_Python_HelloWorld\3primdatatyles.py", line 1, in <module>
+    len(12345);
+TypeError: object of type 'int' has no len()
+
