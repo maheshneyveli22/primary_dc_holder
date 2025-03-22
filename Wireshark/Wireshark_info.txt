@@ -1,0 +1,97 @@
+1) Configure profile in wireshark 
+-> Profiling in wireshark is something what user can configure, so that they look certain specific things for their analysis 
+-> Eg if an user configures http profile they can use it for http traffic analysis 
+
+a) In wireshark bottom page where default is present - we can right click and we can create new profile 
+
+2) Filters:
+a) No broadcast: "!(eth.dst == ff:ff:ff:ff:ff:ff or arp or lldp or stp)"
+b) tcp syns: "tcp.flags.syn==1"
+USING SPECIAL CHARACTERS:
+c) How many frames in this pcap have the word admin 
+c.1) frame contains "admin"
+
+c.2) to find frame that contains word GET: 
+frame contains "GET"
+
+c.3) Another method to get frame with http get requests 
+
+http.request.method == "GET"
+
+d) get http methods get or post 
+
+"http.request.method in {GET,POST}"
+
+e) To find how many dns packets we have in this pcap:
+
+"dns"
+
+f) how many dns packets have word "udemy" 
+
+dns and frame matches "udemy"
+
+or
+
+dns  matches "udemy"
+
+
+
+g) filter all http requests 
+
+"http" 
+
+
+h) how many tcp port 80 packets present:
+
+tcp.port ==80
+
+i) What is the top IP conversation in this trace file or top talker 
+
+-> Go to statistics-> converstation -> IPV4 
+
+-> To set filter for that conversation: right click that conversation  and apply selected 
+
+ip.addr==192.168.29.232 && ip.addr==100.24.213.200
+
+-> In this how many packets have word udemy :
+
+ip.addr==192.168.29.232 && ip.addr==100.24.213.200 and frame matches "Udemy"
+
+j) to find all synacks
+
+tcp.flags.syn==1 and tcp.flags.ack==1
+
+
+k) packets coming from specific ip 
+
+
+tcp.flags == 0x0012 and ip.addr==51.104.176.40
+
+tcp.flags == 0x0012 and ip.src==51.104.176.40
+
+l) to get packets whos sequence numer is x and has tcp.analysis.flags set in it 
+
+tcp.analysis.flags and tcp.seq==1048898
+
+
+m) To identify packets from SYN to FIN 
+-> Find a packet that has FIN 
+-> Set a conversation filter : (ip.addr eq 192.168.56.102 and ip.addr eq 192.168.56.101) and (tcp.port eq 39296 and tcp.port eq 80)
+-> Then we can see throught lifecycle of packet from syn to fin 
+
+
+n) Filter To identify resets: 
+tcp.flags.reset==1
+
+o) If I want to find httpresponse or http.time greater than 2 seconds 
+http.time>2
+
+p) tcp.time_delta -> TIme since previous frame in this TCP stream. 
+
+q) To find lost packets: 
+tcp.analysis.lost_segment 
+
+
+r) to filter hosts behind proxy:
+
+http.proxy_connect_host matches "udemy"

@@ -1,0 +1,3 @@
+angular ext:.doc
+
+-> here angular is txt we want to search and ext is the document

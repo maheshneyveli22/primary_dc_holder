@@ -1,0 +1,137 @@
+1) All protocols ports in use:
+
+##
+C:\Users\gs1-maheswarane>netstat -ano
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       1224
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:2701           0.0.0.0:0              LISTENING       5364
+  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING       1732
+  TCP    0.0.0.0:5040           0.0.0.0:0              LISTENING       9912
+  TCP    0.0.0.0:5432           0.0.0.0:0              LISTENING       8064
+  TCP    0.0.0.0:5985           0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:7680           0.0.0.0:0              LISTENING       9116
+  TCP    0.0.0.0:8005           0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:8082           0.0.0.0:0              LISTENING       10824
+  TCP    0.0.0.0:8443           0.0.0.0:0              LISTENING       18912
+  TCP    0.0.0.0:8445           0.0.0.0:0              LISTENING       21064
+  ###
+  
+  
+  
+  2) For TCP protocol alone, ports in use 
+  
+  
+  ######
+  C:\Users\gs1-maheswarane>netstat -ano -p tcp
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       1224
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:2701           0.0.0.0:0              LISTENING       5364
+  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING       1732
+  TCP    0.0.0.0:5040           0.0.0.0:0              LISTENING       9912
+  TCP    0.0.0.0:5432           0.0.0.0:0              LISTENING       8064
+  TCP    0.0.0.0:5985           0.0.0.0:0              LISTENING       4
+  TCP    0.0.0.0:7680           0.0.0.0:0              LISTENING       9116
+  TCP    0.0.0.0:8005           0.0.0.0:0              LISTENING       4
+  
+  #########
+  
+  
+  3) Example to find which process uses TCP port 21064:
+  
+  C:\Users\gs1-maheswarane>netstat -ano -p tcp |find "21064"
+  TCP    0.0.0.0:8445           0.0.0.0:0              LISTENING       21064
+  TCP    0.0.0.0:63590          0.0.0.0:0              LISTENING       21064
+  TCP    10.249.1.96:55418      10.2.137.3:28600       ESTABLISHED     21064
+  TCP    127.0.0.1:53347        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53348        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53349        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53358        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53360        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53361        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53363        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53366        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53367        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:53368        127.0.0.1:5432         ESTABLISHED     21064
+  TCP    127.0.0.1:54990        127.0.0.1:54991        ESTABLISHED     21064
+  TCP    127.0.0.1:54991        127.0.0.1:54990        ESTABLISHED     21064
+  
+  
+  4) Process with PID 1400 is listening on TCP port 9443. Now we can query task list to find the process.
+  
+  tasklist |find "21064"
+  
+  C:\Users\gs1-maheswarane>tasklist |find "21064"
+java.exe                     21064 Console                    1    692,452 K
+
+
+
+5) Scenario:
+--> When i started spring boot application, it threw error saying: An application is already listening to port 8080
+-> Followed the steps to identify which process uses 8080 port
+
+a) Listed processes which listen to port 8080 
+-> Here found last line:   TCP    127.0.0.1:8080         0.0.0.0:0              LISTENING       10540 
+which listens to port 8080
+-> Hence 10540 is the process id of the process listening to port 8080 
+
+
+eg:
+C:\Users\gs1-maheswarane>netstat -ano -p tcp | find "8080"
+  TCP    10.249.5.65:50965      10.0.63.21:8080        ESTABLISHED     14920
+  TCP    10.249.5.65:51034      10.0.63.21:8080        ESTABLISHED     9728
+  TCP    10.249.5.65:54144      10.0.63.23:8080        CLOSE_WAIT      13256
+  TCP    10.249.5.65:54189      10.0.63.21:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54191      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54192      10.0.63.22:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54195      10.0.63.22:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54199      10.0.63.22:8080        ESTABLISHED     14920
+  TCP    10.249.5.65:54203      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54206      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54230      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54232      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54236      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54240      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54242      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54243      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54247      10.0.63.22:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54248      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54253      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54255      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54257      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54258      10.1.70.145:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54263      10.0.63.23:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54275      10.0.63.23:8080        ESTABLISHED     9728
+  TCP    10.249.5.65:54276      10.0.63.23:8080        ESTABLISHED     9728
+  TCP    10.249.5.65:54278      10.0.63.21:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54279      10.254.2.24:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54288      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54299      10.0.63.22:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54302      10.0.63.23:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54307      10.0.63.21:8080        ESTABLISHED     18524
+  TCP    10.249.5.65:54310      10.0.63.21:8080        TIME_WAIT       0
+  TCP    10.249.5.65:54312      10.254.2.24:8080       TIME_WAIT       0
+  TCP    10.249.5.65:54313      10.0.63.22:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:54315      10.0.63.22:8080        ESTABLISHED     15212
+  TCP    10.249.5.65:56402      10.0.63.23:8080        CLOSE_WAIT      13256
+  TCP    10.249.5.65:60978      10.0.63.23:8080        CLOSE_WAIT      13256
+  TCP    10.249.5.65:60982      10.0.63.23:8080        CLOSE_WAIT      13256
+  TCP    10.249.5.65:65079      10.0.63.23:8080        CLOSE_WAIT      13256
+  TCP    10.249.5.65:65090      10.0.63.23:8080        ESTABLISHED     9728
+  TCP    127.0.0.1:8080         0.0.0.0:0              LISTENING       10540
+
+b) Identified the task which has process id : 10540
+-> Identified that BurpSuiteCommunity.exe is running on port 8080
+-> On closing BurpSuiteCommunity.exe , i am able to start springboot application in port 8080 
+
+C:\Users\gs1-maheswarane>tasklist | find "10540"
+BurpSuiteCommunity.exe       10540 Console                    1    792,856 K

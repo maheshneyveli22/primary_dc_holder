@@ -1,0 +1,401 @@
+Control Panel
+•CONTROL: opens the control panel window 
+•CONTROL ADMINTOOLS: opens the administrative tools 
+•CONTROL KEYBOARD: opens keyboard properties 
+•CONTROL COLOUR: opens display properties with the appearance tab 
+•CONTROL FOLDERS: opens folder options 
+•CONTROL FONTS: opens font policy management 
+•CONTROL INTERNATIONAL or INTL.CPL: opens the regional and language option 
+•CONTROL MOUSE or MAIN.CPL: opens mouse properties 
+•CONTROL USERPASSWORDS: opens user accounts editor 
+•CONTROL USERPASSWORDS2 or NETPLWIZ: user account access restrictions 
+•CONTROL PRINTERS: opens faxes and printers available 
+•APPWIZ.CPL: opens the add or remove programs utility tool 
+•OPTIONALFEATURES: opens the add or remove windows component utility 
+•DESK.CPL: opens display properties with the themes tab 
+•HDWWIZ.CPL: opens add hardware wizard 
+•IRPROPS.CPL: infrared utility tool 
+•JOY.CP: opens game controllers settings 
+•MMSYS.CPL: opens sound and audio device properties with the volume tab 
+•SYSDM.CPL: opens system properties 
+•TELEPHON.CPL: opens phone and modem options 
+•TIMEDATE.CPL: date and time properties 
+•WSCUI.CPL: opens Windows Security Center 
+•ACCESS.CPL: opens accessibility options 
+•WUAUCPL.CPL: opens automatic updates 
+•POWERCFG.CPL: opens power options properties 
+•AZMAN.MSC: opens authorisation management utility tool 
+•CERTMGR.MSC: opens certificate management tool 
+•COMPMGMT.MSC: opens the computer management tool 
+•COMEXP.MSC or DCOMCNFG: opens the computer services management tool 
+•DEVMGMT.MSC: opens device manager 
+•EVENTVWR or EVENTVWR.MSC: opens event viewer 
+•FSMGMT.MSC: opens shared folders 
+•NAPCLCFG.MSC: NAP client configuration utility tool 
+•SERVICES.MSC: opens service manager 
+•TASKSCHD.MSC or CONTROL SCHEDTASKS: opens schedule tasks manager 
+•GPEDIT.MSC: opens group policy utility tool 
+•LUSRMGR.MSC: opens local users and groups 
+•SECPOL.MSC: opens local security settings 
+•CIADV.MSC: opens indexing service 
+•NTMSMGR.MSC: removable storage manager 
+•NTMSOPRQ.MSC: removable storage operator requests 
+•WMIMGMT.MSC: opens (WMI) Window Management Instrumentation 
+•PERFMON or PERFMON.MSC: opens the performance monitor 
+•MMC: opens empty console 
+•MDSCHED: opens memory diagnostics tools 
+•DXDIAG: opens DirectX diagnostics tools 
+•ODBCAD32: opens ODBC data source administrator 
+•REGEDIT or REGEDT32: opens registry editor 
+•DRWTSN32: opens Dr. Watson 
+•VERIFIER: opens driver verifier manager 
+•CLICONFG: opens SQL server client network utility 
+•UTILMAN: opens utility manager 
+•COLORCPL: opens color management 
+•CREDWIZ: back up and recovery tool for user passwords 
+•MOBSYNC: opens synchronization center 
+•MSCONFIG: opens system configuration utility 
+•SYSEDIT: opens system configuration editor (careful while using this command) 
+•SYSKEY: Windows account database security management (careful while using this command)
+
+Windows utility and applications
+•EPLORER: opens Windows Explorer 
+•IEXPLORER: opens Internet Explorer 
+•WAB: opens contacts 
+•CHARMAP: opens character map 
+•WRITE: opens WordPad 
+•NOTEPAD: opens Notepad 
+•CALC: opens Calculator 
+•CLIPBRD: opens Clipbook Viewer 
+•WINCHAT: opens Microsoft Chat Interface 
+•SOUNDRECORDER: opens sound recording tool 
+•DVDPLAY: run CD or DVD 
+•WMPLAYER: opens Windows Media Player 
+•MOVIEMK: Opens untitled Windows Movie Maker 
+•OSK: opens on-screen keyboard 
+•MAGNIFY: opens Magnifier 
+•WINCAL: opens Calendar 
+•DIALER: opens phone dialer 
+•EUDCEDIT: opens Private Character Editor 
+•NDVOL: opens the mixer volume 
+•RSTRUI : opens Tool System Restore (For Vista only) 
+•%WINDIR%\SYSTEM32\RESTORE\rstrui.exe: opens Tool System Restore (for XP only). 
+•MSINFO32: Opens System Information 
+•MRT : launches the utility removal of malware 
+•Taskmgr : Opens the Windows Task Manager 
+•CMD: opens a command prompt 
+•MIGWIZ: Opens the tool for transferring files and settings from Windows (Vista only) 
+•Migwiz.exe: Opens the tool for transferring files and settings from Windows (for XP only) 
+•SIDEBAR: Open the Windows (Vista only) 
+•Sigverif : Opens the tool for verification of signatures of files 
+•Winver : Opens the window for your Windows version 
+•FSQUIRT: Bluetooth Transfer Wizard 
+•IExpress opens the wizard for creating self-extracting archives. Tutorial HERE 
+•MBLCTR: opens the mobility center (Windows Vista only) 
+•MSRA : Opens Windows Remote Assistance 
+•Mstsc : opens the tool connection Remote Desktop 
+•MSDT: opens the diagnostic tools and support Microsoft 
+•WERCON: opens the reporting tool and solutions to problems (for Vista only) 
+•WINDOWSANYTIMEUPGRADE: enables the upgrade of Windows Vista 
+•WINWORD : opens Word (if installed) 
+•PRINTBRMUI : Opens migration wizard printer (Vista only)
+
+Disk management
+•DISKMGMT.MSC: opens disk management utility 
+•CLEANMGR: opens disk drive clean up utility 
+•DFRG.MSC: opens disk defragmenter 
+•CHKDSK: complete analysis of disk partition 
+•DISKPART: disk partitioning tool
+
+Connection management
+•IPCONFIG: lists the configuration of IP addresses on your PC (for more information type IPCONFIG/? in the CMD menu) 
+•INETCPL.CPL: opens internet properties 
+•FIREWALL.CPL: opens Windows firewall 
+•NETSETUP.CPL: opens network set up wizard
+
+Miscellaneous commands
+•JAVAWS: View the cover of Java software (if installed) 
+•AC3FILTER.CPL: opens the properties AC3 Filter (if installed) 
+•FIREFOX: Mozilla launches Firefox (if installed) 
+•NETPROJ: allow or not connecting to a network projector (For Vista only) 
+•LOGOFF: closes the current session 
+•SHUTDOWN: shuts down Windows 
+•SHUTDOWN-A: to interrupt Windows shutdown 
+•%WINDIR% or %SYSTEMROOT%: opens the Windows installation 
+•%PROGRAMFILES%: opens the folder where you installed other programs (Program Files) 
+•%USERPROFILE%: opens the profile of the user currently logged 
+•%HOMEDRIVE%: opens the browser on the partition or the operating system is installed 
+•%HOMEPATH%: opens the currently logged user C:\Documents and Settings\ [username] 
+•%TEMP%: opens the temporary folder 
+•VSP1CLN: deletes the cache for installation of the service pack 1 for Vista 
+•System File Checker (Requires Windows CD if the cache is not available): 
+•SFC / scannow: immediately scans all system files and repairs damaged files 
+•SFC / VERIFYONLY: scans only those files system 
+•SFC / Scanfil = "name and file path": scans the specified file, and repairs if damaged 
+•SFC / VERIFYFILE = "name and file path": Scans only the file specified 
+•SFC / scanonce: scans the system files on the next restart 
+•SFC / REVERT: return the initial configuration (For more information, type SFC /? In the command prompt CMD.
+
+
+
+(  SS64  )LinksSyntax  An A-Z Index of the Windows CMD command line
+   ADDUSERS Add or list users to/from a CSV file
+   ADmodcmd Active Directory Bulk Modify
+   ARP      Address Resolution Protocol
+   ASSOC    Change file extension associations•
+   ASSOCIAT One step file association
+   AT       Schedule a command to run at a specific time
+   ATTRIB   Change file attributes
+b
+   BCDBOOT  Create or repair a system partition
+   BCDEDIT  Manage Boot Configuration Data
+   BITSADMIN Background Intelligent Transfer Service
+   BOOTCFG  Edit Windows boot settings
+   BROWSTAT Get domain, browser and PDC info
+c
+   CACLS    Change file permissions
+   CALL     Call one batch program from another•
+   CERTREQ  Request certificate from a certification authority
+   CERTUTIL Utility for certification authority (CA) files and services
+   CD       Change Directory - move to a specific Folder•
+   CHANGE   Change Terminal Server Session properties
+   CHKDSK   Check Disk - check and repair disk problems
+   CHKNTFS  Check the NTFS file system
+   CHOICE   Accept keyboard input to a batch file
+   CIPHER   Encrypt or Decrypt files/folders
+   CleanMgr Automated cleanup of Temp files, recycle bin
+   CLEARMEM Clear memory leaks
+   CLIP     Copy STDIN to the Windows clipboard
+   CLS      Clear the screen•
+   CLUSTER  Windows Clustering
+   CMD      Start a new CMD shell
+   CMDKEY   Manage stored usernames/passwords
+   COLOR    Change colors of the CMD window•
+   COMP     Compare the contents of two files or sets of files
+   COMPACT  Compress files or folders on an NTFS partition
+   COMPRESS Compress individual files on an NTFS partition
+   CON2PRT  Connect or disconnect a Printer
+   CONVERT  Convert a FAT drive to NTFS
+   COPY     Copy one or more files to another location•
+   CSCcmd   Client-side caching (Offline Files)
+   CSVDE    Import or Export Active Directory data 
+d
+   DATE     Display or set the date•
+   DEFRAG   Defragment hard drive
+   DEL      Delete one or more files•
+   DELPROF  Delete user profiles
+   DELTREE  Delete a folder and all subfolders
+   DevCon   Device Manager Command Line Utility 
+   DIR      Display a list of files and folders•
+   DIRUSE   Display disk usage
+   DISKPART Disk Administration
+   DISKSHADOW Volume Shadow Copy Service
+   DNSSTAT  DNS Statistics
+   DOSKEY   Edit command line, recall commands, and create macros
+   DriverQuery Display installed device drivers
+   DSACLs   Active Directory ACLs
+   DSAdd    Add items to active directory (user group computer) 
+   DSGet    View items in active directory (user group computer)
+   DSQuery  Search for items in active directory (user group computer)
+   DSMod    Modify items in active directory (user group computer)
+   DSMove   Move an Active directory Object
+   DSRM     Remove items from Active Directory
+e
+   ECHO     Display message on screen•
+   ENDLOCAL End localisation of environment changes in a batch file•
+   ERASE    Delete one or more files•
+   EVENTCREATE Add a message to the Windows event log
+   EXIT     Quit the current script/routine and set an errorlevel•
+   EXPAND   Uncompress files
+   EXTRACT  Uncompress CAB files
+f
+   FC       Compare two files
+   FIND     Search for a text string in a file
+   FINDSTR  Search for strings in files
+   FOR /F   Loop command: against a set of files•
+   FOR /F   Loop command: against the results of another command•
+   FOR      Loop command: all options Files, Directory, List•
+   FORFILES Batch process multiple files
+   FORMAT   Format a disk
+   FREEDISK Check free disk space (in bytes)
+   FSUTIL   File and Volume utilities
+   FTP      File Transfer Protocol
+   FTYPE    File extension file type associations•
+g
+   GETMAC   Display the Media Access Control (MAC) address
+   GLOBAL   Display membership of global groups
+   GOTO     Direct a batch program to jump to a labelled line•
+   GPRESULT Display Resultant Set of Policy information
+   GPUPDATE Update Group Policy settings
+h
+   HELP     Online Help
+i
+   iCACLS   Change file and folder permissions
+   IF       Conditionally perform a command•
+   IFMEMBER Is the current user a member of a Workgroup
+   IPCONFIG Configure IP
+k
+   KILL     Remove a program from memory
+l
+   LABEL    Edit a disk label
+   LOCAL    Display membership of local groups
+   LOGEVENT Write text to the event viewer
+   LOGMAN   Manage Performance Monitor
+   LOGOFF   Log a user off
+   LOGTIME  Log the date and time in a file
+m
+   MAPISEND Send email from the command line
+   MBSAcli  Baseline Security Analyzer
+   MEM      Display memory usage
+   MD       Create new folders•
+   MKLINK   Create a symbolic link (linkd) •
+   MODE     Configure a system device
+   MORE     Display output, one screen at a time
+   MOUNTVOL Manage a volume mount point
+   MOVE     Move files from one folder to another•
+   MOVEUSER Move a user from one domain to another
+   MSG      Send a message
+   MSIEXEC  Microsoft Windows Installer
+   MSINFO32 System Information
+   MSTSC    Terminal Server Connection (Remote Desktop Protocol)
+   MV       Copy in-use files
+n
+   NET      Manage network resources
+   NETDOM   Domain Manager
+   NETSH    Configure Network Interfaces, Windows Firewall & Remote access
+   NETSVC   Command-line Service Controller
+   NBTSTAT  Display networking statistics (NetBIOS over TCP/IP)
+   NETSTAT  Display networking statistics (TCP/IP)
+   NOW      Display the current Date and Time 
+   NSLOOKUP Name server lookup
+   NTBACKUP Backup folders to tape
+   NTRIGHTS Edit user account rights
+o
+   OPENFILES Query or display open files
+p
+   PATH     Display or set a search path for executable files•
+   PATHPING Trace route plus network latency and packet loss
+   PAUSE    Suspend processing of a batch file and display a message•
+   PERMS    Show permissions for a user
+   PERFMON  Performance Monitor
+   PING     Test a network connection
+   POPD     Return to a previous directory saved by PUSHD•
+   PORTQRY  Display the status of ports and services
+   POWERCFG Configure power settings
+   PRINT    Print a text file
+   PRINTBRM Print queue Backup/Recovery
+   PRNCNFG  Display, configure or rename a printer
+   PRNMNGR  Add, delete, list printers set the default printer
+   PROMPT   Change the command prompt•
+   PsExec     Execute process remotely
+   PsFile     Show files opened remotely
+   PsGetSid   Display the SID of a computer or a user
+   PsInfo     List information about a system
+   PsKill     Kill processes by name or process ID
+   PsList     List detailed information about processes
+   PsLoggedOn Who's logged on (locally or via resource sharing)
+   PsLogList  Event log records
+   PsPasswd   Change account password
+   PsPing     Measure network performance
+   PsService  View and control services
+   PsShutdown Shutdown or reboot a computer
+   PsSuspend  Suspend processes
+   PUSHD    Save and then change the current directory•
+q
+   QGREP    Search file(s) for lines that match a given pattern
+   Query Process    Display processes (TS/Remote Desktop)
+   Query Session    Display all sessions (TS/Remote Desktop)
+   Query TermServer List all servers (TS/Remote Desktop)
+   Query User       Display user sessions (TS/Remote Desktop)
+r
+   RASDIAL  Manage RAS connections
+   RASPHONE Manage RAS connections
+   RECOVER  Recover a damaged file from a defective disk
+   REG      Registry: Read, Set, Export, Delete keys and values
+   REGEDIT  Import or export registry settings
+   REGSVR32 Register or unregister a DLL
+   REGINI   Change Registry Permissions
+   REM      Record comments (remarks) in a batch file•
+   REN      Rename a file or files•
+   REPLACE  Replace or update one file with another
+   Reset Session  Delete a Remote Desktop Session
+   RD       Delete folder(s)•
+   RMTSHARE Share a folder or a printer
+   ROBOCOPY Robust File and Folder Copy
+   ROUTE    Manipulate network routing tables
+   RUN      Start | RUN commands
+   RUNAS    Execute a program under a different user account
+   RUNDLL32 Run a DLL command (add/remove print connections)
+
+s
+   SC       Service Control
+   SCHTASKS Schedule a command to run at a specific time
+   SCLIST   Display Services
+   SET      Display, set, or remove session environment variables•
+   SETLOCAL Control the visibility of environment variables•
+   SETX     Set environment variables
+   SFC      System File Checker 
+   SHARE    List or edit a file share or print share
+   ShellRunAs Run a command under a different user account
+   SHIFT    Shift the position of batch file parameters•
+   SHORTCUT Create a windows shortcut (.LNK file)
+   SHOWGRPS List the Workgroups a user has joined
+   SHOWMBRS List the Users who are members of a Workgroup
+   SHUTDOWN Shutdown the computer
+   SLEEP    Wait for x seconds
+   SLMGR    Software Licensing Management (Vista/2008)
+   SOON     Schedule a command to run in the near future
+   SORT     Sort input
+   START    Start a program, command or batch file•
+   SU       Switch User
+   SUBINACL Edit file and folder Permissions, Ownership and Domain
+   SUBST    Associate a path with a drive letter
+   SYSTEMINFO List system configuration
+t
+   TAKEOWN  Take ownership of a file
+   TASKLIST List running applications and services
+   TASKKILL Remove a running process from memory
+   TIME     Display or set the system time•
+   TIMEOUT  Delay processing of a batch file
+   TITLE    Set the window title for a CMD.EXE session•
+   TLIST    Task list with full path
+   TOUCH    Change file timestamps    
+   TRACERT  Trace route to a remote host
+   TREE     Graphical display of folder structure
+   TSDISCON Disconnect a Remote Desktop Session
+   TSSHUTDN Remotely shut down or reboot a terminal server
+   TYPE     Display the contents of a text file•
+   TypePerf Write performance data to a log file
+u
+   USRSTAT  List domain usernames and last login
+v
+   VER      Display version information•
+   VERIFY   Verify that files have been saved•
+   VOL      Display a disk label•
+w
+   WAITFOR  Wait for or send a signal
+   WHERE    Locate and display files in a directory tree
+   WHOAMI   Output the current UserName and domain
+   WINDIFF  Compare the contents of two files or sets of files
+   WINMSDP  Windows system report
+   WINRM    Windows Remote Management
+   WINRS    Windows Remote Shell
+   WMIC     WMI Commands
+   WUAUCLT  Windows Update
+x
+   XCACLS   Change file and folder permissions
+   XCOPY    Copy files and folders
+   ::       Comment / Remark•
+Commands marked • are Internal commands only available within the CMD shell.
+All other commands (not marked with •) are external commands.
+External commands may be used under the CMD shell, PowerShell, or directly from START-RUN.
+See also: a categorized list of Windows CMD commands
+Microsoft Help pages: Windows XP - 2003 Server - 2008 Server
+Discussion forum
+Links to other sites, books etc...
+
+
+--------------------------------------------------------------------------------
+© Copyright SS64.com 1999-2013
+Some rights reserved
+
